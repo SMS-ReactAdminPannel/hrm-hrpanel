@@ -7,7 +7,7 @@ import {
   FiClipboard,
   FiMapPin,
   FiTruck,
-//   FiSettings,
+  FiSettings,
 //   FiAlertTriangle,
 } from "react-icons/fi";
 // import Logo from "../../../assets/LOGO.jpg";
@@ -114,14 +114,14 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
-          {/* <SidebarLink
-            to="/settings"
+          <SidebarLink
+            to="/profile"
             icon={<FiSettings />}
             label="Settings"
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
-          <SidebarLink
+          {/* <SidebarLink
             to="/sos"
             icon={<FiAlertTriangle />}
             label="SOS"
