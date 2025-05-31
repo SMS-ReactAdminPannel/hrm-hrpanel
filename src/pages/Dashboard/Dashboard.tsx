@@ -1,6 +1,8 @@
 import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
+import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
+import Schedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
 
 const Dashboard = () => {
   return (
@@ -27,6 +29,16 @@ const Dashboard = () => {
           <VisterBar />
         </div>
       </div>
+      {/* 3rd content */}
+      <div className="flex  gap-3 m-3 ">
+        <div className="flex-2 bg-white">
+            <Schedule/>
+        </div>
+        <div className="flex-4 bg-white">
+          <ThingsDoList/>
+        </div>
+      </div>
+
     </div>
   );
 };
