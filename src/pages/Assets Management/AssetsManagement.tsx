@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
@@ -252,15 +252,7 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-02-10",
     },
-    {
-      id: "2",
-      name: "MacBook Air M1 (2020)",
-      assignedTo: "Sowmiya",
-      category: "Laptop",
-      serialNumber: "D04LY8N3KYOA",
-      status: "active",
-      dateAdded: "2024-02-10",
-    },
+    
     
     {
       id: "3",
@@ -379,33 +371,7 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-03-25",
     },
-    {
-      id: "16",
-      name: "MacBook Air M1 (2020)",
-      assignedTo: "Sowmiya",
-      category: "Laptop",
-      serialNumber: "D04LY8N3KYOA",
-      status: "active",
-      dateAdded: "2024-02-10",
-    },
-    {
-      id: "17",
-      name: "MacBook Air M1 (2020)",
-      assignedTo: "Sowmiya",
-      category: "Laptop",
-      serialNumber: "D04LY8N3KYOA",
-      status: "active",
-      dateAdded: "2024-02-10",
-    },
-    {
-      id: "18",
-      name: "MacBook Air M1 (2020)",
-      assignedTo: "Sowmiya",
-      category: "Laptop",
-      serialNumber: "D04LY8N3KYOA",
-      status: "active",
-      dateAdded: "2024-02-10",
-    },
+  
 
   ])
 
