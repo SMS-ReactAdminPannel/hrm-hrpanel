@@ -7,9 +7,6 @@ const Dashboard = () => {
     <div className="m-5 bg-[#faf3eb]  ">
       <div>
         {/* 1st content */}
-        <div>
-          <strong className="text-[#006666] text-3xl">HRM</strong>
-        </div>
         <div className="m-2">
           <Dashboardcard />
         </div>

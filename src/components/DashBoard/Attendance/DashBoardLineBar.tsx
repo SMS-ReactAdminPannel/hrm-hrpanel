@@ -70,12 +70,12 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
       {
         label: selectedRange,
         data: filteredData,
-        borderColor: "#3b82f6",
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
+        borderColor: "#006666",
+        backgroundColor: "#80b3b3",
         fill: true,
         tension: 0.4,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointRadius: 0,
+        pointHoverRadius: 0,
       },
     ],
   };
@@ -84,9 +84,16 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: true },
+      legend: { display: false },
       tooltip: { enabled: true },
     },
+     hover: {
+    mode: undefined, 
+  },    
+  interaction: {
+    mode: undefined, // ✅ use undefined instead of null
+    intersect: false,
+  },
     scales: {
       x: {
         display: true,
