@@ -252,8 +252,7 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-02-10",
     },
-    
-    
+
     {
       id: "3",
       name: 'Monitor MSI 27"',
@@ -371,8 +370,6 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-03-25",
     },
-  
-
   ])
 
   const [newAsset, setNewAsset] = useState<Omit<Asset, "id" | "dateAdded">>({
@@ -388,7 +385,8 @@ const AssetsManagement: React.FC = () => {
   const filteredAssets = assets.filter((asset) => {
     const matchesSearch =
       asset.name.toLowerCase().includes(search.toLowerCase()) ||
-      asset.assignedTo.toLowerCase().includes(search.toLowerCase())
+      asset.assignedTo.toLowerCase().includes(search.toLowerCase()) ||
+      asset.serialNumber.toLowerCase().includes(search.toLowerCase())
     const matchesCategory = selectedCategory === "all" || asset.category === selectedCategory
     return matchesSearch && matchesCategory
   })
@@ -579,9 +577,9 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-         <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-  Asset Management
-</h1>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+            Asset Management
+          </h1>
 
           <p className="text-slate-600">Manage and track your organization's assets</p>
         </div>
@@ -592,7 +590,7 @@ const AssetsManagement: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search assets or assignees..."
+              placeholder="Search assets, assignees, or serial numbers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
