@@ -1,8 +1,10 @@
-
+"use client"
 
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "lucide-react"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 interface Asset {
   id: string
@@ -251,6 +253,16 @@ const AssetsManagement: React.FC = () => {
       dateAdded: "2024-02-10",
     },
     {
+      id: "2",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    
+    {
       id: "3",
       name: 'Monitor MSI 27"',
       assignedTo: "Suruthiga",
@@ -367,6 +379,34 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-03-25",
     },
+    {
+      id: "16",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    {
+      id: "17",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    {
+      id: "18",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+
   ])
 
   const [newAsset, setNewAsset] = useState<Omit<Asset, "id" | "dateAdded">>({
@@ -403,6 +443,14 @@ const AssetsManagement: React.FC = () => {
         status: "active",
       })
       setShowModal(false)
+      toast.success("Asset added successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
     }
   }
 
@@ -431,6 +479,14 @@ const AssetsManagement: React.FC = () => {
         status: "active",
       })
       setShowModal(false)
+      toast.success("Asset updated successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
     }
   }
 
@@ -557,9 +613,10 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mb-2">
-            Asset Management
-          </h1>
+         <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+  Asset Management
+</h1>
+
           <p className="text-slate-600">Manage and track your organization's assets</p>
         </div>
 
@@ -776,7 +833,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -824,7 +881,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -1247,6 +1304,19 @@ const AssetsManagement: React.FC = () => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        toastClassName="backdrop-blur-sm"
+      />
     </div>
   )
 }
