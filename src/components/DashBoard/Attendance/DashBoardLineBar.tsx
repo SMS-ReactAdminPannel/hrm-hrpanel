@@ -71,7 +71,7 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
         label: selectedRange,
         data: filteredData,
         borderColor: "#006666",
-        backgroundColor: "#80b3b3",
+        backgroundColor: "#71C0BB",
         fill: true,
         tension: 0.4,
         pointRadius: 0,
