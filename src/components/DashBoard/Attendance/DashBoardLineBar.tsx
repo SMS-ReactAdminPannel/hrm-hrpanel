@@ -137,7 +137,7 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
                     setSelectedRange(range);
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 text-[#006666] ${
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200  ${
                     selectedRange === range
                       ? "bg-gray-100 font-medium"
                       : "text-gray-700"

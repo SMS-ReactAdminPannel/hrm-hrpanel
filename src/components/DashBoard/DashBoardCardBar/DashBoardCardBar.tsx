@@ -153,7 +153,7 @@ const DashBoardCardBar: React.FC = () => {
                     setSelectedRange(range as "Weekly" | "Monthly" | "Yearly");
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-[#006666] text-sm hover:bg-gray-50 ${
+                  className={`block w-full text-left px-4 py-2  text-sm hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200  ${
                     selectedRange === range
                       ? "font-medium bg-gray-100"
                       : "text-gray-700"
