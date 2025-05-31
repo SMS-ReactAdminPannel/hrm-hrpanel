@@ -6,23 +6,34 @@ import {
   LineElement,
   Tooltip,
   Filler,
+  Title,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 
+// Chart.js registration
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
   Tooltip,
-  Filler
+  Filler,
+  Title
 );
 
+// Props
 type dProps = {
-  dataPoints: number[];
+  dataPoints: {
+    FinancialTeam: number[];
+    ProjectManager: number[];
+    MarketingTeam: number[];
+    ProductDesignTeam: number[];
+  };
 };
+
+// Dropdown options
 const dateRanges = [
   "FinancialTeam",
   "ProjectManager",
@@ -31,12 +42,11 @@ const dateRanges = [
 ];
 
 export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
-  const [selectedRange, setSelectedRange] = useState("");
-
+  const [selectedRange, setSelectedRange] = useState("FinancialTeam");
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -50,32 +60,22 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Function to get filtered data based on selected range (you can customize this logic)
-  const getFilteredData = () => {
-    // Add your filtering logic here based on selectedRange
-    // For now, returning the same data, but you can modify this based on your needs
-    switch (selectedRange) {
-      case "FinancialTeam":
-        return dataPoints;
-      case "ProjectManager":
-        return dataPoints;
-      case "MarketingTeam":
-        return dataPoints;
-      case "ProductDesignTeam":
-        return dataPoints;
-      default:
-        return dataPoints;
-    }
-  };
-  const filteredData = getFilteredData();
+  // Get selected dataset
+  const filteredData = dataPoints[selectedRange as keyof typeof dataPoints];
+
+  // Line chart config
   const data = {
-    labels: filteredData.map((_, i) => i + 1),
+    labels: filteredData.map((_, i) => `Day ${i + 1}`),
     datasets: [
       {
+        label: selectedRange,
         data: filteredData,
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
         fill: true,
-        tension: 0.5,
-        pointRadius: 0,
+        tension: 0.4,
+        pointRadius: 4,
+        pointHoverRadius: 6,
       },
     ],
   };
@@ -90,41 +90,49 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
     scales: {
       x: {
         display: true,
+        title: {
+          display: true,
+          text: "Days",
+        },
         grid: { display: false },
       },
       y: {
         display: true,
+        title: {
+          display: true,
+          text: "Value",
+        },
         grid: { display: false },
       },
     },
   };
 
   return (
-    <div className=" grid gap-1 p-3">
-      <div className="flex justify-between mb-3 ">
-        <div className="text-xl font-semibold text-[#006666]">
-            <h1>Attendance</h1>
-        </div>
-        <div className="relative " ref={dropdownRef}>
+    <div className="grid gap-1 p-2 ">
+      <div className="flex justify-between mb-3 items-center">
+        <h1 className="text-xl font-semibold text-[#006666]">Attendance</h1>
+
+        {/* Dropdown */}
+        <div className="relative pt-3" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center text-xs text-gray-700 px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
+            className="flex items-center text-xs text-[#006666] border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
           >
             {selectedRange}
-            <ChevronDown className="w-4 h-4 text-[#006666]" />
+            <ChevronDown className="w-4 h-4 ml-2 text-[#006666]" />
           </button>
           {isOpen && (
-            <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10 min-w-[100px]">
+            <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-lg z-10 min-w-[140px]">
               {dateRanges.map((range) => (
                 <button
                   key={range}
                   onClick={() => {
                     setSelectedRange(range);
-                    setIsOpen(true);
+                    setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
                     selectedRange === range
-                      ? "text- bg-gray-50 font-medium"
+                      ? "bg-gray-100 font-medium"
                       : "text-gray-700"
                   }`}
                 >
@@ -135,9 +143,10 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
           )}
         </div>
       </div>
-      <div className=" w-full h-[300px] min-h-[200px] ">
+
+      {/* Chart */}
+      <div className="w-full h-[330px]">
         <Line data={data} options={options} />
-        
       </div>
     </div>
   );
