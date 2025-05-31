@@ -123,7 +123,7 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
         <div className="relative pt-3" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center text-xs text-[#006666] border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
+            className="flex items-center text-xs text-[#006666] border px-3 py-1.5 rounded-md bg-white hover:bg-[]"
           >
             {selectedRange}
             <ChevronDown className="w-4 h-4 ml-2 text-[#006666]" />
@@ -137,7 +137,7 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
                     setSelectedRange(range);
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 text-[#006666] ${
                     selectedRange === range
                       ? "bg-gray-100 font-medium"
                       : "text-gray-700"

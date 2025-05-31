@@ -95,7 +95,7 @@ const VisterBar = () => {
                     setSelectedRange(range as "Weekly" | "Monthly" | "Yearly");
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
+                  className={`block w-full text-left px-4 py-2 text-sm text-[#006666] hover:bg-gray-50 ${
                     selectedRange === range
                       ? "bg-gray-100 font-medium"
                       : "text-gray-700"
@@ -134,13 +134,13 @@ const VisterBar = () => {
 
       <div className="border-t-2 gap-1 flex  pt-2 justify-between ">
         <div className="flex-6 w-full h-full">
-          <h2 className="font-semibold">Most Visited {selectedRange === "Weekly" ? "Day" : selectedRange === "Monthly" ? "Week" : "Month"}</h2>
-          <p>
+          <h2 className="font-semibold text-[#006666]">Most Visited {selectedRange === "Weekly" ? "Day" : selectedRange === "Monthly" ? "Week" : "Month"}</h2>
+          <p className="">
             Total {maxVisit} visits on {maxItem?.date}
           </p>
         </div>
         <div className="flex-1 flex">
-          <button className="w-full h-full flex items-center justify-center">
+          <button className="w-full h-full flex items-center text-[#006666] justify-center">
             <FaChevronRight />
           </button>
         </div>
