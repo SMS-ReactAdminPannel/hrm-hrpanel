@@ -84,7 +84,7 @@ const VisterBar = () => {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center text-xs text-gray-700 border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
+            className="flex items-center text-xs text-text-[#006666] border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
           >
             {selectedRange || "Select"}
             <ChevronDown className="w-4 h-4 ml-2" />
