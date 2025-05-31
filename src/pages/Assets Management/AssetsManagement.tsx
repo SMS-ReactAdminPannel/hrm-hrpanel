@@ -833,7 +833,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-4 h-4"
+                className="w-3 h-3"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -863,7 +863,7 @@ const AssetsManagement: React.FC = () => {
                 <button
                   key={item}
                   onClick={() => setCurrentPage(item as number)}
-                  className={`px-3 py-2 rounded-full transition-all duration-200 ${
+                  className={`px-3 py-2 rounded-[60%] transition-all duration-200 ${
                     currentPage === item
                       ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg"
                       : "bg-white/60 text-slate-700 hover:bg-white/80 border border-white/20"
@@ -881,7 +881,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-4 h-4"
+                className="w-3 h-3"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -1306,7 +1306,7 @@ const AssetsManagement: React.FC = () => {
       )}
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
