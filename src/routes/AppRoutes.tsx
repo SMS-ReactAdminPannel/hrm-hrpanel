@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "../pages/auth/LoginPage";
-import SignupPage from "../pages/auth/SignupPage";
-import { useAuth } from "../pages/auth/AuthContext";
+import { Routes, Route } from "react-router-dom";
+// import LoginPage from "../pages/auth/LoginPage";
+// import SignupPage from "../pages/auth/SignupPage";
+// import { useAuth } from "../pages/auth/AuthContext";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
@@ -13,6 +13,7 @@ import Payroll from "../pages/Payroll Management/Payroll";
 import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import TrainingManage from "../pages/Training Management/TrainingManage";
+import Profile from "../pages/Profile/Profile";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -39,6 +40,7 @@ const AppRoutes = () => {
          <Route path="recuritment" element={<Recuritment />} /> 
          <Route path="time-sheet" element={<TimeSheet />} /> 
          <Route path="training-management" element={<TrainingManage />} /> 
+         <Route path="profile" element={<Profile />} /> 
         
       </Route>
     </Routes>
