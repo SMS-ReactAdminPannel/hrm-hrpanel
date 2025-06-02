@@ -135,6 +135,27 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+          <SidebarLink
+            to="/leave-management"
+            icon={<FiSettings />}
+            label="leave-management"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
+          <SidebarLink
+            to="/deduction"
+            icon={<FiSettings />}
+            label="deduction"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
+          <SidebarLink
+            to="/leave-types"
+            icon={<FiSettings />}
+            label="leave-types"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
           {/* <SidebarLink
             to="/sos"
             icon={<FiAlertTriangle />}

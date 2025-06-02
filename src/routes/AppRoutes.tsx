@@ -16,6 +16,8 @@ import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
+import LeaveTypes from "../pages/Leave Management/LeaveTypes";
+import Deduction from "../pages/Deduction/Deduction";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -45,6 +47,9 @@ const AppRoutes = () => {
          <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
          <Route path="announcement" element={<Announcement />} /> 
+         <Route path="profile" element={<Profile />} /> 
+         <Route path="leave-types" element={<LeaveTypes />} /> 
+          <Route path="deduction" element={<Deduction />} /> 
         
       </Route>
     </Routes>
