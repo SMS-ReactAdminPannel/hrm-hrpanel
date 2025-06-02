@@ -14,13 +14,12 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
   return (
     <div className=" border-b border-gray-200 px-6 py-4">
     
-      {/* Header */}
+      
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-4xl font-bold text-[#006666]">Asset Category</h1>
         
       </div>
 
-      {/* Controls */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 max-w-2xl">
           <div className="relative flex-1">
@@ -58,7 +57,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
         </div>
       </div>
 
-      {/* Search Results Info */}
+    
       {searchQuery && (
         <div className="mt-4 text-sm text-gray-600">
           Showing results for: <span className="font-medium text-[#006666]">"{searchQuery}"</span>

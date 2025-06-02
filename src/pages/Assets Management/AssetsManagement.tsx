@@ -575,7 +575,7 @@ const AssetsManagement: React.FC = () => {
       </div>
 
       <div className="relative p-6 max-w-7xl mx-auto">
-        {/* Header */}
+  
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
             Asset Management
@@ -584,7 +584,7 @@ const AssetsManagement: React.FC = () => {
           <p className="text-slate-600">Manage and track your organization's assets</p>
         </div>
 
-        {/* Controls */}
+        
         <div className="mb-8 flex flex-row  gap-4">
           <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -787,10 +787,10 @@ const AssetsManagement: React.FC = () => {
           </div>
         </div>
 
-        {/* Advanced Pagination */}
+      
         {totalPages > 1 && (
           <div className="flex justify-end gap-2 mt-6">
-            {/* Previous Button */}
+            
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
@@ -813,7 +813,7 @@ const AssetsManagement: React.FC = () => {
               </svg>
             </button>
 
-            {/* Page Numbers with Ellipsis */}
+        
             {paginationItems.map((item, index) => {
               if (item === "ellipsis") {
                 return (
@@ -838,7 +838,7 @@ const AssetsManagement: React.FC = () => {
               )
             })}
 
-            {/* Next Button */}
+      
             <button
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
@@ -872,7 +872,7 @@ const AssetsManagement: React.FC = () => {
         )}
       </div>
 
-      {/* Add/Edit Asset Modal */}
+
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div
@@ -1081,7 +1081,7 @@ const AssetsManagement: React.FC = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Asset Information */}
+        
               <div className="bg-white/60 rounded-xl p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg text-white">
@@ -1246,7 +1246,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+          
             <div className="flex gap-3 mt-8 pt-6 border-t border-slate-200">
               <button
                 onClick={() => {

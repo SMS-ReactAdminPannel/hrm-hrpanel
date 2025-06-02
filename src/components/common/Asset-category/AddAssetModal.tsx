@@ -42,7 +42,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  // Avatar background colors
+
   const avatarColors = [
     "bg-red-500",
     "bg-blue-500",
@@ -95,7 +95,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
 
-    // Generate avatar from name
+    
     if (name === "name" && value) {
       const words = value.trim().split(" ")
       const avatar =
@@ -103,7 +103,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
       setFormData((prev) => ({ ...prev, avatar }))
     }
 
-    // Clear error when user starts typing
+    
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }))
     }
@@ -121,7 +121,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
     if (!formData.cost?.trim()) {
       newErrors.cost = "Cost is required"
     } else {
-      // Validate cost is a valid number
+      
       const costNumber = Number.parseFloat(formData.cost)
       if (Number.isNaN(costNumber) || costNumber <= 0) {
         newErrors.cost = "Cost must be a valid positive number"
@@ -142,7 +142,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
       return
     }
 
-    // Ensure all required fields have values before saving
+    
     const assetData: Omit<Asset, "id"> = {
       name: formData.name || "",
       status: formData.status || "Available",
@@ -371,7 +371,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               </div>
             </div>
 
-            {/* Avatar Preview */}
+
             {formData.avatar && (
               <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                 <div

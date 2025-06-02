@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
@@ -51,7 +51,6 @@ const AssetCategory: React.FC = () => {
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
   const [selectedCategoryForAsset, setSelectedCategoryForAsset] = useState<string>("")
 
-  // Refs for click outside detection
   const createModalRef = useRef<HTMLDivElement>(null)
   const deleteModalRef = useRef<HTMLDivElement>(null)
   const editAssetModalRef = useRef<HTMLDivElement>(null)
@@ -59,7 +58,6 @@ const AssetCategory: React.FC = () => {
   const assetDetailsCardRef = useRef<HTMLDivElement>(null)
   const addAssetModalRef = useRef<HTMLDivElement>(null)
 
-  // Sample data with multiple categories
   const [assetCategories, setAssetCategories] = useState<AssetCategory[]>([
     {
       category: "laptops",
@@ -231,7 +229,7 @@ const AssetCategory: React.FC = () => {
     },
   ])
 
-  // Click outside detection
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (createModalRef.current && !createModalRef.current.contains(event.target as Node) && showCreateModal) {
@@ -330,7 +328,7 @@ const AssetCategory: React.FC = () => {
 
   const handleSubmitCategory = (categoryData: { name: string; description: string }) => {
     if (editingCategory) {
-      // Update existing category
+      
       setAssetCategories((prev) =>
         prev.map((cat) =>
           cat.category === editingCategory
@@ -348,7 +346,7 @@ const AssetCategory: React.FC = () => {
         draggable: true,
       })
     } else {
-      // Create new category
+    
       const newCategory: AssetCategory = {
         category: categoryData.name.toLowerCase(),
         count: 0,
@@ -396,7 +394,7 @@ const AssetCategory: React.FC = () => {
     setShowEditAssetModal(false)
     setEditingAsset(null)
 
-    // Show success toast with unique ID
+    
     toast.success("Asset updated successfully!", {
       toastId: "asset-update",
       position: "top-right",
@@ -430,7 +428,7 @@ const AssetCategory: React.FC = () => {
     setShowAddAssetModal(false)
     setSelectedCategoryForAsset("")
 
-    // Show success toast with unique ID
+    
     toast.success("Asset added successfully!", {
       toastId: "asset-add",
       position: "top-right",
@@ -454,7 +452,7 @@ const AssetCategory: React.FC = () => {
       setShowDeleteAssetModal(false)
       setAssetToDelete(null)
 
-      // Show success toast with unique ID
+      
       toast.success("Asset deleted successfully!", {
         toastId: "asset-delete",
         position: "top-right",
@@ -467,16 +465,16 @@ const AssetCategory: React.FC = () => {
     }
   }
 
-  // Filter categories based on search query
+  
   const filteredCategories = assetCategories.filter((category) => {
     if (!searchQuery) return true
 
-    // Check if category name matches
+
     if (category.category.toLowerCase().includes(searchQuery.toLowerCase())) {
       return true
     }
 
-    // Check if any asset in the category matches
+    
     return category.assets.some(
       (asset) =>
         asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

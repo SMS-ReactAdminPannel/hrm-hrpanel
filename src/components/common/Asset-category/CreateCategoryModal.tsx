@@ -19,7 +19,6 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validation
     const newErrors: { name?: string; description?: string } = {}
     if (!formData.name.trim()) {
       newErrors.name = "Category name is required"
