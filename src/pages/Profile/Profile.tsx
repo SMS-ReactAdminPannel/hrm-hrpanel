@@ -1,18 +1,7 @@
 "use client"
 
 import type React from "react"
-import {
-  User,
-  Phone,
-  Mail,
-  MapPin,
-  Calendar,
-  Users,
-  GraduationCap,
-  Briefcase,
-  CreditCard,
-  FileText,
-} from "lucide-react"
+import {User,Phone,Mail,MapPin,Calendar,Users,GraduationCap,Briefcase,CreditCard,FileText} from "lucide-react"
 
 interface PersonalInfo {
   name: string

@@ -121,6 +121,14 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+
+          <SidebarLink
+            to="/asset-category"
+            icon={<FiTruck />}
+            label="Asset-category"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
           {/* <SidebarLink
             to="/sos"
             icon={<FiAlertTriangle />}

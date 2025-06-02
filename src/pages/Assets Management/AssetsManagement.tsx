@@ -12,7 +12,7 @@ interface Asset {
   assignedTo: string
   category: string
   serialNumber: string
-  status: "active" | "maintenance" | "retired"
+  status: "active" | "maintenance" | "returned"
   dateAdded: string
 }
 
@@ -349,7 +349,7 @@ const AssetsManagement: React.FC = () => {
       assignedTo: "Charlie",
       category: "Monitor",
       serialNumber: "LG27001",
-      status: "retired",
+      status: "returned",
       dateAdded: "2024-03-20",
     },
     {
@@ -501,7 +501,7 @@ const AssetsManagement: React.FC = () => {
         return "bg-emerald-100 text-emerald-800 border-emerald-200"
       case "maintenance":
         return "bg-amber-100 text-amber-800 border-amber-200"
-      case "retired":
+      case "returned":
         return "bg-red-100 text-red-800 border-red-200"
       default:
         return "bg-gray-100 text-gray-800 border-gray-200"
@@ -987,7 +987,7 @@ const AssetsManagement: React.FC = () => {
 
                   {showModalStatusDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {(["active", "maintenance", "retired"] as const).map((status) => (
+                      {(["active", "maintenance", "returned"] as const).map((status) => (
                         <button
                           key={status}
                           onClick={() => {
