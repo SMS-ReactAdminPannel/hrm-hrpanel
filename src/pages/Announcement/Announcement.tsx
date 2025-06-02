@@ -1,4 +1,4 @@
-import AnnouncementPage from "../../components/Announcements/AnnouncementPage"
+import AnnouncementPage from "../../components/Announcements/AnnouncementPage/AnnouncementPage"
 
 const Announcement = () => {
   return (
