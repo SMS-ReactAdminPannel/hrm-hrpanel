@@ -25,4 +25,4 @@ export default {
     require('tailwind-scrollbar-hide')
   ],
 };
-// tailwind.config.js
+// tailwind.config.jsit
