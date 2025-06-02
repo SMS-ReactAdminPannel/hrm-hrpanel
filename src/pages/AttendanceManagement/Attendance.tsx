@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { CiSearch } from "react-icons/ci";
 import { FaBriefcase } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
+import { MdTimer } from "react-icons/md";
 
 const Attendance: React.FC = () => {
   const [value, setValue] = useState("");
@@ -165,65 +166,64 @@ const Attendance: React.FC = () => {
   }, [searchQuery, designationFilter]);
 
   return (
-    <div className="p-6 space-y-6 min-h-screen">
+    <div className="p-6 space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
       <div>
-        <p className="text-lg font-bold">Attendance Management</p>
+        <p className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">Attendance Management</p>
       </div>
-      <div className="">
-        {/* Top Section */}
-        <div className="flex  h-32 gap-6">
-          {/* Left: No of Employees Card */}
-          <div className="flex gap-4 bg-white p-4 rounded-lg shadow border border-b-[#006666] hover:scale-103 transition-transform duration-300  ">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-slate-600 text-sm">No Of Employees </p>
-                <p className="text-2xl font-bold text-slate-800">
-                  {details.length}
-                </p>
-              </div>
-              <div>
-                <IoIosPeople className=" w-8 h-8 text-green-600" />
-              </div>
-            </div>
+      <div>
+  {/* Top Section */}
+  <div className="flex gap-6">
+    {/* Left: No of Employees Card */}
+    <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+      <div>
+        <p className="text-slate-600 text-xl">No Of Employees</p>
+        <p className="text-2xl font-bold text-slate-800">{details.length}</p>
+      </div>
+      <IoIosPeople className="w-10 h-10 text-green-600" />
+    </div>
+        <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div>
+              <p className="text-slate-600 text-xl" >Total Duration</p>
+        <p className="text-2xl font-bold text-slate-800">9 Hrs</p>
           </div>
-
-          {/* Right: Pie Chart with Labels */}
-          <div className="flex items-center gap-6 bg-white p-4 rounded-lg shadow hover:scale-103 transition-transform duration-100">
-            <div>
-              <p className="text-lg font-semibold mb-1">Attendance</p>
-              <p className="text-[#00C49F]">
-                Present:{" "}
-                {details.filter((emp) => emp.Status === "Present").length}
-              </p>
-              <p className="text-[#FF8042]">
-                Absent:{" "}
-                {details.filter((emp) => emp.Status === "Absent").length}
-              </p>
-            </div>
-            <div className="">
-              <PieChart width={180} height={180}>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={30}
-                  outerRadius={50}
-                  paddingAngle={3}
-                  dataKey="value"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </div>
-          </div>
+        <MdTimer className="w-10 h-10 text-red-600"  />
         </div>
+    {/* Right: Pie Chart with Labels */}
+    <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+      <div>
+        <p className="text-lg font-semibold mb-1">Attendance</p>
+        <p className="text-green-600">
+          Present:{" "}
+          {details.filter((emp) => emp.Status === "Present").length}
+        </p>
+        <p className="text-red-500">
+          Absent:{" "}
+          {details.filter((emp) => emp.Status === "Absent").length}
+        </p>
       </div>
+      <PieChart width={120} height={120}>
+        <Pie
+          data={chartData}
+          cx="50%"
+          cy="50%"
+          innerRadius={30}
+          outerRadius={50}
+          paddingAngle={3}
+          dataKey="value"
+        >
+          {chartData.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={COLORS[index % COLORS.length]}
+            />
+          ))}
+        </Pie>
+        <Tooltip />
+      </PieChart>
+    </div>
+  </div>
+</div>
+
 
       <div className="flex gap-4 justify-between">
         <div>
@@ -231,7 +231,7 @@ const Attendance: React.FC = () => {
           <label className="block text-sm font-medium mt-10"></label>
           <input
             type="date"
-            className="p-2 border border-[#006666] rounded-full shadow-sm hover:scale-103 transition-transform duration-200"
+            className="pw-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200l-10 pr-4 py-2 w-full border rounded-full shadow border-[#006666] focus:outline-none focus:border-transparent"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
@@ -249,7 +249,7 @@ const Attendance: React.FC = () => {
           <input
             type="search"
             placeholder="Search by Name, Desgination  or Status"
-            className="pl-10 pr-4 py-2 w-full border rounded-full shadow border-[#006666] focus:outline-none focus:border-transparent"
+            className="pw-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200l-10 pr-4 py-2 w-full border rounded-full shadow border-[#006666] focus:outline-none focus:border-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -260,7 +260,7 @@ const Attendance: React.FC = () => {
           <select
             value={designationFilter}
             onChange={(e) => setDesignationFilter(e.target.value)}
-            className="p-2 border border-[#006666] focus-outline-none rounded-full shadow-sm w-60"
+            className="pw-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200l-10 pr-4 py-2 w-full border rounded-full shadow border-[#006666] focus:outline-none focus:border-transparent"
           >
             <option value="" className="text-black">
               {" "}

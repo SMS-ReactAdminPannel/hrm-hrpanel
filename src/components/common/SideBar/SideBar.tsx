@@ -121,6 +121,13 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+          <SidebarLink
+            to="/shift"
+            icon={<FiSettings />}
+            label="shift"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
           {/* <SidebarLink
             to="/sos"
             icon={<FiAlertTriangle />}
