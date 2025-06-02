@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import {User,Phone,Mail,MapPin,Calendar,Users,GraduationCap,Briefcase,CreditCard,FileText} from "lucide-react"
@@ -129,7 +129,6 @@ const Profile: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-[#006666]/5 to-[#006666]/10 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="mb-12 text-left">
           <h1 className="text-4xl font-black leading-tight bg-gradient-to-r from-[#006666] via-[#008080] to-[#006666] bg-clip-text text-transparent mb-4">
             Employee Profile
