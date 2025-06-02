@@ -344,14 +344,19 @@ const EmployeeManagement = () => {
             {/* Filter Icon and Dropdown */}
             <div className="flex-shrink-0 flex items-center gap-4 relative">
               <div
-                className="text-3xl text-[#006666] cursor-pointer"
+                className="text-3xl text-[#006666] cursor-pointer ml-15"
                 onClick={() => setFilterOpen(!filterOpen)}
               >
                 <CiFilter />
               </div>
-              <button className="bg-[#006666] hover:bg-[#006666]/90 text-white px-4 py-2 rounded-lg transition duration-200">
+              <button className="bg-[#006666] hover:bg-[#006666]/90 text-white px-4 py-2 rounded-lg transition duration-200 ml-15 ">
                 Add Employee
               </button>
+            
+
+
+
+
 
               {/* Dropdown */}
               {filterOpen && (
