@@ -1,320 +1,487 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import DoughnutChart from '../../components/leave management/leaveChart';
+import { useState, useEffect } from 'react';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Customer = {
   id: string;
-  date: string;
+  date: Date;
   day: string;
   avatar: string;
   holiday: string;
 };
 
+interface WorkEvent {
+  id: string;
+  title: string;
+  date: Date;
+  color: string;
+}
+
+interface DayData {
+  date: Date;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+  events: WorkEvent[];
+}
+
 const Leave = () => {
- const customers: Customer[] = [
-    {
-      id: "1",
-      date: "jan 25,2025",
-      day: "Monday",
-      avatar: "/docs/images/people/profile-picture-1.jpg",
-      holiday: "Republic Day",
-    },
-    {
-      id: "2",
-      date: "january 03,2025",
-      day: "Wednesday",
-      avatar: "/docs/images/people/profile-picture-3.jpg",
-      holiday: "Pongal",
-    },
-    {
-      id: "3",
-      date: "Febrauary 30,2025",
-      day: "Thursday",
-      avatar: "/docs/images/people/profile-picture-2.jpg",
-      holiday: "Public holiday",
-    },
-    {
-      id: "4",
-      date: "April 01,2025",
-      day: "Saturday",
-      avatar: "/docs/images/people/profile-picture-4.jpg",
-      holiday: "Holi Day",
-    },
-    {
-      id: "5",
-      date: "September 24,2025",
-      day: "Saturday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "Tamil New year",
-    },
-    {
-      id: "6",
-      date: "july 3,2025",
-      day: "Sunday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "Independence Day",
-    },
-    {
-      id: "7",
-      date: "july 23,2025",
-      day: "Thursday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "new year",
-    },
-    {
-      id: "8",
-      date: "jan 13,2025",
-      day: "Friday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "new year",
-    },
-    {
-      id: "9",
-      date: "july 13,2025",
-      day: "saturday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "new year",
-    },
-    {
-      id: "10",
-      date: "july 31,2025",
-      day: "saturday",
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: "new year",
-    },
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [days, setDays] = useState<DayData[]>([]);
+  const [events, setEvents] = useState<WorkEvent[]>([]);
+  const [holidays, setHolidays] = useState<Customer[]>([]); // Separate state for holidays
+  const [showModal, setShowModal] = useState(false);
+  const [newEvent, setNewEvent] = useState({
+    title: '',
+    date: new Date().toISOString().split('T')[0],
+    color: 'bg-blue-500'
+  });
+
+  // Sample initial data
+  useEffect(() => {
+  
+ const savedEvents = localStorage.getItem('calendarEvents');
+  if (savedEvents) {
+    const parsedEvents = JSON.parse(savedEvents).map((event: any) => ({
+      ...event,
+      date: new Date(event.date)
+    }));
+    setEvents(parsedEvents);
+  }
+
+  // Load holidays from localStorage if they exist
+  const savedHolidays = localStorage.getItem('holidays');
+  if (savedHolidays) {
+    const parsedHolidays = JSON.parse(savedHolidays).map((holiday: any) => ({
+      ...holiday,
+      date: new Date(holiday.date)
+    }));
+    setHolidays(parsedHolidays);
+  } else {
+    // Only set sample holidays if no saved holidays exist
+    const sampleHolidays: Customer[] = [
+      {
+        id: "1",
+        date: new Date(2025, 0, 14),
+        day: "Tuesday", // Fixed: January 14, 2025 is actually a Tuesday
+        avatar: "/docs/images/people/profile-picture-1.jpg",
+        holiday: "Republic Day",
+      },
+     
+    ];
+    setHolidays(sampleHolidays);
+    localStorage.setItem('holidays', JSON.stringify(sampleHolidays));
+  }
+}, []);
+  
+     
+  // Generate calendar days
+ useEffect(() => {
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+
+  // Get first and last days of the month
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+
+  // Get days from previous month to show
+  const prevMonthDays = firstDay.getDay();
+
+  // Get days from next month to show
+  const nextMonthDays = 6 - lastDay.getDay();
+
+  const daysArray: DayData[] = [];
+
+  // Combine regular events and holidays (converted to events)
+  const allEvents = [
+    ...events,
+    ...holidays.map(h => ({
+      id: h.id,
+      title: h.holiday,
+      date: h.date,
+      color: 'bg-red-500' // Default color for holidays
+    }))
   ];
 
+  // Previous month days
+  for (let i = prevMonthDays; i > 0; i--) {
+    const date = new Date(year, month, -i + 1);
+    daysArray.push({
+      date,
+      isCurrentMonth: false,
+      isToday: false,
+      events: allEvents.filter(
+        e => e.date.getDate() === date.getDate() &&
+             e.date.getMonth() === date.getMonth() &&
+             e.date.getFullYear() === date.getFullYear()
+      )
+    });
+  }
+
+  // Current month days
+  for (let i = 1; i <= lastDay.getDate(); i++) {
+    const date = new Date(year, month, i);
+    const isToday =
+      date.getDate() === new Date().getDate() &&
+      date.getMonth() === new Date().getMonth() &&
+      date.getFullYear() === new Date().getFullYear();
+    daysArray.push({
+      date,
+      isCurrentMonth: true,
+      isToday,
+      events: allEvents.filter(
+        e => e.date.getDate() === date.getDate() &&
+             e.date.getMonth() === date.getMonth() &&
+             e.date.getFullYear() === date.getFullYear()
+      )
+    });
+  }
+
+  // Next month days
+  for (let i = 1; i <= nextMonthDays; i++) {
+    const date = new Date(year, month + 1, i);
+    daysArray.push({
+      date,
+      isCurrentMonth: false,
+      isToday: false,
+      events: allEvents.filter(
+        e => e.date.getDate() === date.getDate() &&
+             e.date.getMonth() === date.getMonth() &&
+             e.date.getFullYear() === date.getFullYear()
+      )
+    });
+  }
+
+  setDays(daysArray);
+}, [currentMonth, events, holidays]);
+
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    setCurrentMonth(
+      new Date(
+        currentMonth.getFullYear(),
+        currentMonth.getMonth() + (direction === 'prev' ? -1 : 1),
+        1
+      )
+    );
+  };
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // Add holiday to both calendar and holiday list
+ const addEvent = () => {
+  if (!newEvent.title.trim()) {
+    alert('Please enter a title for the event');
+    return;
+  }
+
+  const [year, month, day] = newEvent.date.split('-').map(Number);
+  const dateObj = new Date(year, month - 1, day);
+  const dayName = dayNames[dateObj.getDay()];
+  
+  // Create new event ID
+  const newId = `event-${Date.now()}`;
+  
+  // Add to events (calendar)
+  const newCalendarEvent: WorkEvent = {
+    id: newId,
+    title: newEvent.title,
+    date: dateObj,
+    color: newEvent.color
+  };
+  
+  const updatedEvents = [...events, newCalendarEvent];
+  setEvents(updatedEvents);
+  localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+  
+  // Add to holidays list
+  const newHoliday: Customer = {
+    id: newId,
+    date: dateObj,
+    day: dayName,
+    avatar: "/docs/images/people/profile-picture-5.jpg",
+    holiday: newEvent.title
+  };
+  
+  const updatedHolidays = [...holidays, newHoliday];
+  setHolidays(updatedHolidays);
+  localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
+  
+  // Close modal and reset form
+  setShowModal(false);
+  setNewEvent({
+    title: '',
+    date: new Date().toISOString().split('T')[0],
+    color: 'bg-blue-500'
+  });
+};
+
+const deleteEvent = (id: string) => {
+  
+    // Remove from events
+    const updatedEvents = events.filter(event => event.id !== id);
+    setEvents(updatedEvents);
+    localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+
+    // Remove from holidays
+    const updatedHolidays = holidays.filter(holiday => holiday.id !== id);
+    setHolidays(updatedHolidays);
+    localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
+};
+
+
+const navigateToDate = (date: Date) => {
+  setCurrentMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+};
+
   return (
-    <div className="container mx-auto px-4 py-6 grid grid-cols-2 flex ">
+    <div className="container flex mx-auto px-4 py-6 grid grid-cols-2 lg:grid-cols-2 gap-6">
       {/* Main grid layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-        {/* Left column - Charts */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Charts row */}
-          <div className="grid flex md:grid-cols-3 gap-4 p-4 rounded-lg shadow w-5/4">
-            <DoughnutChart 
-              percentage={40} 
-              content='Annual Leave' 
-              filledColor="rgba(233, 30, 99, 0.7)"
-              emptyColor="rgba(200, 200, 200, 0.2)"
-              cutout="75%"
-              size="h-40 w-64" 
-            />
-            <DoughnutChart 
-              percentage={20} 
-              content='Sick Leave'
-              filledColor="rgba(21, 30, 99, 0.7)"
-              emptyColor="rgba(200, 200, 200, 0.2)"
-              cutout="75%"
-              size="h-40 w-64"
-            />
-            <DoughnutChart 
-              percentage={55} 
-              content='Public Leave'
-              filledColor="rgba(72, 10, 99, 0.7)"
-              emptyColor="rgba(200, 200, 200, 0.2)"
-              cutout="75%"
-              size="h-40 w-64"
-            />
-          </div>
-
-          {/* Calendar section */}
-        <section className="relative bg-stone-50 py-24 w-5/4">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 overflow-x-auto">
-          <div className="flex flex-col md:flex-row max-md:gap-3 items-center justify-between mb-5">
-            <div className="flex items-center gap-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M17 4.50001L17 5.15001L17 4.50001ZM6.99999 4.50002L6.99999 3.85002L6.99999 4.50002ZM8.05078 14.65C8.40977 14.65 8.70078 14.359 8.70078 14C8.70078 13.641 8.40977 13.35 8.05078 13.35V14.65ZM8.00078 13.35C7.6418 13.35 7.35078 13.641 7.35078 14C7.35078 14.359 7.6418 14.65 8.00078 14.65V13.35ZM8.05078 17.65C8.40977 17.65 8.70078 17.359 8.70078 17C8.70078 16.641 8.40977 16.35 8.05078 16.35V17.65ZM8.00078 16.35C7.6418 16.35 7.35078 16.641 7.35078 17C7.35078 17.359 7.6418 17.65 8.00078 17.65V16.35ZM12.0508 14.65C12.4098 14.65 12.7008 14.359 12.7008 14C12.7008 13.641 12.4098 13.35 12.0508 13.35V14.65ZM12.0008 13.35C11.6418 13.35 11.3508 13.641 11.3508 14C11.3508 14.359 11.6418 14.65 12.0008 14.65V13.35ZM12.0508 17.65C12.4098 17.65 12.7008 17.359 12.7008 17C12.7008 16.641 12.4098 16.35 12.0508 16.35V17.65ZM12.0008 16.35C11.6418 16.35 11.3508 16.641 11.3508 17C11.3508 17.359 11.6418 17.65 12.0008 17.65V16.35ZM16.0508 14.65C16.4098 14.65 16.7008 14.359 16.7008 14C16.7008 13.641 16.4098 13.35 16.0508 13.35V14.65ZM16.0008 13.35C15.6418 13.35 15.3508 13.641 15.3508 14C15.3508 14.359 15.6418 14.65 16.0008 14.65V13.35ZM16.0508 17.65C16.4098 17.65 16.7008 17.359 16.7008 17C16.7008 16.641 16.4098 16.35 16.0508 16.35V17.65ZM16.0008 16.35C15.6418 16.35 15.3508 16.641 15.3508 17C15.3508 17.359 15.6418 17.65 16.0008 17.65V16.35ZM8.65 3C8.65 2.64101 8.35898 2.35 8 2.35C7.64102 2.35 7.35 2.64101 7.35 3H8.65ZM7.35 6C7.35 6.35899 7.64102 6.65 8 6.65C8.35898 6.65 8.65 6.35899 8.65 6H7.35ZM16.65 3C16.65 2.64101 16.359 2.35 16 2.35C15.641 2.35 15.35 2.64101 15.35 3H16.65ZM15.35 6C15.35 6.35899 15.641 6.65 16 6.65C16.359 6.65 16.65 6.35899 16.65 6H15.35ZM6.99999 5.15002L17 5.15001L17 3.85001L6.99999 3.85002L6.99999 5.15002ZM20.35 8.50001V17H21.65V8.50001H20.35ZM17 20.35H7V21.65H17V20.35ZM3.65 17V8.50002H2.35V17H3.65ZM7 20.35C6.03882 20.35 5.38332 20.3486 4.89207 20.2826C4.41952 20.2191 4.1974 20.1066 4.04541 19.9546L3.12617 20.8739C3.55996 21.3077 4.10214 21.4881 4.71885 21.571C5.31685 21.6514 6.07557 21.65 7 21.65V20.35ZM2.35 17C2.35 17.9245 2.34862 18.6832 2.42902 19.2812C2.51193 19.8979 2.69237 20.4401 3.12617 20.8739L4.04541 19.9546C3.89341 19.8026 3.78096 19.5805 3.71743 19.108C3.65138 18.6167 3.65 17.9612 3.65 17H2.35ZM20.35 17C20.35 17.9612 20.3486 18.6167 20.2826 19.108C20.219 19.5805 20.1066 19.8026 19.9546 19.9546L20.8738 20.8739C21.3076 20.4401 21.4881 19.8979 21.571 19.2812C21.6514 18.6832 21.65 17.9245 21.65 17H20.35ZM17 21.65C17.9244 21.65 18.6831 21.6514 19.2812 21.571C19.8979 21.4881 20.44 21.3077 20.8738 20.8739L19.9546 19.9546C19.8026 20.1066 19.5805 20.2191 19.1079 20.2826C18.6167 20.3486 17.9612 20.35 17 20.35V21.65ZM17 5.15001C17.9612 5.15 18.6167 5.15138 19.1079 5.21743C19.5805 5.28096 19.8026 5.39341 19.9546 5.54541L20.8738 4.62617C20.44 4.19238 19.8979 4.01194 19.2812 3.92902C18.6831 3.84862 17.9244 3.85001 17 3.85001L17 5.15001ZM21.65 8.50001C21.65 7.57557 21.6514 6.81686 21.571 6.21885C21.4881 5.60214 21.3076 5.05996 20.8738 4.62617L19.9546 5.54541C20.1066 5.6974 20.219 5.91952 20.2826 6.39207C20.3486 6.88332 20.35 7.53882 20.35 8.50001H21.65ZM6.99999 3.85002C6.07556 3.85002 5.31685 3.84865 4.71884 3.92905C4.10214 4.01196 3.55996 4.1924 3.12617 4.62619L4.04541 5.54543C4.1974 5.39344 4.41952 5.28099 4.89207 5.21745C5.38331 5.15141 6.03881 5.15002 6.99999 5.15002L6.99999 3.85002ZM3.65 8.50002C3.65 7.53884 3.65138 6.88334 3.71743 6.39209C3.78096 5.91954 3.89341 5.69743 4.04541 5.54543L3.12617 4.62619C2.69237 5.05999 2.51193 5.60217 2.42902 6.21887C2.34862 6.81688 2.35 7.57559 2.35 8.50002H3.65ZM3 10.65H21V9.35H3V10.65ZM8.05078 13.35H8.00078V14.65H8.05078V13.35ZM8.05078 16.35H8.00078V17.65H8.05078V16.35ZM12.0508 13.35H12.0008V14.65H12.0508V13.35ZM12.0508 16.35H12.0008V17.65H12.0508V16.35ZM16.0508 13.35H16.0008V14.65H16.0508V13.35ZM16.0508 16.35H16.0008V17.65H16.0508V16.35ZM7.35 3V6H8.65V3H7.35ZM15.35 3V6H16.65V3H15.35Z" fill="#111827"></path>
-              </svg>
-              <h6 className="text-xl leading-8 font-semibold text-gray-900">Today, January 2024</h6>
-            </div>
-            <div className="flex items-center gap-px rounded-lg bg-gray-100 p-1">
-              <button className="rounded-lg py-2.5 px-5 text-sm font-medium text-gray-500 transition-all duration-300 hover:bg-white hover:text-indigo-600">Day</button>
-              <button className="rounded-lg py-2.5 px-5 text-sm font-medium text-indigo-600 bg-white transition-all duration-300 hover:bg-white hover:text-indigo-600">Week</button>
-              <button className="rounded-lg py-2.5 px-5 text-sm font-medium text-gray-500 transition-all duration-300 hover:bg-white hover:text-indigo-600">Month</button>
-            </div>
-            <button className="py-2.5 pr-7 pl-5 bg-indigo-600 rounded-xl flex items-center gap-2 text-base font-semibold text-white transition-all duration-300 hover:bg-indigo-700">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 5V15M15 10H5" stroke="white" stroke-width="1.6" stroke-linecap="round"></path>
-              </svg>
-              New Activity
-            </button>
-          </div>
-          <div className=" relative">
-          <div className="grid grid-cols-7 border-t border-gray-200 sticky top-0 left-0 w-full">
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900"></div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900">Jan 7</div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900">Jan 8</div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-indigo-600">Jan 9</div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900">Jan 10</div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900">Jan 11</div>
-            <div className="p-3.5 flex items-center justify-center text-sm font-medium  text-gray-900">Jan 12</div>
-          </div>
-          <div className="hidden grid-cols-7 sm:grid w-full overflow-x-auto">
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">07:00 am</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-purple-600 bg-purple-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Pickup the grandmother</p>
-                <p className="text-xs font-semibold text-purple-600">06:00 - 07:30</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-green-600 bg-green-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Workout and Yoga Session</p>
-                <p className="text-xs font-semibold text-green-600">06:00 - 07:55</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t  border-gray-200 transition-all hover:bg-stone-100"></div>
-    
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">08:00 am</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-blue-600 bg-blue-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Project Task Review</p>
-                <p className="text-xs font-semibold text-blue-600">08:00 - 08:25</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-gray-200 transition-all hover:bg-stone-100"></div>
-    
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">09:00 am</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-yellow-600 bg-yellow-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Breakfast with Dhruv Patel</p>
-                <p className="text-xs font-semibold text-yellow-600">08:00 - 09:00</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-gray-200 transition-all hover:bg-stone-100"></div>
-    
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">10:00 am</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-green-600 bg-green-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Dancing Zumba className</p>
-                <p className="text-xs font-semibold text-green-600">09:30 - 10:00</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-purple-600 bg-purple-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Doctor’s Appointment for Mother</p>
-                <p className="text-xs font-semibold text-purple-600">09:00 - 10:45</p>
-              </div>
-            </div>
-    
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">11:00 am</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-blue-600 bg-blue-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Daily Standup Meeting</p>
-                <p className="text-xs font-semibold text-blue-600">10:00 - 11:00</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-yellow-600 bg-yellow-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">School Friend’s Birthday Party</p>
-                <p className="text-xs font-semibold text-yellow-600">10:00 - 11:45</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-gray-200 transition-all hover:bg-stone-100"></div>
-    
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 flex items-end transition-all hover:bg-stone-100">
-              <span className="text-xs font-semibold text-gray-400">12:00 pm</span>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100">
-              <div className="rounded p-1.5 border-l-2 border-blue-600 bg-blue-50">
-                <p className="text-xs font-normal text-gray-900 mb-px">Meeting with Project Manager </p>
-                <p className="text-xs font-semibold text-blue-600">11:00 - 12:30</p>
-              </div>
-            </div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-r border-gray-200 transition-all hover:bg-stone-100"></div>
-            <div className="h-32 lg:h-28 p-0.5 md:p-3.5   border-t border-gray-200 transition-all hover:bg-stone-100"></div>
-          </div>
-          <div className="flex sm:hidden border-t border-gray-200 items-center w-full">
-            <div className="flex flex-col">
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">07:00 am</div>
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">08:00 am</div>
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">09:00 am</div>
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">10:00 am</div>
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">11:00 am</div>
-              <div className="w-20 h-20 p-2 flex items-end text-xs font-semibold text-gray-400 border-b border-r border-gray-200">12:00 pm</div>
-            </div>
-            <div className="grid grid-cols-1 w-full">
-              <div className="w-full h-20 border-b border-gray-200 p-1.5">
-                <div className="w-full h-full rounded p-1.5 border-l-2 border-purple-600 bg-purple-50">
-                  <p className="text-xs font-normal text-gray-900 mb-px">Pickup the grandmother</p>
-                  <p className="text-xs font-semibold text-purple-600">06:00 - 07:30</p>
-                </div>
-              </div>
-              <div className="w-full h-20 border-b border-gray-200 p-1.5"></div>
-              <div className="w-full h-20 border-b border-gray-200 p-1.5"></div>
-              <div className="w-full h-20 border-b border-gray-200 p-1.5"></div>
-              <div className="w-full h-20 border-b border-gray-200 p-1.5"></div>
-              <div className="w-full h-20 border-b border-gray-200 p-1.5">
-                <div className="w-full h-full rounded p-1.5 border-l-2 border-blue-600 bg-blue-50">
-                  <p className="text-xs font-normal text-gray-900 mb-px">Meeting with Project Manager </p>
-                  <p className="text-xs font-semibold text-blue-600">11:00 - 12:30</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </section>
-                                            
+      <div className="space-y-6 w-5/4">
+        {/* Charts row */}
+        <div className="grid md:grid-cols-3 gap-4 p-4 rounded-lg shadow">
+          <DoughnutChart 
+            percentage={30} 
+            content='Annual Leave' 
+            filledColor="rgba(233, 30, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64" 
+          />
+          <DoughnutChart 
+            percentage={10} 
+            content='Sick Leave'
+            filledColor="rgba(21, 30, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64"
+          />
+          <DoughnutChart 
+            percentage={40} 
+            content='Public Leave'
+            filledColor="rgba(72, 10, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64"
+          />
         </div>
 
-        
-      </div>
-      <div className='w-2/3 ml-auto'>
-      <div className=" p-10 rounded-lg shadow">
-          <div className="flex items-center justify-between mb-4">
-            <h5 className="text-xl font-bold text-gray-900">Holidays list</h5>
+        {/* Calendar section */}
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          {/* Calendar Header */}
+          <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800">
+                {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+              </h2>
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => navigateMonth('prev')}
+                className="p-2 rounded-md hover:bg-gray-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={() => setCurrentMonth(new Date())}
+                className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Today
+              </button>
+              <button
+                onClick={() => navigateMonth('next')}
+                className="p-2 rounded-md hover:bg-gray-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-4 py-2 text-sm rounded-md bg-green-500 text-white hover:bg-green-600"
+              >
+                Add Event
+              </button>
+            </div>
           </div>
-          <div className="space-y-4">
-            {customers.map((customer) => (
-              <div key={customer.id} className="flex items-center justify-between p-3 border-b-2 border-gray-400">
-                <div className="flex items-center space-x-4">
-                 
-                  <div className=''>
-                    <p className="font-medium text-gray-900">{customer.date}</p>
-                    <p className="text-sm text-gray-500">{customer.day}</p>
-                  </div>
-                </div>
-                <span className="font-semibold text-gray-900">{customer.holiday}</span>
+
+          {/* Day Names */}
+          <div className="grid grid-cols-7 gap-px bg-gray-200">
+            {dayNames.map((day) => (
+              <div
+                key={day}
+                className="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase"
+              >
+                {day}
               </div>
             ))}
           </div>
-        </div> 
-        </div> 
+
+          {/* Calendar Grid */}
+          <div className="grid grid-cols-7 gap-px bg-gray-200">
+            {days.map((day, idx) => (
+              <div
+                key={idx}
+                className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
+              >
+                <div
+                  className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
+                >
+                  {day.date.getDate()}
+                </div>
+                <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
+                  {day.events.map((event) => (
+                    <div
+                      key={event.id}
+                      className={`${event.color} text-white text-xs p-1 rounded truncate`}
+                    >
+                      <div className="font-medium">{event.title}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Holiday List */}
+<div className="p-6 w-3/4 ml-auto rounded-lg shadow bg-white">
+  <div className="flex items-center justify-between mb-4">
+    <h5 className="text-xl font-bold text-gray-900">Holidays list</h5>
+  </div>
+  <div className="space-y-4">
+    {holidays.length > 0 ? (
+      holidays.map((holiday) => {
+        // Ensure the date is properly formatted
+        const holidayDate = new Date(holiday.date);
+        const dayName = dayNames[holidayDate.getDay()];
+        
+        return (
+          <div 
+            key={holiday.id} 
+            className="flex items-center justify-between p-3 border-b-2 border-gray-200 hover:bg-gray-100 cursor-pointer"
+            onClick={() => navigateToDate(holidayDate)}
+          >
+            <div className="flex items-center space-x-4">
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{holiday.holiday}</p>
+                <p className="text-sm text-gray-500">
+                  {holidayDate.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                  })} ({dayName})
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteEvent(holiday.id);
+              }}
+              className="p-2 text-red-500 hover:text-red-700"
+              title="Delete holiday"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        );
+      })
+    ) : (
+      <p className="text-gray-500 text-center py-4">No holidays found</p>
+    )}
+  </div>
+</div>
+
+
+      {/* Add Event Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h3 className="text-xl font-semibold mb-4">Add New Holiday/Event</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Event Title</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded"
+                  value={newEvent.title}
+                  onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
+                  placeholder="Enter event title"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input
+                  type="date"
+                  className="w-full p-2 border rounded"
+                  value={newEvent.date}
+                  onChange={(e) => setNewEvent({...newEvent, date: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                <select
+                  className="w-full p-2 border rounded"
+                  value={newEvent.color}
+                  onChange={(e) => setNewEvent({...newEvent, color: e.target.value})}
+                >
+                  <option value="bg-blue-500">Blue</option>
+                  <option value="bg-green-500">Green</option>
+                  <option value="bg-red-500">Red</option>
+                  <option value="bg-purple-500">Purple</option>
+                  <option value="bg-yellow-500">Yellow</option>
+                </select>
+              </div>
+              <div className="flex justify-end space-x-2">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 text-sm rounded-md bg-gray-500 text-white hover:bg-gray-600"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={addEvent}
+                  className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+                >
+                  Add Event
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    
     </div>
   );
 };

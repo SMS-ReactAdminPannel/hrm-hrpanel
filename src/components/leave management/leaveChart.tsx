@@ -60,7 +60,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
       <div className={`relative h-38 ${size}`}>
         <canvas ref={chartRef} />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold">{percentage}%</span>
+          <span className="text-2xl font-bold">{percentage}</span>
         </div>
       </div>
       {content && (
