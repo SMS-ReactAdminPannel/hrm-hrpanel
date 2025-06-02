@@ -659,7 +659,7 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+          <h1 className="text-4xl font-bold text-[#006666]  mt-2 leading-relaxed pb-1">
             Asset Management
           </h1>
 
@@ -735,7 +735,7 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
               <Plus className="w-5 h-5" />
               Add Asset
@@ -800,10 +800,7 @@ const AssetsManagement: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead
-                className="c text-white"
-                style={{
-                  background: " linear-gradient(to right, #1e293b, #0f766e)",
-                }}
+                className="bg-[#006666] text-white"
               >
                 <tr>
                   <th className="text-left px-6 py-4 font-medium">
