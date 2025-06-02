@@ -8,6 +8,7 @@ export default {
   ],
   theme: {
      extend: {
+      colors:{},
       keyframes: {
         shake: {
           '0%, 100%': { transform: 'translateX(0)' },
