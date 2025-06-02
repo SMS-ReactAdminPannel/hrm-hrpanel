@@ -977,7 +977,7 @@ const Profile: React.FC = () => {
 
         {/* Personal Information */}
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2 bg-white/80 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="lg:col-span-2  backdrop-blur-lg p-8 rounded shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-3">
                 <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
