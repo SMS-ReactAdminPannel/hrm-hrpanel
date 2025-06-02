@@ -409,7 +409,7 @@ const AssetsManagement: React.FC = () => {
       setShowModal(false)
       toast.success("Asset added successfully!", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -445,7 +445,7 @@ const AssetsManagement: React.FC = () => {
       setShowModal(false)
       toast.success("Asset updated successfully!", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -577,7 +577,7 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
   
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+          <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
             Asset Management
           </h1>
 
@@ -626,7 +626,7 @@ const AssetsManagement: React.FC = () => {
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
-                          ? "bg-gradient-to-r from-teal-50 to-cyan-50 text-teal-700"
+                          ? "bg-from-teal-50 text-teal-700"
                           : "text-slate-700"
                       }`}
                     >
@@ -640,7 +640,7 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-800 to-teal-700 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
               <Plus className="w-5 h-5" />
               Add Asset
@@ -700,7 +700,7 @@ const AssetsManagement: React.FC = () => {
         <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white">
+              <thead className="bg-[#006666] text-white">
                 <tr>
                   <th className="text-left px-6 py-4 font-medium">Asset Details</th>
                   <th className="text-left px-6 py-4 font-medium">Assigned To</th>
@@ -731,7 +731,7 @@ const AssetsManagement: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
                           {asset.assignedTo
                             .split(" ")
                             .map((n) => n[0])
@@ -794,7 +794,7 @@ const AssetsManagement: React.FC = () => {
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
+              className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-[#006666] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
                 className="w-3 h-3"
@@ -829,7 +829,7 @@ const AssetsManagement: React.FC = () => {
                   onClick={() => setCurrentPage(item as number)}
                   className={`px-3 py-2 rounded-[60%] transition-all duration-200 ${
                     currentPage === item
-                      ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg"
+                      ? "bg-[#006666] text-white shadow-lg"
                       : "bg-white/60 text-slate-700 hover:bg-white/80 border border-white/20"
                   }`}
                 >
@@ -842,7 +842,7 @@ const AssetsManagement: React.FC = () => {
             <button
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
+              className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-[#006666] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
                 className="w-3 h-3"
@@ -879,7 +879,7 @@ const AssetsManagement: React.FC = () => {
             ref={modalRef}
             className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100"
           >
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-teal-600 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
               {editingAsset ? "Edit Asset" : "Add New Asset"}
             </h2>
 
@@ -937,7 +937,7 @@ const AssetsManagement: React.FC = () => {
                           }}
                           className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                             newAsset.category === cat
-                              ? "bg-gradient-to-r from-teal-50 to-cyan-50 text-teal-700"
+                              ? "bg-[#006666] text-teal-700"
                               : "text-slate-700"
                           }`}
                         >
@@ -995,7 +995,7 @@ const AssetsManagement: React.FC = () => {
                             setShowModalStatusDropdown(false)
                           }}
                           className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                            newAsset.status === status ? "bg-gradient-to-r from-teal-50 to-cyan-50" : ""
+                            newAsset.status === status ? "bg-[#006666]" : ""
                           }`}
                         >
                           <span
@@ -1020,7 +1020,7 @@ const AssetsManagement: React.FC = () => {
               </button>
               <button
                 onClick={editingAsset ? handleUpdateAsset : handleAddAsset}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+                className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
               >
                 {editingAsset ? "Update Asset" : "Add Asset"}
               </button>
@@ -1034,7 +1034,7 @@ const AssetsManagement: React.FC = () => {
         <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-teal-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-[#006666] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-[white]" />
               </div>
               <h2 className="text-2xl font-bold text-slate-800  mb-2">Delete Asset</h2>
@@ -1052,7 +1052,7 @@ const AssetsManagement: React.FC = () => {
                 </button>
                 <button
                   onClick={confirmDeleteAsset}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+                  className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
                 >
                   Delete
                 </button>
@@ -1084,7 +1084,7 @@ const AssetsManagement: React.FC = () => {
         
               <div className="bg-white/60 rounded-xl p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg text-white">
+                  <div className="p-3 bg-[#006666] rounded-lg text-white">
                     {getCategoryIcon(selectedAsset.category)}
                   </div>
                   <div>
@@ -1152,7 +1152,7 @@ const AssetsManagement: React.FC = () => {
                   return (
                     <>
                       <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center text-white text-lg font-medium">
+                        <div className="w-12 h-12 bg-[#006666] rounded-full flex items-center justify-center text-white text-lg font-medium">
                           {selectedAsset.assignedTo
                             .split(" ")
                             .map((n) => n[0])
@@ -1253,7 +1253,7 @@ const AssetsManagement: React.FC = () => {
                   setShowDetailModal(false)
                   handleEditAsset(selectedAsset)
                 }}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+                className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
               >
                 <Edit3 className="w-4 h-4" />
                 Edit Asset
