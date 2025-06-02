@@ -370,7 +370,7 @@ const dummyData = [
               onClick={() => setCurrentPage(index + 1)}
               className={`px-3 py-2 rounded-full transition-all duration-200 border ${
                 currentPage === index + 1
-                  ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg border-none"
+                  ? "bg-[#006666] text-white shadow-lg border-none"
                   : "bg-white/60 text-slate-700 hover:bg-white/80 border-white/20"
               }`}
             >
