@@ -490,6 +490,10 @@ const AssetsManagement: React.FC = () => {
     }
   }
 
+  const styleLinear = {
+    background : 'linear-gradient(to right, #facc15, black)'
+  }
+
   const handleDeleteAsset = (asset: Asset): void => {
     setAssetToDelete(asset)
     setShowDeleteModal(true)
@@ -736,7 +740,10 @@ const AssetsManagement: React.FC = () => {
         <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white">
+              <thead
+                className="bg-gradient-to-r from-slate-800 to-teal-700 text-white"
+                // style={styleLinear}
+               >
                 <tr>
                   <th className="text-left px-6 py-4 font-medium">Asset Details</th>
                   <th className="text-left px-6 py-4 font-medium">Assigned To</th>

@@ -14,6 +14,7 @@ import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
+import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -33,6 +34,7 @@ const AppRoutes = () => {
         <Route index element={<Dashboard />} />
          <Route path="assets-management" element={<AssetsManagement />} /> 
          <Route path="attendance" element={<Attendance />} /> 
+         <Route path="attendance-id" element={<EmployeeDetails />} /> 
          <Route path="employee" element={<Employee />} /> 
          <Route path="Leave-management" element={<Leave />} /> 
          <Route path="organization-chart" element={<OrganizationChart />} /> 
