@@ -459,14 +459,24 @@ const AssetsManagement: React.FC = () => {
     setShowDeleteModal(true)
   }
 
-  const confirmDeleteAsset = (): void => {
-    if (assetToDelete) {
-      const updatedAssets = assets.filter((asset) => asset.id !== assetToDelete.id)
-      setAssets(updatedAssets)
-      setAssetToDelete(null)
-      setShowDeleteModal(false)
-    }
+ const confirmDeleteAsset = (): void => {
+  if (assetToDelete) {
+    setAssets((prev) => prev.filter((a) => a.id !== assetToDelete.id))
+    setAssetToDelete(null)
+    setShowDeleteModal(false)
+
+    toast.success("Asset deleted successfully!", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      toastId: "delete-success",
+    })
   }
+}
+
 
   const handleCloseModal = (): void => {
     setShowModal(false)
@@ -1267,8 +1277,8 @@ const AssetsManagement: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
-      <ToastContainer
+        
+      )}<ToastContainer
         position="top-right"
         autoClose={1500}
         hideProgressBar={false}
@@ -1281,6 +1291,7 @@ const AssetsManagement: React.FC = () => {
         theme="light"
         toastClassName="backdrop-blur-sm"
       />
+      
     </div>
   )
 }
