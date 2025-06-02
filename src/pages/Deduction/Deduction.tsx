@@ -41,7 +41,87 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-// DeductionCard component
+// Custom Select Component
+const CustomSelect = ({ 
+  label, 
+  value, 
+  options, 
+  onChange,
+  className = ""
+}: {
+  label: string;
+  value: string;
+  options: { value: string; label: string }[] | string[];
+  onChange: (value: string) => void;
+  className?: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const normalizedOptions = options.map(option => 
+    typeof option === 'string' ? { value: option, label: option } : option
+  );
+
+  const selectedLabel = normalizedOptions.find(opt => opt.value === value)?.label || value;
+
+  return (
+    <div className={`space-y-2 relative ${className}`} ref={dropdownRef}>
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      
+      {/* Custom dropdown button */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-3 border border-gray-300 rounded-lg text-left flex justify-between items-center bg-white hover:border-gray-400 transition-colors"
+      >
+        {selectedLabel}
+        <svg 
+          className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* Dropdown options */}
+      {isOpen && (
+        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+          {normalizedOptions.map((option) => (
+            <div
+              key={option.value}
+              onClick={() => {
+                onChange(option.value);
+                setIsOpen(false);
+              }}
+              className={`p-3 hover:bg-blue-100 cursor-pointer transition-colors ${
+                value === option.value ? 'bg-blue-50 font-medium' : ''
+              }`}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// DeductionCard component (unchanged)
 function DeductionCard({
   card,
   color,
@@ -104,7 +184,7 @@ function DeductionCard({
                       onEdit(card);
                       setShowDropdown(false);
                     }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 transition-colors"
                   >
                     Edit
                   </button>
@@ -114,7 +194,7 @@ function DeductionCard({
                       onDelete(card.id);
                       setShowDropdown(false);
                     }}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-blue-100 transition-colors"
                   >
                     Delete
                   </button>
@@ -225,12 +305,10 @@ export default function Deduction() {
   // Handle clicks outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      // Close modal if clicked outside
       if (isModalOpen && modalRef.current && !modalRef.current.contains(event.target as Node)) {
         closeModal();
       }
       
-      // Close details modal if clicked outside
       if (isDetailsModalOpen && detailsModalRef.current && !detailsModalRef.current.contains(event.target as Node)) {
         closeDetailsModal();
       }
@@ -360,31 +438,29 @@ export default function Deduction() {
       {/* Main content */}
       <div className={`p-6 transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
-        <div className="flex  md:flex-row justify-between mb-6 gap-4">
-          <div className=" flex gap-5 ml-auto">
+        <div className="flex md:flex-row justify-between mb-6 gap-4">
+          <div className="flex gap-5 ml-auto">
             <input
               type="text"
               placeholder="Search deduction types..."
-              className=" p-3 w-52 border border-gray-300  transition-all"
+              className="p-3 w-52 border border-gray-300 transition-all"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-             
-          <button 
-            className="bg-blue-600 w-38 hover:bg-blue-700 text-white px-6 py-3 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
-            onClick={() => {
-              setEditingCard(null);
-              setIsModalOpen(true);
-            }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Add Deduction
-          </button>
+            <button 
+              className="bg-blue-400 w-38 hover:bg-blue-700 text-white px-6 py-3 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+              onClick={() => {
+                setEditingCard(null);
+                setIsModalOpen(true);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Add Deduction
+            </button>
           </div>
-         
         </div>
 
         {/* Cards Grid */}
@@ -441,71 +517,44 @@ export default function Deduction() {
                   </div>
                   
                   {/* Is Pretax */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Is Pretax</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.isPretax}
-                      onChange={(e) => setNewCard({...newCard, isPretax: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Is Pretax"
+                    value={newCard.isPretax}
+                    options={["Yes", "No"]}
+                    onChange={(value) => setNewCard({...newCard, isPretax: value})}
+                  />
                   
                   {/* Is Recurring */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Is Recurring</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.isRecurring}
-                      onChange={(e) => setNewCard({...newCard, isRecurring: e.target.value})}
-                    >
-                      <option value="One Time deduction">One Time deduction</option>
-                      <option value="Monthly">Monthly</option>
-                      <option value="Yearly">Yearly</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Is Recurring"
+                    value={newCard.isRecurring}
+                    options={["One Time deduction", "Monthly", "Yearly"]}
+                    onChange={(value) => setNewCard({...newCard, isRecurring: value})}
+                  />
                   
                   {/* Deduction Type */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Deduction Type</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.deductionType}
-                      onChange={(e) => setNewCard({...newCard, deductionType: e.target.value})}
-                    >
-                      <option value="Amount" className="bg-gray-100 hover:bg-gray-200">Amount</option>
-                      <option value="Percentage" className="bg-gray-100 hover:bg-gray-200">Percentage</option>
-                      <option value="Fixed Amount" className="bg-gray-100 hover:bg-gray-200">Fixed Amount</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Deduction Type"
+                    value={newCard.deductionType}
+                    options={["Amount", "Percentage", "Fixed Amount"]}
+                    onChange={(value) => setNewCard({...newCard, deductionType: value})}
+                  />
                   
                   {/* Is Condition Based */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Is Condition Based</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all "
-                      value={newCard.isConditionBased}
-                      onChange={(e) => setNewCard({...newCard, isConditionBased: e.target.value})}
-                    >
-                      <option value="Yes" className="bg-gray-100 hover:bg-gray-200">Yes</option>
-                      <option value="No" className="bg-gray-100 hover:bg-gray-200">No</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Is Condition Based"
+                    value={newCard.isConditionBased}
+                    options={["Yes", "No"]}
+                    onChange={(value) => setNewCard({...newCard, isConditionBased: value})}
+                  />
                   
                   {/* Calculation Type */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Calculation Type</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.calculationType}
-                      onChange={(e) => setNewCard({...newCard, calculationType: e.target.value})}
-                    >
-                      <option value="Amount">Amount</option>
-                      <option value="Percentage">Percentage</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Calculation Type"
+                    value={newCard.calculationType}
+                    options={["Amount", "Percentage"]}
+                    onChange={(value) => setNewCard({...newCard, calculationType: value})}
+                  />
                   
                   {/* Employer Rate */}
                   <div className="space-y-2">
@@ -526,7 +575,7 @@ export default function Deduction() {
                     <input
                       type="number"
                       step="0.1"
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all hover:bg-gray-100 focus:bg-white"
+                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
                       value={newCard.employeeRate}
                       onChange={(e) => setNewCard({...newCard, employeeRate: e.target.value})}
                       placeholder="Enter employee rate"
@@ -534,31 +583,24 @@ export default function Deduction() {
                   </div>
                   
                   {/* Has Maximum Limit */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Has Maximum Limit</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.hasMaxLimit}
-                      onChange={(e) => setNewCard({...newCard, hasMaxLimit: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Has Maximum Limit"
+                    value={newCard.hasMaxLimit}
+                    options={["Yes", "No"]}
+                    onChange={(value) => setNewCard({...newCard, hasMaxLimit: value})}
+                  />
                   
                   {/* Eligibility Condition */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Eligibility Condition</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.eligibilityCondition}
-                      onChange={(e) => setNewCard({...newCard, eligibilityCondition: e.target.value})}
-                    >
-                      <option value="If Basic Pay Greater Than (>)">If Basic Pay Greater Than (&gt;)</option>
-                      <option value="If Basic Pay Less Than (<)">If Basic Pay Less Than (&lt;)</option>
-                      <option value="Always">Always</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Eligibility Condition"
+                    value={newCard.eligibilityCondition}
+                    options={[
+                      "If Basic Pay Greater Than (>)",
+                      "If Basic Pay Less Than (<)",
+                      "Always"
+                    ]}
+                    onChange={(value) => setNewCard({...newCard, eligibilityCondition: value})}
+                  />
                   
                   {/* Eligibility Value */}
                   <div className="space-y-2">
