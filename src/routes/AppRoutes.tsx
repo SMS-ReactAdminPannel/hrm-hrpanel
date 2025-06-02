@@ -20,6 +20,8 @@ import LeaveTypes from "../pages/Leave Management/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import Assetcategory from "../pages/Asset Category/Assetcategory";
+import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -39,6 +41,7 @@ const AppRoutes = () => {
         <Route index element={<Dashboard />} />
          <Route path="assets-management" element={<AssetsManagement />} /> 
          <Route path="attendance" element={<Attendance />} /> 
+         <Route path="attendance-id" element={<EmployeeDetails />} /> 
          <Route path="employee" element={<Employee />} /> 
          <Route path="Leave-management" element={<Leave />} /> 
          <Route path="organization-chart" element={<OrganizationChart />} /> 
@@ -55,6 +58,9 @@ const AppRoutes = () => {
           <Route path="deduction" element={<Deduction />} /> 
         <Route path="EmployeeShift" element={<EmployeeShift />} />  
         <Route path="RotatingShift" element={<EmployeeShift />} />    
+         <Route path="profile" element={<Profile />} /> 
+         <Route path="asset-category" element={<Assetcategory/>}/>
+        
       </Route>
     </Routes>
   );

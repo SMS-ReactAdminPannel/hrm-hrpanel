@@ -7,6 +7,7 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiUserCheck,
+  FiTruck,
 } from "react-icons/fi";
 import {
   RiMenu2Line,
@@ -70,6 +71,8 @@ const SideBar = () => {
                <SidebarLink to="/recuritment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={isOpen} onClick={handleLinkClick} />
                <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
                 <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={isOpen} onClick={handleLinkClick} />
+               <SidebarLink to="/recruitment/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={isOpen} onClick={handleLinkClick} />
+               <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
           <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time-Sheet" isOpen={isOpen} onClick={handleLinkClick} />
@@ -83,6 +86,13 @@ const SideBar = () => {
           <SidebarLink to="/shift" icon={<MdEventAvailable />} label="shift" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/time-sheet" icon={<MdEventAvailable />} label="time-sheet" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink
+            to="/asset-category"
+            icon={<FiTruck />}
+            label="Asset-category"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
         </nav>
       </div>
 
@@ -182,3 +192,5 @@ const SidebarDropdown = ({
     </div>
   );
 };
+
+
