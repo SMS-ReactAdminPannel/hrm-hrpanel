@@ -18,6 +18,8 @@ import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShi
 import Announcement from "../pages/Announcement/Announcement";
 import LeaveTypes from "../pages/Leave Management/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
+import RecruitmentPipeline from "../pages/Recuritment/pipeline";
+import CandidatesPage from "../pages/Recuritment/Candidates";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -42,15 +44,18 @@ const AppRoutes = () => {
          <Route path="organization-chart" element={<OrganizationChart />} /> 
          <Route path="payroll" element={<Payroll />} /> 
          <Route path="recuritment" element={<Recuritment />} /> 
+         <Route path="/candidates" element={<CandidatesPage />} />
+          <Route path="/pipeline" element={<RecruitmentPipeline />} />
          <Route path="time-sheet" element={<TimeSheet />} /> 
          <Route path="training-management" element={<TrainingManage />} /> 
          <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
-         <Route path="announcement" element={<Announcement />} /> 
-         <Route path="profile" element={<Profile />} /> 
+         <Route path="announcement" element={<Announcement />} />  
          <Route path="leave-types" element={<LeaveTypes />} /> 
           <Route path="deduction" element={<Deduction />} /> 
         
+
+         
       </Route>
     </Routes>
   );
