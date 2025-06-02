@@ -8,7 +8,7 @@ import {
   FiMapPin,
   FiTruck,
   FiSettings,
-//   FiAlertTriangle,
+  FiAlertTriangle,
 } from "react-icons/fi";
 // import Logo from "../../../assets/LOGO.jpg";
 import { RiMenu2Line,RiMenu3Line} from "react-icons/ri";
@@ -121,13 +121,13 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
-          {/* <SidebarLink
-            to="/sos"
+          <SidebarLink
+            to="/visitermanagement"
             icon={<FiAlertTriangle />}
-            label="SOS"
+            label="VisiterManagement"
             isOpen={isOpen}
             onClick={handleLinkClick}
-          /> */}
+          />
         </nav>
       </div>
          <div
