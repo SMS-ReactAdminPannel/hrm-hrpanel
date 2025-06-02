@@ -640,7 +640,7 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-800 to-teal-700 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
               <Plus className="w-5 h-5" />
               Add Asset
