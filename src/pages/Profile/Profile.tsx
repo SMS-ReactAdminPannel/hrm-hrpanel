@@ -967,11 +967,10 @@ const Profile: React.FC = () => {
         <div className="mb-12 text-left">
           <div className="">
             <h1 className="text-4xl font-black leading-tight bg-gradient-to-r from-[#006666] via-[#008080] to-[#006666] bg-clip-text text-transparent mb-4">
-  Profile Management
+ Employee Profile 
 </h1>
 
-            <p className="text-xl text-slate-600 font-medium">Manage and edit your personal information with style</p>
-            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-[#006666] to-[#008080] "></div>
+            
           </div>
         </div>
 
