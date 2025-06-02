@@ -1,30 +1,39 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect, useRef } from "react"
-import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "lucide-react"
-import { toast, ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
+import {
+  Search,
+  Plus,
+  Monitor,
+  Laptop,
+  Package,
+  Edit3,
+  Trash2,
+  Filter,
+} from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Asset {
-  id: string
-  name: string
-  assignedTo: string
-  category: string
-  serialNumber: string
-  status: "active" | "maintenance" | "retired"
-  dateAdded: string
+  id: string;
+  name: string;
+  assignedTo: string;
+  category: string;
+  serialNumber: string;
+  status: "active" | "maintenance" | "retired";
+  dateAdded: string;
 }
 
 interface Employee {
-  id: string
-  name: string
-  email: string
-  department: string
-  position: string
-  phone: string
-  startDate: string
-  manager: string
+  id: string;
+  name: string;
+  email: string;
+  department: string;
+  position: string;
+  phone: string;
+  startDate: string;
+  manager: string;
 }
 
 const employees: Employee[] = [
@@ -178,61 +187,76 @@ const employees: Employee[] = [
     startDate: "2023-10-10",
     manager: "John Smith",
   },
-]
+];
 
 const AssetsManagement: React.FC = () => {
-  const [search, setSearch] = useState<string>("")
-  const [showModal, setShowModal] = useState<boolean>(false)
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
-  const [editingAsset, setEditingAsset] = useState<Asset | null>(null)
-  const [assetToDelete, setAssetToDelete] = useState<Asset | null>(null)
-  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
-  const [showDetailModal, setShowDetailModal] = useState<boolean>(false)
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState<boolean>(false)
-  const [showModalCategoryDropdown, setShowModalCategoryDropdown] = useState<boolean>(false)
-  const [showModalStatusDropdown, setShowModalStatusDropdown] = useState<boolean>(false)
+  const [search, setSearch] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [editingAsset, setEditingAsset] = useState<Asset | null>(null);
+  const [assetToDelete, setAssetToDelete] = useState<Asset | null>(null);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] =
+    useState<boolean>(false);
+  const [showModalCategoryDropdown, setShowModalCategoryDropdown] =
+    useState<boolean>(false);
+  const [showModalStatusDropdown, setShowModalStatusDropdown] =
+    useState<boolean>(false);
 
-  const modalRef = useRef<HTMLDivElement>(null)
-  const categoryDropdownRef = useRef<HTMLDivElement>(null)
-  const modalCategoryDropdownRef = useRef<HTMLDivElement>(null)
-  const modalStatusDropdownRef = useRef<HTMLDivElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null);
+  const categoryDropdownRef = useRef<HTMLDivElement>(null);
+  const modalCategoryDropdownRef = useRef<HTMLDivElement>(null);
+  const modalStatusDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        handleCloseModal()
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        handleCloseModal();
       }
-    }
+    };
 
     if (showModal) {
-      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [showModal])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showModal]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target as Node)) {
-        setShowCategoryDropdown(false)
+      if (
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowCategoryDropdown(false);
       }
-      if (modalCategoryDropdownRef.current && !modalCategoryDropdownRef.current.contains(event.target as Node)) {
-        setShowModalCategoryDropdown(false)
+      if (
+        modalCategoryDropdownRef.current &&
+        !modalCategoryDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowModalCategoryDropdown(false);
       }
-      if (modalStatusDropdownRef.current && !modalStatusDropdownRef.current.contains(event.target as Node)) {
-        setShowModalStatusDropdown(false)
+      if (
+        modalStatusDropdownRef.current &&
+        !modalStatusDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowModalStatusDropdown(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [assets, setAssets] = useState<Asset[]>([
     {
       id: "1",
@@ -261,7 +285,7 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-02-10",
     },
-    
+
     {
       id: "3",
       name: 'Monitor MSI 27"',
@@ -406,8 +430,7 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-02-10",
     },
-
-  ])
+  ]);
 
   const [newAsset, setNewAsset] = useState<Omit<Asset, "id" | "dateAdded">>({
     name: "",
@@ -415,34 +438,40 @@ const AssetsManagement: React.FC = () => {
     category: "",
     serialNumber: "",
     status: "active",
-  })
+  });
 
-  const categories = ["all", "Laptop", "Monitor", "Accessory"]
+  const categories = ["all", "Laptop", "Monitor", "Accessory"];
 
   const filteredAssets = assets.filter((asset) => {
     const matchesSearch =
       asset.name.toLowerCase().includes(search.toLowerCase()) ||
-      asset.assignedTo.toLowerCase().includes(search.toLowerCase())
-    const matchesCategory = selectedCategory === "all" || asset.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+      asset.assignedTo.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || asset.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   const handleAddAsset = (): void => {
-    if (newAsset.name && newAsset.assignedTo && newAsset.category && newAsset.serialNumber) {
+    if (
+      newAsset.name &&
+      newAsset.assignedTo &&
+      newAsset.category &&
+      newAsset.serialNumber
+    ) {
       const asset: Asset = {
         ...newAsset,
         id: Date.now().toString(),
         dateAdded: new Date().toISOString().split("T")[0],
-      }
-      setAssets([...assets, asset])
+      };
+      setAssets([...assets, asset]);
       setNewAsset({
         name: "",
         assignedTo: "",
         category: "",
         serialNumber: "",
         status: "active",
-      })
-      setShowModal(false)
+      });
+      setShowModal(false);
       toast.success("Asset added successfully!", {
         position: "top-right",
         autoClose: 3000,
@@ -450,35 +479,43 @@ const AssetsManagement: React.FC = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-      })
+      });
     }
-  }
+  };
 
   const handleEditAsset = (asset: Asset): void => {
-    setEditingAsset(asset)
+    setEditingAsset(asset);
     setNewAsset({
       name: asset.name,
       assignedTo: asset.assignedTo,
       category: asset.category,
       serialNumber: asset.serialNumber,
       status: asset.status,
-    })
-    setShowModal(true)
-  }
+    });
+    setShowModal(true);
+  };
 
   const handleUpdateAsset = (): void => {
-    if (editingAsset && newAsset.name && newAsset.assignedTo && newAsset.category && newAsset.serialNumber) {
-      const updatedAssets = assets.map((asset) => (asset.id === editingAsset.id ? { ...asset, ...newAsset } : asset))
-      setAssets(updatedAssets)
-      setEditingAsset(null)
+    if (
+      editingAsset &&
+      newAsset.name &&
+      newAsset.assignedTo &&
+      newAsset.category &&
+      newAsset.serialNumber
+    ) {
+      const updatedAssets = assets.map((asset) =>
+        asset.id === editingAsset.id ? { ...asset, ...newAsset } : asset
+      );
+      setAssets(updatedAssets);
+      setEditingAsset(null);
       setNewAsset({
         name: "",
         assignedTo: "",
         category: "",
         serialNumber: "",
         status: "active",
-      })
-      setShowModal(false)
+      });
+      setShowModal(false);
       toast.success("Asset updated successfully!", {
         position: "top-right",
         autoClose: 3000,
@@ -486,123 +523,132 @@ const AssetsManagement: React.FC = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-      })
+      });
     }
-  }
+  };
 
   const styleLinear = {
     background : 'linear-gradient(to right, #facc15, black)'
   }
 
   const handleDeleteAsset = (asset: Asset): void => {
-    setAssetToDelete(asset)
-    setShowDeleteModal(true)
-  }
+    setAssetToDelete(asset);
+    setShowDeleteModal(true);
+  };
 
   const confirmDeleteAsset = (): void => {
     if (assetToDelete) {
-      const updatedAssets = assets.filter((asset) => asset.id !== assetToDelete.id)
-      setAssets(updatedAssets)
-      setAssetToDelete(null)
-      setShowDeleteModal(false)
+      const updatedAssets = assets.filter(
+        (asset) => asset.id !== assetToDelete.id
+      );
+      setAssets(updatedAssets);
+      setAssetToDelete(null);
+      setShowDeleteModal(false);
     }
-  }
+  };
 
   const handleCloseModal = (): void => {
-    setShowModal(false)
-    setEditingAsset(null)
-    setShowModalCategoryDropdown(false)
-    setShowModalStatusDropdown(false)
+    setShowModal(false);
+    setEditingAsset(null);
+    setShowModalCategoryDropdown(false);
+    setShowModalStatusDropdown(false);
     setNewAsset({
       name: "",
       assignedTo: "",
       category: "",
       serialNumber: "",
       status: "active",
-    })
-  }
+    });
+  };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "Laptop":
-        return <Laptop className="w-4 h-4" />
+        return <Laptop className="w-4 h-4" />;
       case "Monitor":
-        return <Monitor className="w-4 h-4" />
+        return <Monitor className="w-4 h-4" />;
       case "Accessory":
-        return <Package className="w-4 h-4" />
+        return <Package className="w-4 h-4" />;
       default:
-        return <Package className="w-4 h-4" />
+        return <Package className="w-4 h-4" />;
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-emerald-100 text-emerald-800 border-emerald-200"
+        return "bg-emerald-100 text-emerald-800 border-emerald-200";
       case "maintenance":
-        return "bg-amber-100 text-amber-800 border-amber-200"
+        return "bg-amber-100 text-amber-800 border-amber-200";
       case "retired":
-        return "bg-red-100 text-red-800 border-red-200"
+        return "bg-red-100 text-red-800 border-red-200";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200"
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
-  }
+  };
 
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const assetsPerPage = 7
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const assetsPerPage = 7;
 
-  const paginatedAssets = filteredAssets.slice((currentPage - 1) * assetsPerPage, currentPage * assetsPerPage)
+  const paginatedAssets = filteredAssets.slice(
+    (currentPage - 1) * assetsPerPage,
+    currentPage * assetsPerPage
+  );
 
-  const totalPages = Math.ceil(filteredAssets.length / assetsPerPage)
+  const totalPages = Math.ceil(filteredAssets.length / assetsPerPage);
 
   const generatePaginationItems = () => {
-    const items = []
-    const maxVisiblePages = 10
+    const items = [];
+    const maxVisiblePages = 10;
 
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
-        items.push(i)
+        items.push(i);
       }
     } else {
-      const leftOffset = Math.floor(maxVisiblePages / 2)
-      const rightOffset = Math.ceil(maxVisiblePages / 2) - 1
+      const leftOffset = Math.floor(maxVisiblePages / 2);
+      const rightOffset = Math.ceil(maxVisiblePages / 2) - 1;
 
       if (currentPage <= leftOffset + 1) {
         for (let i = 1; i <= maxVisiblePages - 1; i++) {
-          items.push(i)
+          items.push(i);
         }
-        items.push("ellipsis")
-        items.push(totalPages)
+        items.push("ellipsis");
+        items.push(totalPages);
       } else if (currentPage >= totalPages - rightOffset) {
-        items.push(1)
-        items.push("ellipsis")
+        items.push(1);
+        items.push("ellipsis");
         for (let i = totalPages - maxVisiblePages + 2; i <= totalPages; i++) {
-          items.push(i)
+          items.push(i);
         }
       } else {
-        items.push(1)
-        items.push("ellipsis")
-        for (let i = currentPage - leftOffset + 1; i <= currentPage + rightOffset - 1; i++) {
-          items.push(i)
+        items.push(1);
+        items.push("ellipsis");
+        for (
+          let i = currentPage - leftOffset + 1;
+          i <= currentPage + rightOffset - 1;
+          i++
+        ) {
+          items.push(i);
         }
-        items.push("ellipsis")
-        items.push(totalPages)
+        items.push("ellipsis");
+        items.push(totalPages);
       }
     }
 
-    return items
-  }
+    return items;
+  };
 
-  const paginationItems = generatePaginationItems()
+  const paginationItems = generatePaginationItems();
 
   const handleRowClick = (asset: Asset): void => {
-    setSelectedAsset(asset)
-    setShowDetailModal(true)
-  }
+    setSelectedAsset(asset);
+    setShowDetailModal(true);
+  };
 
   const getEmployeeDetails = (employeeName: string): Employee | null => {
-    return employees.find((emp) => emp.name === employeeName) || null
-  }
+    return employees.find((emp) => emp.name === employeeName) || null;
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
@@ -617,11 +663,13 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-         <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-  Asset Management
-</h1>
+          <h1 className="text-4xl font-bold text-[#006666]  mt-2 leading-relaxed pb-1">
+            Asset Management
+          </h1>
 
-          <p className="text-slate-600">Manage and track your organization's assets</p>
+          <p className="text-slate-600">
+            Manage and track your organization's assets
+          </p>
         </div>
 
         {/* Controls */}
@@ -644,14 +692,25 @@ const AssetsManagement: React.FC = () => {
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
                 className="pl-10 pr-8 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
               >
-                <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
+                <span>
+                  {selectedCategory === "all"
+                    ? "All Categories"
+                    : selectedCategory}
+                </span>
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${showCategoryDropdown ? "rotate-180" : ""}`}
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    showCategoryDropdown ? "rotate-180" : ""
+                  }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
@@ -661,8 +720,8 @@ const AssetsManagement: React.FC = () => {
                     <button
                       key={cat}
                       onClick={() => {
-                        setSelectedCategory(cat)
-                        setShowCategoryDropdown(false)
+                        setSelectedCategory(cat);
+                        setShowCategoryDropdown(false);
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
@@ -680,7 +739,7 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
               <Plus className="w-5 h-5" />
               Add Asset
@@ -694,7 +753,9 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Total Assets</p>
-                <p className="text-2xl font-bold text-slate-800">{assets.length}</p>
+                <p className="text-2xl font-bold text-slate-800">
+                  {assets.length}
+                </p>
               </div>
               <Package className="w-8 h-8 text-blue-600" />
             </div>
@@ -729,7 +790,9 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Categories</p>
-                <p className="text-2xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
+                <p className="text-2xl font-bold text-slate-800">
+                  {new Set(assets.map((a) => a.category)).size}
+                </p>
               </div>
               <Filter className="w-8 h-8 text-purple-600" />
             </div>
@@ -741,14 +804,19 @@ const AssetsManagement: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead
-                className="bg-gradient-to-r from-slate-800 to-teal-700 text-white"
-                // style={styleLinear}
-               >
+                className="bg-[#006666] text-white"
+              >
                 <tr>
-                  <th className="text-left px-6 py-4 font-medium">Asset Details</th>
-                  <th className="text-left px-6 py-4 font-medium">Assigned To</th>
+                  <th className="text-left px-6 py-4 font-medium">
+                    Asset Details
+                  </th>
+                  <th className="text-left px-6 py-4 font-medium">
+                    Assigned To
+                  </th>
                   <th className="text-left px-6 py-4 font-medium">Category</th>
-                  <th className="text-left px-6 py-4 font-medium">Serial Number</th>
+                  <th className="text-left px-6 py-4 font-medium">
+                    Serial Number
+                  </th>
                   <th className="text-left px-6 py-4 font-medium">Status</th>
                   <th className="text-left px-6 py-4 font-medium">Actions</th>
                 </tr>
@@ -767,8 +835,12 @@ const AssetsManagement: React.FC = () => {
                           {getCategoryIcon(asset.category)}
                         </div>
                         <div>
-                          <p className="font-medium text-slate-800">{asset.name}</p>
-                          <p className="text-sm text-slate-500">Issued on {asset.dateAdded}</p>
+                          <p className="font-medium text-slate-800">
+                            {asset.name}
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            Issued on {asset.dateAdded}
+                          </p>
                         </div>
                       </div>
                     </td>
@@ -780,7 +852,9 @@ const AssetsManagement: React.FC = () => {
                             .map((n) => n[0])
                             .join("")}
                         </div>
-                        <span className="text-slate-700">{asset.assignedTo}</span>
+                        <span className="text-slate-700">
+                          {asset.assignedTo}
+                        </span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -796,17 +870,20 @@ const AssetsManagement: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(asset.status)}`}
+                        className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                          asset.status
+                        )}`}
                       >
-                        {String(asset.status).charAt(0).toUpperCase() + String(asset.status).slice(1)}
+                        {String(asset.status).charAt(0).toUpperCase() +
+                          String(asset.status).slice(1)}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex gap-2">
                         <button
                           onClick={(e) => {
-                            e.stopPropagation()
-                            handleEditAsset(asset)
+                            e.stopPropagation();
+                            handleEditAsset(asset);
                           }}
                           className="p-2 text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all"
                         >
@@ -814,8 +891,8 @@ const AssetsManagement: React.FC = () => {
                         </button>
                         <button
                           onClick={(e) => {
-                            e.stopPropagation()
-                            handleDeleteAsset(asset)
+                            e.stopPropagation();
+                            handleDeleteAsset(asset);
                           }}
                           className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                         >
@@ -860,10 +937,13 @@ const AssetsManagement: React.FC = () => {
             {paginationItems.map((item, index) => {
               if (item === "ellipsis") {
                 return (
-                  <span key={`ellipsis-${index}`} className="px-3 py-2 text-slate-500 select-none">
+                  <span
+                    key={`ellipsis-${index}`}
+                    className="px-3 py-2 text-slate-500 select-none"
+                  >
                     ...
                   </span>
-                )
+                );
               }
 
               return (
@@ -878,12 +958,14 @@ const AssetsManagement: React.FC = () => {
                 >
                   {item}
                 </button>
-              )
+              );
             })}
 
             {/* Next Button */}
             <button
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
@@ -910,7 +992,9 @@ const AssetsManagement: React.FC = () => {
           <div className="text-center py-12">
             <Package className="w-16 h-16 text-slate-400 mx-auto mb-4" />
             <p className="text-slate-600 text-lg">No assets found</p>
-            <p className="text-slate-500">Try adjusting your search or filter criteria</p>
+            <p className="text-slate-500">
+              Try adjusting your search or filter criteria
+            </p>
           </div>
         )}
       </div>
@@ -928,44 +1012,67 @@ const AssetsManagement: React.FC = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Asset Name</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Asset Name
+                </label>
                 <input
                   type="text"
                   placeholder="Enter asset name"
                   value={newAsset.name}
-                  onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
+                  onChange={(e) =>
+                    setNewAsset({ ...newAsset, name: e.target.value })
+                  }
                   className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Assigned To</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Assigned To
+                </label>
                 <input
                   type="text"
                   placeholder="Enter assignee name"
                   value={newAsset.assignedTo}
-                  onChange={(e) => setNewAsset({ ...newAsset, assignedTo: e.target.value })}
+                  onChange={(e) =>
+                    setNewAsset({ ...newAsset, assignedTo: e.target.value })
+                  }
                   className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Category
+                </label>
                 <div className="relative" ref={modalCategoryDropdownRef}>
                   <button
-                    onClick={() => setShowModalCategoryDropdown(!showModalCategoryDropdown)}
+                    onClick={() =>
+                      setShowModalCategoryDropdown(!showModalCategoryDropdown)
+                    }
                     className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all appearance-none flex items-center justify-between"
                   >
-                    <span className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
+                    <span
+                      className={
+                        newAsset.category ? "text-slate-800" : "text-slate-500"
+                      }
+                    >
                       {newAsset.category || "Select category"}
                     </span>
                     <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        showModalCategoryDropdown ? "rotate-180" : ""
+                      }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </button>
 
@@ -975,8 +1082,8 @@ const AssetsManagement: React.FC = () => {
                         <button
                           key={cat}
                           onClick={() => {
-                            setNewAsset({ ...newAsset, category: cat })
-                            setShowModalCategoryDropdown(false)
+                            setNewAsset({ ...newAsset, category: cat });
+                            setShowModalCategoryDropdown(false);
                           }}
                           className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                             newAsset.category === cat
@@ -994,60 +1101,85 @@ const AssetsManagement: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Serial Number</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Serial Number
+                </label>
                 <input
                   type="text"
                   placeholder="Enter serial number"
                   value={newAsset.serialNumber}
-                  onChange={(e) => setNewAsset({ ...newAsset, serialNumber: e.target.value })}
+                  onChange={(e) =>
+                    setNewAsset({ ...newAsset, serialNumber: e.target.value })
+                  }
                   className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Status
+                </label>
                 <div className="relative" ref={modalStatusDropdownRef}>
                   <button
-                    onClick={() => setShowModalStatusDropdown(!showModalStatusDropdown)}
+                    onClick={() =>
+                      setShowModalStatusDropdown(!showModalStatusDropdown)
+                    }
                     className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all appearance-none flex items-center justify-between"
                   >
                     <span className="flex items-center gap-2">
                       <span
-                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(newAsset.status)}`}
+                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                          newAsset.status
+                        )}`}
                       >
-                        {String(newAsset.status).charAt(0).toUpperCase() + String(newAsset.status).slice(1)}
+                        {String(newAsset.status).charAt(0).toUpperCase() +
+                          String(newAsset.status).slice(1)}
                       </span>
                     </span>
                     <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${showModalStatusDropdown ? "rotate-180" : ""}`}
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        showModalStatusDropdown ? "rotate-180" : ""
+                      }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </button>
 
                   {showModalStatusDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {(["active", "maintenance", "retired"] as const).map((status) => (
-                        <button
-                          key={status}
-                          onClick={() => {
-                            setNewAsset({ ...newAsset, status })
-                            setShowModalStatusDropdown(false)
-                          }}
-                          className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                            newAsset.status === status ? "bg-gradient-to-r from-teal-50 to-cyan-50" : ""
-                          }`}
-                        >
-                          <span
-                            className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(status)}`}
+                      {(["active", "maintenance", "retired"] as const).map(
+                        (status) => (
+                          <button
+                            key={status}
+                            onClick={() => {
+                              setNewAsset({ ...newAsset, status });
+                              setShowModalStatusDropdown(false);
+                            }}
+                            className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
+                              newAsset.status === status
+                                ? "bg-gradient-to-r from-teal-50 to-cyan-50"
+                                : ""
+                            }`}
                           >
-                            {String(status).charAt(0).toUpperCase() + String(status).slice(1)}
-                          </span>
-                        </button>
-                      ))}
+                            <span
+                              className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                                status
+                              )}`}
+                            >
+                              {String(status).charAt(0).toUpperCase() +
+                                String(status).slice(1)}
+                            </span>
+                          </button>
+                        )
+                      )}
                     </div>
                   )}
                 </div>
@@ -1080,10 +1212,13 @@ const AssetsManagement: React.FC = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-teal-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-[white]" />
               </div>
-              <h2 className="text-2xl font-bold text-slate-800  mb-2">Delete Asset</h2>
+              <h2 className="text-2xl font-bold text-slate-800  mb-2">
+                Delete Asset
+              </h2>
               <p className="text-slate-600 mb-6">
-                Are you sure you want to delete <span className="font-semibold">"{assetToDelete.name}"</span>? This
-                action cannot be undone.
+                Are you sure you want to delete{" "}
+                <span className="font-semibold">"{assetToDelete.name}"</span>?
+                This action cannot be undone.
               </p>
 
               <div className="flex gap-3">
@@ -1117,8 +1252,18 @@ const AssetsManagement: React.FC = () => {
                 onClick={() => setShowDetailModal(false)}
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -1131,7 +1276,9 @@ const AssetsManagement: React.FC = () => {
                     {getCategoryIcon(selectedAsset.category)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-slate-800">Asset Information</h3>
+                    <h3 className="text-xl font-semibold text-slate-800">
+                      Asset Information
+                    </h3>
                     <p className="text-slate-600">Complete asset details</p>
                   </div>
                 </div>
@@ -1139,51 +1286,77 @@ const AssetsManagement: React.FC = () => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Asset Name</label>
-                      <p className="text-lg font-semibold text-slate-800">{selectedAsset.name}</p>
+                      <label className="text-sm font-medium text-slate-600">
+                        Asset Name
+                      </label>
+                      <p className="text-lg font-semibold text-slate-800">
+                        {selectedAsset.name}
+                      </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Category</label>
+                      <label className="text-sm font-medium text-slate-600">
+                        Category
+                      </label>
                       <div className="flex items-center gap-2 mt-1">
                         {getCategoryIcon(selectedAsset.category)}
-                        <span className="text-slate-800 font-medium">{selectedAsset.category}</span>
+                        <span className="text-slate-800 font-medium">
+                          {selectedAsset.category}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Serial Number</label>
+                      <label className="text-sm font-medium text-slate-600">
+                        Serial Number
+                      </label>
                       <code className="block bg-slate-100 px-3 py-2 rounded-lg text-sm font-mono text-slate-800 mt-1">
                         {selectedAsset.serialNumber}
                       </code>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Status</label>
+                      <label className="text-sm font-medium text-slate-600">
+                        Status
+                      </label>
                       <div className="mt-1">
                         <span
-                          className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(selectedAsset.status)}`}
+                          className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                            selectedAsset.status
+                          )}`}
                         >
-                          {String(selectedAsset.status).charAt(0).toUpperCase() + String(selectedAsset.status).slice(1)}
+                          {String(selectedAsset.status)
+                            .charAt(0)
+                            .toUpperCase() +
+                            String(selectedAsset.status).slice(1)}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-600">Date Added</label>
+                    <label className="text-sm font-medium text-slate-600">
+                      Date Added
+                    </label>
                     <p className="text-slate-800 font-medium mt-1">
-                      {new Date(selectedAsset.dateAdded).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                      {new Date(selectedAsset.dateAdded).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
                     </p>
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-600">Asset ID</label>
-                    <p className="text-slate-800 font-medium mt-1">#{selectedAsset.id}</p>
+                    <label className="text-sm font-medium text-slate-600">
+                      Asset ID
+                    </label>
+                    <p className="text-slate-800 font-medium mt-1">
+                      #{selectedAsset.id}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1191,7 +1364,7 @@ const AssetsManagement: React.FC = () => {
               {/* Employee Information */}
               <div className="bg-white/60 rounded-xl p-6 border border-white/20">
                 {(() => {
-                  const employee = getEmployeeDetails(selectedAsset.assignedTo)
+                  const employee = getEmployeeDetails(selectedAsset.assignedTo);
                   return (
                     <>
                       <div className="flex items-center gap-3 mb-6">
@@ -1202,8 +1375,12 @@ const AssetsManagement: React.FC = () => {
                             .join("")}
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Employee Information</h3>
-                          <p className="text-slate-600">Assigned user details</p>
+                          <h3 className="text-xl font-semibold text-slate-800">
+                            Employee Information
+                          </h3>
+                          <p className="text-slate-600">
+                            Assigned user details
+                          </p>
                         </div>
                       </div>
 
@@ -1211,28 +1388,46 @@ const AssetsManagement: React.FC = () => {
                         <div className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Full Name</label>
-                              <p className="text-lg font-semibold text-slate-800">{employee.name}</p>
+                              <label className="text-sm font-medium text-slate-600">
+                                Full Name
+                              </label>
+                              <p className="text-lg font-semibold text-slate-800">
+                                {employee.name}
+                              </p>
                             </div>
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Position</label>
-                              <p className="text-slate-800 font-medium">{employee.position}</p>
+                              <label className="text-sm font-medium text-slate-600">
+                                Position
+                              </label>
+                              <p className="text-slate-800 font-medium">
+                                {employee.position}
+                              </p>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Department</label>
-                              <p className="text-slate-800 font-medium">{employee.department}</p>
+                              <label className="text-sm font-medium text-slate-600">
+                                Department
+                              </label>
+                              <p className="text-slate-800 font-medium">
+                                {employee.department}
+                              </p>
                             </div>
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Manager</label>
-                              <p className="text-slate-800 font-medium">{employee.manager}</p>
+                              <label className="text-sm font-medium text-slate-600">
+                                Manager
+                              </label>
+                              <p className="text-slate-800 font-medium">
+                                {employee.manager}
+                              </p>
                             </div>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Email Address</label>
+                            <label className="text-sm font-medium text-slate-600">
+                              Email Address
+                            </label>
                             <a
                               href={`mailto:${employee.email}`}
                               className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
@@ -1242,7 +1437,9 @@ const AssetsManagement: React.FC = () => {
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Phone Number</label>
+                            <label className="text-sm font-medium text-slate-600">
+                              Phone Number
+                            </label>
                             <a
                               href={`tel:${employee.phone}`}
                               className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
@@ -1252,13 +1449,18 @@ const AssetsManagement: React.FC = () => {
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Start Date</label>
+                            <label className="text-sm font-medium text-slate-600">
+                              Start Date
+                            </label>
                             <p className="text-slate-800 font-medium mt-1">
-                              {new Date(employee.startDate).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              })}
+                              {new Date(employee.startDate).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                }
+                              )}
                             </p>
                           </div>
                         </div>
@@ -1279,12 +1481,16 @@ const AssetsManagement: React.FC = () => {
                               />
                             </svg>
                           </div>
-                          <p className="text-slate-600">Employee details not found</p>
-                          <p className="text-sm text-slate-500">Assigned to: {selectedAsset.assignedTo}</p>
+                          <p className="text-slate-600">
+                            Employee details not found
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            Assigned to: {selectedAsset.assignedTo}
+                          </p>
                         </div>
                       )}
                     </>
-                  )
+                  );
                 })()}
               </div>
             </div>
@@ -1293,8 +1499,8 @@ const AssetsManagement: React.FC = () => {
             <div className="flex gap-3 mt-8 pt-6 border-t border-slate-200">
               <button
                 onClick={() => {
-                  setShowDetailModal(false)
-                  handleEditAsset(selectedAsset)
+                  setShowDetailModal(false);
+                  handleEditAsset(selectedAsset);
                 }}
                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
               >
@@ -1325,7 +1531,7 @@ const AssetsManagement: React.FC = () => {
         toastClassName="backdrop-blur-sm"
       />
     </div>
-  )
-}
+  );
+};
 
-export default AssetsManagement
+export default AssetsManagement;

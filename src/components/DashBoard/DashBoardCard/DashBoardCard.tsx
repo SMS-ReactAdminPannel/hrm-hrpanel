@@ -8,7 +8,7 @@ import DashBoardCardBar from "../DashBoardCardBar/DashBoardCardBar";
 
 const Dashboardcard = () => {
   return (
-    <div className="flex flec-cols justify-between  bg-white rounded-xl  flex-1 p-2 text-[#006666]   md:flex-cols md:flex ">
+    <div className="flex flec-cols justify-between bg-white rounded-xl flex-1 p-2 text-[#006666] md:flex-cols md:flex ">
       <div className="grid grid-cols-2 flex-2.5  md:grid-cols-1 md:grid md:flex-0.5 ">
         <div className=" border-r-2 border-b-2  p-5    ">
           <div className="p-3 ">

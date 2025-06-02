@@ -4,7 +4,6 @@ import { CiSearch } from "react-icons/ci"
 import { FaBriefcase } from "react-icons/fa"
 import { IoIosPeople } from "react-icons/io"
 import { MdTimer } from "react-icons/md"
-import EmployeeAttendance from "../../components/common/Attendance/EmployeeAttendance"
 import { useNavigate } from "react-router-dom";
 const Attendance: React.FC = () => {
 
@@ -109,12 +108,27 @@ const Attendance: React.FC = () => {
   navigate("/attendance-id", { state: { employee } });
 };
 
+const dummyData = [
+  {
+    id: 1,
+    name: "Kia",
+    email: "kia@company.com",
+    status: "approved",
+  },
+  {
+    id: 2,
+    name: "Sam",
+    email: "Sam@company.com",
+    status: "pending",
+  },
+]
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     
     <div className="p-6 space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
       <div>
-        <p className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+        <p className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
           Attendance Management
         </p>
       </div>
@@ -136,13 +150,50 @@ const Attendance: React.FC = () => {
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+            <div>
+      {/* Permission Summary Card */}
+      <div
+        className=" cursor-pointer flex justify-between items-center max-w-sm"
+        onClick={() => setIsOpen(true)}
+      >
+        <div>
+          <p className="text-gray-600 text-xl">Permission</p>
+          <p className="text-2xl font-bold">{dummyData.length}</p>
+        </div>
+        <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
+      </div>
+
+      {/* Simple Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Permission Requests</h2>
+              <button onClick={() => setIsOpen(false)} className="text-gray-500 text-sm">Close</button>
+            </div>
+
+            {dummyData.map((person) => (
+              <div key={person.id} className="border-b py-3">
+                <p className="font-semibold">{person.name}</p>
+                <p className="text-sm text-gray-500">{person.email}</p>
+                <p className="text-xs capitalize text-gray-400">{person.status}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+          </div>
+          
           {/* Right: Pie Chart with Labels */}
           <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
             <div>
-              <p className="text-lg font-semibold mb-1">Attendance</p>
+              <p className=" text-gray-600 text-xl mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
               <p className="text-red-500">Absent: {details.filter((emp) => emp.Status === "Absent").length}</p>
             </div>
+            
             <PieChart width={120} height={120}>
               <Pie
                 data={chartData}
@@ -240,7 +291,7 @@ const Attendance: React.FC = () => {
       {/* Table Section */}
       <div className="overflow-x-auto rounded-xl">
         <table className="min-w-full bg-white border rounded shadow-md">
-          <thead className="bg-gradient-to-r from-slate-800  p-6 to-cyan-600 text-white">
+          <thead className="bg-[#006666] text-white">
             <tr>
               <th className="px-6 py-4 text-left">ID</th>
               <th className="px-6 py-4 text-left">Name</th>
@@ -285,11 +336,6 @@ const Attendance: React.FC = () => {
             ))}
           </tbody>
         </table>
-        {selectedEmployee && (
-  <div className="mt-6">
-    <EmployeeAttendance employee={selectedEmployee} onClose={() => setSelectedEmployee(null)} />
-  </div>
-)}
 
 
         {/* Pagination Controls */}

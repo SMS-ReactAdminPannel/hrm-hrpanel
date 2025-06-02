@@ -1,47 +1,55 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
-
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 import { ChevronDown } from "lucide-react";
 
-const chartData = [
-  {
-    department: "FinancialTeam",
-    Value: 44,
-    fill:"#93c5fd"
-    
-  },
-  {
-    department: "ProjectManager",
-    Value: 23,
-    fill:"#fda4af"
-  },
-  {
-    department: "MarketingTeam",
-    Value: 15,
-     fill:"#6ee7b7"
-  },
-  {
-    department: "ProductDesignTeam",
-    Value: 22,
-    fill:"#d8b4fe"
-  },
-  
-];
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+// Different data for each range
+const dataSets = {
+  Weekly: [
+    { department: "FinancialTeam", Value: 55, fill: "#4f46e5" },
+    { department: "ProjectManager", Value: 35, fill: "#ec4899" },
+    { department: "Customer Support", Value: 28, fill: "#22c55e" },
+    { department: "ProductDesignTeam", Value: 18, fill: "#fbbf24" },
+    { department: "Human Resources", Value: 90, fill: "#94e3e3" }
+  ],
+  Monthly: [
+    { department: "FinancialTeam", Value: 230, fill: "#4f46e5" },
+    { department: "ProjectManager", Value: 140, fill: "#ec4899" },
+    { department: "MarketingTeamt", Value: 105, fill: "#22c55e" },
+    { department: "ProductDesignTeam", Value: 90, fill: "#fbbf24" },
+    { department: "Human Resources", Value: 90, fill: "#94e3e3" }
+  ],
+  Yearly: [
+    { department: "FinancialTeam", Value: 2700, fill: "#4f46e5" },
+    { department: "ProjectManager", Value: 1700, fill: "#ec4899" },
+    { department: "Customer Support", Value: 1300, fill: "#22c55e" },
+    { department: "ProductDesignTeam", Value: 1100, fill: "#fbbf24" },
+    { department: "Human Resources", Value: 90, fill: "#94e3e3" }
+  ],
+};
+
 const dateRanges = ["Weekly", "Monthly", "Yearly"];
 
-const DashBoardCardBar = () => {
-  const [selectedRange, setSelectedRange] = useState("");
-
+const DashBoardCardBar: React.FC = () => {
+  const [selectedRange, setSelectedRange] = useState<"Weekly" | "Monthly" | "Yearly">("Weekly");
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,58 +65,84 @@ const DashBoardCardBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Function to get filtered data based on selected range (you can customize this logic)
-  const getFilteredData = () => {
-    // Add your filtering logic here based on selectedRange
-    // For now, returning the same data, but you can modify this based on your needs
-    switch (selectedRange) {
-      case "Weekly":
-        return chartData;
-      case "Monthly":
-        // You can return monthly data here
-        return chartData;
-      case "Yearly":
-        // You can return yearly data here
-        return chartData;
-      default:
-        return chartData;
-    }
+  // Get data based on selected range
+  const filteredData = dataSets[selectedRange];
+
+  const data = {
+    labels: filteredData.map((d) => d.department),
+    datasets: [
+      {
+        label: "Employee Performance",
+        data: filteredData.map((d) => d.Value),
+        backgroundColor: filteredData.map((d) => d.fill),
+        borderRadius: 0,
+        barPercentage: 0.5,
+        categoryPercentage: 0.7,
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        grid: {
+          display: false,
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    hover: {
+      mode: undefined,
+    },
+    interaction: {
+      mode: undefined,
+      intersect: false,
+    },
   };
 
   return (
-    <div className="  w-full h-[200px] p-5 ">
-      <div className="flex justify-between items-center ">
-        <div className="">
-          <h2 className="text-xl font-semibold text-[#006666]">
-            Empolyee Performance
-          </h2>
+    <div className="w-full h-[180px] p-5">
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h2 className="text-xl font-semibold text-[#006666]">Departments</h2>
           <div className="flex space-x-4 text-xs mt-4">
-            <div className="flex items-center space-x-1 text-blue-600">
-              <span className="h-2 w-2 bg-[#93c5fd] rounded-full"></span>
-              <span className="text-[#93c5fd]">FinancialTeam</span>
-            </div>
-            <div className="flex items-center space-x-1 text-rose-400">
-              <span className="h-2 w-2 bg-[#aac3c4] rounded-full"></span>
-              <span className="text-[#aac3c4] ">ProjectManager</span>
-            </div>
-            <div className="flex items-center space-x-1 text-blue-600">
-              <span className="h-2 w-2 bg-[#ebb8ee] rounded-full"></span>
-              <span className="text-[#eca9f0]">MarketingTeam</span>
-            </div>
-            <div className="flex items-center space-x-1 text-rose-400">
-              <span className="h-2 w-2 bg-[#aac3c4] rounded-full"></span>
-              <span className="text-[#aac3c4] ">ProductDesignTeam</span>
-            </div>
+            {filteredData.map(({ department, fill }) => (
+              <div
+                key={department}
+                className="flex items-center space-x-1"
+                style={{ color: fill }}
+              >
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: fill }}
+                ></span>
+                <span>{department}</span>
+              </div>
+            ))}
           </div>
         </div>
+
         {/* Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center text-xs text-[#006666] border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50"
           >
-             {selectedRange}
-            <ChevronDown className="w-4 h-4 ]" />
+            {selectedRange}
+            <ChevronDown className="w-4 h-4" />
           </button>
           {isOpen && (
             <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-lg z-10 min-w-[100px]">
@@ -116,12 +150,12 @@ const DashBoardCardBar = () => {
                 <button
                   key={range}
                   onClick={() => {
-                    setSelectedRange(range);
+                    setSelectedRange(range as "Weekly" | "Monthly" | "Yearly");
                     setIsOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
+                  className={`block w-full text-left px-4 py-2  text-sm hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200  ${
                     selectedRange === range
-                      ? "text- bg-gray-50 font-medium"
+                      ? "font-medium bg-gray-100"
                       : "text-gray-700"
                   }`}
                 >
@@ -133,26 +167,9 @@ const DashBoardCardBar = () => {
         </div>
       </div>
 
-      <div className="-ml-10 mt-2 ">
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart
-            data={getFilteredData()}  
-            margin={{ top: 20, right: 30, left: 60, bottom: 5 }}
-          >
-            <Bar dataKey="Value" radius={[0, 0, 0, 0]} barSize={50}>
-              {
-                // custom colors for each bar
-                getFilteredData().map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
-                ))
-              }
-            </Bar>
-            <XAxis  dataKey="department" />
-            <YAxis  />
-            <Tooltip />
-            
-          </BarChart>
-        </ResponsiveContainer>
+      {/* Bar Chart */}
+      <div className="h-[220px] w-full">
+        <Bar data={data} options={options} />
       </div>
     </div>
   );
