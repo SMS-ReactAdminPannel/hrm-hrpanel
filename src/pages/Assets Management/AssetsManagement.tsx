@@ -1,4 +1,4 @@
-
+"use client"
 
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
@@ -252,7 +252,16 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-02-10",
     },
-
+    {
+      id: "2",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    
     {
       id: "3",
       name: 'Monitor MSI 27"',
@@ -370,6 +379,34 @@ const AssetsManagement: React.FC = () => {
       status: "active",
       dateAdded: "2024-03-25",
     },
+    {
+      id: "16",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    {
+      id: "17",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+    {
+      id: "18",
+      name: "MacBook Air M1 (2020)",
+      assignedTo: "Sowmiya",
+      category: "Laptop",
+      serialNumber: "D04LY8N3KYOA",
+      status: "active",
+      dateAdded: "2024-02-10",
+    },
+
   ])
 
   const [newAsset, setNewAsset] = useState<Omit<Asset, "id" | "dateAdded">>({
@@ -385,8 +422,7 @@ const AssetsManagement: React.FC = () => {
   const filteredAssets = assets.filter((asset) => {
     const matchesSearch =
       asset.name.toLowerCase().includes(search.toLowerCase()) ||
-      asset.assignedTo.toLowerCase().includes(search.toLowerCase()) ||
-      asset.serialNumber.toLowerCase().includes(search.toLowerCase())
+      asset.assignedTo.toLowerCase().includes(search.toLowerCase())
     const matchesCategory = selectedCategory === "all" || asset.category === selectedCategory
     return matchesSearch && matchesCategory
   })
@@ -577,9 +613,9 @@ const AssetsManagement: React.FC = () => {
       <div className="relative p-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-            Asset Management
-          </h1>
+         <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-teal-800 to-cyan-800 bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+  Asset Management
+</h1>
 
           <p className="text-slate-600">Manage and track your organization's assets</p>
         </div>
@@ -590,7 +626,7 @@ const AssetsManagement: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search assets, assignees, or serial numbers..."
+              placeholder="Search assets or assignees..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
@@ -797,7 +833,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-3 h-3"
+                className="w-4 h-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -827,7 +863,7 @@ const AssetsManagement: React.FC = () => {
                 <button
                   key={item}
                   onClick={() => setCurrentPage(item as number)}
-                  className={`px-3 py-2 rounded-[60%] transition-all duration-200 ${
+                  className={`px-3 py-2 rounded-full transition-all duration-200 ${
                     currentPage === item
                       ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg"
                       : "bg-white/60 text-slate-700 hover:bg-white/80 border border-white/20"
@@ -845,7 +881,7 @@ const AssetsManagement: React.FC = () => {
               className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
             >
               <svg
-                className="w-3 h-3"
+                className="w-4 h-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -1270,7 +1306,7 @@ const AssetsManagement: React.FC = () => {
       )}
       <ToastContainer
         position="top-right"
-        autoClose={1500}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
