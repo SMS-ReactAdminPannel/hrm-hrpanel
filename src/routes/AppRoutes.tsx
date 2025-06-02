@@ -53,9 +53,8 @@ const AppRoutes = () => {
          <Route path="announcement" element={<Announcement />} />  
          <Route path="leave-types" element={<LeaveTypes />} /> 
           <Route path="deduction" element={<Deduction />} /> 
-        
-
-         
+        <Route path="EmployeeShift" element={<EmployeeShift />} />  
+        <Route path="RotatingShift" element={<EmployeeShift />} />    
       </Route>
     </Routes>
   );
