@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "../pages/auth/LoginPage";
-import SignupPage from "../pages/auth/SignupPage";
-import { useAuth } from "../pages/auth/AuthContext";
+import { Routes, Route } from "react-router-dom";
+// import LoginPage from "../pages/auth/LoginPage";
+// import SignupPage from "../pages/auth/SignupPage";
+// import { useAuth } from "../pages/auth/AuthContext";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";

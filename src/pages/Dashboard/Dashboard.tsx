@@ -1,16 +1,16 @@
 import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
+import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
+
+import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
 
 const Dashboard = () => {
   return (
-    <div className="m-5 bg-[#faf3eb]  ">
+    <div className="m-2 bg-[#faf3eb]  ">
       <div>
         {/* 1st content */}
-        <div>
-          <strong className="text-[#006666] text-3xl">HRM</strong>
-        </div>
-        <div className="m-2">
+        <div className="m-3">
           <Dashboardcard />
         </div>
       </div>
@@ -30,6 +30,16 @@ const Dashboard = () => {
           <VisterBar />
         </div>
       </div>
+      {/* 3rd content */}
+      <div className="flex  gap-3 m-3 ">
+        <div className="flex-2 bg-white rounded-xl">
+            <DailySchedule/>
+        </div>
+        <div className="flex-4 bg-white rounded-xl">
+          <ThingsDoList/>
+        </div>
+      </div>
+
     </div>
   );
 };
