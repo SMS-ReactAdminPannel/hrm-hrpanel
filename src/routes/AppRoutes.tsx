@@ -14,6 +14,7 @@ import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
+import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 
 const AppRoutes = () => {
@@ -43,6 +44,7 @@ const AppRoutes = () => {
          <Route path="time-sheet" element={<TimeSheet />} /> 
          <Route path="training-management" element={<TrainingManage />} /> 
          <Route path="profile" element={<Profile />} /> 
+         <Route path="asset-category" element={<Assetcategory/>}/>
         
       </Route>
     </Routes>

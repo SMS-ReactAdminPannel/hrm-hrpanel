@@ -16,13 +16,13 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface Asset {
-  id: string;
-  name: string;
-  assignedTo: string;
-  category: string;
-  serialNumber: string;
-  status: "active" | "maintenance" | "retired";
-  dateAdded: string;
+  id: string
+  name: string
+  assignedTo: string
+  category: string
+  serialNumber: string
+  status: "active" | "maintenance" | "returned"
+  dateAdded: string
 }
 
 interface Employee {
@@ -382,7 +382,7 @@ const AssetsManagement: React.FC = () => {
       assignedTo: "Charlie",
       category: "Monitor",
       serialNumber: "LG27001",
-      status: "retired",
+      status: "returned",
       dateAdded: "2024-03-20",
     },
     {
@@ -579,9 +579,9 @@ const AssetsManagement: React.FC = () => {
       case "active":
         return "bg-emerald-100 text-emerald-800 border-emerald-200";
       case "maintenance":
-        return "bg-amber-100 text-amber-800 border-amber-200";
-      case "retired":
-        return "bg-red-100 text-red-800 border-red-200";
+        return "bg-amber-100 text-amber-800 border-amber-200"
+      case "returned":
+        return "bg-red-100 text-red-800 border-red-200"
       default:
         return "bg-gray-100 text-gray-800 border-gray-200";
     }
@@ -661,7 +661,7 @@ const AssetsManagement: React.FC = () => {
       </div>
 
       <div className="relative p-6 max-w-7xl mx-auto">
-        {/* Header */}
+  
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-[#006666]  mt-2 leading-relaxed pb-1">
             Asset Management
@@ -672,7 +672,7 @@ const AssetsManagement: React.FC = () => {
           </p>
         </div>
 
-        {/* Controls */}
+        
         <div className="mb-8 flex flex-row  gap-4">
           <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -907,10 +907,10 @@ const AssetsManagement: React.FC = () => {
           </div>
         </div>
 
-        {/* Advanced Pagination */}
+      
         {totalPages > 1 && (
           <div className="flex justify-end gap-2 mt-6">
-            {/* Previous Button */}
+            
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
@@ -933,7 +933,7 @@ const AssetsManagement: React.FC = () => {
               </svg>
             </button>
 
-            {/* Page Numbers with Ellipsis */}
+        
             {paginationItems.map((item, index) => {
               if (item === "ellipsis") {
                 return (
@@ -961,7 +961,7 @@ const AssetsManagement: React.FC = () => {
               );
             })}
 
-            {/* Next Button */}
+      
             <button
               onClick={() =>
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -999,7 +999,7 @@ const AssetsManagement: React.FC = () => {
         )}
       </div>
 
-      {/* Add/Edit Asset Modal */}
+
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div
@@ -1155,31 +1155,24 @@ const AssetsManagement: React.FC = () => {
 
                   {showModalStatusDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {(["active", "maintenance", "retired"] as const).map(
-                        (status) => (
-                          <button
-                            key={status}
-                            onClick={() => {
-                              setNewAsset({ ...newAsset, status });
-                              setShowModalStatusDropdown(false);
-                            }}
-                            className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                              newAsset.status === status
-                                ? "bg-gradient-to-r from-teal-50 to-cyan-50"
-                                : ""
-                            }`}
+                      {(["active", "maintenance", "returned"] as const).map((status) => (
+                        <button
+                          key={status}
+                          onClick={() => {
+                            setNewAsset({ ...newAsset, status })
+                            setShowModalStatusDropdown(false)
+                          }}
+                          className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
+                            newAsset.status === status ? "bg-gradient-to-r from-teal-50 to-cyan-50" : ""
+                          }`}
+                        >
+                          <span
+                            className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(status)}`}
                           >
-                            <span
-                              className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                                status
-                              )}`}
-                            >
-                              {String(status).charAt(0).toUpperCase() +
-                                String(status).slice(1)}
-                            </span>
-                          </button>
-                        )
-                      )}
+                            {String(status).charAt(0).toUpperCase() + String(status).slice(1)}
+                          </span>
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -1269,7 +1262,7 @@ const AssetsManagement: React.FC = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Asset Information */}
+        
               <div className="bg-white/60 rounded-xl p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg text-white">
@@ -1495,7 +1488,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+          
             <div className="flex gap-3 mt-8 pt-6 border-t border-slate-200">
               <button
                 onClick={() => {
@@ -1534,4 +1527,4 @@ const AssetsManagement: React.FC = () => {
   );
 };
 
-export default AssetsManagement;
+export default AssetsManagement

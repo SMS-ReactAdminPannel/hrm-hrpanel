@@ -7,6 +7,7 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiUserCheck,
+  FiTruck,
 } from "react-icons/fi";
 import {
   RiMenu2Line,
@@ -75,6 +76,13 @@ const SideBar = () => {
           <SidebarLink to="/assets-management" icon={<RiArchiveDrawerLine />} label="Assets" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink
+            to="/asset-category"
+            icon={<FiTruck />}
+            label="Asset-category"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
         </nav>
       </div>
 
