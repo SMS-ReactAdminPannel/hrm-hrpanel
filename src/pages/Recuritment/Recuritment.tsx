@@ -437,10 +437,10 @@ export default function RecruitmentDashboard() {
         </div>
 
         {/* Pipeline Component */}
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <RecruitmentPipeline />
           {/* <CandidatesPage /> */}
-        </div>
+        {/* </div> */} 
 
         {/* <div>
       <CandidatesPage />

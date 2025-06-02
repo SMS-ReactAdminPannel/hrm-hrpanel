@@ -15,6 +15,7 @@ import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 
 
 
@@ -42,6 +43,7 @@ const AppRoutes = () => {
          <Route path="payroll" element={<Payroll />} /> 
          <Route path="recuritment" element={<Recuritment />} /> 
          <Route path="/candidates" element={<CandidatesPage />} />
+          <Route path="/pipeline" element={<RecruitmentPipeline />} />
          <Route path="time-sheet" element={<TimeSheet />} /> 
          <Route path="training-management" element={<TrainingManage />} /> 
          <Route path="profile" element={<Profile />} /> 
