@@ -72,6 +72,7 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+          <SidebarDropdown></SidebarDropdown>
           <SidebarLink
             to="/recuritment"
             icon={<FiUsers />}
