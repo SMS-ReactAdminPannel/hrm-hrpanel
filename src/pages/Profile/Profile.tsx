@@ -964,14 +964,14 @@ const Profile: React.FC = () => {
       <ToastContainer />
       <div className="max-w-7xl mx-auto">
         {/* Animated Header */}
-        <div className="mb-12 text-center">
-          <div className="inline-block p-2 bg-white rounded-3xl shadow-xl border border-[#006666]/20 transform hover:scale-105 transition-transform duration-300">
-            <h1 className="text-6xl font-black leading-tight bg-gradient-to-r from-[#006666] via-[#008080] to-[#006666] bg-clip-text text-transparent mb-4">
+        <div className="mb-12 text-left">
+          <div className="">
+            <h1 className="text-4xl font-black leading-tight bg-gradient-to-r from-[#006666] via-[#008080] to-[#006666] bg-clip-text text-transparent mb-4">
   Profile Management
 </h1>
 
             <p className="text-xl text-slate-600 font-medium">Manage and edit your personal information with style</p>
-            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-[#006666] to-[#008080] mx-auto rounded-full"></div>
+            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-[#006666] to-[#008080] "></div>
           </div>
         </div>
 
