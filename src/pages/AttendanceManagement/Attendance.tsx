@@ -12,7 +12,7 @@ const Attendance: React.FC = () => {
   ID: string
   Name: string
   Designation: string
-  Status: "Present" | "Absent"
+  Status: string
   CheckIn: string
   CheckOut: string
   Duration: string
@@ -102,7 +102,8 @@ const Attendance: React.FC = () => {
     }
   }, [])
     // Employee component
-    const [selectedEmployee, setSelectedEmployee] = useState(null)
+    const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
+
 
      const handleClick = (employee: EmployeeDetail) => {
   navigate("/attendance-id", { state: { employee } });
