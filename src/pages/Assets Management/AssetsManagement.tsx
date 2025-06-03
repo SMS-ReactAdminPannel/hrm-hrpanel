@@ -887,7 +887,9 @@ const AssetsManagement: React.FC = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div
             ref={modalRef}
-            className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100"
+             className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100
+             max-h-[90vh] overflow-y-auto"
+
           >
             <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
               {editingAsset ? "Edit Asset" : "Add New Asset"}
