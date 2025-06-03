@@ -71,7 +71,7 @@ const SideBar = () => {
         <div className="overflow-y-auto scrollbar-hide flex-1 mt-4">
           <nav className="flex flex-col gap-4 w-full items-center">
             <SidebarDropdown icon={<FiHome />} label="Dashboards" isOpen={isOpen}>
-              <SidebarLink to="/default" icon={<FiHome />} label="Default" isOpen={isOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/" icon={<FiHome />} label="Default" isOpen={isOpen} onClick={handleLinkClick} />
               <SidebarLink to="/ecommerce" icon={<FiHome />} label="Ecommerce" isOpen={isOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
 
