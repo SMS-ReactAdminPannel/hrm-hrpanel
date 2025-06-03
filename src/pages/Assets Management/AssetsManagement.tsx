@@ -637,8 +637,8 @@ const AssetsManagement: React.FC = () => {
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
-                          ? "bg-from-teal-50 text-teal-700"
-                          : "text-slate-700"
+                         ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
+            : "text-slate-700 hover:text-[#006666]"
                       }`}
                     >
                       {cat !== "all" && getCategoryIcon(cat)}
@@ -939,26 +939,27 @@ const AssetsManagement: React.FC = () => {
                     </svg>
                   </button>
 
-                  {showModalCategoryDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {["Laptop", "Monitor", "Accessory"].map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => {
-                            setNewAsset({ ...newAsset, category: cat })
-                            setShowModalCategoryDropdown(false)
-                          }}
-                          className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                            newAsset.category === cat
-                              ? "bg-[#006666] text-teal-700"
-                              : "text-slate-700"
-                          }`}
-                        >
-                          {getCategoryIcon(cat)}
-                          <span>{cat}</span>
-                        </button>
-                      ))}
-                    </div>
+               {showModalCategoryDropdown && (
+  <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-xl shadow-xl z-50 overflow-hidden">
+    {["Laptop", "Monitor", "Accessory"].map((cat) => (
+      <button
+        key={cat}
+        onClick={() => {
+          setNewAsset({ ...newAsset, category: cat })
+          setShowModalCategoryDropdown(false)
+        }}
+        className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-[#006666]/5 hover:to-[#006666]/10 transition-all duration-200 flex items-center gap-3 border-b border-gray-100 last:border-b-0 ${
+          newAsset.category === cat
+            ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
+            : "text-slate-700 hover:text-[#006666]"
+        }`}
+      >
+        {getCategoryIcon(cat)}
+        <span>{cat}</span>
+      </button>
+    ))}
+  </div>
+
                   )}
                 </div>
               </div>

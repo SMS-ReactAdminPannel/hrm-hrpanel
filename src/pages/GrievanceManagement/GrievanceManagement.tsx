@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react"
 import { GrievanceCard } from "../../components/common/GrievanceManagement/GrievanceCard";
 import { GrievanceDetailCard } from "../../components/common/GrievanceManagement/GrievanceDetailCard";
 
@@ -105,6 +105,10 @@ const GrievanceManagement = () => {
     );
     setSelectedGrievance(null);
   };
+
+   useEffect(() => {
+  setSelectedGrievance(null);
+}, [filter]);
 
   return (
     <div className="min-h-screen bg-[#fef7f4] p-6">

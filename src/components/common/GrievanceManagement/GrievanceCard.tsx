@@ -20,7 +20,10 @@ export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
           {grievance.status}
         </span>
       </div>
-      <p className="text-sm text-gray-600 mt-2 line-clamp-2">{grievance.description}</p>
+     
+<h3 className="text-sm font-semibold text-gray-800 mb-1">Issue Description:</h3>
+<p className="text-gray-700 mb-6 whitespace-pre-line">{grievance.description}</p>
+
       <div className="mt-3 text-sm text-gray-500">
         <span className="font-medium">{grievance.employee}</span> — {grievance.date}
       </div>
