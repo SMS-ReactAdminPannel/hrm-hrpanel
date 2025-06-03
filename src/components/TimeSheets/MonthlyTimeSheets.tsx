@@ -58,79 +58,81 @@ const MonthlyTimeSheets = () => {
     });
 
     return (
-        <div className="p-5 overflow-x-auto">
-            <table className="min-w-full border-collapse text-sm border border-gray-300">
-                <thead className="bg-[#006666] text-white">
-                    <tr>
-                        <th className="border border-gray-300 px-4 py-3 text-left min-w-[200px]">
-                            <input
-                                type="text"
-                                placeholder="Search by name..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full border border-gray-300 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
-                            />
-                        </th>
-                        {days.map(({ day, weekday }) => (
-                            <th key={day} className="px-3 py-3 text-center border border-gray-300">
-                                {day} <br />({weekday})
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredUsers.length === 0 ? (
+        <div className="p-5">
+            <div className="overflow-x-auto rounded-xl bg-white">
+                <table className="min-w-full border-collapse border border-gray-300 text-sm shadow-lg rounded-xl">
+                    <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white rounded-xl">
                         <tr>
-                            <td colSpan={daysInMonth + 1} className="text-center py-6 text-gray-500">
-                                No matching employees found.
-                            </td>
+                            <th className="sticky left-0 bg-gradient-to-r from-slate-800 to-teal-700  px-4 py-3 text-left min-w-[200px] border border-r-[#006666]">
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full border border-gray-300 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                                />
+                            </th>
+                            {days.map(({ day, weekday }) => (
+                                <th key={day} className="px-3 py-3 text-center">
+                                    {day} <br />({weekday})
+                                </th>
+                            ))}
                         </tr>
-                    ) : (
-                        filteredUsers.map((user, index) => (
-                            <tr key={`${user.name}-${index}`} className="hover:bg-gray-50">
-                                <td className="border border-gray-300 px-6 py-3 flex items-center gap-3">
-                                    <img
-                                        src={user.profilePic}
-                                        alt={user.name}
-                                        className="w-9 h-9 rounded-full object-cover"
-                                    />
-                                    <span className="font-medium text-gray-700">{user.name}</span>
+                    </thead>
+                    <tbody>
+                        {filteredUsers.length === 0 ? (
+                            <tr>
+                                <td colSpan={daysInMonth + 1} className="text-center py-6 text-gray-500">
+                                    No matching employees found.
                                 </td>
-                                {days.map(({ day, weekday }) => {
-                                    const isSunday = weekday === 'Sun';
-                                    const isPresent = user.daysPresent.includes(day);
-
-                                    const tooltipData = {
-                                        firstIn: '09:00 AM',
-                                        lastOut: '06:00 PM',
-                                        required: '8h',
-                                    };
-
-                                    return (
-                                        <td key={day} className="relative group text-center px-2 py-3 border border-gray-300">
-                                            {isSunday ? (
-                                                <span className="text-red-500 font-semibold">R</span>
-                                            ) : (
-                                                <>
-                                                    <div
-                                                        className={`w-4 h-4 mx-auto ${isPresent ? 'bg-green-500' : 'bg-red-500'
-                                                            }`}
-                                                    />
-                                                    <div className="absolute z-20 hidden group-hover:block bg-white border border-gray-300 shadow-md p-2 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
-                                                        <p><strong>First In:</strong> {tooltipData.firstIn}</p>
-                                                        <p><strong>Last Out:</strong> {tooltipData.lastOut}</p>
-                                                        <p><strong>Required:</strong> {tooltipData.required}</p>
-                                                    </div>
-                                                </>
-                                            )}
-                                        </td>
-                                    );
-                                })}
                             </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                        ) : (
+                            filteredUsers.map((user, index) => (
+                                <tr key={`${user.name}-${index}`} className="hover:bg-gray-50">
+                                    <td className="sticky left-0 border-r bg-white z-50  px-6 py-3 flex items-center gap-3">
+                                        <img
+                                            src={user.profilePic}
+                                            alt={user.name}
+                                            className="w-9 h-9 rounded-full object-cover"
+                                        />
+                                        <span className="font-medium text-gray-700">{user.name}</span>
+                                    </td>
+                                    {days.map(({ day, weekday }) => {
+                                        const isSunday = weekday === 'Sun';
+                                        const isPresent = user.daysPresent.includes(day);
+
+                                        const tooltipData = {
+                                            firstIn: '09:00 AM',
+                                            lastOut: '06:00 PM',
+                                            required: '8h',
+                                        };
+
+                                        return (
+                                            <td key={day} className="relative group text-center px-2 py-3">
+                                                {isSunday ? (
+                                                    <span className="text-red-500 font-semibold">R</span>
+                                                ) : (
+                                                    <>
+                                                        <div
+                                                            className={`w-4 h-4 rounded cursor-pointer mx-auto ${isPresent ? 'bg-green-500' : 'bg-red-500'
+                                                                }`}
+                                                        />
+                                                        <div className="absolute z-20 hidden group-hover:block bg-white border border-gray-300 shadow-md p-2 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                                                            <p><strong>First In:</strong> {tooltipData.firstIn}</p>
+                                                            <p><strong>Last Out:</strong> {tooltipData.lastOut}</p>
+                                                            <p><strong>Required:</strong> {tooltipData.required}</p>
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

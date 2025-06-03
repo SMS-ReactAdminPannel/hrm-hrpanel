@@ -1,0 +1,347 @@
+import { useState } from "react"
+
+export default function OnboardingTemplate() {
+  const [activeTab, setActiveTab] = useState("welcome")
+  const [completedTasks, setCompletedTasks] = useState<number[]>([])
+
+  const onboardingTasks = [
+    { id: 1, title: "Complete I-9 Form", category: "Legal", priority: "High", dueDate: "Day 1" },
+    { id: 2, title: "Submit Tax Documents", category: "Finance", priority: "High", dueDate: "Day 1" },
+    { id: 3, title: "IT Equipment Setup", category: "Technology", priority: "Medium", dueDate: "Day 2" },
+    { id: 4, title: "Office Tour", category: "Orientation", priority: "Medium", dueDate: "Day 3" },
+    { id: 5, title: "Meet Team Members", category: "Social", priority: "Low", dueDate: "Week 1" },
+    { id: 6, title: "Complete Training Modules", category: "Training", priority: "High", dueDate: "Week 2" },
+  ]
+
+  const toggleTask = (taskId: number) => {
+    setCompletedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]))
+  }
+
+  const progress = (completedTasks.length / onboardingTasks.length) * 100
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case "High":
+        return "bg-red-100 text-red-800 border-red-200"
+      case "Medium":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200"
+      case "Low":
+        return "bg-green-100 text-green-800 border-green-200"
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200"
+    }
+  }
+
+  return (
+    <div className="mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
+     
+      <div className=" space-y-2">
+        <h1 className="text-3xl font-bold text-gray-900">On Boarding</h1>
+      </div>
+
+      {/* Tabs */}
+      <div className="bg-white w-full rounded-lg shadow-sm border border-gray-200">
+        <div className="border-b border-gray-200">
+          <nav className="flex space-x-8 px-6" aria-label="Tabs">
+            {[
+              { id: "welcome", name: "Welcome", icon: "👋" },
+              { id: "documents", name: "Documents", icon: "📄" },
+              { id: "profile", name: "Profile", icon: "👤" },
+              { id: "tasks", name: "Tasks", icon: "✅" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                  activeTab === tab.id
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <span>{tab.icon}</span>
+                  {tab.name}
+                </span>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="p-6">
+          {/* Welcome Tab */}
+          {activeTab === "welcome" && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-3xl">🏢</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Your New Role!</h2>
+                <p className="text-gray-600">
+                  {"We're excited to have you join our team as a Senior Software Engineer"}
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <span>👥</span>
+                    Your Team
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                        SM
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Sarah Miller</p>
+                        <p className="text-sm text-gray-500">Engineering Manager</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
+                        JD
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">John Davis</p>
+                        <p className="text-sm text-gray-500">Senior Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <span>📅</span>
+                    First Week Schedule
+                  </h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                      <span>Day 1: Orientation & Setup</span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">9:00 AM</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                      <span>Day 2: Team Introductions</span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">10:00 AM</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                      <span>Day 3: Project Overview</span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">2:00 PM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Documents Tab */}
+          {activeTab === "documents" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">Required Documents</h2>
+                <p className="text-gray-600">Please upload the following documents to complete your onboarding</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📄</span>
+                    <div>
+                      <p className="font-medium text-gray-900">Form I-9 (Employment Eligibility)</p>
+                      <p className="text-sm text-gray-500">Required for all employees</p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
+    
+                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
+
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📄</span>
+                    <div>
+                      <p className="font-medium text-gray-900">W-4 Tax Form</p>
+                      <p className="text-sm text-gray-500">Federal tax withholding</p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
+    
+                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
+
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📄</span>
+                    <div>
+                      <p className="font-medium text-gray-900">Direct Deposit Form</p>
+                      <p className="text-sm text-gray-500">Banking information for payroll</p>
+                    </div>
+                  </div>
+                 <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
+    
+                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Profile Tab */}
+          {activeTab === "profile" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">Complete Your Profile</h2>
+                <p className="text-gray-600">Help us get to know you better</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-3 text-gray-400">📞</span>
+                      <input
+                        id="phone"
+                        type="tel"
+                        placeholder="(555) 123-4567"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                      Personal Email
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-3 text-gray-400">📧</span>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="john@example.com"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                      Home Address
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-3 text-gray-400">📍</span>
+                      <input
+                        id="address"
+                        type="text"
+                        placeholder="123 Main St, City, State"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="emergency" className="block text-sm font-medium text-gray-700">
+                      Emergency Contact
+                    </label>
+                    <input
+                      id="emergency"
+                      type="text"
+                      placeholder="Name and phone number"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <hr className="border-gray-200" />
+
+              <div className="space-y-4">
+                <h3 className="font-semibold text-gray-900">Preferences</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <span className="text-sm text-gray-700">Subscribe to company newsletter</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <span className="text-sm text-gray-700">Notify me about company events</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="flex justify-end">
+                <button className="px-6 py-2 text-white rounded-lg bg-[#006666] transition-colors">
+                  Save Profile
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Tasks Tab */}
+          {activeTab === "tasks" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">Onboarding Checklist</h2>
+                <p className="text-gray-600">Complete these tasks during your first few weeks</p>
+              </div>
+
+              <div className="space-y-4">
+                {onboardingTasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedTasks.includes(task.id)}
+                      onChange={() => toggleTask(task.id)}
+                      className="w-5 h-5 text-blue-600 border-gray-300 rounded "
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p
+                          className={`font-medium ${
+                            completedTasks.includes(task.id) ? "line-through text-gray-500" : "text-gray-900"
+                          }`}
+                        >
+                          {task.title}
+                        </p>
+                        <span
+                          className={`px-2 py-1 text-xs font-medium rounded-full border ${getPriorityColor(task.priority)}`}
+                        >
+                          {task.priority}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span>{task.category}</span>
+                        <span className="flex items-center gap-1">
+                          <span>⏰</span>
+                          Due: {task.dueDate}
+                        </span>
+                      </div>
+                    </div>
+                    {completedTasks.includes(task.id) && <span className="text-green-500 text-xl">✅</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
