@@ -28,6 +28,8 @@ import  TrainingManage  from "../pages/TrainingManagement/TrainingManage";
 
 
 
+import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
+import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -76,6 +78,9 @@ const AppRoutes = () => {
           <Route path="traningmanagement" element={<TrainingManage/>}/>
           
          
+         <Route path="offboarding" element={<AdvancedHRMOffboarding />}/>
+          <Route path="onboarding" element={<OnboardingTemplate />}/>
+        
         
       </Route>
     </Routes>
