@@ -37,14 +37,7 @@ const Attendance: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("")
      const navigate = useNavigate();
 
-  const filtereddetails = details.filter((details) => {
-    const query = searchQuery.trim().toLowerCase()
-    return (
-      details.Designation.toLowerCase().includes(query) ||
-      details.Status.toLowerCase().includes(query) ||
-      details.Name.toLowerCase().includes(query)
-    )
-  })
+ 
   // Donut
   const presentCount = details.filter((d) => d.Status === "Present").length
   const absentCount = details.filter((d) => d.Status === "Absent").length
@@ -70,17 +63,7 @@ const Attendance: React.FC = () => {
   })
   const [currentPage, setCurrentPage] = useState(1)
   const rowsPerPage = 10
-  const filteringDetails = details.filter((item) => {
-    const query = searchQuery.trim().toLowerCase()
-    const matchesSearch =
-      item.Designation.toLowerCase().includes(query) ||
-      item.Status.toLowerCase().includes(query) ||
-      item.Name.toLowerCase().includes(query)
-
-    const matchesDesignation = designationFilter === "" || item.Designation === designationFilter
-
-    return matchesSearch && matchesDesignation
-  })
+  
   const paginatedDetails = filteredDetails.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
   useEffect(() => {
     setCurrentPage(1)
@@ -101,7 +84,7 @@ const Attendance: React.FC = () => {
     }
   }, [])
     // Employee component
-    const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
+    // const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
 
 
      const handleClick = (employee: EmployeeDetail) => {
