@@ -11,7 +11,6 @@ import OrganizationChart from "../pages/Organization Charts/OrganizationChart";
 import Payroll from "../pages/Payroll Management/Payroll";
 import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
-import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
@@ -23,6 +22,12 @@ import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
+import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
+import Reports from "../pages/Employee Mangament/Reports/Reports";
+import  TrainingManage  from "../pages/TrainingManagement/TrainingManage";
+
+
+
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -63,6 +68,14 @@ const AppRoutes = () => {
          <Route path="asset-category" element={<Assetcategory/>}/>
         <Route path="home-intro" element={<HomePage/>}/>
 
+         <Route path="time-sheet" element={<TimeSheet />} />  
+         <Route path="profile" element={<Profile />} />
+          <Route path="shift" element={<EmployeeShift />} />
+          <Route path="appraisal" element={<Appraisal/>}/>
+          <Route path="reports" element={<Reports/>}/>
+          <Route path="traningmanagement" element={<TrainingManage/>}/>
+          
+         
         
       </Route>
     </Routes>
