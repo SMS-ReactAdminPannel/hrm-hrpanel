@@ -276,12 +276,13 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Asset Name Input */}
+        
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Asset Name *
             </label>
             <input
+            required
               type="text"
               id="name"
               name="name"
@@ -295,12 +296,13 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
             {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
           </div>
 
-          {/* Tracking ID Input */}
+        
           <div>
             <label htmlFor="trackingId" className="block text-sm font-medium text-gray-700 mb-1">
               Tracking ID *
             </label>
             <input
+            required
               type="text"
               id="trackingId"
               name="trackingId"
@@ -315,7 +317,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {/* Custom Status Dropdown */}
+        
             <CustomDropdown
               label="Status"
               value={formData.status}
@@ -325,7 +327,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               error={errors.status}
             />
 
-            {/* Custom BatchNo Dropdown */}
+            
             <CustomDropdown
               label="Batch No"
               value={formData.batchNo}
@@ -336,12 +338,13 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
             />
           </div>
 
-          {/* Cost Input */}
+      
           <div>
             <label htmlFor="cost" className="block text-sm font-medium text-gray-700 mb-1">
               Cost *
             </label>
             <input
+            required
               type="number"
               id="cost"
               name="cost"
@@ -357,12 +360,13 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
             {errors.cost && <p className="mt-1 text-sm text-red-600">{errors.cost}</p>}
           </div>
 
-          {/* Purchase Date Input */}
+    
           <div>
             <label htmlFor="purchaseDate" className="block text-sm font-medium text-gray-700 mb-1">
               Purchase Date *
             </label>
             <input
+            required
               type="date"
               id="purchaseDate"
               name="purchaseDate"
@@ -375,12 +379,13 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
             {errors.purchaseDate && <p className="mt-1 text-sm text-red-600">{errors.purchaseDate}</p>}
           </div>
 
-          {/* Description Textarea */}
+          
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
               Description
             </label>
             <textarea
+            required
               id="description"
               name="description"
               value={formData.description}

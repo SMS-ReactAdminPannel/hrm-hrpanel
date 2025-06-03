@@ -64,6 +64,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
               Category Name *
             </label>
             <input
+            required
               type="text"
               id="name"
               value={formData.name}
@@ -81,6 +82,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
               Description *
             </label>
             <textarea
+            required
               id="description"
               rows={3}
               value={formData.description}
