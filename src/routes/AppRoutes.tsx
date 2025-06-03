@@ -14,7 +14,14 @@ import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
+import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
+import Announcement from "../pages/Announcement/Announcement";
+import LeaveTypes from "../pages/Leave Management/LeaveTypes";
+import Deduction from "../pages/Deduction/Deduction";
+import RecruitmentPipeline from "../pages/Recuritment/pipeline";
+import CandidatesPage from "../pages/Recuritment/Candidates";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
+import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -34,15 +41,25 @@ const AppRoutes = () => {
         <Route index element={<Dashboard />} />
          <Route path="assets-management" element={<AssetsManagement />} /> 
          <Route path="attendance" element={<Attendance />} /> 
+         <Route path="attendance-id" element={<EmployeeDetails />} /> 
          <Route path="employee" element={<Employee />} /> 
          <Route path="Leave-management" element={<Leave />} /> 
          <Route path="organization-chart" element={<OrganizationChart />} /> 
          <Route path="payroll" element={<Payroll />} /> 
          <Route path="recuritment" element={<Recuritment />} /> 
+         <Route path="/candidates" element={<CandidatesPage />} />
+          <Route path="/pipeline" element={<RecruitmentPipeline />} />
          <Route path="time-sheet" element={<TimeSheet />} /> 
          <Route path="training-management" element={<TrainingManage />} /> 
          <Route path="profile" element={<Profile />} />
-         <Route path="asset-category" element={<Assetcategory/>}/> 
+          <Route path="shift" element={<EmployeeShift />} />
+         <Route path="announcement" element={<Announcement />} />  
+         <Route path="leave-types" element={<LeaveTypes />} /> 
+          <Route path="deduction" element={<Deduction />} /> 
+        <Route path="EmployeeShift" element={<EmployeeShift />} />  
+        <Route path="RotatingShift" element={<EmployeeShift />} />    
+         <Route path="profile" element={<Profile />} /> 
+         <Route path="asset-category" element={<Assetcategory/>}/>
         
       </Route>
     </Routes>
