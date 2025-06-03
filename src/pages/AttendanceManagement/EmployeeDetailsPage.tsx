@@ -59,8 +59,8 @@ const EmployeeDetails: React.FC = () => {
 
       <div className="flex gap-6 mt-4">
         <InfoCard title="Total Completed project" value="2" icon={<IoSettingsSharp className="w-10 h-10 text-blue-600" />} />
-        <InfoCard title="Total Worked Duration" value="48Hrs:40mins" icon={<MdTimer className="w-10 h-10 text-green-600" />} />
-        <InfoCard title="Total Break Time" value="5Hrs" icon={<PiBowlSteamFill className="w-10 h-10 text-yellow-600" />} />
+        <InfoCard title="Total Worked Duration" value="216Hrs:40mins" icon={<MdTimer className="w-10 h-10 text-green-600" />} />
+        <InfoCard title="Total Break Time" value="24Hrs" icon={<PiBowlSteamFill className="w-10 h-10 text-yellow-600" />} />
         <InfoCard title="Total Leave" value="4" icon={<CgProfile className="w-10 h-10 text-red-600" />} />
       </div>
       {/* Monthly Timesheet */}
