@@ -24,7 +24,7 @@ const EmployeeDetails: React.FC = () => {
     );
   }
   const employeeAttendanceData = {
-    daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30],
+    daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30,31],
     profilePic: `/placeholder.svg?height=40&width=40`,
   }
 
@@ -110,38 +110,44 @@ const EmployeeDetails: React.FC = () => {
                 ) : (
                   <>
             <div className={`w-4 h-4 mx-auto rounded-sm ${isPresent ? "bg-green-500" : "bg-red-500"}`} />
-                        <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
-                      <p className="font-semibold mb-1">Day {day}</p>
-                      <p>
-                        <strong>First In:</strong> {tooltipData.firstIn}
-                      </p>
-                      <p>
-                        <strong>Last Out:</strong> {tooltipData.lastOut}
-                      </p>
-                      <p>
-                        <strong>Required:</strong> {tooltipData.required}
-                      </p>
-                      <p>
-                        <strong>Status:</strong>{" "}
-                        <span className={isPresent ? "text-green-600" : "text-red-600"}>
-                          {isPresent ? "Present" : "Absent"}
-                        </span>
-                      </p>
-                    </div>
-                  </>
-                )}
-              </td>
-            )
-          })}
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
+            {!isPresent && (
+                            <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                              <p className="font-semibold mb-1">Day {day}</p>
+                              <p>
+                                <strong>Status:</strong> <span className="text-red-600">Absent</span>
+                              </p>
+                            </div>
+                          )}
+                          {isPresent && (
+                            <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                              <p className="font-semibold mb-1">Day {day}</p>
+                              <p>
+                                <strong>First In:</strong> {tooltipData.firstIn}
+                              </p>
+                              <p>
+                                <strong>Last Out:</strong> {tooltipData.lastOut}
+                              </p>
+                              <p>
+                                <strong>Required:</strong> {tooltipData.required}
+                              </p>
+                              <p>
+                                <strong>Status:</strong> <span className="text-green-600">Present</span>
+                              </p>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  );
-};
+  )
+}
 
 // Reusable card for metrics
 const InfoCard = ({ title, value, icon }: { title: string; value: string; icon: React.ReactNode }) => (
@@ -152,6 +158,6 @@ const InfoCard = ({ title, value, icon }: { title: string; value: string; icon: 
     </div>
     {icon}
   </div>
-);
+)
 
-export default EmployeeDetails;
+export default EmployeeDetails
