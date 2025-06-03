@@ -8,6 +8,7 @@ export default {
   ],
   theme: {
      extend: {
+      colors:{},
       keyframes: {
         shake: {
           '0%, 100%': { transform: 'translateX(0)' },
@@ -25,4 +26,4 @@ export default {
     require('tailwind-scrollbar-hide')
   ],
 };
-// tailwind.config.js
+// tailwind.config.jsit

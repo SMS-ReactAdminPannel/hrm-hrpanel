@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
 import { RiDeleteBinLine } from "react-icons/ri";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { FaEdit } from "react-icons/fa";
 
 type Department = 'Engineering' | 'Marketing' | 'HR' | 'Finance' | 'Operations';
 type JobTitle = 'Manager' | 'Developer' | 'Designer' | 'Analyst' | 'Specialist';
@@ -52,7 +53,7 @@ const EmployeeManagement = () => {
     },
     {
       id: 'EMP004',
-      name: 'Siva Shanker',
+      name: 'Siva Shankar',
       email: 'siva.d@example.com',
       contactNumber: '5554567890',
       department: 'Finance',
@@ -248,7 +249,7 @@ const EmployeeManagement = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Management Dashboard</h1>
+      <h1 className="text-4xl font-bold text-gray-800 mb-6">Employee Management </h1>
 
       {/* Stats Cards */}
       <div className="w-full grid grid-cols-3 md:grid-cols-3 gap-4 mb-8">
@@ -313,7 +314,7 @@ const EmployeeManagement = () => {
         {/* Left Side - Table */}
         <div className="lg:col-span-2">
           {/* Search and Add Employee */}
-          <div className="mb-6 flex flex-row justify-between items-center gap-4 relative">
+          <div className="mb-6 flex flex-row justify-between items-center gap- relative">
             <div className="relative flex-1 min-w-0">
               <input
                 type="text"
@@ -342,18 +343,18 @@ const EmployeeManagement = () => {
             </div>
 
             {/* Filter Icon and Dropdown */}
-            <div className="flex-shrink-0 flex items-center gap-4 relative">
+            <div className="flex-shrink-0 flex items-center pl-2 gap-4 relative">
               <div
                 className="text-3xl text-[#006666] cursor-pointer"
                 onClick={() => setFilterOpen(!filterOpen)}
               >
                 <CiFilter />
               </div>
-              <button className="bg-[#006666] hover:bg-[#006666]/90 text-white px-4 py-2 rounded-lg transition duration-200">
+
+              <button className="bg-[#006666] hover:bg-[#006666]/90 text-white px-8 py-2 rounded-lg transition duration-200 -mr-12 ">
                 Add Employee
               </button>
-
-              {/* Dropdown */}
+{/* Dropdown */}
               {filterOpen && (
                 <div className="absolute right-0 top-12 bg-white border border-gray-300 rounded shadow-md z-10 w-48">
                   <div className="p-2">
@@ -385,13 +386,13 @@ const EmployeeManagement = () => {
           </div>
 
           {/* Table */}
-          <div className="bg-white rounded-lg shadow w-[945px]">
-            <div className="overflow-auto">
+          <div className="bg-white rounded-lg shadow w-[912px]">
+            <div className="overflow-hidden">
 
               <table className="w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    {['Employee id', 'name', 'email',  'Department', 'jobTitle', 'employmentType'].map((key) => (
+                    {['Employee id', 'name', 'email', 'Department', 'jobTitle', 'employmentType'].map((key) => (
                       <th
                         key={key}
                         scope="col"
@@ -417,7 +418,8 @@ const EmployeeManagement = () => {
                           {employee.id}
                         </td>
                         <td className="px-3 py-4 whitespace-nowrap flex items-center">
-                          <div className="h-10 w-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold">
+
+                          <div className="h-10 w-10 rounded-full bg-[#006666] text-white flex items-center justify-center font-bold">
                             {employee.name.charAt(0)}
                           </div>
                           <span className="ml-3">{employee.name}</span>
@@ -425,7 +427,7 @@ const EmployeeManagement = () => {
                         <td className="px-3 py-4 whitespace-nowrap text-gray-500">
                           {employee.email}
                         </td>
-                       
+
                         <td className="px-3 py-4 whitespace-nowrap">
                           {employee.department}
                         </td>
@@ -437,10 +439,13 @@ const EmployeeManagement = () => {
                             {employee.employmentType}
                           </span>
                         </td>
-                       
+
                         <td className="px-3 py-4 whitespace-nowrap">
                           <div className="flex items-center space-x-4">
-                            <button className="text-blue-600 hover:text-blue-900">Edit</button>
+                            <button className="hover:brightness-125" style={{ color: '#006666' }}>
+                              <FaEdit />
+                            </button>
+
                             <button className="text-red-600 hover:text-red-800">
                               <RiDeleteBinLine />
                             </button>
@@ -459,10 +464,7 @@ const EmployeeManagement = () => {
               </table>
             </div>
           </div>
-          
-
-
-          {/* Pagination */}
+{/* Pagination */}
           <div className="flex justify-center mt-4">
             <div className="flex space-x-2">
               <button
@@ -484,11 +486,9 @@ const EmployeeManagement = () => {
         </div>
 
         {/* Right Side - Charts */}
-        <div className="space-x-20 space-y-6">
-
-
-          {/* Employment Type Bar Chart */}
-<div className="bg-white rounded-lg shadow-lg p-3 w-75 ml-20">
+        <div className="space-x-12 space-y-6">
+{/* Employment Type Bar Chart */}
+          <div className="bg-white rounded-lg shadow-lg p-4 w-75 ml-12">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Employment Types</h3>
             <ResponsiveContainer width="80%" height={200}>
               <BarChart data={employmentTypeData}>
@@ -519,9 +519,7 @@ const EmployeeManagement = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-
-
-          <div className="bg-white rounded-lg shadow-lg p-6 w-65 ml-20">
+<div className="bg-white rounded-lg shadow-lg p-7 w-85 ml-20 ">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Work Mode Stats</h3>
             <div className="space-y-3">
               {workModeData.map((mode, index) => (
