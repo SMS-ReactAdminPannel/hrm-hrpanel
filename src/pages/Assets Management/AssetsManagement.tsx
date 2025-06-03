@@ -1070,7 +1070,7 @@ const AssetsManagement: React.FC = () => {
 )}
 
 
-      {/* Delete Confirmation Modal */}
+    
       {showDeleteModal && assetToDelete && (
         <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
@@ -1103,7 +1103,7 @@ const AssetsManagement: React.FC = () => {
         </div>
       )}
 
-      {/* Asset Detail Modal */}
+    
       {showDetailModal && selectedAsset && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">

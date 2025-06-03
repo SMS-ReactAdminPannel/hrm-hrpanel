@@ -62,6 +62,7 @@ const AppRoutes = () => {
          <Route path="profile" element={<Profile />} /> 
          <Route path="asset-category" element={<Assetcategory/>}/>
          <Route path="grievance-management" element={<GrievanceManagement/>}/>
+         
         
       </Route>
     </Routes>
