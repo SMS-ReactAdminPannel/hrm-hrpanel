@@ -38,7 +38,6 @@ const TimeSheet = () => {
 
     return (
         <div className="relative">
-            {/* Blurred background content when export is open */}
             <div className={`bg-gray-200 p-4 rounded-lg transition duration-300 ${isExportOpen ? "blur-sm pointer-events-none select-none" : ""}`}>
                 <div className="flex justify-between items-center font-bold">
                     <section>
@@ -62,7 +61,6 @@ const TimeSheet = () => {
                         </button>
                     </section>
 
-                    {/* Dropdown */}
                     <div className="relative w-60" ref={dropdownRef}>
                         <button
                             type="button"
@@ -167,7 +165,6 @@ const TimeSheet = () => {
                 )}
             </div>
 
-            {/* ExportTimeSheet Overlay */}
             {isExportOpen && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center">
                     <ExportTimeSheet

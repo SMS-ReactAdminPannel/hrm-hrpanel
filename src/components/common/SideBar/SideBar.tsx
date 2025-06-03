@@ -71,7 +71,7 @@ const SideBar = () => {
         <div className="overflow-y-auto scrollbar-hide flex-1 mt-4">
           <nav className="flex flex-col gap-4 w-full items-center">
             <SidebarDropdown icon={<FiHome />} label="Dashboards" isOpen={isOpen}>
-              <SidebarLink to="/" icon={<FiHome />} label="Default" isOpen={isOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/default" icon={<FiHome />} label="Default" isOpen={isOpen} onClick={handleLinkClick} />
               <SidebarLink to="/ecommerce" icon={<FiHome />} label="Ecommerce" isOpen={isOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
 
@@ -81,6 +81,9 @@ const SideBar = () => {
             </SidebarDropdown>
 
             <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={isOpen}>
+               <SidebarLink to="/recuritment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={isOpen} onClick={handleLinkClick} />
+               <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
+                <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={isOpen} onClick={handleLinkClick} />
               <SidebarLink to="/recruitment/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={isOpen} onClick={handleLinkClick} />
               <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
@@ -90,7 +93,16 @@ const SideBar = () => {
             <SidebarLink to="/assets-management" icon={<RiArchiveDrawerLine />} label="Assets" isOpen={isOpen} onClick={handleLinkClick} />
             <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={isOpen} onClick={handleLinkClick} />
             <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={isOpen} onClick={handleLinkClick} />
-             <SidebarLink
+             <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Attendance" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/employee" icon={<MdEventAvailable />} label="employee" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/shift" icon={<MdEventAvailable />} label="shift" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/time-sheet" icon={<MdEventAvailable />} label="time-sheet" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={isOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/home-intro" icon={<MdEventAvailable />} label="Home-Intro" isOpen={isOpen} onClick={handleLinkClick} />
+
+          <SidebarLink
             to="/asset-category"
             icon={<FiTruck />}
             label="Asset-category"

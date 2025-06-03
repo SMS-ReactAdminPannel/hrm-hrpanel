@@ -1,85 +1,96 @@
-type Announcement = {
+import React from "react";
+
+type AnnouncementType = {
   title: string;
   startDate: string;
   endDate: string;
   description: string;
 };
 
-type AnnouncementFormProps = {
-  formData: Announcement;
-  onChange: (field: keyof Announcement, value: string) => void;
+type Props = {
+  formData: AnnouncementType;
+  setFormData: (data: AnnouncementType) => void;
   onSubmit: (e: React.FormEvent) => void;
-  onCancel: () => void;
+  onClose: () => void;
+  isEditing: boolean;
 };
 
-const AnnouncementForm = ({ formData, onChange, onSubmit, onCancel }: AnnouncementFormProps) => {
+const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, onClose, isEditing }) => {
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-        <input
-          type="text"
-          title="Add Title"
-          required
-          value={formData.title}
-          onChange={(e) => onChange("title", e.target.value)}
-          className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
-        />
-      </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="bg-gray-200 w-full max-w-xl rounded-lg p-6 shadow-lg relative animate-fade-in">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          {isEditing ? "Edit Announcement" : "Add New Announcement"}
+        </h2>
 
-      <div className="flex gap-4">
-        <div className="flex-1">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-          <input
-            type="date"
-            title="Start Date"
-            required
-            value={formData.startDate}
-            onChange={(e) => onChange("startDate", e.target.value)}
-            className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
-          />
-        </div>
-        <div className="flex-1">
-          <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-          <input
-            type="date"
-            title="End Date"
-            required
-            value={formData.endDate}
-            onChange={(e) => onChange("endDate", e.target.value)}
-            className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
-          />
-        </div>
-      </div>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input
+              title="Announcement Title"
+              type="text"
+              required
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
+            />
+          </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-        <textarea
-          title="Add Description"
-          required
-          value={formData.description}
-          onChange={(e) => onChange("description", e.target.value)}
-          rows={4}
-          className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
-        ></textarea>
-      </div>
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+              <input
+                title="Announcement Start Date"
+                type="date"
+                required
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+              <input
+                title="Announcement End Date"
+                type="date"
+                required
+                value={formData.endDate}
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
+              />
+            </div>
+          </div>
 
-      <div className="flex justify-end gap-2 pt-2">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-[#059212] text-white rounded-md hover:bg-[#006666]"
-        >
-          Add
-        </button>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea
+              title="Announcement Description"
+              required
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              rows={4}
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#059212]"
+            ></textarea>
+          </div>
+
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-[#059212] text-white rounded-md hover:bg-[#006666]"
+            >
+              {isEditing ? "Update" : "Add"}
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 
