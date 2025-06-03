@@ -1,28 +1,41 @@
-
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar/SideBar';
 import NavBar from '../../components/common/Navbar/NavBar';
 import { COLORS } from '../../constants/uiConstants';
 
+const MainLayout: React.FC = () => {
+  const [isPinned, setIsPinned] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
+  const isOpen = isPinned || hovered;
 
-export const MainLayout = () => {
-    return (
-            <div className="flex h-screen bg-gray-100 scrollbar-hide">
-                {/* Sidebar takes up 1/9 of the width */}
-                <div className="w-1/9">
-                    <SideBar />
-                </div>
+  return (
+    <div className="flex h-screen bg-gray-100 overflow-hidden">
+      <SideBar
+        isPinned={isPinned}
+        onTogglePinned={() => setIsPinned(prev => !prev)}
+        onHoverChange={setHovered}
+      />
 
-                {/* Main content takes up the remaining 8/9 of the width */}
-                <div className="flex-1 flex flex-col overflow-hidden">
-                    <NavBar />
-                    <main className="flex-1 overflow-auto scrollbar-hide">
-                        <div className="p-4 rounded shadow" style={{backgroundColor: COLORS.bgColor}}>
-                            <Outlet />
-                        </div>
-                    </main>
-                </div>
-            </div>
-        );
-    };
+      {/* Push main content based on sidebar state */}
+      <div
+        className={`flex flex-col flex-1 transition-all duration-300 ${
+          isOpen ? 'ml-60' : ''
+        }`}
+      >
+        <NavBar />
+        <main className="flex-1 overflow-auto p-4">
+          <div
+            className="h-full rounded shadow"
+            style={{ backgroundColor: COLORS.bgColor }}
+          >
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default MainLayout;

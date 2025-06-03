@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 // import LoginPage from "../pages/auth/LoginPage";
 // import SignupPage from "../pages/auth/SignupPage";
 // import { useAuth } from "../pages/auth/AuthContext";
-import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
@@ -20,6 +19,7 @@ import LeaveTypes from "../pages/Leave Management/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import MainLayout from "../Layout/MainLayout/mainLayout";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
