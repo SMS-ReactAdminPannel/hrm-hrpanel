@@ -1,43 +1,75 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-type AuthContextType = {
-	isAuthenticated: boolean;
-	login: () => void;
-	logout: () => void;
+type User = {
+  email: string;
+  // Add other fields as needed
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+type AuthContextType = {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  signup: (email: string, password: string) => Promise<void>;
+};
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-	useEffect(() => {
-		const token = localStorage.getItem('authToken');
-		setIsAuthenticated(!!token);
-	}, []);
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    const email = localStorage.getItem("userEmail");
+    if (token && email) {
+      setUser({ email });
+      setIsAuthenticated(true);
+    }
+  }, []);
 
-	const login = () => {
-		localStorage.setItem('authToken', 'dummy-token');
-		setIsAuthenticated(true);
-	};
+  const login = async (email: string, password: string) => {
+    // Replace this with actual API logic
+    if (email && password) {
+      localStorage.setItem("authToken", "dummy-token");
+      localStorage.setItem("userEmail", email);
+      setUser({ email });
+      setIsAuthenticated(true);
+    } else {
+      throw new Error("Invalid login credentials");
+    }
+  };
 
-	const logout = () => {
-		localStorage.removeItem('authToken');
-		setIsAuthenticated(false);
-	};
+  const signup = async (email: string, password: string) => {
+    // Replace with real API signup
+    if (email && password) {
+      localStorage.setItem("authToken", "dummy-token");
+      localStorage.setItem("userEmail", email);
+      setUser({ email });
+      setIsAuthenticated(true);
+    } else {
+      throw new Error("Invalid signup credentials");
+    }
+  };
 
-	return (
-		<AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-			{children}
-		</AuthContext.Provider>
-	);
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userEmail");
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, signup }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = (): AuthContextType => {
-	const context = useContext(AuthContext);
-	if (!context) {
-		throw new Error('useAuth must be used within an AuthProvider');
-	}
-	return context;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

@@ -1,5 +1,6 @@
 
 import { Search, Star, Moon, Bell } from 'lucide-react';
+import type { JSX } from 'react';
 
 export default function TopNavbar() {
   return (

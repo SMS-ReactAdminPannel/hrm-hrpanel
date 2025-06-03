@@ -1,6 +1,6 @@
 
 import { useState, type JSX } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FiHome,
   FiUsers,
@@ -8,6 +8,7 @@ import {
   FiChevronRight,
   FiUserCheck,
   FiTruck,
+  FiPower,
 } from "react-icons/fi";
 import {
   RiMenu2Line,
@@ -20,6 +21,7 @@ import {
 import { MdBusiness, MdEventAvailable } from "react-icons/md";
 import {RiBriefcaseLine,RiUserFollowLine } from "react-icons/ri";
 
+
 const COLOR = {
   primary: "#006666",
   bgColor: "#faf3eb",
@@ -29,8 +31,19 @@ const COLOR = {
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const navigate = useNavigate();
 
   const handleLinkClick = () => setIsOpen(false);
+
+  
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userEmail");
+    window.location.reload();
+  };
+
+
 
   return (
     <div className="flex h-screen">
@@ -68,11 +81,11 @@ const SideBar = () => {
                <SidebarLink to="/employee/details" icon={<FiUserCheck />} label="Employee Details" isOpen={isOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
           <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={isOpen}>
-               <SidebarLink to="/recuritment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={isOpen} onClick={handleLinkClick} />
+               <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={isOpen} onClick={handleLinkClick} />
                <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
                 <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={isOpen} onClick={handleLinkClick} />
-               <SidebarLink to="/recruitment/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={isOpen} onClick={handleLinkClick} />
-               <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
+               <SidebarLink to="/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={isOpen} onClick={handleLinkClick} />
+               {/* <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} /> */}
           </SidebarDropdown>
           <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={isOpen} onClick={handleLinkClick} />
           <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time-Sheet" isOpen={isOpen} onClick={handleLinkClick} />
@@ -93,6 +106,25 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+          <div
+  onClick={handleLogout}
+  className={`flex items-center transition-all px-2 py-1 cursor-pointer ${
+    isOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
+  } rounded-full hover:bg-white/20`}
+>
+  <div className="text-xl" style={{ color: COLOR.white }}>
+    <FiPower />
+  </div>
+  {isOpen && <span style={{ color: COLOR.white }}>Logout</span>}
+</div>
+
+
+
+
+
+
+
+
         </nav>
       </div>
 
@@ -192,5 +224,7 @@ const SidebarDropdown = ({
     </div>
   );
 };
+
+
 
 
