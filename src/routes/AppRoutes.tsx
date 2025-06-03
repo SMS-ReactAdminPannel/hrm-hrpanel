@@ -44,7 +44,7 @@ const AppRoutes = () => {
          <Route path="training-management" element={<TrainingManage />} /> 
          <Route path="profile" element={<Profile />} /> 
          <Route path="leave-types" element={<LeaveTypes />} /> 
-          <Route path="deduction" element={<Deduction />} /> 
+         <Route path="deduction" element={<Deduction />} /> 
         
       </Route>
     </Routes>
