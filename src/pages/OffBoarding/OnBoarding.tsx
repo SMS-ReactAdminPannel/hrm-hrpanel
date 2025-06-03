@@ -1,8 +1,35 @@
-import { useState } from "react"
+"use client"
+
+import type React from "react"
+
+import { useState, useRef } from "react"
+import { X } from "lucide-react"
 
 export default function OnboardingTemplate() {
   const [activeTab, setActiveTab] = useState("welcome")
   const [completedTasks, setCompletedTasks] = useState<number[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<{
+    [key: string]: { file: File | null; url: string | null }
+  }>({
+    i9Form: { file: null, url: null },
+    w4Form: { file: null, url: null },
+    directDeposit: { file: null, url: null },
+  })
+  const [fileViewerModal, setFileViewerModal] = useState<{
+    isOpen: boolean
+    file: File | null
+    url: string | null
+  }>({
+    isOpen: false,
+    file: null,
+    url: null,
+  })
+
+  const fileInputRefs = {
+    i9Form: useRef<HTMLInputElement>(null),
+    w4Form: useRef<HTMLInputElement>(null),
+    directDeposit: useRef<HTMLInputElement>(null),
+  }
 
   const onboardingTasks = [
     { id: 1, title: "Complete I-9 Form", category: "Legal", priority: "High", dueDate: "Day 1" },
@@ -32,10 +59,89 @@ export default function OnboardingTemplate() {
     }
   }
 
+  const handleFileChange = (documentType: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    let url = null
+
+    if (file) {
+      url = URL.createObjectURL(file)
+    }
+
+    setUploadedFiles((prev) => ({
+      ...prev,
+      [documentType]: { file, url },
+    }))
+  }
+
+  const handleViewFile = (documentType: string) => {
+    const fileData = uploadedFiles[documentType]
+    if (fileData.file && fileData.url) {
+      setFileViewerModal({
+        isOpen: true,
+        file: fileData.file,
+        url: fileData.url,
+      })
+    }
+  }
+
+  const closeFileViewer = () => {
+    setFileViewerModal({
+      isOpen: false,
+      file: null,
+      url: null,
+    })
+  }
+
+  const renderFileViewer = () => {
+    if (!fileViewerModal.isOpen || !fileViewerModal.file || !fileViewerModal.url) return null
+
+    const fileType = fileViewerModal.file.type
+    const fileName = fileViewerModal.file.name
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b">
+            <h3 className="text-lg font-semibold">{fileName}</h3>
+            <button onClick={closeFileViewer} className="p-2 hover:bg-gray-100 rounded-lg">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="p-4 max-h-[calc(90vh-120px)] overflow-auto">
+            {fileType.startsWith("image/") ? (
+              <img
+                src={fileViewerModal.url || "/placeholder.svg"}
+                alt={fileName}
+                className="max-w-full h-auto mx-auto"
+              />
+            ) : fileType === "application/pdf" ? (
+              <iframe src={fileViewerModal.url} className="w-full h-[600px] border-0" title={fileName} />
+            ) : fileType.startsWith("text/") ? (
+              <div className="bg-gray-50 p-4 rounded border font-mono text-sm">
+                <p>Text file preview not available. Click download to view content.</p>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 mx-auto text-gray-400 mb-4">📄</div>
+                <p className="text-gray-600 mb-4">Preview not available for this file type</p>
+                <a
+                  href={fileViewerModal.url}
+                  download={fileName}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  Download File
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
-     
-      <div className=" space-y-2">
+      <div className="space-y-2">
         <h1 className="text-3xl font-bold text-gray-900">On Boarding</h1>
       </div>
 
@@ -150,10 +256,23 @@ export default function OnboardingTemplate() {
                       <p className="text-sm text-gray-500">Required for all employees</p>
                     </div>
                   </div>
-                  <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
-    
-                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
-
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={fileInputRefs.i9Form}
+                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      id="i9Form"
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                      onChange={(e) => handleFileChange("i9Form", e)}
+                    />
+                    {uploadedFiles.i9Form.file && (
+                      <button
+                        onClick={() => handleViewFile("i9Form")}
+                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        View
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -165,10 +284,23 @@ export default function OnboardingTemplate() {
                       <p className="text-sm text-gray-500">Federal tax withholding</p>
                     </div>
                   </div>
-                  <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
-    
-                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
-
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={fileInputRefs.w4Form}
+                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      id="w4Form"
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                      onChange={(e) => handleFileChange("w4Form", e)}
+                    />
+                    {uploadedFiles.w4Form.file && (
+                      <button
+                        onClick={() => handleViewFile("w4Form")}
+                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        View
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -180,10 +312,23 @@ export default function OnboardingTemplate() {
                       <p className="text-sm text-gray-500">Banking information for payroll</p>
                     </div>
                   </div>
-                 <div className="px-4 py-2 text-white rounded-lg  transition-colors flex items-center gap-2">
-    
-                 <input className="block w-3/4 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="small_size" type="file" />
-
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={fileInputRefs.directDeposit}
+                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      id="directDeposit"
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                      onChange={(e) => handleFileChange("directDeposit", e)}
+                    />
+                    {uploadedFiles.directDeposit.file && (
+                      <button
+                        onClick={() => handleViewFile("directDeposit")}
+                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        View
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -284,9 +429,7 @@ export default function OnboardingTemplate() {
               </div>
 
               <div className="flex justify-end">
-                <button className="px-6 py-2 text-white rounded-lg bg-[#006666] transition-colors">
-                  Save Profile
-                </button>
+                <button className="px-6 py-2 text-white rounded-lg bg-[#006666] transition-colors">Save Profile</button>
               </div>
             </div>
           )}
@@ -342,6 +485,9 @@ export default function OnboardingTemplate() {
           )}
         </div>
       </div>
+
+      {/* File Viewer Modal */}
+      {renderFileViewer()}
     </div>
   )
 }
