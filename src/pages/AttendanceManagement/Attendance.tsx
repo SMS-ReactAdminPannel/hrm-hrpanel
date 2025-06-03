@@ -107,8 +107,14 @@ const Attendance: React.FC = () => {
      const handleClick = (employee: EmployeeDetail) => {
   navigate("/attendance-id", { state: { employee } });
 };
-
-const dummyData = [
+interface Person {
+  id: number
+  name: string
+  email: string
+  status: string
+}
+ const [isOpen, setIsOpen] = useState(false)
+const dummyData: Person[] = [
   {
     id: 1,
     name: "Kia",
@@ -122,7 +128,7 @@ const dummyData = [
     status: "pending",
   },
 ]
-  const [isOpen, setIsOpen] = useState(false)
+ 
 
   return (
     
@@ -136,14 +142,14 @@ const dummyData = [
         {/* Top Section */}
         <div className="flex gap-6 mt-4">
           {/* Left: No of Employees Card */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center h-32 justify-between">
             <div>
               <p className="text-slate-600 text-xl">No Of Employees</p>
               <p className="text-2xl font-bold text-slate-800">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center h-32 justify-between">
             <div>
               <p className="text-slate-600 text-xl">Total Duration</p>
               <p className="text-2xl font-bold text-slate-800">9 Hrs</p>
@@ -151,43 +157,18 @@ const dummyData = [
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
           <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
-            <div>
-      {/* Permission Summary Card */}
-      <div
-        className=" cursor-pointer flex justify-between items-center max-w-sm"
-        onClick={() => setIsOpen(true)}
-      >
-        <div>
-          <p className="text-gray-600 text-xl">Permission</p>
-          <p className="text-2xl font-bold">{dummyData.length}</p>
-        </div>
-        <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
-      </div>
-
-      {/* Simple Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Permission Requests</h2>
-              <button onClick={() => setIsOpen(false)} className="text-gray-500 text-sm">Close</button>
-            </div>
-
-            {dummyData.map((person) => (
-              <div key={person.id} className="border-b py-3">
-                <p className="font-semibold">{person.name}</p>
-                <p className="text-sm text-gray-500">{person.email}</p>
-                <p className="text-xs capitalize text-gray-400">{person.status}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+  {/* Permission Summary Card */}
+  <div className="cursor-pointer flex justify-between items-center max-w-sm" onClick={() => setIsOpen(true)}>
+    <div>
+      <p className="text-gray-600 text-xl">Permission</p>
+      <p className="text-2xl font-bold">{dummyData.length}</p>
     </div>
-          </div>
+    <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
+  </div>
+</div>
           
           {/* Right: Pie Chart with Labels */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between h-32">
             <div>
               <p className=" text-gray-600 text-xl mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
@@ -214,7 +195,7 @@ const dummyData = [
         </div>
       </div>
 
-      <div className="flex gap-4 justify-between">
+      <div className="flex justify-between">
         <div>
           {/* Day and Date Picker */}
           <label className="block text-sm font-medium mt-10"></label>
@@ -404,6 +385,29 @@ const dummyData = [
           </button>
         </div>
       </div>
+      {/* Permission Modal - positioned at root level */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Permission Requests</h2>
+              <button onClick={() => setIsOpen(false)} className="text-gray-500 text-sm hover:text-gray-700">
+                Close
+              </button>
+            </div>
+
+            <div className="max-h-[400px] overflow-y-auto">
+              {dummyData.map((person) => (
+                <div key={person.id} className="border-b py-3 last:border-b-0">
+                  <p className="font-semibold">{person.name}</p>
+                  <p className="text-sm text-gray-500">{person.email}</p>
+                  <p className="text-xs capitalize text-gray-400">{person.status}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
