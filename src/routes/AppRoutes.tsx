@@ -22,6 +22,7 @@ import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
+import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -60,6 +61,7 @@ const AppRoutes = () => {
         <Route path="RotatingShift" element={<EmployeeShift />} />    
          <Route path="profile" element={<Profile />} /> 
          <Route path="asset-category" element={<Assetcategory/>}/>
+         <Route path="grievance-management" element={<GrievanceManagement/>}/>
         
       </Route>
     </Routes>

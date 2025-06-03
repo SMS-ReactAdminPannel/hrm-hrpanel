@@ -454,9 +454,6 @@ const AssetsManagement: React.FC = () => {
     }
   }
 
-  const styleLinear = {
-    background : 'linear-gradient(to right, #facc15, black)'
-  }
 
   const handleDeleteAsset = (asset: Asset): void => {
     setAssetToDelete(asset)
