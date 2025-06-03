@@ -128,6 +128,27 @@ const SideBar = () => {
             isOpen={isOpen}
             onClick={handleLinkClick}
           />
+           <SidebarLink
+            to="/appraisal"
+            icon={<FiSettings />}
+            label="appraisal"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
+          <SidebarLink
+            to="/reports"
+            icon={<FiSettings />}
+            label="reports"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
+          <SidebarLink
+            to="/traningmanagement"
+            icon={<FiSettings />}
+            label="traningmanagement"
+            isOpen={isOpen}
+            onClick={handleLinkClick}
+          />
           {/* <SidebarLink
             to="/sos"
             icon={<FiAlertTriangle />}

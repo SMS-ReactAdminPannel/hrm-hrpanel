@@ -12,9 +12,14 @@ import OrganizationChart from "../pages/Organization Charts/OrganizationChart";
 import Payroll from "../pages/Payroll Management/Payroll";
 import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
-import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
+import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
+import Reports from "../pages/Employee Mangament/Reports/Reports";
+import  TrainingManage  from "../pages/TrainingManagement/TrainingManage";
+
+
+
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -39,10 +44,14 @@ const AppRoutes = () => {
          <Route path="organization-chart" element={<OrganizationChart />} /> 
          <Route path="payroll" element={<Payroll />} /> 
          <Route path="recuritment" element={<Recuritment />} /> 
-         <Route path="time-sheet" element={<TimeSheet />} /> 
-         <Route path="training-management" element={<TrainingManage />} /> 
+         <Route path="time-sheet" element={<TimeSheet />} />  
          <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
+          <Route path="appraisal" element={<Appraisal/>}/>
+          <Route path="reports" element={<Reports/>}/>
+          <Route path="traningmanagement" element={<TrainingManage/>}/>
+          
+         
         
       </Route>
     </Routes>
