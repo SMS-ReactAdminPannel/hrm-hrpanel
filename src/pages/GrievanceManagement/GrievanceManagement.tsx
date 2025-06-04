@@ -111,10 +111,10 @@ const GrievanceManagement = () => {
 }, [filter]);
 
   return (
-    <div className="min-h-screen bg-[#fef7f4] p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen  p-2">
+      <div className="max-w-7xl ">
         <h1 className="text-3xl font-bold text-[#006666] mb-6">
-          Grievance Management
+          Grievances
         </h1>
 
         <div className="flex space-x-4 mb-6">

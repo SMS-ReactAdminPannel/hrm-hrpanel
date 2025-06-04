@@ -111,7 +111,7 @@ const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Payroll Management</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900" >Payroll Management</h1>
             <p className="text-gray-600">Manage employee payroll and compensation</p>
           </div>
           <div className="flex items-center gap-4">

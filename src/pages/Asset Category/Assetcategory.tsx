@@ -483,8 +483,8 @@ const AssetCategory: React.FC = () => {
   })
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <div className="container mx-auto">
+    <div className=" min-h-screen">
+      <div className="container ">
         <AssetCategoryHeader
           searchQuery={searchQuery}
           onSearch={handleSearch}

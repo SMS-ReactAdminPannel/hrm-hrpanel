@@ -576,7 +576,7 @@ const AssetsManagement: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
+    <div className="min-h-screen">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
         <div
@@ -585,11 +585,11 @@ const AssetsManagement: React.FC = () => {
         ></div>
       </div>
 
-      <div className="relative p-6 max-w-7xl mx-auto">
+      <div className="relative p-2 max-w-7xl ">
   
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-            Asset Management
+            Asset 
           </h1>
 
           <p className="text-slate-600">Manage and track your organization's assets</p>
@@ -605,7 +605,7 @@ const AssetsManagement: React.FC = () => {
               placeholder="Search assets, assignees, or serial numbers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-[250px] pl-10 pr-4 py-3 bg-white/70  border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
+              className="w-[250px] pl-10 pr-4 py-2 bg-white/70  border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
             />
           </div>
 
@@ -614,7 +614,7 @@ const AssetsManagement: React.FC = () => {
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2 bg-white/70 border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
@@ -652,7 +652,7 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
               <Plus className="w-5 h-5" />
               Add Asset
@@ -662,7 +662,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Total Assets</p>
@@ -671,7 +671,7 @@ const AssetsManagement: React.FC = () => {
               <Package className="w-8 h-8 text-blue-600" />
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Active</p>
@@ -684,7 +684,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Maintenance</p>
@@ -697,7 +697,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Categories</p>
@@ -709,7 +709,7 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         {/* Assets Table */}
-        <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 overflow-hidden">
+        <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-[#006666] text-white">
