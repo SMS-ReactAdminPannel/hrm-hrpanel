@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Search, Star, Moon, Bell, Trash2, Plus, Minus } from 'lucide-react';
+import { Search, Star, Moon, Bell } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'
 
 
