@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useRef } from "react"
-import { X } from "lucide-react"
+import { X, Upload, FileText, File, Check } from "lucide-react"
 import { FONTS } from "../../constants/uiConstants"
 
 export default function OnboardingTemplate() {
@@ -42,9 +42,9 @@ export default function OnboardingTemplate() {
   ]
 
   const getRandomColor = () => {
-  const colors = [ '#006666'];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
+    const colors = ['#006666'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   const toggleTask = (taskId: number) => {
     setCompletedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]))
@@ -106,10 +106,13 @@ export default function OnboardingTemplate() {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg max-h-[90vh] w-full overflow-hidden">
-          <div className="flex items-center justify-between border-b">
+        <div className="bg-white rounded-lg max-h-[90vh] w-full max-w-4xl overflow-hidden">
+          <div className="flex items-center justify-between border-b p-4">
             <h3 className="text-lg font-semibold">{fileName}</h3>
-            <button onClick={closeFileViewer} className="px-4 py-2 hover:bg-gray-100 rounded-">
+            <button 
+              onClick={closeFileViewer} 
+              className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -133,7 +136,7 @@ export default function OnboardingTemplate() {
                 <a
                   href={fileViewerModal.url}
                   download={fileName}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Download File
                 </a>
@@ -145,20 +148,103 @@ export default function OnboardingTemplate() {
     )
   }
 
+  const FileUploadCard = ({
+    documentType,
+    title,
+    description,
+    icon = <FileText className="w-5 h-5" />
+  }: {
+    documentType: string
+    title: string
+    description: string
+    icon?: React.ReactNode
+  }) => {
+    const fileData = uploadedFiles[documentType]
+    const inputRef = fileInputRefs[documentType as keyof typeof fileInputRefs]
+
+    return (
+      <div className="border border-gray-200 rounded-lg overflow-hidden transition-all hover:shadow-md">
+        <div className="p-4">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              {icon}
+            </div>
+            <div className="flex-1 ">
+              <h3 className="font-medium text-gray-900">{title}</h3>
+              <p className="text-sm text-gray-500">{description}</p>
+              
+              {fileData.file ? (
+                <div className="mt-3 flex items-center gap-2 ml-auto">
+                  <span className="text-sm font-medium text-green-600 flex items-center gap-1">
+                    <Check className="w-4 h-4" /> File uploaded
+                  </span>
+                  <button
+                    onClick={() => handleViewFile(documentType)}
+                    className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    View file
+                  </button>
+                  <button
+                    onClick={() => inputRef.current?.click()}
+                    className="text-sm text-gray-600 hover:text-gray-800 hover:underline"
+                  >
+                    Replace
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => inputRef.current?.click()}
+                  className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors ml-auto"
+                >
+                  <Upload className="w-4 h-4" />
+                  Upload File
+                </button>
+              )}
+              
+              <input
+                ref={inputRef}
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                onChange={(e) => handleFileChange(documentType, e)}
+                className="hidden"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {fileData.file && (
+          <div className="bg-gray-50 px-4 py-3 border-t border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <File className="w-4 h-4 text-gray-500" />
+                <span className="text-sm text-gray-700 truncate max-w-xs">
+                  {fileData.file.name}
+                </span>
+              </div>
+              <span className="text-xs text-gray-500">
+                {(fileData.file.size / 1024).toFixed(1)} KB
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <div className="mx-auto space-y-6 min-h-screen">
+    <div className="mx-auto space-y-6 min-h-screen pb-12">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1" >On Boarding</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1">On Boarding</h1>
       </div>
 
       {/* Tabs */}
-      <div className=" rounded-lg shadow-sm bg-white border border-gray-200">
-        <div className="border-gray-200">
-          <nav className="flex space-x-8 bg-gray-100 px-6" aria-label="Tabs" >
+      <div className="rounded-lg shadow-sm bg-white border pb-10 border-gray-200">
+        <div className="border-gray-200 ">
+          <nav className="flex space-x-8 bg-gray-100 px-6" aria-label="Tabs">
             {[
-              { id: "welcome", name: "Welcome"},
-              { id: "documents", name: "Documents"},
-              { id: "profile", name: "Profile"},
+              { id: "welcome", name: "Welcome" },
+              { id: "documents", name: "Documents" },
+              { id: "profile", name: "Profile" },
               { id: "tasks", name: "Tasks" },
             ].map((tab) => (
               <button
@@ -171,7 +257,6 @@ export default function OnboardingTemplate() {
                 }`}
               >
                 <span className="flex items-center gap-2">
-                 
                   {tab.name}
                 </span>
               </button>
@@ -184,7 +269,6 @@ export default function OnboardingTemplate() {
           {activeTab === "welcome" && (
             <div className="space-y-6">
               <div className="text-center p-5">
-                
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Your New Role!</h2>
                 <p className="text-gray-600">
                   {"We're excited to have you join our team as a Senior Software Engineer"}
@@ -194,11 +278,10 @@ export default function OnboardingTemplate() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                   
                     Your Team
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3 p-3  rounded-lg">
                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
                         SM
                       </div>
@@ -207,7 +290,7 @@ export default function OnboardingTemplate() {
                         <p className="text-sm text-gray-500">Engineering Manager</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3 p-3  rounded-lg">
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
                         JD
                       </div>
@@ -221,19 +304,18 @@ export default function OnboardingTemplate() {
 
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                    
                     First Week Schedule
                   </h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex justify-between items-center p-2  rounded">
                       <span>Day 1: Orientation & Setup</span>
                       <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>9:00 AM</span>
                     </div>
-                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex justify-between items-center p-2  rounded">
                       <span>Day 2: Team Introductions</span>
                       <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>10:00 AM</span>
                     </div>
-                    <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex justify-between items-center p-2  rounded">
                       <span>Day 3: Project Overview</span>
                       <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>2:00 PM</span>
                     </div>
@@ -248,97 +330,28 @@ export default function OnboardingTemplate() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Required Documents</h2>
-                <p className="text-gray-600" >Please upload the following documents to complete your onboarding</p>
+                <p className="text-gray-600">Please upload the following documents to complete your onboarding</p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📄</span>
-                    <div>
-                      <p className="font-medium text-gray-900">Form I-9 (Employment Eligibility)</p>
-                      <p className="text-sm text-gray-500">Required for all employees</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      ref={fileInputRefs.i9Form}
-                      className="block w-52 text-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
-                      id="i9Form"
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                      onChange={(e) => handleFileChange("i9Form", e)}
-                      style={{background: '#006666', color: '#333'}}
-                    />
-                    {uploadedFiles.i9Form.file && (
-                      <button
-                        onClick={() => handleViewFile("i9Form")}
-                       className="px-4 py-2 text-white text-xs rounded-md transition-colors"
-                        style={{background: '#006666'}} >
-                        View
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📄</span>
-                    <div>
-                      <p className="font-medium text-gray-900">W-4 Tax Form</p>
-                      <p className="text-sm text-gray-500">Federal tax withholding</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      ref={fileInputRefs.w4Form}
-                      className="block w-52 text-white text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
-                      id="w4Form"
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                      onChange={(e) => handleFileChange("w4Form", e)}
-                       style={{background: '#006666', color: '#333'}}
-                    />
-                    {uploadedFiles.w4Form.file && (
-                      <button
-                        onClick={() => handleViewFile("w4Form")}
-                       className="px-4 py-2 text-white text-xs rounded-md transition-colors"
-                        style={{background: '#006666'}}             >
-                        View
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📄</span>
-                    <div>
-                      <p className="font-medium text-gray-900">Direct Deposit Form</p>
-                      <p className="text-sm text-gray-500">Banking information for payroll</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      ref={fileInputRefs.directDeposit}
-                      className="block w-52 text-white text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
-                      id="directDeposit"
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                      onChange={(e) => handleFileChange("directDeposit", e)}
-                       style={{background: '#006666', color: '#333'}}
-                    />
-                    {uploadedFiles.directDeposit.file && (
-                      <button
-                        onClick={() => handleViewFile("directDeposit")}
-                        className="px-4 py-2 text-white text-xs rounded-md transition-colors"
-                        style={{background: '#006666'}}
-                      >
-                        View
-                      </button>
-                    )}
-                  </div>
-                </div>
+              <div className="grid gap-4">
+                <FileUploadCard
+                  documentType="i9Form"
+                  title="Form I-9 (Employment Eligibility)"
+                  description="Required for all employees"
+                />
+                
+                <FileUploadCard
+                  documentType="w4Form"
+                  title="W-4 Tax Form"
+                  description="Federal tax withholding"
+                />
+                
+                <FileUploadCard
+                  documentType="directDeposit"
+                  title="Direct Deposit Form"
+                  description="Banking information for payroll"
+                  icon={<File className="w-5 h-5" />}
+                />
               </div>
             </div>
           )}
@@ -348,7 +361,7 @@ export default function OnboardingTemplate() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Complete Your Profile</h2>
-                <p className="text-black" >Help us get to know you better</p>
+                <p className="text-black">Help us get to know you better</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -358,7 +371,6 @@ export default function OnboardingTemplate() {
                       Phone Number
                     </label>
                     <div className="relative">
-                      
                       <input
                         id="phone"
                         type="tel"
@@ -373,7 +385,6 @@ export default function OnboardingTemplate() {
                       Personal Email
                     </label>
                     <div className="relative">
-                      
                       <input
                         id="email"
                         type="email"
@@ -390,7 +401,6 @@ export default function OnboardingTemplate() {
                       Home Address
                     </label>
                     <div className="relative">
-                      
                       <input
                         id="address"
                         type="text"
@@ -416,27 +426,27 @@ export default function OnboardingTemplate() {
 
               <hr className="border-gray-200" />
 
-               <div className="space-y-4">
+              <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900">Preferences</h3>
-         <div className="grid md:grid-cols-2 gap-4">
-    <label className="flex items-center space-x-3 cursor-pointer">
-      <input
-        type="checkbox"
-        className="w-4 h-4 border-gray-300 rounded"
-        style={{ accentColor: getRandomColor() }}
-      />
-      <span className="text-sm text-black">Subscribe to company newsletter</span>
-    </label>
-    <label className="flex items-center space-x-3 cursor-pointer">
-      <input
-        type="checkbox"
-        className="w-4 h-4 border-gray-300 rounded"
-        style={{ accentColor: getRandomColor() }}
-      />
-      <span className="text-sm text-black">Notify me about company events</span>
-    </label>
-  </div>
-</div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 border-gray-300 rounded"
+                      style={{ accentColor: getRandomColor() }}
+                    />
+                    <span className="text-sm text-black">Subscribe to company newsletter</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 border-gray-300 rounded"
+                      style={{ accentColor: getRandomColor() }}
+                    />
+                    <span className="text-sm text-black">Notify me about company events</span>
+                  </label>
+                </div>
+              </div>
 
               <div className="flex justify-end">
                 <button className="px-4 py-2 text-white rounded-md bg-[#006666] transition-colors">Save Profile</button>
@@ -463,7 +473,7 @@ export default function OnboardingTemplate() {
                       checked={completedTasks.includes(task.id)}
                       onChange={() => toggleTask(task.id)}
                       style={{ accentColor: getRandomColor() }}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded "
+                      className="w-5 h-5 text-blue-600 border-gray-300 rounded"
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -483,7 +493,6 @@ export default function OnboardingTemplate() {
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span>{task.category}</span>
                         <span className="flex items-center gap-1">
-                          
                           Due: {task.dueDate}
                         </span>
                       </div>

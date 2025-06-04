@@ -342,7 +342,7 @@ const VisitorManagementSystem: React.FC = () => {
         )}
 
         {/* Tab Content */}
-        <div className=" rounded-lg bg-white ">
+        <div className=" rounded-lg bg-white pb-10">
           {/* Check In Tab */}
           {activeTab === 'checkin' && (
             <div>

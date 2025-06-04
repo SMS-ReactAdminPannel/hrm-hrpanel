@@ -1,8 +1,6 @@
-
 import type React from "react"
 import { FONTS } from "../../constants/uiConstants"
-
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import {
   User,
   Calendar,
@@ -85,6 +83,13 @@ const AdvancedHRMOffboarding = () => {
     file: File | null
     fileUrl: string | null
   }>({ isOpen: false, file: null, fileUrl: null })
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [filters, setFilters] = useState({
+    status: 'All',
+    department: 'All',
+    exitType: 'All'
+  })
 
   type ChecklistCategory = { category: string; items: string[] }
   type ChecklistTemplates = { [key: string]: ChecklistCategory[] }
@@ -148,6 +153,35 @@ const AdvancedHRMOffboarding = () => {
       },
       priority: "Medium",
       assignedHR: "David Wilson",
+    },
+    {
+      id: 3,
+      employee: {
+        name: "Robert Chen",
+        id: "EMP003",
+        department: "Finance",
+        position: "Financial Analyst",
+        manager: "Lisa Wong",
+        email: "robert.chen@company.com",
+        phone: "+1-555-0125",
+        hireDate: "2021-01-10",
+        avatar: "👨‍💼",
+      },
+      exitDetails: {
+        type: "Resignation",
+        reason: "Relocation",
+        lastWorkingDay: "2024-08-10",
+        noticePeriod: 60,
+        submittedDate: "2024-06-10",
+        status: "Pending",
+      },
+      progress: {
+        completed: 5,
+        total: 18,
+        percentage: 28,
+      },
+      priority: "Medium",
+      assignedHR: "Sarah Johnson",
     },
   ]
 
@@ -237,6 +271,53 @@ const AdvancedHRMOffboarding = () => {
     ],
   }
 
+  // Filter and search logic
+  const filteredRequests = offboardingRequests.filter(request => {
+    // Search filter
+    if (searchQuery && !request.employee.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !request.employee.id.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !request.employee.department.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !request.employee.position.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false;
+    }
+    
+    // Status filter
+    if (filters.status !== 'All' && request.exitDetails.status !== filters.status) {
+      return false;
+    }
+    
+    // Department filter
+    if (filters.department !== 'All' && request.employee.department !== filters.department) {
+      return false;
+    }
+    
+    // Exit type filter
+    if (filters.exitType !== 'All' && request.exitDetails.type !== filters.exitType) {
+      return false;
+    }
+    
+    return true;
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleFileChange = (
     employeeId: number,
     categoryIdx: number,
@@ -270,18 +351,15 @@ const AdvancedHRMOffboarding = () => {
   const openFileViewer = (employeeId: number, categoryIdx: number, itemIdx: number) => {
     const itemState = getItemState(employeeId, categoryIdx, itemIdx)
     if (itemState.file && itemState.fileUrl) {
-      // For different file types, handle differently
       const fileType = itemState.file.type
 
       if (fileType.startsWith("image/") || fileType === "application/pdf") {
-        // Open images and PDFs in modal
         setFileViewerModal({
           isOpen: true,
           file: itemState.file,
           fileUrl: itemState.fileUrl,
         })
       } else {
-        // For other file types, open in new tab or download
         const link = document.createElement("a")
         link.href = itemState.fileUrl
         link.target = "_blank"
@@ -331,11 +409,11 @@ const AdvancedHRMOffboarding = () => {
     const fileName = fileViewerModal.file.name
 
     return (
-      <div className="fixed inset-0 flex items-center justify-center z-50 p-4" >
-        <div className="rounded-lg max-h-[90vh]  overflow-hidden">
+      <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black bg-opacity-50">
+        <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="text-lg font-semibold">{fileName}</h3>
-            <button onClick={closeFileViewer} className="px-4 py-2 hover:bg-gray-100 rounded-md">
+            <button onClick={closeFileViewer} className="p-2 hover:bg-gray-100 rounded-md">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -372,7 +450,7 @@ const AdvancedHRMOffboarding = () => {
   }
 
   const renderDashboard = () => (
-    <div className="space-y-6" >
+    <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 md:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-lg border shadow-sm">
@@ -414,20 +492,20 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Quick Actions & Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white p-6 rounded-lg border shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold" >Recent Exit Requests</h3>
+            <h3 className="text-lg font-semibold">Recent Exit Requests</h3>
             <button
               onClick={() => setShowNewRequestModal(true)}
-              className=" bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
+              className="bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Request
             </button>
           </div>
           <div className="space-y-4">
-            {offboardingRequests.slice(0, 3).map((req) => (
+            {filteredRequests.slice(0, 3).map((req) => (
               <div
                 key={req.id}
                 className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
@@ -461,10 +539,9 @@ const AdvancedHRMOffboarding = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-auto">
-         <div className="bg-white p-6 rounded-lg border shadow-sm  ">
-          <h3 className="text-lg font-semibold mb-4" >Exit Reasons</h3>
-          <div className=" space-y-4" >
+        <div className="bg-white p-6 rounded-lg border shadow-sm">
+          <h3 className="text-lg font-semibold mb-4">Exit Reasons</h3>
+          <div className="space-y-4">
             {exitAnalytics.topReasons.slice(0, 4).map((reason, idx) => (
               <div key={idx} className="flex justify-between items-center">
                 <span className="text-sm">{reason.reason}</span>
@@ -477,9 +554,7 @@ const AdvancedHRMOffboarding = () => {
               </div>
             ))}
           </div>
-         </div>
         </div>
-
       </div>
     </div>
   )
@@ -492,7 +567,7 @@ const AdvancedHRMOffboarding = () => {
     return (
       <div className="space-y-6" style={{fontFamily:FONTS.paragraph.fontFamily, fontSize:FONTS.paragraph.fontSize}}>
         {/* Employee Header */}
-        <div className=" p-6 rounded-lg border shadow-sm">
+        <div className="p-6 rounded-lg border shadow-sm">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-6">
               <div className="text-6xl">{selectedEmployee.employee.avatar}</div>
@@ -535,7 +610,7 @@ const AdvancedHRMOffboarding = () => {
         {/* Exit Details & Progress */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4" >Exit Information</h3>
+            <h3 className="text-lg font-semibold mb-4">Exit Information</h3>
             <div className="space-y-3">
               <div>
                 <span className="text-sm text-gray-500">Exit Type:</span>
@@ -557,7 +632,7 @@ const AdvancedHRMOffboarding = () => {
           </div>
 
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4" >Contact Information</h3>
+            <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-gray-400" />
@@ -579,7 +654,7 @@ const AdvancedHRMOffboarding = () => {
           </div>
 
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4" >Progress Overview</h3>
+            <h3 className="text-lg font-semibold mb-4">Progress Overview</h3>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">{selectedEmployee.progress.percentage}%</div>
               <div className="w-full bg-gray-200 rounded-full h-3 mb-3">
@@ -596,9 +671,9 @@ const AdvancedHRMOffboarding = () => {
         </div>
 
         {/* Offboarding Checklist */}
-        <div className=" rounded-lg border shadow-sm">
+        <div className="rounded-lg border shadow-sm">
           <div className="p-6 border-b">
-            <h3 className="text-lg font-semibold" >Offboarding Checklist</h3>
+            <h3 className="text-lg font-semibold">Offboarding Checklist</h3>
           </div>
           <div className="p-6">
             {checklist.map((category, categoryIdx) => (
@@ -682,31 +757,28 @@ const AdvancedHRMOffboarding = () => {
 
   const renderAnalytics = () => (
     <div className="space-y-6">
-      
-        <div className="space-y-4 grid grid-cols-4 gap-8 ">
-          {exitAnalytics.departmentTrends.map((dept, idx) => (
-            <div key={idx} className="min-h-[96px] bg-gray-50 mt-4 rounded-lg">
-              <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="">
-                <h4 className="font-medium" >{dept.dept}</h4>
-                <p className="text-sm text-gray-600">{dept.exits} exits this year</p>
+      <div className="space-y-4 grid grid-cols-4 gap-8">
+        {exitAnalytics.departmentTrends.map((dept, idx) => (
+          <div key={idx} className="min-h-[96px] bg-gray-50 mt-4 rounded-lg">
+            <div className="bg-white p-6 rounded-lg border shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="">
+                  <h4 className="font-medium">{dept.dept}</h4>
+                  <p className="text-sm text-gray-600">{dept.exits} exits this year</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-semibold text-green-600">{dept.retention}%</div>
+                  <p className="text-sm text-gray-500">Retention Rate</p>
+                </div>
               </div>
-           
-              <div className="text-right">
-                <div className="text-lg font-semibold text-green-600">{dept.retention}%</div>
-                <p className="text-sm text-gray-500">Retention Rate</p>
-              </div>
+            </div>     
           </div>
-        </div>     
-            </div>
-          ))}
-       
+        ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4" >Monthly Exit Trends</h3>
+          <h3 className="text-lg font-semibold mb-4">Monthly Exit Trends</h3>
           <div className="h-48 flex items-end justify-between space-x-2">
             {[12, 8, 15, 6, 9, 11, 8, 14, 7, 10, 12, 8].map((height, idx) => (
               <div key={idx} className="flex-1 bg-blue-200 rounded-t" style={{ height: `${height * 8}px` }}>
@@ -721,7 +793,7 @@ const AdvancedHRMOffboarding = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4" >Exit Interview Insights</h3>
+          <h3 className="text-lg font-semibold mb-4">Exit Interview Insights</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span>Interviews Completed</span>
@@ -748,18 +820,103 @@ const AdvancedHRMOffboarding = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className=" px-7 py-4">
+      <div className="px-7 py-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-800">HRM Offboarding System</h1>
-          <div className="flex items-center  space-x-4">
+          <div className="flex items-center space-x-4">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
-              <input type="text" placeholder="Search employees..." className="pl-10 pr-4 py-2 border rounded-lg w-64" />
+              <input
+                type="text"
+                placeholder="Search employees..."
+                className="pl-10 pr-4 py-2 border rounded-lg w-64"
+                value={searchQuery}
+                onChange={handleSearch}
+              />
             </div>
-            <button className="px-4 py-2.5 bg-white rounded-md">
-              <Filter className="w-5 h-5  text-gray-500" />
-            </button>
-           
+            <div className="relative" ref={filterRef}>
+              <button 
+                className="px-4 py-2.5 bg-white rounded-md"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+              >
+                <Filter className="w-5 h-5 text-gray-500" />
+              </button>
+              
+              {isFilterOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg z-10 border">
+                  <div className="p-4 space-y-4">
+                    {/* Status Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                      <select
+                        className="w-full p-2 border rounded-md"
+                        value={filters.status}
+                        onChange={(e) => setFilters({...filters, status: e.target.value})}
+                      >
+                        <option value="All">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    
+                    {/* Department Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                      <select
+                        className="w-full p-2 border rounded-md"
+                        value={filters.department}
+                        onChange={(e) => setFilters({...filters, department: e.target.value})}
+                      >
+                        <option value="All">All Departments</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finance">Finance</option>
+                        <option value="HR">HR</option>
+                      </select>
+                    </div>
+                    
+                    {/* Exit Type Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Exit Type</label>
+                      <select
+                        className="w-full p-2 border rounded-md"
+                        value={filters.exitType}
+                        onChange={(e) => setFilters({...filters, exitType: e.target.value})}
+                      >
+                        <option value="All">All Types</option>
+                        <option value="Resignation">Resignation</option>
+                        <option value="Termination">Termination</option>
+                        <option value="Retirement">Retirement</option>
+                      </select>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex justify-between pt-2">
+                      <button 
+                        className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800"
+                        onClick={() => {
+                          setFilters({
+                            status: 'All',
+                            department: 'All',
+                            exitType: 'All'
+                          });
+                          setIsFilterOpen(false);
+                        }}
+                      >
+                        Reset
+                      </button>
+                      <button 
+                        className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                        onClick={() => setIsFilterOpen(false)}
+                      >
+                        Apply Filters
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -785,67 +942,80 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Main Content */}
-      <div className="py-4" >
+      <div className="p-6">
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "requests" &&
           (selectedEmployee ? (
             renderEmployeeDetails()
           ) : (
-            <div className="bg-white rounded-lg border shadow-sm" >
+            <div className="bg-white rounded-lg border shadow-sm">
               <div className="p-6 border-b">
-                <h3 className="text-lg font-semibold" >All Exit Requests</h3>
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold">All Exit Requests</h3>
+                  <div className="text-sm text-gray-500">
+                    Showing {filteredRequests.length} of {offboardingRequests.length} requests
+                  </div>
+                </div>
               </div>
               <div className="p-6">
-                <div className="space-y-4">
-                  {offboardingRequests.map((req) => (
-                    <div
-                      key={req.id}
-                      className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
-                      onClick={() => setSelectedEmployee(req)}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                          <div className="text-3xl">{req.employee.avatar}</div>
-                          <div>
-                            <h4 className="font-medium text-lg">{req.employee.name}</h4>
-                            <p className="text-gray-500">
-                              {req.employee.department} • {req.employee.position}
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              Exit Type: {req.exitDetails.type} | Last Day: {req.exitDetails.lastWorkingDay}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <span
-                            className={`px-3 py-1 rounded-full text-sm ${
-                              req.exitDetails.status === "Completed"
-                                ? "bg-green-100 text-green-800"
-                                : req.exitDetails.status === "In Progress"
-                                  ? "bg-blue-100 text-blue-800"
-                                  : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
-                            {req.exitDetails.status}
-                          </span>
-                          <div className="flex items-center space-x-2 mt-2">
-                            <div className="w-24 bg-gray-200 rounded-full h-2">
-                              <div
-                                className="bg-blue-600 h-2 rounded-full"
-                                style={{ width: `${req.progress.percentage}%` }}
-                              ></div>
+                {filteredRequests.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Search className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                    <h4 className="text-lg font-medium text-gray-600">No matching requests found</h4>
+                    <p className="text-gray-500 mt-1">Try adjusting your search or filter criteria</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {filteredRequests.map((req) => (
+                      <div
+                        key={req.id}
+                        className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
+                        onClick={() => setSelectedEmployee(req)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="text-3xl">{req.employee.avatar}</div>
+                            <div>
+                              <h4 className="font-medium text-lg">{req.employee.name}</h4>
+                              <p className="text-gray-500">
+                                {req.employee.department} • {req.employee.position}
+                              </p>
+                              <p className="text-sm text-gray-400">
+                                Exit Type: {req.exitDetails.type} | Last Day: {req.exitDetails.lastWorkingDay}
+                              </p>
                             </div>
-                            <span className="text-sm text-gray-600">{req.progress.percentage}%</span>
+                          </div>
+                          <div className="text-right">
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm ${
+                                req.exitDetails.status === "Completed"
+                                  ? "bg-green-100 text-green-800"
+                                  : req.exitDetails.status === "In Progress"
+                                    ? "bg-blue-100 text-blue-800"
+                                    : "bg-yellow-100 text-yellow-800"
+                              }`}
+                            >
+                              {req.exitDetails.status}
+                            </span>
+                            <div className="flex items-center space-x-2 mt-2">
+                              <div className="w-24 bg-gray-200 rounded-full h-2">
+                                <div
+                                  className="bg-blue-600 h-2 rounded-full"
+                                  style={{ width: `${req.progress.percentage}%` }}
+                                ></div>
+                              </div>
+                              <span className="text-sm text-gray-600">{req.progress.percentage}%</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
-        {activeTab === "analytics"  && renderAnalytics()}
+        {activeTab === "analytics" && renderAnalytics()}
       </div>
 
       {/* File Viewer Modal */}
