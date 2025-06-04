@@ -1,7 +1,10 @@
 import { useState } from "react"
+import PayslipView from "../../components/common/PaySlip/PaySlip" // Adjust path if needed
+
 
 const Payroll = () => {
   const [searchTerm, setSearchTerm] = useState("")
+const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
 
   const employees = [
     {
@@ -103,7 +106,7 @@ const Payroll = () => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-50">
+    <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
       <div className="flex flex-col gap-6 p-6">
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
@@ -285,7 +288,12 @@ const Payroll = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
-                  <tr key={employee.id} className="hover:bg-gray-50">
+                  <tr
+  key={employee.id}
+  className="hover:bg-gray-100 cursor-pointer"
+  onClick={() => setSelectedEmployee(employee)}
+>
+
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-col">
                         <div className="text-sm font-medium text-gray-900">{employee.name}</div>
@@ -315,6 +323,12 @@ const Payroll = () => {
                 ))}
               </tbody>
             </table>
+            {selectedEmployee && (
+        <PayslipView
+          employee={selectedEmployee}
+          onClose={() => setSelectedEmployee(null)}
+        />
+      )}
           </div>
         </div>
       </div>

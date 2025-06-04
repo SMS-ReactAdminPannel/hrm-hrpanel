@@ -9,20 +9,19 @@ type Announcement = {
 
 type AnnouncementTableProps = {
   data: Announcement[];
+  onEdit: (announcement: Announcement, index: number) => void;
+  onDelete: (index: number) => void;
 };
 
-const AnnouncementTable = ({ data }: AnnouncementTableProps) => {
+const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) => {
   return (
-    <div className="overflow-x-auto rounded-xl shadow mt-4">
-      <div className="text-sm text-gray-600 p-2">
-        Showing {data.length} {data.length === 1 ? "announcement" : "announcements"}
-      </div>
+    <div className="overflow-x-auto rounded-xl shadow my-6">
       <table className="min-w-full table-fixed border-collapse border border-gray-300 text-sm bg-white">
         <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white">
           <tr>
             <th className="w-40 px-6 py-3 text-left">Title</th>
-            <th className="w-36 px-6 py-3 text-left">Start Date</th>
-            <th className="w-36 px-6 py-3 text-left">End Date</th>
+            <th className="w-36 px-6 py-3 text-left">Start Date <br/>(yyyy-mm-dd)</th>
+            <th className="w-36 px-6 py-3 text-left">End Date<br/>(yyyy-mm-dd)</th>
             <th className="w-[30rem] px-6 py-3 text-left">Description</th>
             <th className="w-28 px-6 py-3 text-center">Action</th>
           </tr>
@@ -43,10 +42,18 @@ const AnnouncementTable = ({ data }: AnnouncementTableProps) => {
               </td>
               <td className="px-6 py-4 text-center">
                 <div className="flex justify-center gap-3">
-                  <button className="text-blue-600 hover:text-blue-800" title="Edit">
+                  <button
+                    className="text-blue-600 hover:text-blue-800"
+                    title="Edit"
+                    onClick={() => onEdit(item, index)}
+                  >
                     <Pencil size={16} />
                   </button>
-                  <button className="text-red-600 hover:text-red-800" title="Delete">
+                  <button 
+                    className="text-red-600 hover:text-red-800" 
+                    title="Delete"
+                    onClick={()=>onDelete(index)}
+                    >
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -56,6 +63,7 @@ const AnnouncementTable = ({ data }: AnnouncementTableProps) => {
         </tbody>
       </table>
     </div>
+
   );
 };
 

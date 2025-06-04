@@ -454,9 +454,6 @@ const AssetsManagement: React.FC = () => {
     }
   }
 
-  const styleLinear = {
-    background : 'linear-gradient(to right, #facc15, black)'
-  }
 
   const handleDeleteAsset = (asset: Asset): void => {
     setAssetToDelete(asset)
@@ -603,6 +600,7 @@ const AssetsManagement: React.FC = () => {
           <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
+            required
               type="text"
               placeholder="Search assets, assignees, or serial numbers..."
               value={search}
@@ -640,8 +638,8 @@ const AssetsManagement: React.FC = () => {
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
-                          ? "bg-from-teal-50 text-teal-700"
-                          : "text-slate-700"
+                         ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
+            : "text-slate-700 hover:text-[#006666]"
                       }`}
                     >
                       {cat !== "all" && getCategoryIcon(cat)}
@@ -888,162 +886,191 @@ const AssetsManagement: React.FC = () => {
 
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div
-            ref={modalRef}
-            className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100"
-          >
-            <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
-              {editingAsset ? "Edit Asset" : "Add New Asset"}
-            </h2>
+  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div
+      ref={modalRef}
+      className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+    >
+      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
+        {editingAsset ? "Edit Asset" : "Add New Asset"}
+      </h2>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Asset Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter asset name"
-                  value={newAsset.name}
-                  onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Assigned To</label>
-                <input
-                  type="text"
-                  placeholder="Enter assignee name"
-                  value={newAsset.assignedTo}
-                  onChange={(e) => setNewAsset({ ...newAsset, assignedTo: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
-                <div className="relative" ref={modalCategoryDropdownRef}>
-                  <button
-                    onClick={() => setShowModalCategoryDropdown(!showModalCategoryDropdown)}
-                    className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all appearance-none flex items-center justify-between"
-                  >
-                    <span className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
-                      {newAsset.category || "Select category"}
-                    </span>
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {showModalCategoryDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {["Laptop", "Monitor", "Accessory"].map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => {
-                            setNewAsset({ ...newAsset, category: cat })
-                            setShowModalCategoryDropdown(false)
-                          }}
-                          className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                            newAsset.category === cat
-                              ? "bg-[#006666] text-teal-700"
-                              : "text-slate-700"
-                          }`}
-                        >
-                          {getCategoryIcon(cat)}
-                          <span>{cat}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Serial Number</label>
-                <input
-                  type="text"
-                  placeholder="Enter serial number"
-                  value={newAsset.serialNumber}
-                  onChange={(e) => setNewAsset({ ...newAsset, serialNumber: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all font-mono"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
-                <div className="relative" ref={modalStatusDropdownRef}>
-                  <button
-                    onClick={() => setShowModalStatusDropdown(!showModalStatusDropdown)}
-                    className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all appearance-none flex items-center justify-between"
-                  >
-                    <span className="flex items-center gap-2">
-                      <span
-                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(newAsset.status)}`}
-                      >
-                        {String(newAsset.status).charAt(0).toUpperCase() + String(newAsset.status).slice(1)}
-                      </span>
-                    </span>
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${showModalStatusDropdown ? "rotate-180" : ""}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {showModalStatusDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
-                      {(["active", "maintenance", "returned"] as const).map((status) => (
-                        <button
-                          key={status}
-                          onClick={() => {
-                            setNewAsset({ ...newAsset, status })
-                            setShowModalStatusDropdown(false)
-                          }}
-                          className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
-                            newAsset.status === status ? "bg-[#006666]" : ""
-                          }`}
-                        >
-                          <span
-                            className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(status)}`}
-                          >
-                            {String(status).charAt(0).toUpperCase() + String(status).slice(1)}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-3 mt-8">
-              <button
-                onClick={handleCloseModal}
-                className="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-medium"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={editingAsset ? handleUpdateAsset : handleAddAsset}
-                className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
-              >
-                {editingAsset ? "Update Asset" : "Add Asset"}
-              </button>
-            </div>
-          </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          editingAsset ? handleUpdateAsset() : handleAddAsset();
+        }}
+        className="space-y-4"
+      >
+        {/* Asset Name */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Asset Name</label>
+          <input
+            type="text"
+            required
+            placeholder="Enter asset name"
+            value={newAsset.name}
+            onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
+            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+          />
         </div>
-      )}
 
-      {/* Delete Confirmation Modal */}
+        {/* Assigned To */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Assigned To</label>
+          <input
+            type="text"
+            required
+            placeholder="Enter assignee name"
+            value={newAsset.assignedTo}
+            onChange={(e) => setNewAsset({ ...newAsset, assignedTo: e.target.value })}
+            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+          />
+        </div>
+
+        {/* Category */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
+          <div className="relative" ref={modalCategoryDropdownRef}>
+            <button
+              type="button"
+              onClick={() => setShowModalCategoryDropdown(!showModalCategoryDropdown)}
+              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
+            >
+              <span className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
+                {newAsset.category || "Select category"}
+              </span>
+              <svg
+                className={`w-4 h-4 transition-transform duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {showModalCategoryDropdown && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                {["Laptop", "Monitor", "Accessory"].map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => {
+                      setNewAsset({ ...newAsset, category: cat });
+                      setShowModalCategoryDropdown(false);
+                    }}
+                    className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-[#006666]/5 hover:to-[#006666]/10 transition-all duration-200 flex items-center gap-3 border-b border-gray-100 last:border-b-0 ${
+                      newAsset.category === cat
+                        ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
+                        : "text-slate-700 hover:text-[#006666]"
+                    }`}
+                  >
+                    {getCategoryIcon(cat)}
+                    <span>{cat}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* Hidden input to ensure required works */}
+          <input type="text" value={newAsset.category} required hidden readOnly />
+        </div>
+
+        {/* Serial Number */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Serial Number</label>
+          <input
+            type="text"
+            required
+            placeholder="Enter serial number"
+            value={newAsset.serialNumber}
+            onChange={(e) => setNewAsset({ ...newAsset, serialNumber: e.target.value })}
+            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all font-mono"
+          />
+        </div>
+
+        {/* Status */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
+          <div className="relative" ref={modalStatusDropdownRef}>
+            <button
+              type="button"
+              onClick={() => setShowModalStatusDropdown(!showModalStatusDropdown)}
+              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
+            >
+              <span className="flex items-center gap-2">
+                <span
+                  className={`inline-flex px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                    newAsset.status
+                  )}`}
+                >
+                  {String(newAsset.status).charAt(0).toUpperCase() + String(newAsset.status).slice(1)}
+                </span>
+              </span>
+              <svg
+                className={`w-4 h-4 transition-transform duration-200 ${showModalStatusDropdown ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {showModalStatusDropdown && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                {(["active", "maintenance", "returned"] as const).map((status) => (
+                  <button
+                    key={status}
+                    type="button"
+                    onClick={() => {
+                      setNewAsset({ ...newAsset, status });
+                      setShowModalStatusDropdown(false);
+                    }}
+                    className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
+                      newAsset.status === status ? "bg-[#006666]" : ""
+                    }`}
+                  >
+                    <span
+                      className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                        status
+                      )}`}
+                    >
+                      {String(status).charAt(0).toUpperCase() + String(status).slice(1)}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* Hidden input for required enforcement */}
+          <input type="text" value={newAsset.status} required hidden readOnly />
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-3 mt-8">
+          <button
+            type="button"
+            onClick={handleCloseModal}
+            className="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+          >
+            {editingAsset ? "Update Asset" : "Add Asset"}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
+    
       {showDeleteModal && assetToDelete && (
         <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
@@ -1076,7 +1103,7 @@ const AssetsManagement: React.FC = () => {
         </div>
       )}
 
-      {/* Asset Detail Modal */}
+    
       {showDetailModal && selectedAsset && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">

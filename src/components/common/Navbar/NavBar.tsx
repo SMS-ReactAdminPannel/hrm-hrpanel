@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Search, Star, Moon, Bell, Trash2, Plus, Minus } from 'lucide-react';
+import { useState, useRef, useEffect, type JSX } from 'react';
+import { Search, Star, Moon, Bell } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -42,7 +42,7 @@ const navigate = useNavigate()
 
 
   return (
-    <div className="flex items-center justify-between bg-[#f8f8f8] px-6 py-4 border-b relative">
+    <div className="flex items-center justify-between  px-6 py-4 border-b relative">
       <div>
         <h2 className="text-xl font-semibold flex items-center gap-1">
           Welcome HRM <span>👋</span>
