@@ -31,6 +31,8 @@ import ForgotPassword from "../pages/auth/ForgetPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 
 import { useAuth } from "../pages/auth/AuthContext";
+import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
+import Notification from "../pages/Notification/Notification";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -57,14 +59,15 @@ const AppRoutes = () => {
           <Route path="announcement" element={<Announcement />} />
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
-          <Route path="employee-shift" element={<EmployeeShift />} />
-          <Route path="rotating-shift" element={<EmployeeShift />} />
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="reports" element={<Reports />} />
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
+          <Route path="profile" element={<Profile />} /> 
+          <Route path="grievance-management" element={<GrievanceManagement/>}/>
+          <Route path="notification" element={<Notification/>}/>
         </Route>
       ) : (
         <>
@@ -72,9 +75,10 @@ const AppRoutes = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </>
       )}
+          
     </Routes>
   );
 };

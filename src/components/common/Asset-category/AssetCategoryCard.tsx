@@ -1,7 +1,7 @@
 import type React from "react"
 import { useState } from "react"
 import { ChevronDown, ChevronRight, Edit, Trash2, Plus } from "lucide-react"
-import AssetTable from "./Assettable"
+import AssetTable from "./AssetTable"
 
 interface Asset {
   id: string

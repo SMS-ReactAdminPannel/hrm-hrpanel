@@ -1,7 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './pages/auth/AuthContext';
-import AppRoutes from './routes/AppRoutes';
-import { ToastContainer } from 'react-toastify';
+import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./pages/auth/AuthContext";
+import AppRoutes from "./routes/AppRoutes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <AuthProvider>
           <AppRoutes />
           <ToastContainer
-            position='top-right'
+            position="top-right"
             autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
@@ -19,12 +20,12 @@ function App() {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme='colored'
+            theme="colored"
           />
         </AuthProvider>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
 export default App

@@ -24,7 +24,7 @@ const EmployeeDetails: React.FC = () => {
     );
   }
   const employeeAttendanceData = {
-    daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30],
+    daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30,31],
     profilePic: `/placeholder.svg?height=40&width=40`,
   }
 
@@ -59,81 +59,82 @@ const EmployeeDetails: React.FC = () => {
 
       <div className="flex gap-6 mt-4">
         <InfoCard title="Total Completed project" value="2" icon={<IoSettingsSharp className="w-10 h-10 text-blue-600" />} />
-        <InfoCard title="Total Worked Duration" value="48Hrs:40mins" icon={<MdTimer className="w-10 h-10 text-green-600" />} />
-        <InfoCard title="Total Break Time" value="5Hrs" icon={<PiBowlSteamFill className="w-10 h-10 text-yellow-600" />} />
+        <InfoCard title="Total Worked Duration" value="216Hrs:40mins" icon={<MdTimer className="w-10 h-10 text-green-600" />} />
+        <InfoCard title="Total Break Time" value="24Hrs" icon={<PiBowlSteamFill className="w-10 h-10 text-yellow-600" />} />
         <InfoCard title="Total Leave" value="4" icon={<CgProfile className="w-10 h-10 text-red-600" />} />
       </div>
-
-      {/* <div className="p-6 max-w-2xl mx-auto bg-white rounded-xl shadow-lg mt-10">
-        <h2 className="text-3xl font-bold mb-4">{employee.Name}</h2>
-        <p><strong>ID:</strong> {employee.ID}</p>
-        <p><strong>Designation:</strong> {employee.Designation}</p>
-        <p><strong>Status:</strong> {employee.Status}</p>
-        <p><strong>Check In:</strong> {employee.CheckIn}</p>
-        <p><strong>Check Out:</strong> {employee.CheckOut}</p>
-        <p><strong>Duration:</strong> {employee.Duration}</p>
-      </div> */}
       {/* Monthly Timesheet */}
-      <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-xl border border-white/20 overflow-hidden">
-        <div className="p-6 border-b border-white/30">
-          <h3 className="text-xl font-semibold text-slate-800">Monthly Timesheet - December 2025</h3>
-        </div>
+<div className="bg-white/70 backdrop-blur-md rounded-xl shadow-xl border border-white/20 overflow-hidden">
+  <div className="p-6 border-b border-white/30">
+    <h3 className="text-xl font-semibold text-slate-800">Monthly Timesheet - December 2025</h3>
+  </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse text-sm">
-            <thead className="bg-[#006666] text-white">
-              <tr>
-                <th className="border border-gray-300 px-4 py-3 text-left min-w-[200px]">Employee</th>
-                {days.map(({ day, weekday }) => (
-                  <th key={day} className="px-3 py-3 text-center border border-gray-300 min-w-[50px]">
-                    {day} <br />({weekday})
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-6 py-3 flex items-center gap-3 bg-white/50">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 text-white flex items-center justify-center text-sm font-bold">
-                    {employee.Name.charAt(0)}
-                  </div>
-                  <span className="font-medium text-gray-700">{employee.Name}</span>
-                </td>
-                {days.map(({ day, weekday }) => {
-                  const isSunday = weekday === "Sun"
-                  const isPresent = employeeAttendanceData.daysPresent.includes(day)
+  <div className="overflow-x-auto scrollbar-hide max-h-[600px] overflow-y-auto">
+    <table className="min-w-full border-collapse text-sm">
+      <thead className="bg-[#006666] text-white sticky top-0 z-20">
+        <tr>
+          <th className="border border-gray-300 px-4 py-3 text-left min-w-[200px] sticky left-0 bg-[#006666] z-30 shadow-lg">
+            Employee
+          </th>
+          {days.map(({ day, weekday }) => (
+            <th key={day} className="px-3 py-3 text-center border border-gray-300 min-w-[50px]">
+              {day} <br />({weekday})
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="hover:bg-gray-50">
+          <td className="border border-gray-300 px-6 py-3 sticky left-0 z-10 bg-white shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 text-white flex items-center justify-center text-sm font-bold">
+                {employee.Name.charAt(0)}
+              </div>
+              <span className="font-medium text-gray-700">{employee.Name}</span>
+            </div>
+          </td>
+          {days.map(({ day, weekday }) => {
+            const isSunday = weekday === "Sun"
+            const isPresent = employeeAttendanceData.daysPresent.includes(day)
 
-                  const tooltipData = {
-                    firstIn: "09:00 AM",
-                    lastOut: "06:00 PM",
-                    required: "8h",
-                  }
+            const tooltipData = {
+              firstIn: "09:00 AM",
+              lastOut: "06:00 PM",
+              required: "8h",
+            }
 
-                  return (
-                    <td key={day} className="relative group text-center px-2 py-3 border border-gray-300 bg-white/30">
-                      {isSunday ? (
-                        <span className="text-red-500 font-semibold">R</span>
-                      ) : (
-                        <>
-                          <div className={`w-4 h-4 mx-auto rounded-sm ${isPresent ? "bg-green-500" : "bg-red-500"}`} />
-                          <div className="absolute z-20 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
-                            <p className="font-semibold mb-1">Day {day}</p>
-                            <p>
-                              <strong>First In:</strong> {tooltipData.firstIn}
-                            </p>
-                            <p>
-                              <strong>Last Out:</strong> {tooltipData.lastOut}
-                            </p>
-                            <p>
-                              <strong>Required:</strong> {tooltipData.required}
-                            </p>
-                            <p>
-                              <strong>Status:</strong>{" "}
-                              <span className={isPresent ? "text-green-600" : "text-red-600"}>
-                                {isPresent ? "Present" : "Absent"}
-                              </span>
-                            </p>
-                          </div>
+            return (
+              <td key={day} className="relative group text-center px-2 py-3 border border-gray-300 bg-white/30">
+                {isSunday ? (
+                  <span className="text-red-500 font-semibold">R</span>
+                ) : (
+                  <>
+            <div className={`w-4 h-4 mx-auto rounded-sm ${isPresent ? "bg-green-500" : "bg-red-500"}`} />
+            {!isPresent && (
+                            <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                              <p className="font-semibold mb-1">Day {day}</p>
+                              <p>
+                                <strong>Status:</strong> <span className="text-red-600">Absent</span>
+                              </p>
+                            </div>
+                          )}
+                          {isPresent && (
+                            <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-300 shadow-lg p-3 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                              <p className="font-semibold mb-1">Day {day}</p>
+                              <p>
+                                <strong>First In:</strong> {tooltipData.firstIn}
+                              </p>
+                              <p>
+                                <strong>Last Out:</strong> {tooltipData.lastOut}
+                              </p>
+                              <p>
+                                <strong>Required:</strong> {tooltipData.required}
+                              </p>
+                              <p>
+                                <strong>Status:</strong> <span className="text-green-600">Present</span>
+                              </p>
+                            </div>
+                          )}
                         </>
                       )}
                     </td>
@@ -144,10 +145,9 @@ const EmployeeDetails: React.FC = () => {
           </table>
         </div>
       </div>
-
     </div>
-  );
-};
+  )
+}
 
 // Reusable card for metrics
 const InfoCard = ({ title, value, icon }: { title: string; value: string; icon: React.ReactNode }) => (
@@ -158,6 +158,6 @@ const InfoCard = ({ title, value, icon }: { title: string; value: string; icon: 
     </div>
     {icon}
   </div>
-);
+)
 
-export default EmployeeDetails;
+export default EmployeeDetails

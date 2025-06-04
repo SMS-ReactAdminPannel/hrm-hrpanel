@@ -9,6 +9,7 @@ import {
   FiTruck,
   FiPower,
 } from "react-icons/fi";
+import { AiOutlineIssuesClose } from "react-icons/ai";
 import {
   RiMenu2Line,
   RiMenu3Line,
@@ -31,104 +32,110 @@ const COLOR = {
 const SIDEBAR_WIDTH_OPEN = "15rem";
 const SIDEBAR_WIDTH_CLOSED = "6rem";
 
-const SideBar = () => {
-  const [isPinned, setIsPinned] = useState(false);
+const SideBar = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}) => {
   const [hovered, setHovered] = useState(false);
-
-  const isOpen = isPinned || hovered;
+  const actualOpen = isOpen || hovered;
 
   const handleLinkClick = () => {
-    if (!isPinned) setHovered(false);
+    if (!isOpen) setHovered(false);
+  };
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userEmail");
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
-    <div className="flex h-screen">
-      <div
-        className="border-r shadow-md transition-all duration-300 fixed top-0 left-0 h-screen z-40 flex flex-col rounded-tr-3xl rounded-br-3xl overflow-hidden"
-        onMouseEnter={() => !isPinned && setHovered(true)}
-        onMouseLeave={() => !isPinned && setHovered(false)}
-        style={{
-          backgroundColor: COLOR.primary,
-          width: isOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED,
-        }}
-      >
-        {/* Header */}
-        <div className="flex flex-col sticky top-0 bg-[#006666] z-50">
-          <div className="flex justify-center items-center h-20 text-lg font-bold text-white">HRM</div>
-          <div className={`w-full flex ${isOpen ? "justify-end px-2" : "justify-center"}`}>
-            <button
-              onClick={() => setIsPinned(!isPinned)}
-              className="p-2 rounded-md transition duration-200 hover:bg-white/20"
-              title="Toggle Sidebar"
-            >
-              {isOpen ? (
-                <RiMenu3Line size={20} color={COLOR.white} />
-              ) : (
-                <RiMenu2Line size={20} color={COLOR.white} />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <div className="overflow-y-auto scrollbar-hide flex-1 mt-4">
-          <nav className="flex flex-col gap-4 w-full items-center">
-            <SidebarDropdown icon={<FiHome />} label="Dashboard" isOpen={isOpen}>
-              <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={isOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
-
-            <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={isOpen}>
-              <SidebarLink to="/employee" icon={<FiUsers />} label="Employee" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/shift" icon={<FiUserCheck />} label="Shifts" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/appraisal" icon={<FiUserCheck />} label="Appraisal" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/reports" icon={<FiUserCheck />} label="Reports" isOpen={isOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
-
-            <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={isOpen}>
-              <SidebarLink to="/recuritment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={isOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={isOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
-
-            <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/assets-management" icon={<RiArchiveDrawerLine />} label="Assets" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/asset-category" icon={<FiTruck />} label="Asset Category" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Leave Types" isOpen={isOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={isOpen} onClick={handleLinkClick} />
-
-            {/* Logout */}
-            <div
-              onClick={handleLogout}
-              className={`flex items-center transition-all px-2 py-1 cursor-pointer ${
-                isOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
-              } rounded-full hover:bg-white/20`}
-            >
-              <div className="text-xl" style={{ color: COLOR.white }}>
-                <FiPower />
-              </div>
-              {isOpen && <span style={{ color: COLOR.white }}>Logout</span>}
-            </div>
-          </nav>
+    <div
+      className="border-r shadow-md transition-all duration-300 fixed top-0 left-0 h-[100vh] z-40 flex flex-col overflow-hidden"
+      onMouseEnter={() => !isOpen && setHovered(true)}
+      onMouseLeave={() => !isOpen && setHovered(false)}
+      style={{
+        // backgroundColor: COLOR.primary,
+        width: actualOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED,
+      }}
+    >
+      {/* Header */}
+      <div className="flex flex-col sticky top-0  z-50">
+        <div className="flex justify-center items-center h-20 text-lg font-bold text-white">HRM</div>
+        <div className={`w-full flex ${actualOpen ? "justify-end px-2" : "justify-center"}`}>
+          <button
+            onClick={handleToggle}
+            className="p-2 rounded-md transition duration-200 hover:bg-white/20"
+            title="Toggle Sidebar"
+          >
+            {actualOpen ? (
+              <RiMenu3Line size={20} color={COLOR.white} />
+            ) : (
+              <RiMenu2Line size={20} color={COLOR.white} />
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Space for content to avoid overlap */}
-      <div
-        className={`transition-all duration-300`}
-        style={{ marginLeft: isOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED }}
-      ></div>
+      {/* Navigation */}
+      <div className="overflow-y-auto scrollbar-hide flex-1 mt-4">
+        <nav className="flex flex-col gap-4 w-full items-center">
+          <SidebarDropdown icon={<FiHome />} label="Dashboard" isOpen={actualOpen}>
+            <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
+          </SidebarDropdown>
+
+          <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={actualOpen}>
+            <SidebarLink to="/employee" icon={<FiUsers />} label="Employee" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/shift" icon={<FiUserCheck />} label="Shifts" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/appraisal" icon={<FiUserCheck />} label="Appraisal" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/reports" icon={<FiUserCheck />} label="Reports" isOpen={actualOpen} onClick={handleLinkClick} />
+          </SidebarDropdown>
+
+          <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={actualOpen}>
+            <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/recruitment/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
+          </SidebarDropdown>
+
+          <SidebarDropdown icon={<RiUserSearchLine />} label="Leaves" isOpen={actualOpen}>
+            <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
+          </SidebarDropdown>
+
+          <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/assets-management" icon={<RiArchiveDrawerLine />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/asset-category" icon={<FiTruck />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
+
+          {/* Logout */}
+          <div
+            onClick={handleLogout}
+            className={`flex items-center transition-all px-2 py-1 cursor-pointer ${
+              actualOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
+            } rounded-full hover:bg-white/20`}
+          >
+            <div className="text-xl" style={{ color: COLOR.white }}>
+              <FiPower />
+            </div>
+            {actualOpen && <span style={{ color: COLOR.white }}>Logout</span>}
+          </div>
+        </nav>
+      </div>
     </div>
   );
 };

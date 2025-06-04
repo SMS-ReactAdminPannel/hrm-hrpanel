@@ -1,13 +1,19 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 type User = {
   email: string;
-  // Add other fields as needed
 };
 
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   signup: (email: string, password: string) => Promise<void>;
@@ -17,31 +23,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true); // <- Add loading state
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const email = localStorage.getItem("userEmail");
+
     if (token && email) {
       setUser({ email });
       setIsAuthenticated(true);
     }
+    setLoading(false); // <- Set loading false once checked
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Replace this with actual API logic
     if (email && password) {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
       setUser({ email });
-      setIsAuthenticated(true);
+      setIsAuthenticated(false);
     } else {
       throw new Error("Invalid login credentials");
     }
   };
 
   const signup = async (email: string, password: string) => {
-    // Replace with real API signup
     if (email && password) {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
@@ -60,7 +67,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, signup }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, logout, signup, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

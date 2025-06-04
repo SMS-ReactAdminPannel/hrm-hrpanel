@@ -100,6 +100,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 Asset Name
               </label>
               <input
+                required
                 type="text"
                 id="name"
                 name="name"
@@ -114,6 +115,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 Description
               </label>
               <textarea
+              
                 id="description"
                 name="description"
                 value={formData.description}
@@ -130,6 +132,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                   Tracking Id
                 </label>
                 <input
+                required
                   type="text"
                   id="trackingId"
                   name="trackingId"
@@ -145,6 +148,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="category"
                     name="category"
                     value={formData.category}
@@ -172,6 +176,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 </label>
                 <div className="relative">
                   <input
+                  required
                     type="date"
                     id="purchaseDate"
                     name="purchaseDate"
@@ -190,6 +195,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                   Cost
                 </label>
                 <input
+                required
                   type="text"
                   id="cost"
                   name="cost"
@@ -207,6 +213,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="status"
                     name="status"
                     value={formData.status}
@@ -230,6 +237,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="batchNo"
                     name="batchNo"
                     value={formData.batchNo}
@@ -254,6 +262,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </label>
               <div className="relative">
                 <input
+                required
                   type="date"
                   id="expiryDate"
                   name="expiryDate"
@@ -274,7 +283,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
               onClick={onClose}
             >
-              Add Report
+              Close
             </button>
             <button
               type="submit"
