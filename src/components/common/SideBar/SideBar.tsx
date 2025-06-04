@@ -67,9 +67,9 @@ const SideBar = ({
       }}
     >
       {/* Header */}
-      <div className="flex flex-col sticky top-0  z-50">
-        <div className="flex justify-center items-center h-20 text-lg font-bold text-white">HRM</div>
-        <div className={`w-full flex ${actualOpen ? "justify-end px-2" : "justify-center"}`}>
+      <div className="flex justify-start sticky top-0 p-4 z-50">
+
+        <div className={` flex ${actualOpen ? "justify-start " : "justify-center"}`}>
           <button
             onClick={handleToggle}
             className="p-2 rounded-md transition duration-200 hover:bg-white/20"
@@ -82,6 +82,7 @@ const SideBar = ({
             )}
           </button>
         </div>
+        {/* <div className="flex justify-center items-center h-20 text-lg font-bold text-white">HRM</div> */}
       </div>
 
       {/* Navigation */}
@@ -109,7 +110,7 @@ const SideBar = ({
 
           <SidebarDropdown icon={<RiUserSearchLine />} label="Leaves" isOpen={actualOpen}>
             <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
 
           <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
@@ -125,9 +126,8 @@ const SideBar = ({
           {/* Logout */}
           <div
             onClick={handleLogout}
-            className={`flex items-center transition-all px-2 py-1 cursor-pointer ${
-              actualOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
-            } rounded-full hover:bg-white/20`}
+            className={`flex items-center transition-all px-2 py-1 cursor-pointer ${actualOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
+              } rounded-full hover:bg-white/20`}
           >
             <div className="text-xl" style={{ color: COLOR.white }}>
               <FiPower />
@@ -163,8 +163,8 @@ const SidebarLink = ({
   const backgroundColor = isActive
     ? "#ffffff33"
     : isHovered
-    ? "#ffffff1a"
-    : "transparent";
+      ? "#ffffff1a"
+      : "transparent";
 
   return (
     <Link
@@ -173,9 +173,8 @@ const SidebarLink = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ backgroundColor }}
-      className={`flex items-center transition-all px-2 py-1 ${
-        isOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-20 h-8"
-      } rounded-full`}
+      className={`flex items-center transition-all px-2 py-1 ${isOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-20 h-8"
+        } rounded-full`}
     >
       <div className="text-xl text-white">{icon}</div>
       {isOpen && <span className="text-white">{label}</span>}
@@ -201,9 +200,8 @@ const SidebarDropdown = ({
     <div className="w-full">
       <button
         onClick={() => setExpanded(!expanded)}
-        className={`flex items-center w-full transition-all px-2 py-2 rounded-full hover:bg-white/20 ${
-          isOpen ? "justify-start gap-4 pl-5 pr-2" : "justify-center"
-        }`}
+        className={`flex items-center w-full transition-all px-2 py-2 rounded-full hover:bg-white/20 ${isOpen ? "justify-start gap-4 pl-5 pr-2" : "justify-center"
+          }`}
       >
         <div className="text-xl text-white">{icon}</div>
         {isOpen && (

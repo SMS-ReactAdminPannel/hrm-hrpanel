@@ -14,20 +14,20 @@ export const MainLayout = () => {
   const marginLeft = isSidebarOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED;
 
   return (
-    <div className="flex h-screen  overflow-hidden" style={{backgroundImage: `url(${mainLayout2})`  , backgroundSize:'cover' , backgroundRepeat:'no-repeat'}}>
+    <div className="flex h-screen  overflow-hidden" style={{ backgroundImage: `url(${mainLayout2})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
       {/* Sidebar */}
       <SideBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
       {/* Main content */}
       <div
-        className="flex flex-col flex-1 transition-all duration-300"
+        className="flex flex-col flex-1 w-full overflow-auto transition-all duration-300"
         style={{ marginLeft }}
       >
         <NavBar />
         <main className="flex-1 overflow-auto scrollbar-hide">
           <div
             className="p-4 rounded shadow"
-            // style={{ backgroundColor: COLORS.bgColor }}
+          // style={{ backgroundColor: COLORS.bgColor }}
           >
             <Outlet />
           </div>
