@@ -70,7 +70,7 @@ const EmployeeDetails: React.FC = () => {
   return (
     <div className="space-y-6 min-h-screen ">
       <div className="justify-end">
-        <button onClick={() => navigate(-1)} className="mb-4 text-gray-500  rounded">
+        <button onClick={() => navigate(-1)} className="mb-4 text-white  rounded">
           <MdKeyboardBackspace size={28} />
         </button>
       </div>
