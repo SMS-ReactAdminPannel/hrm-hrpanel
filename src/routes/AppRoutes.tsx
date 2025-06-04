@@ -23,6 +23,7 @@ import CandidatesPage from "../pages/Recuritment/Candidates";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
+import Notification from "../pages/Notification/Notification";
 
 const AppRoutes = () => {
   const  isAuthenticated  = true
@@ -63,6 +64,7 @@ const AppRoutes = () => {
          <Route path="asset-category" element={<Assetcategory/>}/>
          <Route path="grievance-management" element={<GrievanceManagement/>}/>
          
+         <Route path="notification" element={<Notification/>}/>
         
       </Route>
     </Routes>

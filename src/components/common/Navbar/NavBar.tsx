@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { Search, Star, Moon, Bell, Trash2, Plus, Minus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Navbar() {
   const [showBookmark, setShowBookmark] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [tab, setTab] = useState<'all' | 'messages' | 'cart'>('all');
+  const [tab, setTab] = useState<'all' | 'Read' | 'Unread'>('all');
 
   const bookmarkRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
@@ -36,6 +38,8 @@ export default function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+const navigate = useNavigate()
+
 
   return (
     <div className="flex items-center justify-between bg-[#f8f8f8] px-6 py-4 border-b relative">
@@ -97,23 +101,23 @@ export default function Navbar() {
               </h3>
 
               <div className="flex gap-4 border-b mb-3 pb-2">
-                {['all', 'messages', 'cart'].map((t) => (
+                {['all', 'Read', 'Unread'].map((t) => (
                   <button
                     key={t}
-                    onClick={() => setTab(t as 'all' | 'messages' | 'cart')}
+                    onClick={() => setTab(t as 'all' | 'Read' | 'Unread')}
                     className={`capitalize text-sm font-medium ${
                       tab === t ? 'text-teal-700 border-b-2 border-teal-700' : 'text-gray-500'
                     }`}
                   >
                     {t === 'all' && 'All(3)'}
-                    {t === 'messages' && 'Messages'}
-                    {t === 'cart' && 'Cart'}
+                    {t === 'Read' && 'Read'}
+                    {t === 'Unread' && 'Unread'}
                   </button>
                 ))}
               </div>
 
-              {tab === 'cart' && <CartItem />}
-              {tab === 'messages' && (
+              {tab === 'Unread' && <UnreadItem />}
+              {tab === 'Read' && (
                 <div className="space-y-3">
                   <MessageItem
                     name="Floyd Miles"
@@ -129,7 +133,7 @@ export default function Navbar() {
               )}
               {tab === 'all' && (
                 <>
-                  <CartItem />
+                  <UnreadItem />
                   <div className="space-y-3">
                     <MessageItem
                       name="Floyd Miles"
@@ -144,10 +148,16 @@ export default function Navbar() {
                   </div>
                 </>
               )}
-
-              <button className="w-full mt-4 bg-teal-600 text-white py-2 rounded-md text-sm font-medium hover:bg-teal-700">
-                Check all
-              </button>
+              
+                <button
+                    onClick={() => {
+                      setShowNotifications(false); // closes the notification popup
+                      navigate('/notification');   // then navigates
+                    }}
+              className="w-full mt-4 bg-teal-600 text-white py-2 rounded-md text-sm font-medium hover:bg-teal-700"
+                    >
+                  View all
+                    </button>
             </div>
           )}
         </div>
@@ -206,25 +216,19 @@ function BookmarkItem({ label }: { label: string }) {
   );
 }
 
-function CartItem() {
+function UnreadItem() {
   return (
     <div className="mb-4">
       <div className="flex items-center justify-between">
         <img
           src="https://randomuser.me/api/portraits/men/32.jpg"
           alt="Product"
-          className="w-12 h-12 rounded-md"
+          className="w-12 h-12 rounded-full"
         />
         <div className="flex-1 mx-3">
-          <h4 className="font-medium text-sm">Men Blue T-Shirt</h4>
-          <div className="flex items-center mt-1 gap-2">
-            <Minus className="w-4 h-4 text-gray-500 cursor-pointer" />
-            <span className="text-sm">1</span>
-            <Plus className="w-4 h-4 text-gray-500 cursor-pointer" />
-          </div>
+          <h4 className="font-medium text-sm">Alex</h4>
+           <p className="text-xs text-gray-500 truncate">Need,my timesheet</p>
         </div>
-        <div className="text-green-600 font-semibold">$695.00</div>
-        <Trash2 className="w-4 h-4 text-red-500 ml-2 cursor-pointer" />
       </div>
     </div>
   );
