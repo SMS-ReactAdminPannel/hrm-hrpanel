@@ -28,6 +28,9 @@ import ForgotPassword from "../pages/auth/ForgetPassword"
 import ResetPassword from "../pages/auth/ResetPassword"
 
 import { useAuth } from "../pages/auth/AuthContext"
+import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage"
+import CandidatePipelinePage from "../pages/Recuritment/Candidates/Candidatespipelinepage"
+import CandidatesList from "../pages/Recuritment/Candidates/Candidateslistpage"
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth()
@@ -72,6 +75,9 @@ const AppRoutes = () => {
             <Route path="employee-shift" element={<EmployeeShift />} />
             <Route path="rotating-shift" element={<EmployeeShift />} />
             <Route path="asset-category" element={<Assetcategory />} />
+            <Route path="candidates" element={<CandidatesList />} />
+        <Route path="candidates" element={<CandidateDetailPage />} />
+        <Route path="pipeline" element={<CandidatePipelinePage />} />
           </Route>
 
           {/* Default fallback for protected users */}
