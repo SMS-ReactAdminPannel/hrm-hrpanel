@@ -70,13 +70,13 @@ const EmployeeDetails: React.FC = () => {
   return (
     <div className="space-y-6 min-h-screen ">
       <div className="justify-end">
-        <button onClick={() => navigate(-1)} className="mb-4 text-gray-500 hover:text-red-500 bg-white rounded">
+        <button onClick={() => navigate(-1)} className="mb-4 text-gray-500  rounded">
           <MdKeyboardBackspace size={28} />
         </button>
       </div>
 
       <div>
-        <p className="font-bold text-lg">Employee Attendance</p>
+        <p className="font-bold text-2xl text-[#006666]">Employee Attendance</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
@@ -143,7 +143,7 @@ const EmployeeDetails: React.FC = () => {
   {/* Name and Designation */}
   <div className="flex flex-col">
     <span className="font-medium text-3xl text-gray-700">{employee.Name}</span>
-    <span className="text-lg font-medium text-gray-600">{employee.Designation}</span>
+    <span className="text-md font-medium text-gray-600">{employee.Designation}</span>
   </div>
 </div>
  </div>
