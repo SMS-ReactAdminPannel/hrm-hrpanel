@@ -106,7 +106,7 @@ const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-50">
+    <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
       <div className="flex flex-col gap-6 p-6">
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "lucide-react"
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { FONTS } from "../../constants/uiConstants"
 
 interface Asset {
   id: string
@@ -579,20 +580,17 @@ const AssetsManagement: React.FC = () => {
     <div className="min-h-screen">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400/20 to-teal-400/20 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
+        
       </div>
 
-      <div className="relative p-2 max-w-7xl ">
+      <div className="relative p-2 max-w-full ">
   
         <div className="mb-6">
-          <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
+          <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1" style={FONTS.header}>
             Asset 
           </h1>
 
-          <p className="text-slate-600">Manage and track your organization's assets</p>
+          <p  style={FONTS.paragraph}>Manage and track your organization's assets</p>
         </div>
 
         
@@ -743,17 +741,17 @@ const AssetsManagement: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        {/* <div className="w-8 h-8 bg-[#006666] rounded-md flex items-center justify-center text-white text-sm font-medium">
                           {asset.assignedTo
                             .split(" ")
                             .map((n) => n[0])
                             .join("")}
-                        </div>
+                        </div> */}
                         <span className="text-slate-700">{asset.assignedTo}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
+                      <span className="inline-flex items-center gap-2 px-2 py-1 bg-slate-100 text-slate-700 rounded-md text-sm">
                         {getCategoryIcon(asset.category)}
                         {asset.category}
                       </span>
@@ -765,12 +763,12 @@ const AssetsManagement: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(asset.status)}`}
+                        className={`inline-flex px-2 py-1 rounded-md text-xs font-medium border ${getStatusColor(asset.status)}`}
                       >
                         {String(asset.status).charAt(0).toUpperCase() + String(asset.status).slice(1)}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button
                           onClick={(e) => {
@@ -889,7 +887,7 @@ const AssetsManagement: React.FC = () => {
   <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div
       ref={modalRef}
-      className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
     >
       <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
         {editingAsset ? "Edit Asset" : "Add New Asset"}
@@ -951,7 +949,7 @@ const AssetsManagement: React.FC = () => {
             </button>
 
             {showModalCategoryDropdown && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-md shadow-xl z-50 overflow-hidden">
                 {["Laptop", "Monitor", "Accessory"].map((cat) => (
                   <button
                     key={cat}
@@ -997,11 +995,11 @@ const AssetsManagement: React.FC = () => {
             <button
               type="button"
               onClick={() => setShowModalStatusDropdown(!showModalStatusDropdown)}
-              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
+              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-md flex items-center justify-between focus:outline-none"
             >
               <span className="flex items-center gap-2">
                 <span
-                  className={`inline-flex px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                  className={`inline-flex px-2 py-1 rounded-md text-xs font-medium border ${getStatusColor(
                     newAsset.status
                   )}`}
                 >
@@ -1019,7 +1017,7 @@ const AssetsManagement: React.FC = () => {
             </button>
 
             {showModalStatusDropdown && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-md shadow-xl z-50 overflow-hidden">
                 {(["active", "maintenance", "returned"] as const).map((status) => (
                   <button
                     key={status}
@@ -1033,7 +1031,7 @@ const AssetsManagement: React.FC = () => {
                     }`}
                   >
                     <span
-                      className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                      className={`inline-flex px-3 py-1 rounded-md text-xs font-medium border ${getStatusColor(
                         status
                       )}`}
                     >
@@ -1053,13 +1051,13 @@ const AssetsManagement: React.FC = () => {
           <button
             type="button"
             onClick={handleCloseModal}
-            className="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-medium"
+            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
           >
             {editingAsset ? "Update Asset" : "Add Asset"}
           </button>
@@ -1073,7 +1071,7 @@ const AssetsManagement: React.FC = () => {
     
       {showDeleteModal && assetToDelete && (
         <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
+          <div className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
             <div className="text-center">
               <div className="w-16 h-16 bg-[#006666] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-[white]" />
@@ -1087,13 +1085,13 @@ const AssetsManagement: React.FC = () => {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowDeleteModal(false)}
-                  className="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-medium"
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmDeleteAsset}
-                  className="flex-1 px-4 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+                  className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
                 >
                   Delete
                 </button>
@@ -1106,7 +1104,7 @@ const AssetsManagement: React.FC = () => {
     
       {showDetailModal && selectedAsset && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white/90 backdrop-blur-sm rounded-md p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-teal-600 bg-clip-text text-transparent">
                 Asset Details
@@ -1123,9 +1121,9 @@ const AssetsManagement: React.FC = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
         
-              <div className="bg-white/60 rounded-xl p-6 border border-white/20">
+              <div className="bg-white/60 rounded-md p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-[#006666] rounded-lg text-white">
+                  <div className="p-2 bg-[#006666] rounded-md text-white">
                     {getCategoryIcon(selectedAsset.category)}
                   </div>
                   <div>
@@ -1152,7 +1150,7 @@ const AssetsManagement: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-slate-600">Serial Number</label>
-                      <code className="block bg-slate-100 px-3 py-2 rounded-lg text-sm font-mono text-slate-800 mt-1">
+                      <code className="block bg-slate-100 px-3 py-2 rounded-md text-sm font-mono text-slate-800 mt-1">
                         {selectedAsset.serialNumber}
                       </code>
                     </div>
@@ -1160,7 +1158,7 @@ const AssetsManagement: React.FC = () => {
                       <label className="text-sm font-medium text-slate-600">Status</label>
                       <div className="mt-1">
                         <span
-                          className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(selectedAsset.status)}`}
+                          className={`inline-flex px-3 py-1 rounded-md text-xs font-medium border ${getStatusColor(selectedAsset.status)}`}
                         >
                           {String(selectedAsset.status).charAt(0).toUpperCase() + String(selectedAsset.status).slice(1)}
                         </span>
@@ -1187,13 +1185,13 @@ const AssetsManagement: React.FC = () => {
               </div>
 
               {/* Employee Information */}
-              <div className="bg-white/60 rounded-xl p-6 border border-white/20">
+              <div className="bg-white/60 rounded-md p-6 border border-white/20">
                 {(() => {
                   const employee = getEmployeeDetails(selectedAsset.assignedTo)
                   return (
                     <>
                       <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 bg-[#006666] rounded-full flex items-center justify-center text-white text-lg font-medium">
+                        <div className="w-8 h-8 bg-[#006666] rounded-md flex items-center justify-center text-white text-md font-medium">
                           {selectedAsset.assignedTo
                             .split(" ")
                             .map((n) => n[0])
@@ -1294,14 +1292,14 @@ const AssetsManagement: React.FC = () => {
                   setShowDetailModal(false)
                   handleEditAsset(selectedAsset)
                 }}
-                className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-medium"
+                className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
               >
                 <Edit3 className="w-4 h-4" />
                 Edit Asset
               </button>
               <button
                 onClick={() => setShowDetailModal(false)}
-                className="px-6 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-medium"
+                className="px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
               >
                 Close
               </button>

@@ -14,7 +14,7 @@ export const GrievanceDetailCard: React.FC<Props> = ({
   onMarkSolved,
 }) => {
   return (
-    <div className="flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-xl">
+    <div className="flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-md">
       
       <button
         onClick={onClose}
@@ -29,7 +29,7 @@ export const GrievanceDetailCard: React.FC<Props> = ({
 
     
       <span
-        className={`text-sm font-medium px-3 py-1 rounded-full mb-4 w-fit ${
+        className={`text-sm font-medium px-3 py-1 rounded-md mb-4 w-fit ${
           grievance.status === "solved"
             ? "bg-green-100 text-green-800"
             : "bg-yellow-100 text-yellow-800"
@@ -56,7 +56,7 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       {grievance.status === "unsolved" && (
         <button
           onClick={onMarkSolved}
-          className="w-40 bg-[#006666] text-white py-2 rounded-lg hover:bg-[#004f4f] transition"
+          className="w-40 bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#004f4f] transition"
         >
           Mark as Solved
         </button>

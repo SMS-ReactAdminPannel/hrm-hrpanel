@@ -112,7 +112,7 @@ const GrievanceManagement = () => {
 
   return (
     <div className="min-h-screen  p-2">
-      <div className="max-w-7xl ">
+      <div className="max-w-full ">
         <h1 className="text-3xl font-bold text-[#006666] mb-6">
           Grievances
         </h1>

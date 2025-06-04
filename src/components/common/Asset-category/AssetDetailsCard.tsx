@@ -67,14 +67,14 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div ref={modalRef} className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div ref={modalRef} className="bg-white rounded-md shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-[#006666] to-[#008080]">
           <div className="flex items-center gap-4">
-            <div
+            {/* <div
               className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold ${asset.avatarBg}`}
             >
               {asset.avatar}
-            </div>
+            </div> */}
             <div>
               <h2 className="text-xl font-bold text-white">{asset.name}</h2>
               <p className="text-white/80 text-sm">Asset Details</p>
@@ -92,7 +92,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
         <div className="p-6">
           <div className="mb-6">
             <span
-              className={`inline-flex px-4 py-2 text-sm font-medium rounded-full border ${getStatusColor(asset.status)}`}
+              className={`inline-flex px-4 py-2 text-sm font-medium rounded-md border ${getStatusColor(asset.status)}`}
             >
               {asset.status}
             </span>
@@ -184,7 +184,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
           )}
 
   
-          <div className="mt-6 bg-gradient-to-r from-[#006666]/5 to-[#008080]/5 rounded-lg p-4 border border-[#006666]/20">
+          <div className="mt-6 bg-gradient-to-r from-[#006666]/5 to-[#008080]/5 rounded-md p-4 border border-[#006666]/20">
             <h4 className="font-semibold text-[#006666] mb-2">Asset Summary</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
@@ -214,7 +214,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
         <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition-colors"
           >
             Close
           </button>
@@ -223,7 +223,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
               onEdit(asset)
               onClose()
             }}
-            className="px-4 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005252] transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005252] transition-colors flex items-center gap-2"
           >
             <User className="w-4 h-4" />
             Edit Asset

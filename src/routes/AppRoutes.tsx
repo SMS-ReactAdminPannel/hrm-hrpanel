@@ -1,8 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-// import LoginPage from "../pages/auth/LoginPage";
-// import SignupPage from "../pages/auth/SignupPage";
-// import { useAuth } from "../pages/auth/AuthContext";
-import { MainLayout } from "../Layout/MainLayout/mainLayout";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
@@ -12,7 +8,6 @@ import OrganizationChart from "../pages/Organization Charts/OrganizationChart";
 import Payroll from "../pages/Payroll Management/Payroll";
 import Recuritment from "../pages/Recuritment/Recuritment";
 import TimeSheet from "../pages/TimeSheet/TimeSheet";
-import TrainingManage from "../pages/Training Management/TrainingManage";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
@@ -22,56 +17,70 @@ import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
+import HomePage from "../pages/HomePage/HomePage";
+import { MainLayout } from "../Layout/MainLayout/mainLayout";
+import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
+import Reports from "../pages/Employee Mangament/Reports/Reports";
+import TrainingManage from "../pages/TrainingManagement/TrainingManage";
+import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
+import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
+
+import SignupPage from "../pages/auth/SignupPage";
+import { LoginPage } from "../pages/auth/LoginPage";
+import ForgotPassword from "../pages/auth/ForgetPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
+
+import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
+import Notification from "../pages/Notification/Notification";
 
 const AppRoutes = () => {
-  const  isAuthenticated  = true
+  const { isAuthenticated } = useAuth();
 
-//   const AuthRoutes = () => (
-//     <Routes>
-//       <Route path="/login" element={<LoginPage />} />
-//       <Route path="/signup" element={<SignupPage />} />
-//       <Route path="*" element={<Navigate to="/login" />} />
-//     </Routes>
-//   );
-
-  const AdminRoutes = () => (
+  return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
-        
-        <Route index element={<Dashboard />} />
-         <Route path="assets-management" element={<AssetsManagement />} /> 
-         <Route path="attendance" element={<Attendance />} /> 
-         <Route path="attendance-id" element={<EmployeeDetails />} /> 
-         <Route path="employee" element={<Employee />} /> 
-         <Route path="Leave-management" element={<Leave />} /> 
-         <Route path="organization-chart" element={<OrganizationChart />} /> 
-         <Route path="payroll" element={<Payroll />} /> 
-         <Route path="recuritment" element={<Recuritment />} /> 
-         <Route path="/candidates" element={<CandidatesPage />} />
-          <Route path="/pipeline" element={<RecruitmentPipeline />} />
-         <Route path="time-sheet" element={<TimeSheet />} /> 
-         <Route path="training-management" element={<TrainingManage />} /> 
-         <Route path="profile" element={<Profile />} />
+      {isAuthenticated ? (
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="assets-management" element={<AssetsManagement />} />
+          <Route path="attendance" element={<Attendance />} />
+          <Route path="attendance-id" element={<EmployeeDetails />} />
+          <Route path="employee" element={<Employee />} />
+          <Route path="leave-management" element={<Leave />} />
+          <Route path="organization-chart" element={<OrganizationChart />} />
+          <Route path="payroll" element={<Payroll />} />
+          <Route path="recuritment" element={<Recuritment />} />
+          <Route path="candidates" element={<CandidatesPage />} />
+          <Route path="pipeline" element={<RecruitmentPipeline />} />
+          <Route path="time-sheet" element={<TimeSheet />} />
+          <Route path="training-management" element={<TrainingManage />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
-         <Route path="announcement" element={<Announcement />} />  
-         <Route path="leave-types" element={<LeaveTypes />} /> 
-          <Route path="deduction" element={<Deduction />} /> 
-        <Route path="EmployeeShift" element={<EmployeeShift />} />  
-        <Route path="RotatingShift" element={<EmployeeShift />} />    
-         <Route path="profile" element={<Profile />} /> 
-         <Route path="asset-category" element={<Assetcategory/>}/>
-         <Route path="grievance-management" element={<GrievanceManagement/>}/>
-         
-
-         
-        
-      </Route>
+          <Route path="announcement" element={<Announcement />} />
+          <Route path="leave-types" element={<LeaveTypes />} />
+          <Route path="deduction" element={<Deduction />} />
+          <Route path="asset-category" element={<Assetcategory />} />
+          <Route path="home-intro" element={<HomePage />} />
+          <Route path="appraisal" element={<Appraisal />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
+          <Route path="onboarding" element={<OnboardingTemplate />} />
+          <Route path="profile" element={<Profile />} /> 
+          <Route path="grievance-management" element={<GrievanceManagement/>}/>
+          <Route path="notification" element={<Notification/>}/>
+        </Route>
+      ) : (
+        <>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+        </>
+      )}
+          
     </Routes>
   );
-  return <AdminRoutes />
-
-//   return isAuthenticated ? <AdminRoutes /> : <AuthRoutes />;
 };
 
 export default AppRoutes;

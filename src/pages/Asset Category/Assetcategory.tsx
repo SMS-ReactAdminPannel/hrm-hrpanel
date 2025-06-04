@@ -493,7 +493,7 @@ const AssetCategory: React.FC = () => {
         />
 
         <div className="p-6">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-full mx-auto">
             {filteredCategories.length === 0 ? (
               <div className="text-center py-12">
                 <div className="text-gray-500">

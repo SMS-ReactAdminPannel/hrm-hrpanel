@@ -29,7 +29,7 @@ const RotatingShiftAssign: React.FC = () => {
     const [isGroupDropdownOpen, setIsGroupDropdownOpen] = useState(false);
     const [showGroupFilter, setShowGroupFilter] = useState(false);
     const groupDropdownRef = useRef<HTMLDivElement>(null);
-    
+
     const [formData, setFormData] = useState({
         employee: '',
         title: '',
@@ -150,13 +150,13 @@ const RotatingShiftAssign: React.FC = () => {
 
         filteredEmployees.forEach(employee => {
             let key: string;
-            
+
             if (groupBy === 'rotatingShift') {
                 key = employee.title;
             } else {
                 key = employee[groupBy as keyof Employee] as string;
             }
-            
+
             if (!grouped[key]) {
                 grouped[key] = [];
             }
@@ -316,7 +316,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
                             )}
                         </div>
-                        
+
                         <button
                             className="text-white px-6 py-2 rounded-lg font-medium"
                             style={{
@@ -332,29 +332,27 @@ const RotatingShiftAssign: React.FC = () => {
                 </div>
 
                 {/* Group Filter Header */}
-                
-            {showGroupFilter && groupBy && (
-  <div className="mt-4 inline-flex relative left-[1100px] bg-gray-100 p-2 rounded  border-b-2 border-blue-500">
-    <span className="text-sm font-medium">
-      Grouped by: {groupBy === 'rotatingShift' ? 'Rotating Shift' : 
-                   groupBy === 'department' ? 'Department' : 
-                   groupBy === 'jobRole' ? 'Job Role' : 
-                   groupBy === 'reportingManager' ? 'Reporting Manager' : ''}
-    </span>
-    <button 
-      onClick={() => {
-        setGroupBy(null);
-        setShowGroupFilter(false);
-      }}
-      className="text-gray-500 hover:text-gray-700 ml-2"
-    >
-      <X className="w-4 h-4" />
-    </button>
-  </div>
-)}
-</div>
-            
 
+                {showGroupFilter && groupBy && (
+                    <div className="mt-4 inline-flex relative left-[1100px] bg-gray-100 p-2 rounded  border-b-2 border-blue-500">
+                        <span className="text-sm font-medium">
+                            Grouped by: {groupBy === 'rotatingShift' ? 'Rotating Shift' :
+                                groupBy === 'department' ? 'Department' :
+                                    groupBy === 'jobRole' ? 'Job Role' :
+                                        groupBy === 'reportingManager' ? 'Reporting Manager' : ''}
+                        </span>
+                        <button
+                            onClick={() => {
+                                setGroupBy(null);
+                                setShowGroupFilter(false);
+                            }}
+                            className="text-gray-500 hover:text-gray-700 ml-2"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+                )}
+            </div>
             {/* Table Container */}
             <div className="flex-1 overflow-hidden mt-20">
                 <div className="h-full overflow-auto custom-scrollbar">
@@ -442,14 +440,14 @@ const RotatingShiftAssign: React.FC = () => {
                                                 <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.nextSwitch}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap sticky right-0 bg-white">
                                                     <div className="flex items-center gap-2">
-                                                        <button 
+                                                        <button
                                                             className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
                                                             onClick={() => openEditModal(employee)}
                                                         >
                                                             <Edit className="w-4 h-4" />
                                                         </button>
-                                                       
-                                                        <button 
+
+                                                        <button
                                                             className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
                                                             onClick={() => openDeleteModal(employee)}
                                                         >

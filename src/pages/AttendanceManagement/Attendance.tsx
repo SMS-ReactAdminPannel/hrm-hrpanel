@@ -5,6 +5,7 @@ import { FaBriefcase } from "react-icons/fa"
 import { IoIosPeople } from "react-icons/io"
 import { MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
+
 const Attendance: React.FC = () => {
 
   type EmployeeDetail = {
@@ -168,7 +169,7 @@ const dummyData: Person[] = [
                 paddingAngle={3}
                 dataKey="value"
               >
-                {chartData.map((entry, index) => (
+                {chartData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
