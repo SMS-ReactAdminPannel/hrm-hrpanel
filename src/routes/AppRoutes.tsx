@@ -49,7 +49,7 @@ const AppRoutes = () => {
           <Route path="leave-management" element={<Leave />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
-          <Route path="recuritment" element={<Recuritment />} />
+          <Route path="recruitment" element={<Recuritment />} />
           <Route path="candidates" element={<CandidatesPage />} />
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
