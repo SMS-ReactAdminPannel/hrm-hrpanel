@@ -116,31 +116,31 @@ const dummyData: Person[] = [
 
   return (
     
-    <div className="p-6 space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
+    <div className=" space-y-6 min-h-screen w-full">
       <div>
-        <p className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-          Attendance Management
+        <p className="text-3xl font-bold bg-black bg-clip-text text-transparent mt-2 leading-relaxed pb-1 font-family-poppins">
+          Attendance 
         </p>
       </div>
       <div>
         {/* Top Section */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Left: No of Employees Card */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between ">
             <div>
-              <p className=" text-sm font medium truncate text-gray-500 ">No Of Employees</p>
+              <p className=" text-xl font medium truncate text-gray-500 font-family-poppins  ">No Of Employees</p>
               <p className="text-lg font-medium text-gray-900">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
-              <p className="text-sm font medium truncate text-gray-500">Total Duration</p>
+              <p className="text-xl font medium truncate text-gray-500 font-family-poppins">Total Duration</p>
               <p className="text-lg font-medium text-gray-900">9 Hrs</p>
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
   {/* Permission Summary Card */}
   <div className="cursor-pointer flex justify-between items-center max-w-sm" onClick={() => setIsOpen(true)}>
     <div>
@@ -152,7 +152,7 @@ const dummyData: Person[] = [
 </div>
           
           {/* Right: Pie Chart with Labels */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
             <div>
               <p className=" text-gray-600 text-xl mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
@@ -182,10 +182,10 @@ const dummyData: Person[] = [
       <div className="flex justify-between">
         <div>
           {/* Day and Date Picker */}
-          <label className="block text-sm font-medium mt-10"></label>
+          <label className="block font-family-poppins text-sm font-medium mt-10"></label>
           <input
             type="date"
-            className="pw-[250px] pl-10  px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 "
+            className="pw-[250px] pl-10  px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200 "
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
@@ -199,7 +199,7 @@ const dummyData: Person[] = [
           <input
             type="search"
             placeholder="Search by Name, Designation or Status"
-            className="pl-10 px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
+            className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -209,7 +209,7 @@ const dummyData: Person[] = [
           <label className="flex items-center gap-2 text-sm font-medium mb-6"></label>
           <button
             onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-            className="pl-10 px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
+            className="pl-10 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
           >
             <span className="flex items-center gap-2">
               <FaBriefcase className="text-gray-400" />
@@ -258,13 +258,13 @@ const dummyData: Person[] = [
         <table className="min-w-full  divide-y divide-gray-900">
           <thead className="bg-[#006666] text-white">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">ID</th>
+              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Designation</th>
+              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Status</th>
+              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Check In</th>
+              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Check Out</th>
+              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -274,8 +274,8 @@ const dummyData: Person[] = [
           className="hover:bg-gray-100 cursor-pointer transition duration-200"
           onClick={() => handleClick(item)}  // Navigate here
         >
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.ID}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.ID}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
                   <div className="flex items-center gap-2">
                     {/* Initial Circle */}
                     <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center text-sm font-semibold">
@@ -286,15 +286,18 @@ const dummyData: Person[] = [
                     <span>{item.Name}</span>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.Designation}</td>
-                <td
-                  className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-semibold ${item.Status === "Present" ? "text-green-600" : "text-red-500"}`}
-                >
-                  {item.Status}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Designation}</td>
+                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                      ${item.Status === "Present" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                  >
+                    {item.Status}
+                  </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.CheckIn}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.CheckOut}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.Duration}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckIn}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckOut}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Duration}</td>
               </tr>
             ))}
           </tbody>
@@ -307,7 +310,7 @@ const dummyData: Person[] = [
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
+            className="px-3 py-2 rounded-full bg-gray-50 text-slate-700  disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
           >
             <svg
               className="w-4 h-4"
