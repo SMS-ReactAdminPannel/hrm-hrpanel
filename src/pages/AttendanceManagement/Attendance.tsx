@@ -129,14 +129,14 @@ const dummyData: Person[] = [
           <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between ">
             <div>
               <p className=" text-xl font medium truncate text-gray-500 font-family-poppins  ">No Of Employees</p>
-              <p className="text-lg font-medium text-gray-900">{details.length}</p>
+              <p className="text-lg font-bold text-gray-900">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
           <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
               <p className="text-xl font medium truncate text-gray-500 font-family-poppins">Total Duration</p>
-              <p className="text-lg font-medium text-gray-900">9 Hrs</p>
+              <p className="text-lg font-bold text-gray-900">9 Hrs</p>
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
@@ -179,91 +179,94 @@ const dummyData: Person[] = [
         </div>
       </div>
 
-      <div className="flex justify-between">
-        <div>
-          {/* Day and Date Picker */}
-          <label className="block font-family-poppins text-sm font-medium mt-10"></label>
-          <input
-            type="date"
-            className="pw-[250px] pl-8  px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200 "
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-          {/* {selectedDate && <p className="text-sm mt-1 text-gray-600"></p>} */}
-        </div>
-        {/* Search */}
-        <div className="relative max-w-md mt-10 w-96 ">
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-            <CiSearch size={20} />
-          </span>
-          <input
-            type="search"
-            placeholder="Search by Name, Designation or Status"
-            className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        {/* Designation filter - Custom Dropdown */}
-        <div className="relative max-w-md mt-4" ref={designationDropdownRef}>
-          <label className="flex items-center gap-2 text-sm font-medium mb-6"></label>
-          <button
-            onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-            className="pl-10 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
-          >
-            <span className="flex items-center gap-2 ">
-              <FaBriefcase className="text-gray-400 " />
-              {designationFilter || "Designation"}
-            </span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-200  ${showDesignationDropdown ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+    <div className="flex justify-between items-center">
+  {/* Date Picker */}
+  <div>
+    <input
+      type="date"
+      className="pw-[250px] pl-8 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200"
+      value={selectedDate}
+      onChange={(e) => setSelectedDate(e.target.value)}
+    />
+  </div>
 
-          {showDesignationDropdown && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto scrollbar-hide">
-              <div
-                onClick={() => {
-                  setDesignationFilter("")
-                  setShowDesignationDropdown(false)
-                }}
-                className="px-4 py-3 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 flex items-center gap-2"
-              >
-                All
-              </div>
-              {designations.map((designation, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    setDesignationFilter(designation)
-                    setShowDesignationDropdown(false)
-                  }}
-                  className="px-4 py-3 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 "
-                >
-                  {designation}
-                </div>
-              ))}
-            </div>
-          )}
+  {/* Search - Centered */}
+  <div className="relative max-w-md w-96">
+    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+      <CiSearch size={20} />
+    </span>
+    <input
+      type="search"
+      placeholder="Search by Name, Designation or Status"
+      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+    />
+  </div>
+
+  {/* Designation Dropdown - Right-aligned */}
+  <div className="relative w-48" ref={designationDropdownRef}> {/* Reduced width */}
+    <button
+      onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
+      className="w-full pl-3 pr-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent"
+    >
+      <span className="flex items-center gap-2 truncate">
+        <FaBriefcase className="text-gray-400 flex-shrink-0" />
+        <span className="truncate">{designationFilter || "All Designations"}</span>
+      </span>
+      <svg
+        className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    {showDesignationDropdown && (
+      <div className="absolute right-0 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg z-10 max-h-60 overflow-y-auto">
+        <div
+          onClick={() => {
+            setDesignationFilter("");
+            setShowDesignationDropdown(false);
+          }}
+          className={`px-4 py-2 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 ${
+            !designationFilter ? "bg-teal-50 text-teal-800" : ""
+          }`}
+        >
+          All Designations
         </div>
+        {designations.map((designation, idx) => (
+          <div
+            key={idx}
+            onClick={() => {
+              setDesignationFilter(designation);
+              setShowDesignationDropdown(false);
+            }}
+            className={`px-4 py-2 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 ${
+              designationFilter === designation ? "bg-teal-50 text-teal-800" : ""
+            }`}
+          >
+            {designation}
+          </div>
+        ))}
       </div>
+    )}
+  </div>
+</div>
       {/* Table Section */}
       <div className="overflow-x-auto sm:rounded-md shadow">
         <table className="min-w-full  divide-y divide-gray-900">
-          <thead className="bg-[#006666] text-white">
+          <thead className="bg-[#006666] text-white ">
             <tr>
-              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">ID</th>
-              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Name</th>
-              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Designation</th>
-              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Status</th>
-              <th className="px-6 py-5 text-left text-xs font-medium uppercase tracking-wider">Check In</th>
-              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Check Out</th>
-              <th className="px-6 py-5 text-left text-xs font-medium  uppercase tracking-wider">Duration</th>
+              <th className="px-6 py-5 text-left text-xs  font-bold  uppercase tracking-wider">ID</th>
+              <th className="px-6 py-5 text-left text-xs font-bold font-bold uppercase tracking-wider">Name</th>
+              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Designation</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Status</th>
+              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Check In</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Check Out</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -288,7 +291,7 @@ const dummyData: Person[] = [
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Designation}</td>
                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold
                       ${item.Status === "Present" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
                   >
                     {item.Status}
