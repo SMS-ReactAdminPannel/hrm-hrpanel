@@ -237,10 +237,10 @@ export default function NotificationsPage() {
             <div className="mb-4">
               <button
                 onClick={handleBackClick}
-                className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors"
+                className="flex items-center gap-2 text-gray-600 transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span className="text-sm">Back</span>
+                <span className="text-sm"></span>
               </button>
             </div>
 

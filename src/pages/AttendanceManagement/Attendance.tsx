@@ -118,7 +118,7 @@ const dummyData: Person[] = [
     
     <div className=" space-y-6 min-h-screen w-full">
       <div>
-        <p className="text-3xl font-bold bg-black bg-clip-text text-transparent mt-2 leading-relaxed pb-1 font-family-poppins">
+        <p className="text-3xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1 font-family-poppins">
           Attendance 
         </p>
       </div>
@@ -185,11 +185,11 @@ const dummyData: Person[] = [
           <label className="block font-family-poppins text-sm font-medium mt-10"></label>
           <input
             type="date"
-            className="pw-[250px] pl-10  px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200 "
+            className="pw-[250px] pl-8  px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200 "
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
-          {selectedDate && <p className="text-sm mt-1 text-gray-600">You selected: {selectedDate}</p>}
+          {/* {selectedDate && <p className="text-sm mt-1 text-gray-600"></p>} */}
         </div>
         {/* Search */}
         <div className="relative max-w-md mt-10 w-96 ">
@@ -211,12 +211,12 @@ const dummyData: Person[] = [
             onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
             className="pl-10 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
           >
-            <span className="flex items-center gap-2">
-              <FaBriefcase className="text-gray-400" />
+            <span className="flex items-center gap-2 ">
+              <FaBriefcase className="text-gray-400 " />
               {designationFilter || "Designation"}
             </span>
             <svg
-              className={`w-4 h-4 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
+              className={`w-4 h-4 transition-transform duration-200  ${showDesignationDropdown ? "rotate-180" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -234,7 +234,6 @@ const dummyData: Person[] = [
                 }}
                 className="px-4 py-3 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 flex items-center gap-2"
               >
-                <FaBriefcase className="text-gray-400" />
                 All
               </div>
               {designations.map((designation, idx) => (

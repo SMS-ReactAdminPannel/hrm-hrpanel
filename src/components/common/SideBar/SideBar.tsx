@@ -6,7 +6,6 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiUserCheck,
-  FiTruck,
   FiPower,
 } from "react-icons/fi";
 import { AiOutlineIssuesClose } from "react-icons/ai";
@@ -21,6 +20,16 @@ import {
   RiUserFollowLine,
 } from "react-icons/ri";
 import { MdBusiness, MdEventAvailable } from "react-icons/md";
+import { GrAnnounce } from "react-icons/gr";
+import { CgProfile } from "react-icons/cg";
+import { MdMoneyOffCsred } from "react-icons/md";
+import { GiLaptop } from "react-icons/gi";
+import { FaUserTimes } from "react-icons/fa";
+import { MdOutlineSick } from "react-icons/md";
+import { TbReportSearch } from "react-icons/tb";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+
+
 
 const COLOR = {
   primary: "#006666",
@@ -93,16 +102,16 @@ const SideBar = ({
       {/* Navigation */}
       <div className="overflow-y-auto  scrollbar-hide flex-1 mt-4">
         <nav className="flex flex-col gap-4 w-full items-center">
-          <SidebarDropdown icon={<FiHome />} label="Dashboard" isOpen={actualOpen}>
+          <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}>
             <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
             <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
 
           <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={actualOpen}>
             <SidebarLink to="/employee" icon={<FiUsers />} label="Employee" isOpen={actualOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/shift" icon={<FiUserCheck />} label="Shifts" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/shift" icon={<RiTimeLine />} label="Shifts" isOpen={actualOpen} onClick={handleLinkClick} />
             <SidebarLink to="/appraisal" icon={<FiUserCheck />} label="Appraisal" isOpen={actualOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/reports" icon={<FiUserCheck />} label="Reports" isOpen={actualOpen} onClick={handleLinkClick} />
+            <SidebarLink to="/reports" icon={<TbReportSearch />} label="Reports" isOpen={actualOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
 
           <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={actualOpen}>
@@ -113,19 +122,19 @@ const SideBar = ({
             <SidebarLink to="/recruitment/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
 
-          <SidebarDropdown icon={<RiUserSearchLine />} label="Leaves" isOpen={actualOpen}>
+          <SidebarDropdown icon={<FaUserTimes />} label="Leaves" isOpen={actualOpen}>
             <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/leave-types" icon={<MdEventAvailable />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/leave-types" icon={<MdOutlineSick />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
           </SidebarDropdown>
 
           <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/assets-management" icon={<RiArchiveDrawerLine />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/asset-category" icon={<FiTruck />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/assets-management" icon={<GiLaptop />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/asset-category" icon={<RiArchiveDrawerLine />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/deduction" icon={<MdMoneyOffCsred />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
 
           {/* Logout */}
