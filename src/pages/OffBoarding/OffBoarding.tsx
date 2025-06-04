@@ -1,6 +1,6 @@
-"use client"
 
 import type React from "react"
+import { FONTS } from "../../constants/uiConstants"
 
 import { useState } from "react"
 import {
@@ -331,11 +331,11 @@ const AdvancedHRMOffboarding = () => {
     const fileName = fileViewerModal.file.name
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full overflow-hidden">
+      <div className="fixed inset-0 flex items-center justify-center z-50 p-4" >
+        <div className="rounded-lg max-h-[90vh]  overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="text-lg font-semibold">{fileName}</h3>
-            <button onClick={closeFileViewer} className="p-2 hover:bg-gray-100 rounded-lg">
+            <button onClick={closeFileViewer} className="px-4 py-2 hover:bg-gray-100 rounded-md">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -372,7 +372,7 @@ const AdvancedHRMOffboarding = () => {
   }
 
   const renderDashboard = () => (
-    <div className="space-y-6">
+    <div className="space-y-6" >
       {/* Stats Cards */}
       <div className="grid grid-cols-4 md:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-lg border shadow-sm">
@@ -414,13 +414,13 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Quick Actions & Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
         <div className="lg:col-span-2 bg-white p-6 rounded-lg border shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Recent Exit Requests</h3>
+            <h3 className="text-lg font-semibold" >Recent Exit Requests</h3>
             <button
               onClick={() => setShowNewRequestModal(true)}
-              className=" bg-[#006666] text-white px-4 py-2 rounded-lg flex items-center"
+              className=" bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Request
@@ -461,9 +461,10 @@ const AdvancedHRMOffboarding = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4">Exit Reasons</h3>
-          <div className="space-y-3">
+        <div className="w-full md:w-auto">
+         <div className="bg-white p-6 rounded-lg border shadow-sm  ">
+          <h3 className="text-lg font-semibold mb-4" >Exit Reasons</h3>
+          <div className=" space-y-4" >
             {exitAnalytics.topReasons.slice(0, 4).map((reason, idx) => (
               <div key={idx} className="flex justify-between items-center">
                 <span className="text-sm">{reason.reason}</span>
@@ -476,7 +477,9 @@ const AdvancedHRMOffboarding = () => {
               </div>
             ))}
           </div>
+         </div>
         </div>
+
       </div>
     </div>
   )
@@ -487,9 +490,9 @@ const AdvancedHRMOffboarding = () => {
     const checklist = checklistTemplates[selectedEmployee.exitDetails.type] || []
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6" style={{fontFamily:FONTS.paragraph.fontFamily, fontSize:FONTS.paragraph.fontSize}}>
         {/* Employee Header */}
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <div className=" p-6 rounded-lg border shadow-sm">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-6">
               <div className="text-6xl">{selectedEmployee.employee.avatar}</div>
@@ -511,7 +514,7 @@ const AdvancedHRMOffboarding = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </div>  
             <div className="text-right">
               <span
                 className={`px-3 py-1 rounded-full text-sm ${
@@ -532,7 +535,7 @@ const AdvancedHRMOffboarding = () => {
         {/* Exit Details & Progress */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Exit Information</h3>
+            <h3 className="text-lg font-semibold mb-4" >Exit Information</h3>
             <div className="space-y-3">
               <div>
                 <span className="text-sm text-gray-500">Exit Type:</span>
@@ -554,7 +557,7 @@ const AdvancedHRMOffboarding = () => {
           </div>
 
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
+            <h3 className="text-lg font-semibold mb-4" >Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-gray-400" />
@@ -576,7 +579,7 @@ const AdvancedHRMOffboarding = () => {
           </div>
 
           <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Progress Overview</h3>
+            <h3 className="text-lg font-semibold mb-4" >Progress Overview</h3>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">{selectedEmployee.progress.percentage}%</div>
               <div className="w-full bg-gray-200 rounded-full h-3 mb-3">
@@ -593,9 +596,9 @@ const AdvancedHRMOffboarding = () => {
         </div>
 
         {/* Offboarding Checklist */}
-        <div className="bg-white rounded-lg border shadow-sm">
+        <div className=" rounded-lg border shadow-sm">
           <div className="p-6 border-b">
-            <h3 className="text-lg font-semibold">Offboarding Checklist</h3>
+            <h3 className="text-lg font-semibold" >Offboarding Checklist</h3>
           </div>
           <div className="p-6">
             {checklist.map((category, categoryIdx) => (
@@ -607,7 +610,7 @@ const AdvancedHRMOffboarding = () => {
                       [categoryIdx]: !expandedChecklist[categoryIdx],
                     })
                   }
-                  className="flex items-center space-x-2 w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                  className="flex items-center space-x-2 w-full text-left px-4 py-2 bg-gray-50 rounded-md hover:bg-gray-100"
                 >
                   {expandedChecklist[categoryIdx] ? (
                     <ChevronDown className="w-4 h-4" />
@@ -644,7 +647,7 @@ const AdvancedHRMOffboarding = () => {
                               <button
                                 type="button"
                                 onClick={() => openFileViewer(selectedEmployee.id, categoryIdx, itemIdx)}
-                                className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center"
+                                className="text-xs bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
                               >
                                 <Eye className="w-3 h-3 mr-1" />
                                 View
@@ -665,12 +668,12 @@ const AdvancedHRMOffboarding = () => {
         <div className="flex justify-between">
           <button
             onClick={() => setSelectedEmployee(null)}
-            className="px-6 py-2 border border-gray-300 text-white rounded-lg bg-[#006666]"
+            className="px-4 py-2 border border-gray-300 text-white rounded-md bg-[#006666]"
           >
             Back to List
           </button>
           <div className="space-x-3">
-            <button className="px-6 py-2 bg-[#006666] text-white rounded-lg">Generate Reports</button>
+            <button className="px-4 py-2 bg-[#006666] text-white rounded-md">Generate Reports</button>
           </div>
         </div>
       </div>
@@ -679,27 +682,31 @@ const AdvancedHRMOffboarding = () => {
 
   const renderAnalytics = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg border shadow-sm">
-        <h3 className="text-lg font-semibold mb-6">Department-wise Exit Trends</h3>
+      
         <div className="space-y-4 grid grid-cols-4 gap-8 ">
           {exitAnalytics.departmentTrends.map((dept, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 h-24 bg-gray-50 rounded-lg">
-              <div>
-                <h4 className="font-medium">{dept.dept}</h4>
+            <div key={idx} className="min-h-[96px] bg-gray-50 mt-4 rounded-lg">
+              <div className="bg-white p-6 rounded-lg border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="">
+                <h4 className="font-medium" >{dept.dept}</h4>
                 <p className="text-sm text-gray-600">{dept.exits} exits this year</p>
               </div>
+           
               <div className="text-right">
                 <div className="text-lg font-semibold text-green-600">{dept.retention}%</div>
                 <p className="text-sm text-gray-500">Retention Rate</p>
               </div>
+          </div>
+        </div>     
             </div>
           ))}
-        </div>
+       
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4">Monthly Exit Trends</h3>
+          <h3 className="text-lg font-semibold mb-4" >Monthly Exit Trends</h3>
           <div className="h-48 flex items-end justify-between space-x-2">
             {[12, 8, 15, 6, 9, 11, 8, 14, 7, 10, 12, 8].map((height, idx) => (
               <div key={idx} className="flex-1 bg-blue-200 rounded-t" style={{ height: `${height * 8}px` }}>
@@ -714,7 +721,7 @@ const AdvancedHRMOffboarding = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4">Exit Interview Insights</h3>
+          <h3 className="text-lg font-semibold mb-4" >Exit Interview Insights</h3>
           <div className="space-y-3">
             <div className="flex justify-between">
               <span>Interviews Completed</span>
@@ -739,34 +746,32 @@ const AdvancedHRMOffboarding = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-white border-b px-6 py-4">
+      <div className=" px-7 py-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-800">HRM Offboarding System</h1>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center  space-x-4">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
               <input type="text" placeholder="Search employees..." className="pl-10 pr-4 py-2 border rounded-lg w-64" />
             </div>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Filter className="w-5 h-5" />
+            <button className="px-4 py-2.5 bg-white rounded-md">
+              <Filter className="w-5 h-5  text-gray-500" />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Download className="w-5 h-5" />
-            </button>
+           
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-white border-b px-6">
+      <div className="px-7">
         <div className="flex space-x-8">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 py-4 border-b-2 ${
+              className={`flex items-center rounded-md space-x-2 py-4 border-b-2 ${
                 activeTab === tab.id
                   ? "border-blue-600 text-blue-600"
                   : "border-transparent text-gray-600 hover:text-gray-800"
@@ -780,15 +785,15 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6">
+      <div className="py-4" >
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "requests" &&
           (selectedEmployee ? (
             renderEmployeeDetails()
           ) : (
-            <div className="bg-white rounded-lg border shadow-sm">
+            <div className="bg-white rounded-lg border shadow-sm" >
               <div className="p-6 border-b">
-                <h3 className="text-lg font-semibold">All Exit Requests</h3>
+                <h3 className="text-lg font-semibold" >All Exit Requests</h3>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
@@ -840,7 +845,7 @@ const AdvancedHRMOffboarding = () => {
               </div>
             </div>
           ))}
-        {activeTab === "analytics" && renderAnalytics()}
+        {activeTab === "analytics"  && renderAnalytics()}
       </div>
 
       {/* File Viewer Modal */}

@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef } from "react"
 import { X } from "lucide-react"
+import { FONTS } from "../../constants/uiConstants"
 
 export default function OnboardingTemplate() {
   const [activeTab, setActiveTab] = useState("welcome")
@@ -39,6 +40,11 @@ export default function OnboardingTemplate() {
     { id: 5, title: "Meet Team Members", category: "Social", priority: "Low", dueDate: "Week 1" },
     { id: 6, title: "Complete Training Modules", category: "Training", priority: "High", dueDate: "Week 2" },
   ]
+
+  const getRandomColor = () => {
+  const colors = [ '#006666'];
+  return colors[Math.floor(Math.random() * colors.length)];
+};
 
   const toggleTask = (taskId: number) => {
     setCompletedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]))
@@ -100,10 +106,10 @@ export default function OnboardingTemplate() {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b">
+        <div className="bg-white rounded-lg max-h-[90vh] w-full overflow-hidden">
+          <div className="flex items-center justify-between border-b">
             <h3 className="text-lg font-semibold">{fileName}</h3>
-            <button onClick={closeFileViewer} className="p-2 hover:bg-gray-100 rounded-lg">
+            <button onClick={closeFileViewer} className="px-4 py-2 hover:bg-gray-100 rounded-">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -122,7 +128,7 @@ export default function OnboardingTemplate() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 mx-auto text-gray-400 mb-4">📄</div>
+                <div className="w-16 h-16 mx-auto text-black mb-4">📄</div>
                 <p className="text-gray-600 mb-4">Preview not available for this file type</p>
                 <a
                   href={fileViewerModal.url}
@@ -140,32 +146,32 @@ export default function OnboardingTemplate() {
   }
 
   return (
-    <div className="mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
+    <div className="mx-auto space-y-6 min-h-screen">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900">On Boarding</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1" >On Boarding</h1>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white w-full rounded-lg shadow-sm border border-gray-200">
-        <div className="border-b border-gray-200">
-          <nav className="flex space-x-8 px-6" aria-label="Tabs">
+      <div className=" rounded-lg shadow-sm bg-white border border-gray-200">
+        <div className="border-gray-200">
+          <nav className="flex space-x-8 bg-gray-100 px-6" aria-label="Tabs" >
             {[
-              { id: "welcome", name: "Welcome", icon: "👋" },
-              { id: "documents", name: "Documents", icon: "📄" },
-              { id: "profile", name: "Profile", icon: "👤" },
-              { id: "tasks", name: "Tasks", icon: "✅" },
+              { id: "welcome", name: "Welcome"},
+              { id: "documents", name: "Documents"},
+              { id: "profile", name: "Profile"},
+              { id: "tasks", name: "Tasks" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                className={`py-4 px-2 border-b-2 rounded-md font-medium text-sm transition-colors duration-200 ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
               >
                 <span className="flex items-center gap-2">
-                  <span>{tab.icon}</span>
+                 
                   {tab.name}
                 </span>
               </button>
@@ -177,10 +183,8 @@ export default function OnboardingTemplate() {
           {/* Welcome Tab */}
           {activeTab === "welcome" && (
             <div className="space-y-6">
-              <div className="text-center">
-                <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-3xl">🏢</span>
-                </div>
+              <div className="text-center p-5">
+                
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Your New Role!</h2>
                 <p className="text-gray-600">
                   {"We're excited to have you join our team as a Senior Software Engineer"}
@@ -190,7 +194,7 @@ export default function OnboardingTemplate() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                    <span>👥</span>
+                   
                     Your Team
                   </h3>
                   <div className="space-y-3">
@@ -217,21 +221,21 @@ export default function OnboardingTemplate() {
 
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                    <span>📅</span>
+                    
                     First Week Schedule
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
                       <span>Day 1: Orientation & Setup</span>
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">9:00 AM</span>
+                      <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>9:00 AM</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
                       <span>Day 2: Team Introductions</span>
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">10:00 AM</span>
+                      <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>10:00 AM</span>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
                       <span>Day 3: Project Overview</span>
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">2:00 PM</span>
+                      <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>2:00 PM</span>
                     </div>
                   </div>
                 </div>
@@ -244,7 +248,7 @@ export default function OnboardingTemplate() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Required Documents</h2>
-                <p className="text-gray-600">Please upload the following documents to complete your onboarding</p>
+                <p className="text-gray-600" >Please upload the following documents to complete your onboarding</p>
               </div>
 
               <div className="space-y-4">
@@ -259,17 +263,18 @@ export default function OnboardingTemplate() {
                   <div className="flex items-center gap-2">
                     <input
                       ref={fileInputRefs.i9Form}
-                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      className="block w-52 text-white border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
                       id="i9Form"
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
                       onChange={(e) => handleFileChange("i9Form", e)}
+                      style={{background: '#006666', color: '#333'}}
                     />
                     {uploadedFiles.i9Form.file && (
                       <button
                         onClick={() => handleViewFile("i9Form")}
-                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
-                      >
+                       className="px-4 py-2 text-white text-xs rounded-md transition-colors"
+                        style={{background: '#006666'}} >
                         View
                       </button>
                     )}
@@ -287,17 +292,18 @@ export default function OnboardingTemplate() {
                   <div className="flex items-center gap-2">
                     <input
                       ref={fileInputRefs.w4Form}
-                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      className="block w-52 text-white text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
                       id="w4Form"
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
                       onChange={(e) => handleFileChange("w4Form", e)}
+                       style={{background: '#006666', color: '#333'}}
                     />
                     {uploadedFiles.w4Form.file && (
                       <button
                         onClick={() => handleViewFile("w4Form")}
-                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
-                      >
+                       className="px-4 py-2 text-white text-xs rounded-md transition-colors"
+                        style={{background: '#006666'}}             >
                         View
                       </button>
                     )}
@@ -315,16 +321,18 @@ export default function OnboardingTemplate() {
                   <div className="flex items-center gap-2">
                     <input
                       ref={fileInputRefs.directDeposit}
-                      className="block w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
+                      className="block w-52 text-white text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
                       id="directDeposit"
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
                       onChange={(e) => handleFileChange("directDeposit", e)}
+                       style={{background: '#006666', color: '#333'}}
                     />
                     {uploadedFiles.directDeposit.file && (
                       <button
                         onClick={() => handleViewFile("directDeposit")}
-                        className="px-3 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors"
+                        className="px-4 py-2 text-white text-xs rounded-md transition-colors"
+                        style={{background: '#006666'}}
                       >
                         View
                       </button>
@@ -340,7 +348,7 @@ export default function OnboardingTemplate() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Complete Your Profile</h2>
-                <p className="text-gray-600">Help us get to know you better</p>
+                <p className="text-black" >Help us get to know you better</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -350,12 +358,12 @@ export default function OnboardingTemplate() {
                       Phone Number
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-gray-400">📞</span>
+                      
                       <input
                         id="phone"
                         type="tel"
                         placeholder="(555) 123-4567"
-                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 outline-none transition-colors"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -365,12 +373,12 @@ export default function OnboardingTemplate() {
                       Personal Email
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-gray-400">📧</span>
+                      
                       <input
                         id="email"
                         type="email"
                         placeholder="john@example.com"
-                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -382,12 +390,12 @@ export default function OnboardingTemplate() {
                       Home Address
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-gray-400">📍</span>
+                      
                       <input
                         id="address"
                         type="text"
                         placeholder="123 Main St, City, State"
-                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -400,7 +408,7 @@ export default function OnboardingTemplate() {
                       id="emergency"
                       type="text"
                       placeholder="Name and phone number"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -408,28 +416,30 @@ export default function OnboardingTemplate() {
 
               <hr className="border-gray-200" />
 
-              <div className="space-y-4">
+               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900">Preferences</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <label className="flex items-center space-x-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-700">Subscribe to company newsletter</span>
-                  </label>
-                  <label className="flex items-center space-x-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-700">Notify me about company events</span>
-                  </label>
-                </div>
-              </div>
+         <div className="grid md:grid-cols-2 gap-4">
+    <label className="flex items-center space-x-3 cursor-pointer">
+      <input
+        type="checkbox"
+        className="w-4 h-4 border-gray-300 rounded"
+        style={{ accentColor: getRandomColor() }}
+      />
+      <span className="text-sm text-black">Subscribe to company newsletter</span>
+    </label>
+    <label className="flex items-center space-x-3 cursor-pointer">
+      <input
+        type="checkbox"
+        className="w-4 h-4 border-gray-300 rounded"
+        style={{ accentColor: getRandomColor() }}
+      />
+      <span className="text-sm text-black">Notify me about company events</span>
+    </label>
+  </div>
+</div>
 
               <div className="flex justify-end">
-                <button className="px-6 py-2 text-white rounded-lg bg-[#006666] transition-colors">Save Profile</button>
+                <button className="px-4 py-2 text-white rounded-md bg-[#006666] transition-colors">Save Profile</button>
               </div>
             </div>
           )}
@@ -439,7 +449,7 @@ export default function OnboardingTemplate() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Onboarding Checklist</h2>
-                <p className="text-gray-600">Complete these tasks during your first few weeks</p>
+                <p className="text-black">Complete these tasks during your first few weeks</p>
               </div>
 
               <div className="space-y-4">
@@ -452,6 +462,7 @@ export default function OnboardingTemplate() {
                       type="checkbox"
                       checked={completedTasks.includes(task.id)}
                       onChange={() => toggleTask(task.id)}
+                      style={{ accentColor: getRandomColor() }}
                       className="w-5 h-5 text-blue-600 border-gray-300 rounded "
                     />
                     <div className="flex-1">
@@ -472,7 +483,7 @@ export default function OnboardingTemplate() {
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span>{task.category}</span>
                         <span className="flex items-center gap-1">
-                          <span>⏰</span>
+                          
                           Due: {task.dueDate}
                         </span>
                       </div>
