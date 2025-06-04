@@ -1,5 +1,5 @@
 import type React from "react"
-import { useState } from "react"
+import { useState, useCallback, useMemo, memo } from "react"
 import {
   Users,
   BookOpen,
@@ -12,6 +12,13 @@ import {
   Plus,
   BarChart3,
   PieChart,
+  ArrowLeft,
+  Calendar,
+  Clock,
+  X,
+  Target,
+  UserCheck,
+  Activity,
 } from "lucide-react"
 
 // TypeScript interfaces
@@ -37,6 +44,9 @@ interface Employee {
   completedCourses: number
   avatar: string
   status: "active" | "pending" | "overdue"
+  enrolledPrograms: string[] // Array of program IDs
+  programProgress: { [programId: string]: number } // Progress per program
+  enrollmentDate: { [programId: string]: string } // Enrollment date per program
 }
 
 interface DashboardStats {
@@ -46,10 +56,181 @@ interface DashboardStats {
   averageRating: number
 }
 
+interface NewProgramFormData {
+  title: string
+  category: string
+  duration: string
+  instructor: string
+  startDate: string
+}
+
+interface NewProgramFormProps {
+  onClose: () => void
+  onSubmit: (formData: NewProgramFormData) => void
+  categories: string[]
+}
+
+// Memoized form component defined outside the main component
+const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormProps) => {
+  const [formData, setFormData] = useState<NewProgramFormData>({
+    title: "",
+    category: "Leadership",
+    duration: "",
+    instructor: "",
+    startDate: new Date().toISOString().split("T")[0],
+  })
+
+  const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, title: e.target.value }))
+  }, [])
+
+  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({ ...prev, category: e.target.value }))
+  }, [])
+
+  const handleDurationChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, duration: e.target.value }))
+  }, [])
+
+  const handleInstructorChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, instructor: e.target.value }))
+  }, [])
+
+  const handleStartDateChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, startDate: e.target.value }))
+  }, [])
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      if (!formData.title.trim() || !formData.duration.trim() || !formData.instructor.trim()) {
+        alert("Please fill in all required fields")
+        return
+      }
+      onSubmit(formData)
+    },
+    [formData, onSubmit],
+  )
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-semibold text-gray-900">Create New Program</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+              Program Title *
+            </label>
+            <input
+              id="title"
+              type="text"
+              value={formData.title}
+              onChange={handleTitleChange}
+              placeholder="Enter program title"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+              Category
+            </label>
+            <select
+              id="category"
+              value={formData.category}
+              onChange={handleCategoryChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+            >
+              {categories
+                .filter((cat) => cat !== "all")
+                .map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
+              Duration *
+            </label>
+            <input
+              id="duration"
+              type="text"
+              value={formData.duration}
+              onChange={handleDurationChange}
+              placeholder="e.g., 4 weeks, 2 months"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="instructor" className="block text-sm font-medium text-gray-700 mb-1">
+              Instructor *
+            </label>
+            <input
+              id="instructor"
+              type="text"
+              value={formData.instructor}
+              onChange={handleInstructorChange}
+              placeholder="Enter instructor name"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
+              Start Date
+            </label>
+            <input
+              id="startDate"
+              type="date"
+              value={formData.startDate}
+              onChange={handleStartDateChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+            />
+          </div>
+
+          <div className="flex space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors"
+            >
+              Create Program
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+})
+
+// Add display name for debugging
+NewProgramForm.displayName = "NewProgramForm"
+
 const HRMTrainingDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("overview")
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null)
+  const [showNewProgramForm, setShowNewProgramForm] = useState<boolean>(false)
 
   // Mock data
   const [stats, setStats] = useState<DashboardStats>({
@@ -120,6 +301,9 @@ const HRMTrainingDashboard: React.FC = () => {
       completedCourses: 12,
       avatar: "AT",
       status: "active",
+      enrolledPrograms: ["1", "3"],
+      programProgress: { "1": 90, "3": 75 },
+      enrollmentDate: { "1": "2024-01-20", "3": "2024-01-15" },
     },
     {
       id: "EMP-002",
@@ -130,6 +314,9 @@ const HRMTrainingDashboard: React.FC = () => {
       completedCourses: 15,
       avatar: "MG",
       status: "active",
+      enrolledPrograms: ["1", "2"],
+      programProgress: { "1": 100, "2": 85 },
+      enrollmentDate: { "1": "2024-01-18", "2": "2024-02-05" },
     },
     {
       id: "EMP-003",
@@ -140,6 +327,9 @@ const HRMTrainingDashboard: React.FC = () => {
       completedCourses: 6,
       avatar: "DK",
       status: "pending",
+      enrolledPrograms: ["2", "4"],
+      programProgress: { "2": 30, "4": 60 },
+      enrollmentDate: { "2": "2024-02-10", "4": "2023-12-15" },
     },
     {
       id: "EMP-004",
@@ -150,82 +340,137 @@ const HRMTrainingDashboard: React.FC = () => {
       completedCourses: 9,
       avatar: "ED",
       status: "overdue",
+      enrolledPrograms: ["1", "4"],
+      programProgress: { "1": 65, "4": 100 },
+      enrollmentDate: { "1": "2024-01-25", "4": "2023-12-12" },
+    },
+    {
+      id: "EMP-005",
+      name: "John Wilson",
+      department: "Engineering",
+      position: "Software Engineer",
+      trainingProgress: 70,
+      completedCourses: 8,
+      avatar: "JW",
+      status: "active",
+      enrolledPrograms: ["1", "3"],
+      programProgress: { "1": 80, "3": 60 },
+      enrollmentDate: { "1": "2024-01-22", "3": "2024-01-20" },
+    },
+    {
+      id: "EMP-006",
+      name: "Sarah Brown",
+      department: "Marketing",
+      position: "Content Specialist",
+      trainingProgress: 88,
+      completedCourses: 11,
+      avatar: "SB",
+      status: "active",
+      enrolledPrograms: ["2"],
+      programProgress: { "2": 95 },
+      enrollmentDate: { "2": "2024-02-03" },
     },
   ])
 
   const categories = ["all", "Leadership", "Technical", "Marketing", "Soft Skills", "Compliance"]
 
-  // Sample program templates for new programs
-  const programTemplates = [
-    {
-      title: "Project Management Essentials",
-      category: "Leadership",
-      duration: "6 weeks",
-      instructor: "John Smith",
-    },
-    {
-      title: "Advanced Excel Training",
-      category: "Technical",
-      duration: "4 weeks",
-      instructor: "Lisa Brown",
-    },
-    {
-      title: "Customer Service Excellence",
-      category: "Soft Skills",
-      duration: "3 weeks",
-      instructor: "Robert Davis",
-    },
-    {
-      title: "Social Media Marketing",
-      category: "Marketing",
-      duration: "5 weeks",
-      instructor: "Emma Wilson",
-    },
-    {
-      title: "Cybersecurity Awareness",
-      category: "Technical",
-      duration: "2 weeks",
-      instructor: "Michael Johnson",
-    },
-  ]
+  // Memoized callbacks to prevent unnecessary re-renders
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
+  }, [])
 
-  const addNewProgram = () => {
-    // Get a random template
-    const randomTemplate = programTemplates[Math.floor(Math.random() * programTemplates.length)]
+  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value)
+  }, [])
 
-    // Generate random participant count
-    const randomEnrolled = Math.floor(Math.random() * 100) + 10 // 10-110 participants
-    const randomCompleted = Math.floor(Math.random() * randomEnrolled) // Some completed
+  const handleShowNewProgramForm = useCallback(() => {
+    setShowNewProgramForm(true)
+  }, [])
 
-    const newProgram: TrainingProgram = {
-      id: (trainingPrograms.length + 1).toString(),
-      title: randomTemplate.title,
-      category: randomTemplate.category,
-      duration: randomTemplate.duration,
-      enrolled: randomEnrolled,
-      completed: randomCompleted,
-      rating: Math.round((Math.random() * 2 + 3) * 10) / 10, // 3.0-5.0 rating
-      status: "draft",
-      startDate: new Date().toISOString().split("T")[0],
-      instructor: randomTemplate.instructor,
+  const handleCloseNewProgramForm = useCallback(() => {
+    setShowNewProgramForm(false)
+  }, [])
+
+  const handleCreateProgram = useCallback(
+    (formData: NewProgramFormData) => {
+      const newProgram: TrainingProgram = {
+        id: (trainingPrograms.length + 1).toString(),
+        title: formData.title.trim(),
+        category: formData.category,
+        duration: formData.duration.trim(),
+        enrolled: 0,
+        completed: 0,
+        rating: 0,
+        status: "draft",
+        startDate: formData.startDate,
+        instructor: formData.instructor.trim(),
+      }
+
+      setTrainingPrograms((prev) => [...prev, newProgram])
+      setStats((prev) => ({
+        ...prev,
+        activePrograms: prev.activePrograms + 1,
+      }))
+
+      handleCloseNewProgramForm()
+    },
+    [trainingPrograms.length, handleCloseNewProgramForm],
+  )
+
+  const handleProgramClick = useCallback((program: TrainingProgram) => {
+    setSelectedProgram(program)
+    setActiveTab("employees")
+  }, [])
+
+  const handleBackToPrograms = useCallback(() => {
+    setSelectedProgram(null)
+    setActiveTab("programs")
+  }, [])
+
+  // Memoized filtered programs to prevent recalculation on every render
+  const filteredPrograms = useMemo(() => {
+    return trainingPrograms.filter((program) => {
+      const matchesSearch =
+        program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        program.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesCategory = selectedCategory === "all" || program.category === selectedCategory
+      return matchesSearch && matchesCategory
+    })
+  }, [trainingPrograms, searchTerm, selectedCategory])
+
+  // Filter employees based on selected program
+  const getEmployeesForProgram = useCallback(
+    (programId: string) => {
+      return employees.filter((employee) => employee.enrolledPrograms.includes(programId))
+    },
+    [employees],
+  )
+
+  const displayedEmployees = useMemo(() => {
+    return selectedProgram ? getEmployeesForProgram(selectedProgram.id) : employees
+  }, [selectedProgram, getEmployeesForProgram, employees])
+
+  // Calculate progress metrics
+  const progressMetrics = useMemo(() => {
+    if (!selectedProgram) return null
+
+    const programEmployees = getEmployeesForProgram(selectedProgram.id)
+    const totalProgress = programEmployees.reduce((sum, emp) => sum + (emp.programProgress[selectedProgram.id] || 0), 0)
+    const averageProgress = programEmployees.length > 0 ? totalProgress / programEmployees.length : 0
+    const completedCount = programEmployees.filter((emp) => emp.programProgress[selectedProgram.id] === 100).length
+    const inProgressCount = programEmployees.filter(
+      (emp) => emp.programProgress[selectedProgram.id] > 0 && emp.programProgress[selectedProgram.id] < 100,
+    ).length
+    const notStartedCount = programEmployees.filter((emp) => !emp.programProgress[selectedProgram.id]).length
+
+    return {
+      averageProgress: Math.round(averageProgress),
+      completedCount,
+      inProgressCount,
+      notStartedCount,
+      totalParticipants: programEmployees.length,
     }
-
-    setTrainingPrograms((prev) => [...prev, newProgram])
-
-    // Update stats
-    setStats((prev) => ({
-      ...prev,
-      activePrograms: prev.activePrograms + 1,
-    }))
-  }
-
-  const filteredPrograms = trainingPrograms.filter((program) => {
-    const matchesSearch =
-      program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      program.instructor.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "all" || program.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+  }, [selectedProgram, getEmployeesForProgram])
 
   const StatCard: React.FC<{
     title: string
@@ -246,8 +491,85 @@ const HRMTrainingDashboard: React.FC = () => {
     </div>
   )
 
-  const ProgramCard: React.FC<{ program: TrainingProgram }> = ({ program }) => (
+  const ProgressCard: React.FC<{
+    title: string
+    value: string | number
+    icon: React.ReactNode
+    color: string
+    description?: string
+  }> = ({ title, value, icon, color, description }) => (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-gray-600">{title}</p>
+          <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
+          {description && <p className="text-sm mt-1 text-gray-500">{description}</p>}
+        </div>
+        <div className={`p-3 rounded-lg ${color.replace("text-", "bg-").replace("-600", "-100")}`}>{icon}</div>
+      </div>
+    </div>
+  )
+
+  const ParticipantCard: React.FC<{ employee: Employee }> = ({ employee }) => {
+    const progress = selectedProgram ? employee.programProgress[selectedProgram.id] || 0 : employee.trainingProgress
+    const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
+
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-xs font-medium">
+                {employee.avatar}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">{employee.name}</p>
+                <p className="text-xs text-gray-600">{employee.position}</p>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-600">Progress</span>
+                <span className="text-sm font-bold text-gray-900">{progress}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    progress === 100 ? "bg-green-600" : progress > 50 ? "bg-blue-600" : "bg-yellow-600"
+                  }`}
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              {enrollmentDate && (
+                <p className="text-xs text-gray-500 mt-1">Enrolled: {new Date(enrollmentDate).toLocaleDateString()}</p>
+              )}
+            </div>
+          </div>
+          <div className="ml-4">
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                progress === 100
+                  ? "bg-green-100 text-green-800"
+                  : progress > 50
+                    ? "bg-blue-100 text-blue-800"
+                    : progress > 0
+                      ? "bg-yellow-100 text-yellow-800"
+                      : "bg-gray-100 text-gray-800"
+              }`}
+            >
+              {progress === 100 ? "Completed" : progress > 0 ? "In Progress" : "Not Started"}
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const ProgramCard: React.FC<{ program: TrainingProgram }> = ({ program }) => (
+    <div
+      className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow cursor-pointer hover:border-blue-300"
+      onClick={() => handleProgramClick(program)}
+    >
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">{program.title}</h3>
@@ -294,48 +616,72 @@ const HRMTrainingDashboard: React.FC = () => {
           <p className="text-sm text-gray-600">by {program.instructor}</p>
         </div>
       </div>
+
+      <div className="mt-4 pt-3 border-t border-gray-100">
+        <p className="text-xs text-blue-600 font-medium">Click to view participants →</p>
+      </div>
     </div>
   )
 
-  const EmployeeRow: React.FC<{ employee: Employee }> = ({ employee }) => (
-    <tr className="hover:bg-gray-50 transition-colors">
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{employee.id}</td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex items-center">
-          <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
-            {employee.avatar}
+  const EmployeeRow: React.FC<{ employee: Employee }> = ({ employee }) => {
+    const programProgress = selectedProgram
+      ? employee.programProgress[selectedProgram.id] || 0
+      : employee.trainingProgress
+
+    const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
+
+    return (
+      <tr className="hover:bg-gray-50 transition-colors">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{employee.id}</td>
+        <td className="px-4 py-4 whitespace-nowrap">
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
+              {employee.avatar}
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-900">{employee.name}</p>
+              <p className="text-sm text-gray-500">{employee.position}</p>
+            </div>
           </div>
-          <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-            <p className="text-sm text-gray-500">{employee.position}</p>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.department}</td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="flex items-center">
+            <div className="w-full bg-gray-200 rounded-full h-2 mr-3">
+              <div
+                className={`h-2 rounded-full ${programProgress === 100 ? "bg-green-600" : "bg-blue-600"}`}
+                style={{ width: `${programProgress}%` }}
+              ></div>
+            </div>
+            <span className="text-sm text-gray-900">{programProgress}%</span>
           </div>
-        </div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.department}</td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex items-center">
-          <div className="w-full bg-gray-200 rounded-full h-2 mr-3">
-            <div className="bg-green-600 h-2 rounded-full" style={{ width: `${employee.trainingProgress}%` }}></div>
-          </div>
-          <span className="text-sm text-gray-900">{employee.trainingProgress}%</span>
-        </div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.completedCourses}</td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-medium ${
-            employee.status === "active"
-              ? "bg-green-100 text-green-800"
-              : employee.status === "pending"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
-          }`}
-        >
-          {employee.status}
-        </span>
-      </td>
-    </tr>
-  )
+        </td>
+        {selectedProgram && (
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            {enrollmentDate ? new Date(enrollmentDate).toLocaleDateString() : "N/A"}
+          </td>
+        )}
+        {!selectedProgram && (
+          <td className="px-20 py-4 whitespace-nowrap text-sm text-gray-900">{employee.completedCourses}</td>
+        )}
+        <td className="px-6 py-4 whitespace-nowrap">
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-medium ${
+              programProgress === 100
+                ? "bg-green-100 text-green-800"
+                : programProgress > 50
+                  ? "bg-blue-100 text-blue-800"
+                  : employee.status === "pending"
+                    ? "bg-yellow-100 text-yellow-800"
+                    : "bg-red-100 text-red-800"
+            }`}
+          >
+            {programProgress === 100 ? "Completed" : employee.status}
+          </span>
+        </td>
+      </tr>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -345,6 +691,12 @@ const HRMTrainingDashboard: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-gray-900">Training Management</h1>
+              {selectedProgram && (
+                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                  <span>→</span>
+                  <span className="font-medium">{selectedProgram.title}</span>
+                </div>
+              )}
             </div>
             <div className="flex items-center space-x-4"></div>
           </div>
@@ -363,7 +715,12 @@ const HRMTrainingDashboard: React.FC = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  setActiveTab(tab.id)
+                  if (tab.id !== "employees") {
+                    setSelectedProgram(null)
+                  }
+                }}
                 className={`flex items-center space-x-2 px-3 py-4 border-b-2 text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? "border-blue-600 text-blue-600"
@@ -475,16 +832,16 @@ const HRMTrainingDashboard: React.FC = () => {
                   type="text"
                   placeholder="Search programs..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-100 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  onChange={handleSearchChange}
+                  className="w-100 pl-10 pr-4 py-2 border border-[#006666] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 />
               </div>
               <div className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-gray-400" />
                 <select
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  onChange={handleCategoryChange}
+                  className="border border-[#006666] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 >
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -494,8 +851,8 @@ const HRMTrainingDashboard: React.FC = () => {
                 </select>
               </div>
               <button
-                onClick={addNewProgram}
-                className="flex items-center space-x-2 bg-[#006666] text-white px-4 py-2 rounded-lg hover:[#006666] transition-colors"
+                onClick={handleShowNewProgramForm}
+                className="flex items-center space-x-2 bg-[#006666] text-white px-4 py-2 rounded-lg hover:bg-[#005555] transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>New Program</span>
@@ -513,9 +870,76 @@ const HRMTrainingDashboard: React.FC = () => {
 
         {activeTab === "employees" && (
           <div className="space-y-6">
+            {selectedProgram && (
+              <>
+                {/* Program Header */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={handleBackToPrograms}
+                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span>Back to Programs</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-4 md:grid-cols-4 gap-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <BookOpen className="w-5 h-5 text-blue-600" />
+                        <h3 className="font-semibold text-gray-900">{selectedProgram.title}</h3>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">{selectedProgram.category}</p>
+                    </div>
+
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Users className="w-5 h-5 text-green-600" />
+                        <span className="font-semibold text-gray-900">
+                          {getEmployeesForProgram(selectedProgram.id).length}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600">Enrolled Participants</p>
+                    </div>
+
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Clock className="w-5 h-5 text-purple-600" />
+                        <span className="font-semibold text-gray-900">{selectedProgram.duration}</span>
+                      </div>
+                      <p className="text-sm text-gray-600">Duration</p>
+                    </div>
+
+                    <div className="bg-yellow-50 p-4 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="w-5 h-5 text-yellow-600" />
+                        <span className="font-semibold text-gray-900">
+                          {new Date(selectedProgram.startDate).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600">Start Date</p>
+                    </div>
+                  </div>
+                </div>
+
+               
+                
+              </>
+            )}
+
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Employee Training Progress</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  {selectedProgram ? `Participants in ${selectedProgram.title}` : "Employee Training Progress"}
+                </h2>
+                {selectedProgram && (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
+                  </p>
+                )}
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -531,10 +955,10 @@ const HRMTrainingDashboard: React.FC = () => {
                         Department
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Progress
+                        {selectedProgram ? "Program Progress" : "Overall Progress"}
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Completed
+                        {selectedProgram ? "Enrollment Date" : "Completed Courses"}
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
@@ -542,7 +966,7 @@ const HRMTrainingDashboard: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {employees.map((employee) => (
+                    {displayedEmployees.map((employee) => (
                       <EmployeeRow key={employee.id} employee={employee} />
                     ))}
                   </tbody>
@@ -577,6 +1001,11 @@ const HRMTrainingDashboard: React.FC = () => {
           </div>
         )}
       </main>
+
+      {/* Render form only when needed */}
+      {showNewProgramForm && (
+        <NewProgramForm onClose={handleCloseNewProgramForm} onSubmit={handleCreateProgram} categories={categories} />
+      )}
     </div>
   )
 }
