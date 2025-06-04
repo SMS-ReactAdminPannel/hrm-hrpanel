@@ -62,11 +62,11 @@ const DailyTimeSheet = () => {
 
     return (
         <div className="p-5">
-            <div className="overflow-x-auto">
-                <table className="min-w-full border-collapse border border-gray-300 text-sm">
-                    <thead className="bg-[#006666] text-white">
+            <div className="overflow-x-auto rounded-xl">
+                <table className="min-w-full border-collapse border border-gray-300 text-sm shadow-lg">
+                    <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white">
                         <tr>
-                            <th className="border border-gray-300 px-6 py-3 text-left">
+                            <th className="px-6 py-3 text-left">
                                 <input
                                     type="text"
                                     placeholder="Search by name..."
@@ -75,12 +75,12 @@ const DailyTimeSheet = () => {
                                     className="w-full border border-gray-300 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
                                 />
                             </th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">First In</th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">Last Out</th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">Regular (hr)</th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">Overtime (hr)</th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">Double OT (hr)</th>
-                            <th className="border border-gray-300 px-6 py-3 text-center">Tracked (hr)</th>
+                            <th className="px-6 py-3 text-center">First In</th>
+                            <th className="px-6 py-3 text-center">Last Out</th>
+                            <th className="px-6 py-3 text-center">Regular (hr)</th>
+                            <th className="px-6 py-3 text-center">Overtime (hr)</th>
+                            <th className="px-6 py-3 text-center">Double OT (hr)</th>
+                            <th className="px-6 py-3 text-center">Tracked (hr)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,8 +92,8 @@ const DailyTimeSheet = () => {
                             </tr>
                         ) : (
                             filteredUsers.map((user) => (
-                                <tr key={user.name} className="hover:bg-gray-50">
-                                    <td className="border border-gray-300 px-6 py-4 flex items-center gap-3">
+                                <tr key={user.name} className="bg-white border-b border-slate-200/50 hover:bg-white/40 transition-all duration-200 group cursor-pointer">
+                                    <td className="px-6 py-4 flex items-center gap-3 border-b border-slate-200/50 hover:bg-white/40 transition-all duration-200 group cursor-pointer">
                                         <img
                                             src={user.profilePic}
                                             alt={user.name}
@@ -101,12 +101,12 @@ const DailyTimeSheet = () => {
                                         />
                                         <span className="font-medium text-gray-700">{user.name}</span>
                                     </td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center">{user.firstIn}</td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center">{user.lastOut}</td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center">{user.regular}</td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center text-orange-500">{user.overtime}</td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center text-red-500">{user.dailyDoubleOvertime}</td>
-                                    <td className="border border-gray-300 px-6 py-4 text-center font-semibold text-green-600">{user.tracked}</td>
+                                    <td className=" px-6 py-4 text-center">{user.firstIn}</td>
+                                    <td className=" px-6 py-4 text-center">{user.lastOut}</td>
+                                    <td className=" px-6 py-4 text-center">{user.regular}</td>
+                                    <td className=" px-6 py-4 text-center text-orange-500">{user.overtime}</td>
+                                    <td className=" px-6 py-4 text-center text-red-500">{user.dailyDoubleOvertime}</td>
+                                    <td className=" px-6 py-4 text-center font-semibold text-green-600">{user.tracked}</td>
                                 </tr>
                             ))
                         )}

@@ -1,6 +1,6 @@
 // This file contains the constants for the UI design of the application.   
 export const COLORS = {
-    primary: '##fcd269',
+    primary: '#fcd269',
     primary_01: '#fdefe9',
     secondary : '#E6A895',
     hover: '#ffd46b',
