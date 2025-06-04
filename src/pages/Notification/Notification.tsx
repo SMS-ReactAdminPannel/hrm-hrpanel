@@ -341,7 +341,7 @@ export default function NotificationsPage() {
 
         {/* Details Panel */}
         {selectedNotification && (
-          <div className="w-1/2 bg-white border-l border-gray-200 p-6 fixed right-0 top-0 h-full overflow-y-auto">
+          <div className="w-1/2 bg-white border-l border-gray-200 p-6 fixed right-0 top-0 h-full overflow-y-auto scrollbar-hidden">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-gray-900">Notification Details</h2>
@@ -351,7 +351,7 @@ export default function NotificationsPage() {
             </div>
 
             {/* Notification Details */}
-            <div className="space-y-6">
+            <div className="space-y-6 ">
               {/* Icon and Type */}
               <div className="flex items-center space-x-4">
                 <div className={`p-3 rounded-lg ${selectedNotification.isStarred ? "bg-yellow-100" : "bg-gray-200"}`}>
@@ -423,7 +423,7 @@ export default function NotificationsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> /* notification end */
         )}
       </div>
     </div>

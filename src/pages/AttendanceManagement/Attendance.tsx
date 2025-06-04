@@ -124,23 +124,23 @@ const dummyData: Person[] = [
       </div>
       <div>
         {/* Top Section */}
-        <div className="flex gap-6 mt-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Left: No of Employees Card */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center h-32 justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
-              <p className="text-slate-600 text-xl">No Of Employees</p>
-              <p className="text-2xl font-bold text-slate-800">{details.length}</p>
+              <p className=" text-sm font medium truncate text-gray-500 ">No Of Employees</p>
+              <p className="text-lg font-medium text-gray-900">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center h-32 justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
-              <p className="text-slate-600 text-xl">Total Duration</p>
-              <p className="text-2xl font-bold text-slate-800">9 Hrs</p>
+              <p className="text-sm font medium truncate text-gray-500">Total Duration</p>
+              <p className="text-lg font-medium text-gray-900">9 Hrs</p>
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
   {/* Permission Summary Card */}
   <div className="cursor-pointer flex justify-between items-center max-w-sm" onClick={() => setIsOpen(true)}>
     <div>
@@ -152,7 +152,7 @@ const dummyData: Person[] = [
 </div>
           
           {/* Right: Pie Chart with Labels */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between h-32">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
             <div>
               <p className=" text-gray-600 text-xl mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
@@ -185,7 +185,7 @@ const dummyData: Person[] = [
           <label className="block text-sm font-medium mt-10"></label>
           <input
             type="date"
-            className="pw-[250px] pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 "
+            className="pw-[250px] pl-10  px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 "
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
@@ -199,7 +199,7 @@ const dummyData: Person[] = [
           <input
             type="search"
             placeholder="Search by Name, Designation or Status"
-            className="pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
+            className="pl-10 px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -209,7 +209,7 @@ const dummyData: Person[] = [
           <label className="flex items-center gap-2 text-sm font-medium mb-6"></label>
           <button
             onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-            className="pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
+            className="pl-10 px-4 py-2 bg-white/70 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
           >
             <span className="flex items-center gap-2">
               <FaBriefcase className="text-gray-400" />
@@ -254,29 +254,28 @@ const dummyData: Person[] = [
         </div>
       </div>
       {/* Table Section */}
-      <div className="overflow-x-auto rounded-xl">
-        <table className="min-w-full bg-white border rounded shadow-md">
+      <div className="overflow-x-auto sm:rounded-md shadow">
+        <table className="min-w-full  divide-y divide-gray-900">
           <thead className="bg-[#006666] text-white">
             <tr>
-              <th className="px-6 py-4 text-left">ID</th>
-              <th className="px-6 py-4 text-left">Name</th>
-              <th className="px-6 py-4  text-left">Designation</th>
-              <th className="px-6 py-4  text-left">Status</th>
-              <th className="px-6 py-4  text-left">Check In</th>
-              <th className="px-6 py-4  text-left">Check Out</th>
-              <th className="px-6 py-4  text-left">Duration</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white divide-y divide-gray-200">
                 {paginatedDetails.map((item) => (
                 <tr
           key={item.ID}
           className="hover:bg-gray-100 cursor-pointer transition duration-200"
           onClick={() => handleClick(item)}  // Navigate here
         >
-
-                <td className="px-4 py-2">{item.ID}</td>
-                <td className="px-4 py-2">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.ID}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   <div className="flex items-center gap-2">
                     {/* Initial Circle */}
                     <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center text-sm font-semibold">
@@ -287,16 +286,15 @@ const dummyData: Person[] = [
                     <span>{item.Name}</span>
                   </div>
                 </td>
-
-                <td className="px-4 py-2">{item.Designation}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.Designation}</td>
                 <td
-                  className={`px-4 py-2 font-semibold ${item.Status === "Present" ? "text-green-600" : "text-red-500"}`}
+                  className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-semibold ${item.Status === "Present" ? "text-green-600" : "text-red-500"}`}
                 >
                   {item.Status}
                 </td>
-                <td className="px-4 py-2">{item.CheckIn}</td>
-                <td className="px-4 py-2">{item.CheckOut}</td>
-                <td className="px-4 py-2">{item.Duration}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.CheckIn}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.CheckOut}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{item.Duration}</td>
               </tr>
             ))}
           </tbody>
