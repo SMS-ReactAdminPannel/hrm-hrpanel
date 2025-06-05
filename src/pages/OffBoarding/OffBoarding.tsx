@@ -1,4 +1,5 @@
 import type React from "react"
+import { Upload } from "lucide-react";
 import { FONTS } from "../../constants/uiConstants"
 import { useState, useEffect, useRef } from "react"
 import {
@@ -539,21 +540,31 @@ const AdvancedHRMOffboarding = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
-          <h3 className="text-lg font-semibold mb-4">Exit Reasons</h3>
-          <div className="space-y-4">
-            {exitAnalytics.topReasons.slice(0, 4).map((reason, idx) => (
-              <div key={idx} className="flex justify-between items-center">
-                <span className="text-sm">{reason.reason}</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-12 bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${reason.percentage}%` }}></div>
-                  </div>
-                  <span className="text-xs text-gray-500">{reason.count}</span>
-                </div>
+      
+      </div>
+
+      {/* Exit Reasons Full Width Section */}
+      <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <h3 className="text-lg font-semibold mb-4">Exit Reasons Analysis</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {exitAnalytics.topReasons.map((reason, idx) => (
+            <div key={idx} className="border rounded-lg p-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium">{reason.reason}</span>
+                <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">{reason.count}</span>
               </div>
-            ))}
-          </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-blue-600 h-2 rounded-full"
+                  style={{ width: `${reason.percentage}%` }}
+                ></div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>{reason.percentage}% of exits</span>
+                <span>#{idx + 1} reason</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -697,39 +708,56 @@ const AdvancedHRMOffboarding = () => {
                 </button>
 
                 {expandedChecklist[categoryIdx] && (
-                  <div className="mt-3 space-y-2 ml-6">
+                  <div className="mt-3 bg-white rounded-md space-y-2 ml-6">
                     {category.items.map((item, itemIdx) => {
                       const itemState = getItemState(selectedEmployee.id, categoryIdx, itemIdx)
 
                       return (
                         <div key={itemIdx} className="flex items-center p-2 hover:bg-gray-50 rounded relative">
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 rounded"
-                            checked={itemState.checked}
-                            onChange={() => toggleCheckbox(selectedEmployee.id, categoryIdx, itemIdx)}
-                          />
-                          <span className="text-sm ml-3 flex-1">{item}</span>
-                          <div className="ml-auto flex items-center space-x-2">
-                            <input
-                              className="block w-32 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
-                              accept=".pdf,.txt,.doc,.docx,.jpg,.jpeg,.png,.gif"
-                              id={`file-upload-${selectedEmployee.id}-${categoryIdx}-${itemIdx}`}
-                              type="file"
-                              onChange={(e) => handleFileChange(selectedEmployee.id, categoryIdx, itemIdx, e)}
-                            />
-                            {itemState.file && (
-                              <button
-                                type="button"
-                                onClick={() => openFileViewer(selectedEmployee.id, categoryIdx, itemIdx)}
-                                className="text-xs bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
-                              >
-                                <Eye className="w-3 h-3 mr-1" />
-                                View
-                              </button>
-                            )}
-                          </div>
-                        </div>
+  <input
+    type="checkbox"
+    className="w-4 h-4 text-blue-600 rounded"
+    checked={itemState.checked}
+    onChange={() => toggleCheckbox(selectedEmployee.id, categoryIdx, itemIdx)}
+  />
+  <span className="text-sm ml-3 flex-1">{item}</span>
+  <div className="ml-auto flex items-center space-x-2">
+    {itemState.file ? (
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium text-green-600 flex items-center gap-1">
+          <CheckCircle className="w-4 h-4" /> File uploaded
+        </span>
+        <button
+          onClick={() => openFileViewer(selectedEmployee.id, categoryIdx, itemIdx)}
+          className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+        >
+          View file
+        </button>
+        <button
+          onClick={() => document.getElementById(`file-upload-${selectedEmployee.id}-${categoryIdx}-${itemIdx}`)?.click()}
+          className="text-sm text-gray-600 hover:text-gray-800 hover:underline"
+        >
+          Replace
+        </button>
+      </div>
+    ) : (
+      <button
+        onClick={() => document.getElementById(`file-upload-${selectedEmployee.id}-${categoryIdx}-${itemIdx}`)?.click()}
+        className="inline-flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors"
+      >
+        <Upload className="w-4 h-4" />
+        Upload File
+      </button>
+    )}
+    <input
+      id={`file-upload-${selectedEmployee.id}-${categoryIdx}-${itemIdx}`}
+      type="file"
+      accept=".pdf,.txt,.doc,.docx,.jpg,.jpeg,.png,.gif"
+      onChange={(e) => handleFileChange(selectedEmployee.id, categoryIdx, itemIdx, e)}
+      className="hidden"
+    />
+  </div>
+</div>
                       )
                     })}
                   </div>

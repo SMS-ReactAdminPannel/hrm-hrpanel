@@ -20,7 +20,7 @@ import {
   RiBriefcaseLine,
   RiUserFollowLine,
 } from "react-icons/ri";
-import { MdBusiness, MdEventAvailable } from "react-icons/md";
+import { MdBusiness, MdEventAvailable, MdOutlineVisibility } from "react-icons/md";
 
 const COLOR = {
   primary: "#006666",
@@ -121,6 +121,11 @@ const SideBar = ({
           <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/visitor-management" icon={<MdOutlineVisibility />} label="Visitor Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+
+
 
           {/* Logout */}
           <div

@@ -206,18 +206,18 @@ function DeductionCard({
         </div>
         
         <div className="mt-4">
-          <h3 className="text-lg font-semibold text-gray-800" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.title}</h3>
+          <h3 className="text-lg font-semibold text-gray-800" >{card.title}</h3>
           <p className="text-sm text-black mt-1">{card.deductionType}</p>
         </div>
         
         <div className="mt-4 flex justify-between items-center">
           <div>
             <p className="text-sm text-black">Employer Rate</p>
-            <p className="text-gray-800 font-medium" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.employerRate}%</p>
+            <p className="text-gray-800 font-medium" >{card.employerRate}%</p>
           </div>
           <div>
             <p className="text-sm text-black">Employee Rate</p>
-            <p className="text-gray-800 font-medium" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.employeeRate}%</p>
+            <p className="text-gray-800 font-medium" >{card.employeeRate}%</p>
           </div>
         </div>
         
