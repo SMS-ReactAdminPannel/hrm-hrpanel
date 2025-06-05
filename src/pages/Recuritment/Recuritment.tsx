@@ -139,7 +139,7 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    <div className="p-4 mx-auto max-w-screen-xl bg-gradient-to-br from-[#e0f7f4] to-[#f4fbf9]">
+    <div className="p-4 mx-auto max-w-screen-xl ">
         <h1 className="text-3xl font-semibold text-[#10493e] mb-6">
           Recruitment Dashboard
         </h1>
@@ -390,11 +390,6 @@ export default function RecruitmentDashboard() {
             </CardContent>
           </Card>
         </div>
-
-
-
-
-
 
 
 
