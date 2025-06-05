@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FONTS } from '../../constants/uiConstants';
 
 const MonthlyTimeSheets = () => {
     const getWeekday = (year: any, month: any, day: any) => {
@@ -58,12 +59,12 @@ const MonthlyTimeSheets = () => {
     });
 
     return (
-        <div className="p-5">
-            <div className="overflow-x-auto rounded-xl bg-white">
-                <table className="min-w-full border-collapse border border-gray-300 text-sm shadow-lg rounded-xl">
-                    <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white rounded-xl">
+        <div className="py-5 overflow-x-auto" style={{ fontFamily: FONTS.paragraph.fontFamily }}>
+            <div className="overflow-x-auto rounded-lg">
+                <table className="min-w-full border-collapse text-sm shadow-lg">
+                    <thead className="bg-[#006666] text-white">
                         <tr>
-                            <th className="sticky left-0 bg-gradient-to-r from-slate-800 to-teal-700  px-4 py-3 text-left min-w-[200px] border border-r-[#006666]">
+                            <th className="sticky left-0 bg-[#006666] px-4 py-3 text-left min-w-[200px] border-r border-[#006666]">
                                 <input
                                     type="text"
                                     placeholder="Search by name..."
@@ -73,29 +74,32 @@ const MonthlyTimeSheets = () => {
                                 />
                             </th>
                             {days.map(({ day, weekday }) => (
-                                <th key={day} className="px-3 py-3 text-center">
+                                <th key={day} className="px-3 text-center whitespace-nowrap">
                                     {day} <br />({weekday})
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="overflow-y-hidden">
                         {filteredUsers.length === 0 ? (
                             <tr>
-                                <td colSpan={daysInMonth + 1} className="text-center py-6 text-gray-500">
+                                <td colSpan={daysInMonth + 1} className="text-center py-6 bg-white text-gray-500">
                                     No matching employees found.
                                 </td>
                             </tr>
                         ) : (
                             filteredUsers.map((user, index) => (
-                                <tr key={`${user.name}-${index}`} className="hover:bg-gray-50">
-                                    <td className="sticky left-0 border-r bg-white z-50  px-6 py-3 flex items-center gap-3">
+                                <tr
+                                    key={`${user.name}-${index}`}
+                                    className="bg-white border-b border-slate-200/50 hover:bg-gray-100 cursor-pointer"
+                                >
+                                    <td className="px-6 py-3 flex items-center bg-white z-20 gap-3 border-r cursor-pointer sticky left-0 bg-white">
                                         <img
                                             src={user.profilePic}
                                             alt={user.name}
                                             className="w-9 h-9 rounded-full object-cover"
                                         />
-                                        <span className="font-medium text-gray-700">{user.name}</span>
+                                        <span className="font-medium text-gray-500">{user.name}</span>
                                     </td>
                                     {days.map(({ day, weekday }) => {
                                         const isSunday = weekday === 'Sun';
@@ -108,21 +112,32 @@ const MonthlyTimeSheets = () => {
                                         };
 
                                         return (
-                                            <td key={day} className="relative group text-center px-2 py-3">
+                                            <td
+                                                key={day}
+                                                className="relative group text-center px-2 py-3 whitespace-nowrap overflow-visible"
+                                            >
                                                 {isSunday ? (
                                                     <span className="text-red-500 font-semibold">R</span>
                                                 ) : (
-                                                    <>
+                                                    <div className="relative flex justify-center">
                                                         <div
-                                                            className={`w-4 h-4 rounded cursor-pointer mx-auto ${isPresent ? 'bg-green-500' : 'bg-red-500'
+                                                            className={`w-4 h-4 rounded cursor-pointer ${isPresent ? 'bg-green-300' : 'bg-red-400'
                                                                 }`}
                                                         />
-                                                        <div className="absolute z-20 hidden group-hover:block bg-white border border-gray-300 shadow-md p-2 rounded-md text-xs text-left w-40 top-full mt-2 left-1/2 transform -translate-x-1/2">
-                                                            <p><strong>First In:</strong> {tooltipData.firstIn}</p>
-                                                            <p><strong>Last Out:</strong> {tooltipData.lastOut}</p>
-                                                            <p><strong>Required:</strong> {tooltipData.required}</p>
+                                                        <div className="absolute bottom-full mb-2 hidden group-hover:flex bg-white border border-gray-300 shadow-md p-2 rounded-md text-xs text-left w-40 z-50">
+                                                            <div>
+                                                                <p>
+                                                                    <strong>First In:</strong> {tooltipData.firstIn}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Last Out:</strong> {tooltipData.lastOut}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Required:</strong> {tooltipData.required}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                    </>
+                                                    </div>
                                                 )}
                                             </td>
                                         );
