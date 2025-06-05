@@ -90,6 +90,8 @@ function Dropdown({
 
 export default function RecruitmentPipeline() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isStageModalOpen, setIsStageModalOpen] = useState(false);
+  const [newStage, setNewStage] = useState("");
 
   const [formData, setFormData] = useState({
     jobTitle: "",
@@ -141,7 +143,7 @@ export default function RecruitmentPipeline() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
-          <div className="bg-white rounded-md shadow-2xl w-full max-w-2xl relative max-h-[90vh] overflow-y-auto p-6 scrollbar-hide">
+          <div className="bg-white border border-gray-300 rounded-md shadow-2xl w-full max-w-2xl relative max-h-[90vh] overflow-y-auto p-6 scrollbar-hide">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-black"
@@ -300,15 +302,108 @@ export default function RecruitmentPipeline() {
         </div>
       )}
 
+{isStageModalOpen && (
+  <div className="fixed inset-0 z-80 bg-black/40 flex items-center justify-center">
+    <div className="bg-white rounded-md shadow-2xl w-full max-w-md p-8 relative">
+      <button
+        onClick={() => setIsStageModalOpen(false)}
+        className="absolute top-3 right-3 text-gray-500 hover:text-black"
+      >
+        <X size={20} />
+      </button>
+      <h2 className="text-xl font-semibold mb-4">Create Stage</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (newStage.trim()) {
+            stages.push(newStage.trim()); // In real app, use useState for stages
+            setNewStage("");
+            setIsStageModalOpen(false);
+          }
+        }}
+        className="space-y-4"
+      >
+        {/* <div>
+          <label className="block text-sm font-medium mb-1">Stage Name</label>
+          <Input
+            placeholder="e.g. HR Interview"
+            value={newStage}
+            onChange={(e) => setNewStage(e.target.value)}
+          />
+        </div> */}
+
+
+
+
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Stage</label>
+            <Input
+              value={formData.jobTitle}
+              onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Recruitment</label>
+            <Input
+              value={formData.managers}
+              onChange={(e) => setFormData({ ...formData, managers: e.target.value })}
+            />
+          </div>
+        </div>
+
+
+
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Stage Managers</label>
+            <Input
+              value={formData.jobTitle}
+              onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Stage Type</label>
+            <Input
+              value={formData.managers}
+              onChange={(e) => setFormData({ ...formData, managers: e.target.value })}
+            />
+          </div>
+        </div>
+
+
+
+
+              
+        <div className="flex justify-end">
+          <Button className="bg-red-500 hover:bg-red-600 text-white">Add Stage</Button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
+
+
+
+
       {/* Filters */}
       <div className="flex gap-2 items-center mb-4">
         <Input placeholder="Search" className="w-1/3" />
-        <Button className="border border-gray-300 bg-white text-gray-800 hover:bg-gray-100">
+        <Button className=" text-gray-800 text-white hover:bg-gray-100">
           Filter
         </Button>
         <div className="flex items-center gap-1">
-          <span className="text-sm">Filters:</span>
-          <span className="bg-red-100 text-red-700 px-2 py-1 rounded">Closed: false</span>
+          <button className="bg-[#006666] hover:bg-[#004C4C]  text-white px-5 py-2 rounded-xl font-medium transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+       onClick={() => setIsStageModalOpen(true)}> +stage </button>
         </div>
       </div>
 

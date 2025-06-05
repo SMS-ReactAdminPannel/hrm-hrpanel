@@ -14,7 +14,6 @@ import Announcement from "../pages/Announcement/Announcement";
 import LeaveTypes from "../pages/Leave Management/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
-import CandidatesPage from "../pages/Recuritment/Candidates";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 import HomePage from "../pages/HomePage/HomePage";
@@ -34,6 +33,8 @@ import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
+import CandidatesPage from "../pages/Recuritment/Candidates";
+import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 
 
 const AppRoutes = () => {
@@ -52,7 +53,7 @@ const AppRoutes = () => {
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
-          <Route path="candidates" element={<CandidatesPage />} />
+          {/* <Route path="candidates" element={<CandidatesList />} /> */}
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
           <Route path="training-management" element={<TrainingManage />} />
@@ -71,6 +72,8 @@ const AppRoutes = () => {
           <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitormanagement" element={<VisitorManagementSystem />}/>
+          <Route path="/" element={<CandidatesPage />} />
+          <Route path="/candidates/:id" element={<CandidateDetailPage />} />
         </Route>
       ) : (
         <>
