@@ -33,6 +33,7 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
+import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -68,6 +69,7 @@ const AppRoutes = () => {
           <Route path="profile" element={<Profile />} /> 
           <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
+          <Route path="visitormanagement" element={<VisitorManagementSystem />}/>
         </Route>
       ) : (
         <>

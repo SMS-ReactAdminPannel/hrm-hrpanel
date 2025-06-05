@@ -13,6 +13,11 @@ export const FONTS = {
         fontWeight: 400,
         fontSize: '32px'
     },
+    header2: {
+        fontFamily: "Poppins", 
+        fontWeight: 400,
+        fontSize: '28px'
+    },
     paragraph: {
         fontFamily: "Poppins", 
         fontWeight: 400,
