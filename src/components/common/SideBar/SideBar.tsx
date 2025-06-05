@@ -122,6 +122,7 @@ const SideBar = ({
           <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/traningmanagement" icon={<AiOutlineIssuesClose />} label="traningmanagement" isOpen={actualOpen} onClick={handleLinkClick} />
 
           {/* Logout */}
           <div
