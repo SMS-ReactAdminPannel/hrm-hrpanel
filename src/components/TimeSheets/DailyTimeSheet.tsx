@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FONTS } from '../../constants/uiConstants';
 
 const DailyTimeSheet = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -61,10 +62,11 @@ const DailyTimeSheet = () => {
     );
 
     return (
-        <div className="p-5">
-            <div className="overflow-x-auto rounded-xl">
-                <table className="min-w-full border-collapse border border-gray-300 text-sm shadow-lg">
-                    <thead className="bg-gradient-to-r from-slate-800 to-teal-700 text-white">
+        <div className="py-5"
+            style={{ fontFamily: FONTS.paragraph.fontFamily }}   >
+            <div className="overflow-x-auto rounded-lg">
+                <table className="min-w-full border-collapse text-sm shadow-lg">
+                    <thead className="bg-[#006666] text-white">
                         <tr>
                             <th className="px-6 py-3 text-left">
                                 <input
@@ -92,8 +94,8 @@ const DailyTimeSheet = () => {
                             </tr>
                         ) : (
                             filteredUsers.map((user) => (
-                                <tr key={user.name} className="bg-white border-b border-slate-200/50 hover:bg-white/40 transition-all duration-200 group cursor-pointer">
-                                    <td className="px-6 py-4 flex items-center gap-3 border-b border-slate-200/50 hover:bg-white/40 transition-all duration-200 group cursor-pointer">
+                                <tr key={user.name} className="bg-white border-b border-slate-200/50 hover:bg-gray-200 group cursor-pointer">
+                                    <td className="px-6 py-4 flex items-center gap-3 border-b border-slate-200/50  cursor-pointer">
                                         <img
                                             src={user.profilePic}
                                             alt={user.name}

@@ -46,7 +46,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
   if (!isOpen) return null
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl w-[140%] max-w-2xl p-2">
+    <div className="bg-white rounded-md shadow-2xl w-[140%] max-w-2xl p-2">
 
       <div className="flex items-center justify-between p-6 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900">
@@ -100,13 +100,13 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
           <button
             type="button"
             onClick={handleClose}
-            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005252] transition-colors"
+            className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005252] transition-colors"
           >
             {editingCategory ? "Update" : "Create"} Category
           </button>

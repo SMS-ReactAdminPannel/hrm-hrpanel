@@ -30,7 +30,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
               placeholder="Search by asset name or tracking ID..."
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className=" pl-10 pr-3  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
             />
             {searchQuery && (
               <button
@@ -50,7 +50,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
           <button
             onClick={onCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005252] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005252] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Create Category

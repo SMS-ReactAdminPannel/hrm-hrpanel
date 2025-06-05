@@ -4,6 +4,7 @@ import AnnouncementTable from "./AnnouncementTable";
 import AnnouncementForm from "./AnnouncementForm";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
+import { FONTS } from "../../../constants/uiConstants";
 
 type AnnouncementType = {
   title: string;
@@ -74,7 +75,7 @@ const Announcement = () => {
   };
 
   return (
-    <div className="p-5 text-[17px] relative">
+    <div className=" text-[17px] relative" style={{ fontFamily: FONTS.paragraph.fontFamily }}>
       <section className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-semibold text-gray-800">Announcements</h1>
         <button
@@ -89,7 +90,7 @@ const Announcement = () => {
         </button>
       </section>
 
-      <div className="my-4 p-4 rounded-lg bg-gray-200">
+      <div className="my-4 rounded-lg">
         <section className="flex justify-between gap-4 py-6 bg-white rounded-lg px-4">
           <aside className="flex items-center gap-2 text-gray-700">
             <label htmlFor="entries" className="font-medium">Show</label>
@@ -138,7 +139,7 @@ const Announcement = () => {
         <AnnouncementTable data={currentData} onEdit={handleEdit} onDelete={handleDelete} />
 
         {totalPages > 1 && (
-          <div className="flex justify-between mt-4">
+          <div className="flex justify-between bg-white p-2 rounded-b-lg">
             <div className="text-sm text-gray-600 p-2">
               Showing {currentData.length} announcements
             </div>
