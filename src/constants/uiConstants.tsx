@@ -4,14 +4,16 @@ export const COLORS = {
     primary_01: '#fdefe9',
     secondary : '#E6A895',
     hover: '#ffd46b',
-    bgColor: '#FAF3EB'
+    bgColor: '#FAF3EB',
+    sidebarbgcolor:"#5d8d99"
 }
 
 export const FONTS = {
     header: {
         fontFamily: "Poppins", 
-        fontWeight: 400,
-        fontSize: '32px'
+        // fontWeight: 400,
+        fontSize: 30,
+        fontWeight: 600,
     },
     header2: {
         fontFamily: "Poppins", 
@@ -21,6 +23,7 @@ export const FONTS = {
     paragraph: {
         fontFamily: "Poppins", 
         fontWeight: 400,
-        fontSize: '14px'
-    }
+        fontSize: '18px'
+    },
+
 }

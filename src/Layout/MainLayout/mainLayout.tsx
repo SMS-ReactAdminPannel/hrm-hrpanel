@@ -2,14 +2,13 @@ import { Outlet } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar/SideBar';
 import NavBar from '../../components/common/Navbar/NavBar';
 import { useState } from 'react';
-import mainLayout2 from '../../assets/mainLayout4.jpg'
+import mainLayout2 from '../../assets/mainLayout4.jpg';
 
-const SIDEBAR_WIDTH_OPEN = 240; // 15rem
-const SIDEBAR_WIDTH_CLOSED = 96; // 6rem
+const SIDEBAR_WIDTH_OPEN = 240;
+const SIDEBAR_WIDTH_CLOSED = 96;
 
 export const MainLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // shared state
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const marginLeft = isSidebarOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED;
 
   return (
