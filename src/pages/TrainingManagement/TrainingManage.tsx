@@ -115,43 +115,43 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className=" rounded-xl  max-w-md mx-4">
+      <div className=" rounded-xl bg-white p-10  max-w-md mx-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-900"
-          
- 
-  style={{
-    fontFamily: FONTS.header.fontFamily,
-    fontSize: FONTS.header.fontSize,
-    fontWeight: FONTS.header.fontWeight,
-  }}
->
-  
-Create New Program</h2>
+
+
+            style={{
+              fontFamily: FONTS.header.fontFamily,
+              fontSize: FONTS.header.fontSize,
+              fontWeight: FONTS.header.fontWeight,
+            }}
+          >
+
+            Create New Program</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors"
-           style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-            <X className="w-5 h-5" />
+            style={{
+              fontFamily: FONTS.paragraph.fontFamily,
+
+              fontWeight: FONTS.paragraph.fontWeight,
+            }}
+          >
+            <X className="w-5 h-5 ml-8" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
-  htmlFor="title"
-  className="block text-sm font-medium text-gray-700 mb-1"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Program Title *
-</label>
+              htmlFor="title"
+              className="bd-white block text-sm font-medium text-gray-700 mb-1"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Program Title *
+            </label>
 
             <input
               id="title"
@@ -165,28 +165,28 @@ Create New Program</h2>
           </div>
 
           <div>
-           <label
-  htmlFor="category"
-  className="block text-sm font-medium text-gray-700 mb-1"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Category
-</label>
+            <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700 mb-1"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Category
+            </label>
 
             <select
               id="category"
               value={formData.category}
               onChange={handleCategoryChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-               style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
 
             >
               {categories
@@ -201,16 +201,16 @@ Create New Program</h2>
 
           <div>
             <label
-  htmlFor="duration"
-  className="block text-sm font-medium text-gray-700 mb-1"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Duration *
-</label>
+              htmlFor="duration"
+              className="block text-sm font-medium text-gray-700 mb-1"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Duration *
+            </label>
 
             <input
               id="duration"
@@ -219,27 +219,27 @@ Create New Program</h2>
               onChange={handleDurationChange}
               placeholder="e.g., 4 weeks, 2 months"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-               style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
               required
             />
           </div>
 
           <div>
             <label
-  htmlFor="instructor"
-  className="block text-sm font-medium text-gray-700 mb-1"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Instructor *
-</label>
+              htmlFor="instructor"
+              className="block text-sm font-medium text-gray-700 mb-1"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Instructor *
+            </label>
 
             <input
               id="instructor"
@@ -248,11 +248,11 @@ Create New Program</h2>
               onChange={handleInstructorChange}
               placeholder="Enter instructor name"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-               style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
 
               required
             />
@@ -260,16 +260,16 @@ Create New Program</h2>
 
           <div>
             <label
-  htmlFor="startDate"
-  className="block text-sm font-medium text-gray-700 mb-1"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Start Date
-</label>
+              htmlFor="startDate"
+              className="block text-sm font-medium text-gray-700 mb-1"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Start Date
+            </label>
 
             <input
               id="startDate"
@@ -277,38 +277,38 @@ Create New Program</h2>
               value={formData.startDate}
               onChange={handleStartDateChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-               style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
 
             />
           </div>
 
           <div className="flex space-x-3 pt-4">
-           <button
-  type="button"
-  onClick={onClose}
-  className="flex-1 px-4 py-2 md:px-6 md:py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Cancel
-</button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Cancel
+            </button>
 
             <button
-  type="submit"
-  className="flex-1 px-4 py-2 md:px-6 md:py-2.5 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  Create Program
-</button>
+              type="submit"
+              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors"
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              Create Program
+            </button>
 
           </div>
         </form>
@@ -577,40 +577,40 @@ const HRMTrainingDashboard: React.FC = () => {
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div>
-         
+
           <p
-  className="text-sm "
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontSize: FONTS.paragraph.fontSize,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  {title}
-</p>
+            className="text-sm "
+            style={{
+              fontFamily: FONTS.paragraph.fontFamily,
+              fontSize: FONTS.paragraph.fontSize,
+              fontWeight: FONTS.paragraph.fontWeight,
+            }}
+          >
+            {title}
+          </p>
 
           <p className=" font-bold  mt-1"
-           style={{
-    fontFamily: FONTS.header.fontFamily,
-    fontSize: FONTS.header.fontSize,
-    fontWeight: FONTS.header.fontWeight,
-  }}
-          
+            style={{
+              fontFamily: FONTS.header.fontFamily,
+              fontSize: FONTS.header.fontSize,
+              fontWeight: FONTS.header.fontWeight,
+            }}
+
           >{value}
           </p>
-          
-              {trend && (
-  <p
-    className={`text-sm mt-1 ${color}`}
-    style={{
-      fontFamily: FONTS.paragraph.fontFamily,
-      fontSize: FONTS.paragraph.fontSize,
-      fontWeight: FONTS.paragraph.fontWeight,
-    }}
-  >
-    {trend}
-  </p>
-)}
+
+          {trend && (
+            <p
+              className={`text-sm mt-1 ${color}`}
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
+              {trend}
+            </p>
+          )}
 
         </div>
         <div className={`p-3 rounded-lg ${color.replace("text-", "bg-").replace("-600", "-100")}`}>{icon}</div>
@@ -661,9 +661,8 @@ const HRMTrainingDashboard: React.FC = () => {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    progress === 100 ? "bg-green-600" : progress > 50 ? "bg-blue-600" : "bg-yellow-600"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${progress === 100 ? "bg-green-600" : progress > 50 ? "bg-blue-600" : "bg-yellow-600"
+                    }`}
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
@@ -674,15 +673,14 @@ const HRMTrainingDashboard: React.FC = () => {
           </div>
           <div className="ml-4">
             <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                progress === 100
+              className={`px-3 py-1 rounded-full text-xs font-medium ${progress === 100
                   ? "bg-green-100 text-green-800"
                   : progress > 50
                     ? "bg-blue-100 text-blue-800"
                     : progress > 0
                       ? "bg-yellow-100 text-yellow-800"
                       : "bg-gray-100 text-gray-800"
-              }`}
+                }`}
             >
               {progress === 100 ? "Completed" : progress > 0 ? "In Progress" : "Not Started"}
             </span>
@@ -705,13 +703,12 @@ const HRMTrainingDashboard: React.FC = () => {
           </p>
         </div>
         <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
-            program.status === "active"
+          className={`px-3 py-1 rounded-full text-xs font-medium ${program.status === "active"
               ? "bg-green-100 text-green-800"
               : program.status === "draft"
                 ? "bg-yellow-100 text-yellow-800"
                 : "bg-gray-100 text-gray-800"
-          }`}
+            }`}
         >
           {program.status}
         </span>
@@ -793,15 +790,14 @@ const HRMTrainingDashboard: React.FC = () => {
         )}
         <td className="px-6 py-4 whitespace-nowrap">
           <span
-            className={`px-2 py-1 rounded-full text-xs font-medium ${
-              programProgress === 100
+            className={`px-2 py-1 rounded-full text-xs font-medium ${programProgress === 100
                 ? "bg-green-100 text-green-800"
                 : programProgress > 50
                   ? "bg-blue-100 text-blue-800"
                   : employee.status === "pending"
                     ? "bg-yellow-100 text-yellow-800"
                     : "bg-red-100 text-red-800"
-            }`}
+              }`}
           >
             {programProgress === 100 ? "Completed" : employee.status}
           </span>
@@ -817,7 +813,7 @@ const HRMTrainingDashboard: React.FC = () => {
         <div className="max-w-full px-3">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <h1 className=" font-bold text" style={{fontFamily: FONTS.header.fontFamily, fontSize:FONTS.header.fontSize,fontWeight:FONTS.header.fontWeight}}>Training Management</h1>
+              <h1 className=" font-bold text" style={{ fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize, fontWeight: FONTS.header.fontWeight }}>Training Management</h1>
               {selectedProgram && (
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <span>→</span>
@@ -831,38 +827,45 @@ const HRMTrainingDashboard: React.FC = () => {
       </header>
 
       {/* navigation */}
-     <nav className=" shadow-sm">
-  <div className="max-w-full px-3 py-3 ">
-    <div
-      className="flex space-x-8"
-      style={{
-        fontFamily: FONTS.paragraph.fontFamily,
-        fontSize: '18px', // increase font size here
-      }}
-    >
-      {[
-        { id: "overview", label: "Overview", icon: BarChart3 },
-        { id: "programs", label: "Programs", icon: BookOpen },
-        { id: "employees", label: "Employees", icon: Users },
-        { id: "analytics", label: "Analytics", icon: PieChart },
-      ].map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => {
-            setActiveTab(tab.id);
-            if (tab.id !== "employees") {
-              setSelectedProgram(null);
-            }
-          }}
-          className="flex items-center space-x-1 text-gray-700 hover:text-blue-600"
-        >
-          <tab.icon className="w-4 h-4" />
-          <span>{tab.label}</span>
-        </button>
-      ))}
-    </div>
-  </div>
-</nav>
+
+
+      <nav className="shadow-sm">
+        <div className="max-w-full px-3 py-3">
+          <div
+            className="flex space-x-4"
+            style={{
+              fontFamily: FONTS.paragraph.fontFamily,
+              fontSize: '18px',
+            }}
+          >
+            {[
+              { id: "overview", label: "Overview", icon: BarChart3 },
+              { id: "programs", label: "Programs", icon: BookOpen },
+              { id: "employees", label: "Employees", icon: Users },
+              { id: "analytics", label: "Analytics", icon: PieChart },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  if (tab.id !== "employees") {
+                    setSelectedProgram(null);
+                  }
+                }}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium
+            ${activeTab === tab.id
+                    ? "bg-blue-100 text-blue-700"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+              >
+                <tab.icon className="w-5 h-5" />
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
 
 
 
@@ -871,7 +874,7 @@ const HRMTrainingDashboard: React.FC = () => {
         {activeTab === "overview" && (
           <div className="space-y-8">
             {/* Stats Grid */}
-          <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
               <StatCard
                 title="Total Employees"
@@ -906,23 +909,23 @@ const HRMTrainingDashboard: React.FC = () => {
             {/* Recent Activity */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <h2
-  className="text-lg lg:text-xl font-semibold text-gray-900 mb-4"
-  style={{
-    fontFamily: FONTS.header.fontFamily,
-    fontSize: FONTS.header.fontSize,
-    fontWeight: FONTS.header.fontWeight,
-  }}
->
-  Recent Activity
-</h2>
+                className="text-lg lg:text-xl font-semibold text-gray-900 mb-4"
+                style={{
+                  fontFamily: FONTS.header.fontFamily,
+                  fontSize: FONTS.header.fontSize,
+                  fontWeight: FONTS.header.fontWeight,
+                }}
+              >
+                Recent Activity
+              </h2>
 
-              <div  className="space-y-3 md:space-y-4 lg:space-y-5"
-              style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
+              <div className="space-y-3 md:space-y-4 lg:space-y-5"
+                style={{
+                  fontFamily: FONTS.paragraph.fontFamily,
+
+                  fontWeight: FONTS.paragraph.fontWeight,
+                }}
+              >
 
                 {[
                   {
@@ -973,77 +976,74 @@ const HRMTrainingDashboard: React.FC = () => {
 
         {activeTab === "programs" && (
           <div className="space-y-6"
-           style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    
-  }}
->
+            style={{
+              fontFamily: FONTS.paragraph.fontFamily,
+
+
+            }}
+          >
             {/* Search and Filter */}
-           <div className="flex flex-row sm:flex-row md:flex-row gap-4">
-  <div className="flex-1 relative">
-    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-    <input
-      type="text"
-      placeholder="Search programs..."
-      value={searchTerm}
-      onChange={handleSearchChange}
-      className="w-100 md:w-96 pl-10 pr-4 py-2 border border-[#006666] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-    />
-  
-
-
+            <div className="flex flex-row sm:flex-row md:flex-row gap-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search programs..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="w-100 md:w-96 pl-10 pr-4 py-2 border border-[#006666] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                />
               </div>
               <div className="flex items-center space-x-2"
-               style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-                <div className="flex items-center gap-2">
-  <Filter className="w-5 h-5 text-gray-400" />
+                style={{
+                  fontFamily: FONTS.paragraph.fontFamily,
 
-  <select
-    value={selectedCategory}
-    onChange={handleCategoryChange}
-    className="w-full md:w-60 border border-[#006666] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
-    style={{
-      fontFamily: FONTS.paragraph.fontFamily,
-      fontWeight: FONTS.paragraph.fontWeight,
-    }}
-  >
-    {categories.map((category) => (
-      <option key={category} value={category}>
-        {category === "all" ? "All Categories" : category}
-      </option>
-    ))}
-  </select>
-</div>
+                  fontWeight: FONTS.paragraph.fontWeight,
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <Filter className="w-5 h-5 text-gray-400" />
+
+                  <select
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    className="w-full md:w-60 border border-[#006666] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    style={{
+                      fontFamily: FONTS.paragraph.fontFamily,
+                      fontWeight: FONTS.paragraph.fontWeight,
+                    }}
+                  >
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category === "all" ? "All Categories" : category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
               </div>
-             <button
-  onClick={handleShowNewProgramForm}
-  className="flex items-center space-x-2 bg-[#006666] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
-  style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
-  <Plus className="w-4 h-4" />
-  <span className="text-sm md:text-base">New Program</span>
-</button>
+              <button
+                onClick={handleShowNewProgramForm}
+                className="flex items-center space-x-2 bg-[#006666] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
+                style={{
+                  fontFamily: FONTS.paragraph.fontFamily,
+                  fontWeight: FONTS.paragraph.fontWeight,
+                }}
+              >
+                <Plus className="w-4 h-4" />
+                <span className="text-sm md:text-base">New Program</span>
+              </button>
 
             </div>
 
             {/* Programs Grid */}
             <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6"
-             style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
+              style={{
+                fontFamily: FONTS.paragraph.fontFamily,
+
+                fontWeight: FONTS.paragraph.fontWeight,
+              }}
+            >
               {filteredPrograms.map((program) => (
                 <ProgramCard key={program.id} program={program} />
               ))}
@@ -1056,23 +1056,23 @@ const HRMTrainingDashboard: React.FC = () => {
             {selectedProgram && (
               <>
                 {/* Program Header */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
-                 style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
+                <div className=" rounded-xl shadow-sm  border-gray-100 p-6"
+                  style={{
+                    fontFamily: FONTS.paragraph.fontFamily,
+
+                    fontWeight: FONTS.paragraph.fontWeight,
+                  }}
+                >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-4">
                       <button
                         onClick={handleBackToPrograms}
                         className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
-                         style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
+                        style={{
+                          fontFamily: FONTS.paragraph.fontFamily,
+
+                          fontWeight: FONTS.paragraph.fontWeight,
+                        }}
 
                       >
                         <ArrowLeft className="w-4 h-4" />
@@ -1082,12 +1082,12 @@ const HRMTrainingDashboard: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-4 md:grid-cols-4 gap-4"
-                   style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->
+                    style={{
+                      fontFamily: FONTS.paragraph.fontFamily,
+
+                      fontWeight: FONTS.paragraph.fontWeight,
+                    }}
+                  >
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <BookOpen className="w-5 h-5 text-blue-600" />
@@ -1104,12 +1104,12 @@ const HRMTrainingDashboard: React.FC = () => {
                         </span>
                       </div>
                       <p className="text-sm text-gray-600"
-                       style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Enrolled Participants</p>
+                        style={{
+                          fontFamily: FONTS.paragraph.fontFamily,
+
+                          fontWeight: FONTS.paragraph.fontWeight,
+                        }}
+                      >Enrolled Participants</p>
                     </div>
 
                     <div className="bg-purple-50 p-4 rounded-lg">
@@ -1118,12 +1118,12 @@ const HRMTrainingDashboard: React.FC = () => {
                         <span className="font-semibold text-gray-900">{selectedProgram.duration}</span>
                       </div>
                       <p className="text-sm text-gray-600"
-                       style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Duration</p>
+                        style={{
+                          fontFamily: FONTS.paragraph.fontFamily,
+
+                          fontWeight: FONTS.paragraph.fontWeight,
+                        }}
+                      >Duration</p>
                     </div>
 
                     <div className="bg-yellow-50 p-4 rounded-lg">
@@ -1134,87 +1134,87 @@ const HRMTrainingDashboard: React.FC = () => {
                         </span>
                       </div>
                       <p className="text-sm text-gray-600"
-                       style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Start Date</p>
+                        style={{
+                          fontFamily: FONTS.paragraph.fontFamily,
+
+                          fontWeight: FONTS.paragraph.fontWeight,
+                        }}
+                      >Start Date</p>
                     </div>
                   </div>
                 </div>
 
-               
-                
+
+
               </>
             )}
 
-           
+
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-  <div className="px-6 py-4 lg:px-8 lg:py-6 border-b border-gray-200">
-    <h2
-      className="text-lg lg:text-xl font-semibold text-gray-900"
-      style={{
-        fontFamily: FONTS.paragraph.fontFamily,
-        fontWeight: FONTS.paragraph.fontWeight,
-      }}
-    >
-      {selectedProgram
-        ? `Participants in ${selectedProgram.title}`
-        : "Employee Training Progress"}
-    </h2>
-    {selectedProgram && (
-      <p className="text-sm lg:text-base text-gray-600 mt-1"
-      style={{
-        fontFamily: FONTS.paragraph.fontFamily,
-        fontWeight: FONTS.paragraph.fontWeight,
-      }}
-      >
-        Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
-      </p>
-    )}
-  </div>
+              <div className="px-6 py-4 lg:px-8 lg:py-6 border-b border-gray-200">
+                <h2
+                  className="text-lg lg:text-xl font-semibold text-gray-900"
+                  style={{
+                    fontFamily: FONTS.paragraph.fontFamily,
+                    fontWeight: FONTS.paragraph.fontWeight,
+                  }}
+                >
+                  {selectedProgram
+                    ? `Participants in ${selectedProgram.title}`
+                    : "Employee Training Progress"}
+                </h2>
+                {selectedProgram && (
+                  <p className="text-sm lg:text-base text-gray-600 mt-1"
+                    style={{
+                      fontFamily: FONTS.paragraph.fontFamily,
+                      fontWeight: FONTS.paragraph.fontWeight,
+                    }}
+                  >
+                    Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
+                  </p>
+                )}
+              </div>
 
-  <div className="overflow-x-auto">
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead className="bg-gray-50">
-        <tr>
-          {[
-            "Employee ID",
-            "Employee",
-            "Department",
-            selectedProgram ? "Program Progress" : "Overall Progress",
-            selectedProgram ? "Enrollment Date" : "Completed Courses",
-            "Status",
-          ].map((heading, idx) => (
-            <th
-              key={idx}
-              className="px-6 py-3 text-left text-xs lg:text-sm font-medium text-gray-500 uppercase tracking-wider"
-              style={{
-                fontFamily: FONTS.paragraph.fontFamily,
-                fontWeight: FONTS.paragraph.fontWeight,
-              }}
-            >
-              {heading}
-            </th>
-          ))}
-        </tr>
-      </thead>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      {[
+                        "Employee ID",
+                        "Employee",
+                        "Department",
+                        selectedProgram ? "Program Progress" : "Overall Progress",
+                        selectedProgram ? "Enrollment Date" : "Completed Courses",
+                        "Status",
+                      ].map((heading, idx) => (
+                        <th
+                          key={idx}
+                          className="px-6 py-3 text-left text-xs lg:text-sm font-medium text-gray-500 uppercase tracking-wider"
+                          style={{
+                            fontFamily: FONTS.paragraph.fontFamily,
+                            fontWeight: FONTS.paragraph.fontWeight,
+                          }}
+                        >
+                          {heading}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
 
-      <tbody
-        className="bg-white divide-y divide-gray-200 text-sm lg:text-base"
-        style={{
-          fontFamily: FONTS.paragraph.fontFamily,
-          fontWeight: FONTS.paragraph.fontWeight,
-        }}
-      >
-        {displayedEmployees.map((employee) => (
-          <EmployeeRow key={employee.id} employee={employee} />
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+                  <tbody
+                    className="bg-white divide-y divide-gray-200 text-sm lg:text-base"
+                    style={{
+                      fontFamily: FONTS.paragraph.fontFamily,
+                      fontWeight: FONTS.paragraph.fontWeight,
+                    }}
+                  >
+                    {displayedEmployees.map((employee) => (
+                      <EmployeeRow key={employee.id} employee={employee} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
           </div>
         )}
@@ -1224,49 +1224,49 @@ const HRMTrainingDashboard: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4"
-                 style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Training Completion Trends</h3>
+                  style={{
+                    fontFamily: FONTS.paragraph.fontFamily,
+
+                    fontWeight: FONTS.paragraph.fontWeight,
+                  }}
+                >Training Completion Trends</h3>
                 <div className="h-64 flex items-center justify-center text-gray-500">
                   <div className="text-center">
-                    <BarChart3 className="w-12 h-12 mx-auto mb-2 text-gray-300" 
-                     style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
-/>
+                    <BarChart3 className="w-12 h-12 mx-auto mb-2 text-gray-300"
+                      style={{
+                        fontFamily: FONTS.paragraph.fontFamily,
+
+                        fontWeight: FONTS.paragraph.fontWeight,
+                      }}
+                    />
                     <p
-                     style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Chart visualization would be implemented here</p>
+                      style={{
+                        fontFamily: FONTS.paragraph.fontFamily,
+
+                        fontWeight: FONTS.paragraph.fontWeight,
+                      }}
+                    >Chart visualization would be implemented here</p>
                   </div>
                 </div>
               </div>
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4"
-                 style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Program Distribution</h3>
+                  style={{
+                    fontFamily: FONTS.paragraph.fontFamily,
+
+                    fontWeight: FONTS.paragraph.fontWeight,
+                  }}
+                >Program Distribution</h3>
                 <div className="h-64 flex items-center justify-center text-gray-500">
                   <div className="text-center">
                     <PieChart className="w-12 h-12 mx-auto mb-2 text-gray-300" />
                     <p
-                     style={{
-    fontFamily: FONTS.paragraph.fontFamily,
-    
-    fontWeight: FONTS.paragraph.fontWeight,
-  }}
->Pie chart visualization would be implemented here</p>
+                      style={{
+                        fontFamily: FONTS.paragraph.fontFamily,
+
+                        fontWeight: FONTS.paragraph.fontWeight,
+                      }}
+                    >Pie chart visualization would be implemented here</p>
                   </div>
                 </div>
               </div>
