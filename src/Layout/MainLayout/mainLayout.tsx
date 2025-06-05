@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar/SideBar';
 import NavBar from '../../components/common/Navbar/NavBar';
-import { COLORS } from '../../constants/uiConstants';
 import { useState } from 'react';
 import mainLayout2 from '../../assets/mainLayout4.jpg'
 

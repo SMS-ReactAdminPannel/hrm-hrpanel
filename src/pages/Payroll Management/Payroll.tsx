@@ -112,14 +112,11 @@ const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900" style={{fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize}}>Payroll Management</h1>
-            <p className="text-gray-600" style={{fontFamily: FONTS.paragraph.fontFamily, fontSize: FONTS.paragraph.fontSize}}>Manage employee payroll and compensation</p>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Payroll Management</h1>
+            <p className="text-gray-600">Manage employee payroll and compensation</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
-
-
-              
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
