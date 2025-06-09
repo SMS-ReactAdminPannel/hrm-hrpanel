@@ -12,21 +12,21 @@ import { FaExclamation } from "react-icons/fa";
 
 const AttentDashboard = () => {
   return (
-    <div className="flex">
+    <div className="flex bg-[#eff4f5]">
       {/* Main content */}
       <div className="flex-1 ">
         {/* Top Content */}
         <div className="flex justify-between  p-4">
           <div className="flex-1 flex flex-col">
             <div className="mb-14">
-              <h1 className="text-lg text-[#006666] font-semibold">Attendance</h1>
+              <h1 className="text-xl text-black font-semibold">Attendance</h1>
               <p className=" text-sm ">
                 Weekly Attendance Overview
               </p>
             </div>
             <div>
-              <p className="text-sm text-[#006666]">Total Employees</p>
-              <p className="text-lg font-bold">234k</p>
+              <p className="text-md text-black">Total Employees</p>
+              <p className="text-lg font-semibold">234k</p>
             </div>
           </div>
           <div className="flex-1">

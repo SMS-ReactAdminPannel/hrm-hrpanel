@@ -21,6 +21,7 @@ import { BarChart2, Users, Briefcase, Sliders, Calendar, TrendingUp, Percent } f
 import RecruitmentPipeline from "./pipeline";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
+import { FONTS } from "../../constants/uiConstants";
 
 const COLORS = ["#D9D9D9", "#F8D147", "#00C49F", "#FF4D4F", "#B2F296"];
 
@@ -139,8 +140,8 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    <div className="p-4 mx-auto max-w-screen-xl bg-gradient-to-br from-[#e0f7f4] to-[#f4fbf9]">
-        <h1 className="text-3xl font-semibold text-[#10493e] mb-6">
+    <div className="p-4 mx-auto max-w-screen-xl">
+        <h1 className=" mb-6" style={FONTS.header}>
           Recruitment Dashboard
         </h1>
 
@@ -266,7 +267,7 @@ export default function RecruitmentDashboard() {
         <div className="p-4 space-y-6 ">
           <div className="grid grid-cols-3 gap-6 rounded">
             {/* Skill Zone Status */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-[#eff4f5] p-4 rounded shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Skill Zone Status</h2>
               <ul className="space-y-2">
                 <li className="flex items-center justify-between">
@@ -287,7 +288,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Candidate Offer Letter Status */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-[#eff4f5]  p-4 rounded shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Candidate Offer Letter Status</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
@@ -301,7 +302,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Candidate Onboard */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-[#eff4f5]  p-4 rounded shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Candidate on Onboard</h2>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
@@ -317,7 +318,7 @@ export default function RecruitmentDashboard() {
           {/* Joinings Per Month and Hiring Pipeline */}
           <div className="grid grid-cols-2 gap-4">
             {/* Joinings Per Month */}
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-[#eff4f5]  p-4 rounded shadow">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-semibold">Joinings Per Month</h2>
                 <select className="border rounded px-2 py-1 text-sm">
@@ -335,7 +336,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Current Hiring Pipeline */}
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-[#eff4f5]  p-4 rounded shadow">
               <h2 className="text-lg font-semibold mb-2">Current Hiring Pipeline</h2>
               <table className="w-full text-sm">
                 <thead>

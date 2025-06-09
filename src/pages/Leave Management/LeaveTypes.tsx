@@ -278,7 +278,7 @@ export default function LeaveTypes() {
       <div className={` transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
         <div className="flex  md:flex-row justify-between mb-6 gap-4">
-          <div className='text-2xl font-bold px-2 py-2' >
+          <div className=' font-bold ' style={FONTS.header} >
         Leave Types
       </div>
           <div className=" flex gap-5 ml-auto">

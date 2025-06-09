@@ -7,12 +7,12 @@ export default function SupportTracker() {
   const strokeDashoffset = circumference - (completionPercentage / 100) * circumference
 
   return (
-    <div className="rounded-2xl p-6 shadow-sm h-full bg-white">
+    <div className="rounded-2xl p-6 shadow-sm h-full bg-[#eff4f5]">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Support Query</h2>
-          <p className="text-sm text-gray-500 mt-1">Last 7 Days</p>
+          <h2 className="text-xl text-black font-semibold">Support Query</h2>
+          <p className="text-sm text-black mt-1">Last 7 Days</p>
         </div>
         {/* <button className="text-gray-400 hover:text-gray-600 transition-colors">
           <MoreHorizontal className="w-5 h-5" />
@@ -26,8 +26,8 @@ export default function SupportTracker() {
           {/* Total Tickets */}
           <div className="flex flex-col items-center">
             <div className="shadow-md bg-white w-32 h-32 rounded-xl flex flex-col items-center justify-center ml-20">
-              <div className="text-4xl font-bold text-gray-900">164</div>
-              <div className="text-sm text-gray-500 mt-1">Total Query</div>
+              <div className="text-4xl  text-black font-semibold">164</div>
+              <div className="text-sm text-black mt-1">Total Query</div>
             </div>
           </div>
 
@@ -61,8 +61,8 @@ export default function SupportTracker() {
 
             {/* Center Text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold text-gray-900">{completionPercentage}%</div>
-              <div className="text-xs text-gray-500 text-center leading-tight">Completed Task</div>
+              <div className="text-2xl  text-black font-semibold">{completionPercentage}%</div>
+              <div className="text-xs text-black text-center leading-tight">Completed Task</div>
             </div>
           </div>
         </div>
@@ -75,8 +75,8 @@ export default function SupportTracker() {
               <Ticket className="w-4 h-4 text-purple-600" />
             </div>
             <div>
-              <div className="text-sm text-gray-500">New Queries</div>
-              <div className="font-semibold text-gray-900">142</div>
+              <div className="text-xs text-black">New Queries</div>
+              <div className=" text-black font-semibold">142</div>
             </div>
           </div>
 
@@ -86,8 +86,8 @@ export default function SupportTracker() {
               <CheckCircle className="w-4 h-4 text-teal-600" />
             </div>
             <div>
-              <div className="text-sm text-gray-500">Solved Queries</div>
-              <div className="font-semibold text-gray-900">28</div>
+              <div className="text-xs text-black">Solved Queries</div>
+              <div className=" text-black font-semibold">28</div>
             </div>
           </div>
 
@@ -97,8 +97,8 @@ export default function SupportTracker() {
               <Clock className="w-4 h-4 text-orange-600" />
             </div>
             <div>
-              <div className="text-sm text-gray-500">Unsolved Queries</div>
-              <div className="font-semibold text-gray-900">1 Day</div>
+              <div className="text-xs text-black">Unsolved Queries</div>
+              <div className=" text-black font-semibold">1 Day</div>
             </div>
           </div>
         </div>
