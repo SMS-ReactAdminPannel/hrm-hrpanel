@@ -5,6 +5,7 @@ import { FaBriefcase } from "react-icons/fa"
 import { IoIosPeople } from "react-icons/io"
 import { MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
+
 const Attendance: React.FC = () => {
 
   type EmployeeDetail = {
@@ -37,14 +38,7 @@ const Attendance: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("")
      const navigate = useNavigate();
 
-  const filtereddetails = details.filter((details) => {
-    const query = searchQuery.trim().toLowerCase()
-    return (
-      details.Designation.toLowerCase().includes(query) ||
-      details.Status.toLowerCase().includes(query) ||
-      details.Name.toLowerCase().includes(query)
-    )
-  })
+ 
   // Donut
   const presentCount = details.filter((d) => d.Status === "Present").length
   const absentCount = details.filter((d) => d.Status === "Absent").length
@@ -70,17 +64,7 @@ const Attendance: React.FC = () => {
   })
   const [currentPage, setCurrentPage] = useState(1)
   const rowsPerPage = 10
-  const filteringDetails = details.filter((item) => {
-    const query = searchQuery.trim().toLowerCase()
-    const matchesSearch =
-      item.Designation.toLowerCase().includes(query) ||
-      item.Status.toLowerCase().includes(query) ||
-      item.Name.toLowerCase().includes(query)
-
-    const matchesDesignation = designationFilter === "" || item.Designation === designationFilter
-
-    return matchesSearch && matchesDesignation
-  })
+  
   const paginatedDetails = filteredDetails.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
   useEffect(() => {
     setCurrentPage(1)
@@ -101,14 +85,20 @@ const Attendance: React.FC = () => {
     }
   }, [])
     // Employee component
-    const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
+    // const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
 
 
      const handleClick = (employee: EmployeeDetail) => {
   navigate("/attendance-id", { state: { employee } });
 };
-
-const dummyData = [
+interface Person {
+  id: number
+  name: string
+  email: string
+  status: string
+}
+ const [isOpen, setIsOpen] = useState(false)
+const dummyData: Person[] = [
   {
     id: 1,
     name: "Kia",
@@ -122,72 +112,47 @@ const dummyData = [
     status: "pending",
   },
 ]
-  const [isOpen, setIsOpen] = useState(false)
+ 
 
   return (
     
-    <div className="p-6 space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
+    <div className=" space-y-6 min-h-screen w-full">
       <div>
-        <p className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1">
-          Attendance Management
+        <p className="text-3xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1 font-family-poppins">
+          Attendance 
         </p>
       </div>
       <div>
         {/* Top Section */}
-        <div className="flex gap-6 mt-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Left: No of Employees Card */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between ">
             <div>
-              <p className="text-slate-600 text-xl">No Of Employees</p>
-              <p className="text-2xl font-bold text-slate-800">{details.length}</p>
+              <p className=" text-xl font medium truncate text-gray-500 font-family-poppins  ">No Of Employees</p>
+              <p className="text-lg font-bold text-gray-900">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
-              <p className="text-slate-600 text-xl">Total Duration</p>
-              <p className="text-2xl font-bold text-slate-800">9 Hrs</p>
+              <p className="text-xl font medium truncate text-gray-500 font-family-poppins">Total Duration</p>
+              <p className="text-lg font-bold text-gray-900">9 Hrs</p>
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
-            <div>
-      {/* Permission Summary Card */}
-      <div
-        className=" cursor-pointer flex justify-between items-center max-w-sm"
-        onClick={() => setIsOpen(true)}
-      >
-        <div>
-          <p className="text-gray-600 text-xl">Permission</p>
-          <p className="text-2xl font-bold">{dummyData.length}</p>
-        </div>
-        <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
-      </div>
-
-      {/* Simple Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Permission Requests</h2>
-              <button onClick={() => setIsOpen(false)} className="text-gray-500 text-sm">Close</button>
-            </div>
-
-            {dummyData.map((person) => (
-              <div key={person.id} className="border-b py-3">
-                <p className="font-semibold">{person.name}</p>
-                <p className="text-sm text-gray-500">{person.email}</p>
-                <p className="text-xs capitalize text-gray-400">{person.status}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
+  {/* Permission Summary Card */}
+  <div className="cursor-pointer flex justify-between items-center max-w-sm" onClick={() => setIsOpen(true)}>
+    <div>
+      <p className="text-gray-600 text-xl">Permission</p>
+      <p className="text-2xl font-bold">{dummyData.length}</p>
     </div>
-          </div>
+    <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
+  </div>
+</div>
           
           {/* Right: Pie Chart with Labels */}
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
             <div>
               <p className=" text-gray-600 text-xl mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
@@ -204,7 +169,7 @@ const dummyData = [
                 paddingAngle={3}
                 dataKey="value"
               >
-                {chartData.map((entry, index) => (
+                {chartData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
@@ -214,104 +179,105 @@ const dummyData = [
         </div>
       </div>
 
-      <div className="flex gap-4 justify-between">
-        <div>
-          {/* Day and Date Picker */}
-          <label className="block text-sm font-medium mt-10"></label>
-          <input
-            type="date"
-            className="pw-[250px] pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 "
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-          {selectedDate && <p className="text-sm mt-1 text-gray-600">You selected: {selectedDate}</p>}
-        </div>
-        {/* Search */}
-        <div className="relative max-w-md mt-10 w-96 ">
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-            <CiSearch size={20} />
-          </span>
-          <input
-            type="search"
-            placeholder="Search by Name, Designation or Status"
-            className="pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        {/* Designation filter - Custom Dropdown */}
-        <div className="relative max-w-md mt-4" ref={designationDropdownRef}>
-          <label className="flex items-center gap-2 text-sm font-medium mb-6"></label>
-          <button
-            onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-            className="pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full text-left flex items-center justify-between"
-          >
-            <span className="flex items-center gap-2">
-              <FaBriefcase className="text-gray-400" />
-              {designationFilter || "Designation"}
-            </span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+    <div className="flex justify-between items-center">
+  {/* Date Picker */}
+  <div>
+    <input
+      type="date"
+      className="pw-[250px] pl-8 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200"
+      value={selectedDate}
+      onChange={(e) => setSelectedDate(e.target.value)}
+    />
+  </div>
 
-          {showDesignationDropdown && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto scrollbar-hide">
-              <div
-                onClick={() => {
-                  setDesignationFilter("")
-                  setShowDesignationDropdown(false)
-                }}
-                className="px-4 py-3 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 flex items-center gap-2"
-              >
-                <FaBriefcase className="text-gray-400" />
-                All
-              </div>
-              {designations.map((designation, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    setDesignationFilter(designation)
-                    setShowDesignationDropdown(false)
-                  }}
-                  className="px-4 py-3 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 "
-                >
-                  {designation}
-                </div>
-              ))}
-            </div>
-          )}
+  {/* Search - Centered */}
+  <div className="relative max-w-md w-96">
+    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+      <CiSearch size={20} />
+    </span>
+    <input
+      type="search"
+      placeholder="Search by Name, Designation or Status"
+      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+    />
+  </div>
+
+  {/* Designation Dropdown - Right-aligned */}
+  <div className="relative w-48" ref={designationDropdownRef}> {/* Reduced width */}
+    <button
+      onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
+      className="w-full pl-3 pr-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent"
+    >
+      <span className="flex items-center gap-2 truncate">
+        <FaBriefcase className="text-gray-400 flex-shrink-0" />
+        <span className="truncate">{designationFilter || "All Designations"}</span>
+      </span>
+      <svg
+        className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    {showDesignationDropdown && (
+      <div className="absolute right-0 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg z-10 max-h-60 overflow-y-auto">
+        <div
+          onClick={() => {
+            setDesignationFilter("");
+            setShowDesignationDropdown(false);
+          }}
+          className={`px-4 py-2 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 ${
+            !designationFilter ? "bg-teal-50 text-teal-800" : ""
+          }`}
+        >
+          All Designations
         </div>
+        {designations.map((designation, idx) => (
+          <div
+            key={idx}
+            onClick={() => {
+              setDesignationFilter(designation);
+              setShowDesignationDropdown(false);
+            }}
+            className={`px-4 py-2 cursor-pointer hover:bg-teal-100 hover:text-teal-800 transition-colors duration-200 ${
+              designationFilter === designation ? "bg-teal-50 text-teal-800" : ""
+            }`}
+          >
+            {designation}
+          </div>
+        ))}
       </div>
+    )}
+  </div>
+</div>
       {/* Table Section */}
-      <div className="overflow-x-auto rounded-xl">
-        <table className="min-w-full bg-white border rounded shadow-md">
-          <thead className="bg-[#006666] text-white">
+      <div className="overflow-x-auto sm:rounded-md shadow">
+        <table className="min-w-full  divide-y divide-gray-900">
+          <thead className="bg-[#006666] text-white ">
             <tr>
-              <th className="px-6 py-4 text-left">ID</th>
-              <th className="px-6 py-4 text-left">Name</th>
-              <th className="px-6 py-4  text-left">Designation</th>
-              <th className="px-6 py-4  text-left">Status</th>
-              <th className="px-6 py-4  text-left">Check In</th>
-              <th className="px-6 py-4  text-left">Check Out</th>
-              <th className="px-6 py-4  text-left">Duration</th>
+              <th className="px-6 py-5 text-left text-xs  font-bold  uppercase tracking-wider">ID</th>
+              <th className="px-6 py-5 text-left text-xs font-bold font-bold uppercase tracking-wider">Name</th>
+              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Designation</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Status</th>
+              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Check In</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Check Out</th>
+              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Duration</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white divide-y divide-gray-200">
                 {paginatedDetails.map((item) => (
                 <tr
           key={item.ID}
           className="hover:bg-gray-100 cursor-pointer transition duration-200"
           onClick={() => handleClick(item)}  // Navigate here
         >
-
-                <td className="px-4 py-2">{item.ID}</td>
-                <td className="px-4 py-2">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.ID}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
                   <div className="flex items-center gap-2">
                     {/* Initial Circle */}
                     <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center text-sm font-semibold">
@@ -322,16 +288,18 @@ const dummyData = [
                     <span>{item.Name}</span>
                   </div>
                 </td>
-
-                <td className="px-4 py-2">{item.Designation}</td>
-                <td
-                  className={`px-4 py-2 font-semibold ${item.Status === "Present" ? "text-green-600" : "text-red-500"}`}
-                >
-                  {item.Status}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Designation}</td>
+                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold
+                      ${item.Status === "Present" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                  >
+                    {item.Status}
+                  </span>
                 </td>
-                <td className="px-4 py-2">{item.CheckIn}</td>
-                <td className="px-4 py-2">{item.CheckOut}</td>
-                <td className="px-4 py-2">{item.Duration}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckIn}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckOut}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Duration}</td>
               </tr>
             ))}
           </tbody>
@@ -344,7 +312,7 @@ const dummyData = [
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-3 py-2 rounded-full bg-white/60 text-slate-700 hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
+            className="px-3 py-2 rounded-full bg-gray-50 text-slate-700  disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
           >
             <svg
               className="w-4 h-4"
@@ -404,6 +372,29 @@ const dummyData = [
           </button>
         </div>
       </div>
+      {/* Permission Modal - positioned at root level */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Permission Requests</h2>
+              <button onClick={() => setIsOpen(false)} className="text-gray-500 text-sm hover:text-gray-700">
+                Close
+              </button>
+            </div>
+
+            <div className="max-h-[400px] overflow-y-auto">
+              {dummyData.map((person) => (
+                <div key={person.id} className="border-b py-3 last:border-b-0">
+                  <p className="font-semibold">{person.name}</p>
+                  <p className="text-sm text-gray-500">{person.email}</p>
+                  <p className="text-xs capitalize text-gray-400">{person.status}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

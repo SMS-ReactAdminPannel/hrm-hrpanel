@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import type { Employee } from "./employee"
 import { Dropdown, DropdownItem } from "./dropdown"

@@ -1,7 +1,11 @@
 import { useState } from "react"
+import PayslipView from "../../components/common/PaySlip/PaySlip" // Adjust path if needed
+import { FONTS } from "../../constants/uiConstants"
+
 
 const Payroll = () => {
   const [searchTerm, setSearchTerm] = useState("")
+  const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
 
   const employees = [
     {
@@ -103,12 +107,12 @@ const Payroll = () => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-50">
+    <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
       <div className="flex flex-col gap-6 p-6">
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Payroll Management</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900" >Payroll Management</h1>
             <p className="text-gray-600">Manage employee payroll and compensation</p>
           </div>
           <div className="flex items-center gap-4">
@@ -278,14 +282,15 @@ const Payroll = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Last Payment
                   </th>
-                  <th className="relative px-6 py-3">
-                    <span className="sr-only">Actions</span>
-                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
-                  <tr key={employee.id} className="hover:bg-gray-50">
+                  <tr
+                    key={employee.id}
+                    className="hover:bg-gray-100 cursor-pointer"
+                    onClick={() => setSelectedEmployee(employee)}
+                  >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-col">
                         <div className="text-sm font-medium text-gray-900">{employee.name}</div>
@@ -298,23 +303,17 @@ const Payroll = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.hoursWorked}h</td>
                     <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(employee.status)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.lastPayment}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600">
-                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                          />
-                        </svg>
-                        <span className="sr-only">More options</span>
-                      </button>
-                    </td>
+
                   </tr>
                 ))}
               </tbody>
             </table>
+            {selectedEmployee && (
+              <PayslipView
+                employee={selectedEmployee}
+                onClose={() => setSelectedEmployee(null)}
+              />
+            )}
           </div>
         </div>
       </div>
