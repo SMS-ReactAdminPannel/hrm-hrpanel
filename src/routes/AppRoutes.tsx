@@ -35,6 +35,10 @@ import Notification from "../pages/Notification/Notification";
 import CandidatesList from "../pages/Recuritment/Candidates";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
+import OpenRecruitments from "../pages/Recuritment/openRecruitments";
+// import JobDetails from "../pages/Recuritment/JobDetails";
+// import JobDetailsModal from "../pages/Recuritment/JobDetails";
+import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 
 
 const AppRoutes = () => {
@@ -72,7 +76,9 @@ const AppRoutes = () => {
           <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="/" element={<CandidatesPage />} />
-      <Route path="/candidates/:id" element={<CandidateDetailPage />} />
+      <Route path="candidates/:id" element={<CandidateDetailPage />} />
+      <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
+      <Route path="/job/:id" element={<JobDetailsPage />} />
         </Route>
       ) : (
         <>
