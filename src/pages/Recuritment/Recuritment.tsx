@@ -139,54 +139,51 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    
-    <div className="p-2 bg-gradient-to-br from-[#e0f7f4] to-[#f4fbf9] min-h-screen">
+    <div className="p-4 mx-auto max-w-screen-xl bg-gradient-to-br from-[#e0f7f4] to-[#f4fbf9]">
         <h1 className="text-3xl font-semibold text-[#10493e] mb-6">
           Recruitment Dashboard
         </h1>
 
         {/* Summary Cards */}
-        <div className="flex space-x-4 overflow-x-auto pb-4">
-          {[
-            {
-              title: "Total Vacancies",
-              value: 96,
-              icon: <Briefcase className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Ongoing Recruitments",
-              value: 18,
-              icon: <Sliders className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Hired Candidates",
-              value: 3,
-              icon: <Users className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Conversion Rate",
-              value: "16.7%",
-              icon: <BarChart2 className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Offer Acceptance Rate",
-              value: "66.7%",
-              icon: <Percent className="text-[#3bb78f]" />,
-            },
-          ].map((stat, idx) => (
-            <Card key={idx} className="min-w-[230px] shadow-md flex-shrink-0">
-              <CardContent className="p-4 flex items-center justify-between">
-                <div>
-                  <p className="text-gray-500 text-sm">{stat.title}</p>
-                  <h2 className="text-2xl font-bold text-[#10493e]">
-                    {stat.value}
-                  </h2>
-                </div>
-                {stat.icon}
-              </CardContent>
-            </Card>
-          ))}
+        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+  {[
+    {
+      title: "Total Vacancies",
+      value: 96,
+      icon: <Briefcase className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Ongoing Recruitments",
+      value: 18,
+      icon: <Sliders className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Hired Candidates",
+      value: 3,
+      icon: <Users className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Conversion Rate",
+      value: "16.7%",
+      icon: <BarChart2 className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Offer Acceptance Rate",
+      value: "66.7%",
+      icon: <Percent className="text-[#3bb78f]" />,
+    },
+  ].map((stat, idx) => (
+    <Card key={idx} className="shadow-md">
+      <CardContent className="p-4 flex items-center justify-between">
+        <div>
+          <p className="text-gray-500 text-sm">{stat.title}</p>
+          <h2 className="text-2xl font-bold text-[#10493e]">{stat.value}</h2>
         </div>
+        {stat.icon}
+      </CardContent>
+    </Card>
+  ))}
+</div>
 
         {/* Recent Applications & Upcoming Interviews */}
         <div className="grid gap-6 md:grid-cols-2 mt-6">
@@ -402,7 +399,7 @@ export default function RecruitmentDashboard() {
 
 
         {/* Additional Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <Card className="shadow">
             <CardContent className="p-4">
               <h3 className="text-lg font-semibold text-[#10493e] mb-2">
@@ -434,7 +431,7 @@ export default function RecruitmentDashboard() {
           </Card>
 
         
-        </div>
+        </div> */}
 
         {/* Pipeline Component */}
         {/* <div className="mt-6">
