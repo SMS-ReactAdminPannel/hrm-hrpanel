@@ -1,11 +1,5 @@
-import  { useEffect, useState } from "react";
-
-// interface CardData {
-//   title: string;
-//   subtitle: string;
-//   imageUrl: string;
-//   stats: { label: string; value: string }[];
-// }
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const cardItems = [
   {
@@ -49,93 +43,68 @@ const cardItems = [
 const DashBoardSlideCard = () => {
   const [index, setIndex] = useState(0);
 
-  // Auto slide every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % cardItems.length);
-    }, 5000); // 5 seconds
+  const handleNext = () => {
+    setIndex((prev) => (prev + 1) % cardItems.length);
+  };
 
-    return () => clearInterval(interval); // Clear on unmount
-  }, []);
-
-  //   const handleNext = () => {
-  //     setIndex((prev) => (prev + 1) % cardItems.length);
-  //   };
-
-  //   const handlePrev = () => {
-  //     setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
-  //   };
+  const handlePrev = () => {
+    setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
+  };
 
   const current = cardItems[index];
 
   return (
-  <div className="h-full">
-    <div className="h-full flex flex-col justify-around rounded-lg shadow p-4 transition-all duration-300 ease-in-out relative">
-      
-      {/* Dot indicators at top right */}
-      <div className="absolute top-2 right-2">
-        <div className="flex gap-1">
-          {cardItems.map((_, i) => (
-            <div
-              key={i}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === i ? "bg-blue-100 scale-125" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="h-full">
+      <div className="h-full flex flex-col rounded-lg shadow p-4 bg-[#eff4f5] transition-all duration-300 ease-in-out relative">
+        
+        {/* Top Section: Title + Arrows + Dots */}
+        <div className="flex justify-between items-center mb-2">
+          <div>
+            <p className=" text-xl font-semibold">{current.title}</p>
+            <p className="text-sm text-black">{current.subtitle}</p>
+          </div>
 
-      {/* Header */}
-      <div className="mb-2">
-        <p className="font-semibold text-xl">{current.title}</p>
-        <p className="text-md text-gray-500">{current.subtitle}</p>
-      </div>
-
-      {/* Body */}
-      <div className="flex items-center gap-3">
-        {/* Stats */}
-        <div className="flex-2">
-          <h2 className="font-bold text-lg mb-2">Spending</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {current.stats.map((stat, i) => (
-              <div key={i} className="flex gap-2">
-                <p className="bg-blue-100 rounded-lg font-bold p-1 text-sm w-16 h-8 flex text-center justify-center items-center">
-                  {stat.value}
-                </p>
-                <p className="text-gray-600 text-sm mt-1">{stat.label}</p>
-              </div>
-            ))}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrev}
+              className="bg-white hover:bg-gray-100 shadow p-1.5 rounded-full"
+            >
+              <ChevronLeft className="w-4 h-4 text-gray-700" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="bg-white hover:bg-gray-100 shadow p-1.5 rounded-full"
+            >
+              <ChevronRight className="w-4 h-4 text-gray-700" />
+            </button>
           </div>
         </div>
 
-        {/* Image */}
-        <div className="flex-1 flex justify-center">
-          <img src={current.imageUrl} alt="card" className="w-28" />
+        {/* Body - Moved up */}
+        <div className="flex items-center gap-6 mt-6">
+          {/* Stats */}
+          <div className="flex-1">
+            <h2 className=" text-md mb-2">Spending</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {current.stats.map((stat, i) => (
+                <div key={i} className="flex gap-2">
+                  <p className="bg-blue-100 rounded-lg font-bold p-1 text-sm w-16 h-8 flex justify-center items-center">
+                    {stat.value}
+                  </p>
+                  <p className="text-gray-600 text-sm mt-1">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Image */}
+          <div className="flex-1 flex justify-center">
+            <img src={current.imageUrl} alt="card" className="w-28" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 export default DashBoardSlideCard;
-
-{
-  /* Navigation Arrows */
-}
-{
-  /* <button
-        onClick={handlePrev}
-        className="absolute left-2 top-1/2 -translate-y-1/2  shadow p-2 rounded-full"
-      >
-        ◀
-      </button>
-      <button
-        onClick={handleNext}
-        className="absolute right-2 top-1/2 -translate-y-1/2  shadow p-2 rounded-full"
-      >
-        ▶
-      </button> */
-}

@@ -12,32 +12,26 @@ const MonthlyTimeSheets = () => {
     const usersData = [
         {
             name: 'John Doe',
-            profilePic: 'https://randomuser.me/api/portraits/men/1.jpg',
             daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15],
         },
         {
             name: 'Jane Smith',
-            profilePic: 'https://randomuser.me/api/portraits/women/2.jpg',
             daysPresent: [1, 2, 3, 5, 6, 8, 9, 10, 14, 15, 16, 17, 30],
         },
         {
             name: 'Alex Johnson',
-            profilePic: 'https://randomuser.me/api/portraits/men/3.jpg',
             daysPresent: [1, 2, 3, 4, 5, 8, 10, 12, 13, 14, 15, 16, 17],
         },
         {
             name: 'John Doe',
-            profilePic: 'https://randomuser.me/api/portraits/men/1.jpg',
             daysPresent: [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15],
         },
         {
             name: 'Jane Smith',
-            profilePic: 'https://randomuser.me/api/portraits/women/2.jpg',
             daysPresent: [1, 2, 3, 5, 6, 8, 9, 10, 14, 15, 16, 17, 30],
         },
         {
             name: 'Alex Johnson',
-            profilePic: 'https://randomuser.me/api/portraits/men/3.jpg',
             daysPresent: [1, 2, 3, 4, 5, 8, 10, 12, 13, 14, 15, 16, 17],
         },
     ];
@@ -91,14 +85,10 @@ const MonthlyTimeSheets = () => {
                             filteredUsers.map((user, index) => (
                                 <tr
                                     key={`${user.name}-${index}`}
-                                    className="bg-white border-b border-slate-200/50 hover:bg-gray-100 cursor-pointer"
+                                    className="bg-[#eff4f5]  border-b border-slate-200/50 cursor-pointer"
                                 >
-                                    <td className="px-6 py-3 flex items-center bg-white z-20 gap-3 border-r cursor-pointer sticky left-0 bg-white">
-                                        <img
-                                            src={user.profilePic}
-                                            alt={user.name}
-                                            className="w-9 h-9 rounded-full object-cover"
-                                        />
+                                    <td className="px-6 py-3 flex items-center bg-[#eff4f5]  z-20 gap-3 border-r cursor-pointer sticky left-0 bg-white">
+                                        
                                         <span className="font-medium text-gray-500">{user.name}</span>
                                     </td>
                                     {days.map(({ day, weekday }) => {

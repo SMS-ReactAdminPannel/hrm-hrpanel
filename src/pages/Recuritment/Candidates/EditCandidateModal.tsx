@@ -34,7 +34,7 @@ export default function EditCandidateModal({ candidate, onClose }: { candidate: 
   return (
     <Dialog open={true} onClose={onClose} className="fixed z-50 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4">
-        <Dialog.Panel className="bg-white rounded-xl shadow-xl w-full max-w-3xl p-6 relative">
+        <Dialog.Panel className="bg-[#eff4f5]  rounded-md shadow w-full max-w-3xl p-6 relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -164,13 +164,13 @@ export default function EditCandidateModal({ candidate, onClose }: { candidate: 
               <button
                 type="button"
                 onClick={onClose}
-                className="mr-4 px-4 py-2 text-gray-600 border border-gray-300 rounded"
+                className="mr-4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-red-600 text-white px-5 py-2 rounded hover:bg-blue-700"
+                className="bg-[#006666] text-white px-4 py-2 rounded-md"
               >
                 Save Changes
               </button>

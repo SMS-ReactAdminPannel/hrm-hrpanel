@@ -583,10 +583,10 @@ const AssetsManagement: React.FC = () => {
         
       </div>
 
-      <div className="relative p-2 max-w-full ">
+      <div className="relative max-w-full ">
   
         <div className="mb-6">
-          <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1" style={FONTS.header}>
+          <h1 className=" text-[black] leading-relaxed" style={FONTS.header}>
             Asset 
           </h1>
 
@@ -709,7 +709,7 @@ const AssetsManagement: React.FC = () => {
         {/* Assets Table */}
         <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full bg-[white]">
               <thead className="bg-[#006666] text-white">
                 <tr>
                   <th className="text-left px-6 py-4 font-medium">Asset Details</th>

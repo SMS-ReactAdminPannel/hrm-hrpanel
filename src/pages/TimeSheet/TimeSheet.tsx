@@ -40,8 +40,8 @@ const TimeSheet = () => {
             <div className={`bg--200  rounded-lg transition duration-300 ${isExportOpen ? "blur-sm pointer-events-none select-none" : ""}`}>
                 <div className="flex justify-between items-center font-bold">
                     <h1
-                        className="py-3 text-black"
-                        style={{ fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize }}
+                        className="py-3 text-black" style={FONTS.header}
+                
                     >
                         Timesheets
                     </h1>
@@ -53,16 +53,16 @@ const TimeSheet = () => {
                     {timeSheetView === "monthly" && (
                         <button
                             onClick={() => setShowLegend(true)}
-                            style={{fontFamily:FONTS.paragraph.fontFamily}}
-                            className="border border-[#006666] text-black px-3 py-1 rounded flex items-center gap-2 hover:bg-gray-100 transition"
+                            
+                            className=" bg-[#006666] text-white px-3 py-1 rounded flex items-center gap-2  transition"
                         >
                             <IoInformationCircleSharp /> Legend
                         </button>
                     )}
                     <button
                         onClick={() => setIsExportOpen(true)}
-                        style={{fontFamily:FONTS.paragraph.fontFamily}}
-                        className="bg-[#006666] text-white px-3 py-1 rounded flex items-center gap-2 hover:bg-[#005555] transition"
+                
+                        className="bg-[#006666] text-white px-3 py-2 rounded flex items-center gap-2 transition"
                     >
                         <MdOutlineFileDownload /> Export
                     </button>
@@ -78,8 +78,8 @@ const TimeSheet = () => {
                         <button
                             type="button"
                             onClick={() => setIsDropdownOpen((prev) => !prev)}
-                            style={{fontFamily:FONTS.paragraph.fontFamily}}
-                            className="w-full px-4 py-2 bg-white text-black rounded-md shadow-sm flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
+                            
+                            className="w-full px-4 py-2 bg-[#eff4f5]  text-black rounded-md shadow-sm flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
                             title="Timesheet View"
                         >
                             {timeSheetOptions.find((opt) => opt.value === timeSheetView)?.label || "Select"}
@@ -88,7 +88,7 @@ const TimeSheet = () => {
 
                         {isDropdownOpen && (
                             <ul className="absolute z-50 mt-2 w-full bg-white text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
-                                style={{fontFamily:FONTS.paragraph.fontFamily}}
+            
                                 >
                                 {timeSheetOptions.map((option) => (
                                     <li
