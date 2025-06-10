@@ -12,7 +12,7 @@ import { FaExclamation } from "react-icons/fa";
 
 const AttentDashboard = () => {
   return (
-    <div className="flex bg-[#eff4f5]">
+    <div className="flex bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
       {/* Main content */}
       <div className="flex-1 ">
         {/* Top Content */}

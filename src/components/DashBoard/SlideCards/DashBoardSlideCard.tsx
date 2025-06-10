@@ -55,7 +55,7 @@ const DashBoardSlideCard = () => {
 
   return (
     <div className="h-full">
-      <div className="h-full flex flex-col rounded-lg shadow p-4 bg-[#eff4f5] transition-all duration-300 ease-in-out relative">
+      <div className="h-full flex flex-col border rounded-lg shadow p-4 bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 transition-all duration-300 ease-in-out relative">
         
         {/* Top Section: Title + Arrows + Dots */}
         <div className="flex justify-between items-center mb-2">

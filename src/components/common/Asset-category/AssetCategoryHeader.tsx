@@ -31,7 +31,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
               placeholder="Search assets here..."
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
-              className=" pl-10 pr-3  py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className=" pl-10 pr-3  py-2 bg-[#eff4f5] rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
             />
             {searchQuery && (
               <button
@@ -61,7 +61,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
     
       {searchQuery && (
-        <div className="mt-4 text-sm text-gray-600">
+        <div className="mt-4 text-sm text-gray-600 bg-[#eff4f5]">
           Showing results for: <span className="font-medium text-[#006666]">"{searchQuery}"</span>
         </div>
       )}

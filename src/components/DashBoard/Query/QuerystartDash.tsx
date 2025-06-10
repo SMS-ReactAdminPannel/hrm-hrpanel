@@ -7,7 +7,7 @@ export default function SupportTracker() {
   const strokeDashoffset = circumference - (completionPercentage / 100) * circumference
 
   return (
-    <div className="rounded-2xl p-6 shadow-sm h-full bg-[#eff4f5]">
+    <div className="rounded-2xl p-6 shadow-sm h-full ">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>

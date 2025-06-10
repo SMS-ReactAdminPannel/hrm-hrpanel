@@ -18,10 +18,10 @@ const Dashboard = () => {
     <div className="m-3 grid gap-3">
       {/* content 1 */}
       <div className="flex flex-1  gap-3 h-64  ">
-        <div className="flex-2 md:flex-3 sm:flex-3 bg-white rounded-xl h-full">
+        <div className="flex-2 md:flex-3 sm:flex-3bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl h-full">
           <DashBoardSlideCard />
         </div>
-        <div className="flex-1 md:flex-1 bg-white rounded-xl sm:flex-1">
+        <div className="flex-1 md:flex-1 bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl sm:flex-1">
           <Empolyeetotal
             desc="just texting"
             title="Empolyee Total"
@@ -36,10 +36,10 @@ const Dashboard = () => {
       {/* content -2 */}
 
       <div className="flex-1  flex-cols flex gap-3 rounded-xl">
-        <div className="flex-1 border  bg-white rounded-xl ">
+        <div className="flex-1 border  bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl ">
           <AttentDashboard/>
         </div>
-        <div className="flex-1 border bg-white rounded-xl">
+        <div className="flex-1 border bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
           <QuerystartDash/>
         </div>
       </div>

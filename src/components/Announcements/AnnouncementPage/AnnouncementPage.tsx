@@ -5,6 +5,7 @@ import AnnouncementForm from "./AnnouncementForm";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { FONTS } from "../../../constants/uiConstants";
+import { Search } from "lucide-react";
 
 type AnnouncementType = {
   title: string;
@@ -77,51 +78,55 @@ const Announcement = () => {
   return (
     <div className=" text-[17px] relative" style={{ fontFamily: FONTS.paragraph.fontFamily }}>
       <section className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-semibold text-gray-800">Announcements</h1>
+        <h1 className=" text-black" style={FONTS.header}>Announcements</h1>
         <button
           onClick={() => {
             setShowModal(true);
             setFormData({ title: "", startDate: "", endDate: "", description: "" });
             setEditIndex(null);
           }}
-          className="bg-[#059212] text-white hover:bg-[#006666] px-4 py-2 rounded-lg text-sm font-medium"
+          className="bg-[#006666] text-white px-4 py-2 rounded-md text-sm"
         >
           Add Announcement
         </button>
       </section>
 
       <div className="my-4 rounded-lg">
-        <section className="flex justify-between gap-4 py-6 bg-white rounded-lg px-4">
+        <section className="flex justify-between gap-4 py-6  rounded-lg px-4">
           <aside className="flex items-center gap-2 text-gray-700">
             <label htmlFor="entries" className="font-medium">Show</label>
             <select
               id="entries"
               value={entriesPerPage}
               onChange={handleEntriesChange}
-              className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#006666]"
+              className="border border-black rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#006666]"
             >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
             </select>
-            <span className="text-gray-600">Entries</span>
+            <span className="text-black">Entries</span>
           </aside>
 
           <aside className="flex items-center gap-2 text-gray-700">
-            <label htmlFor="search" className="font-medium">Search</label>
-            <input
-              id="search"
-              type="text"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
-              placeholder="Search by title..."
-              className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#006666]"
-            />
-          </aside>
+  <div className="relative">
+    <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
+      <Search className="w-4 h-4" />
+    </span>
+    <input
+      id="search"
+      type="text"
+      value={searchTerm}
+      onChange={(e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+      }}
+      placeholder="Search by title..."
+      className="pl-9 bg-[#eff4f5] rounded-md px-3 py-1  focus:outline-none focus:ring-2 focus:ring-[#006666]"
+    />
+  </div>
+  </aside>
         </section>
 
         {showModal && (

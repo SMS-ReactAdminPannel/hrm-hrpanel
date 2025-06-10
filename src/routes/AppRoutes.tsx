@@ -55,7 +55,7 @@ const AppRoutes = () => {
           {/* <Route path="candidates" element={<CandidatesList />} /> */}
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
-          <Route path="trainingmanagement" element={<TrainingManage />} />
+          <Route path="training-management" element={<TrainingManage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
           <Route path="announcement" element={<Announcement />} />
