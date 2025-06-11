@@ -7,6 +7,8 @@ import WeeklyTimeSheet from "../../components/TimeSheets/WeeklyTimeSheet";
 import FilterTimeSheet from "../../components/TimeSheets/FilterTimeSheet";
 import ExportTimeSheet from "../../components/TimeSheets/ExportTimeSheet";
 import { FONTS } from "../../constants/uiConstants";
+import { getemployeeTimeSheet } from "../../features/timesheet/services";
+
 
 const TimeSheet = () => {
     const [timeSheetView, setTimeSheetView] = useState("weekly");
@@ -14,6 +16,8 @@ const TimeSheet = () => {
     const [isExportOpen, setIsExportOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [timesheet, setTimesheet] = useState<any>([]);
+
 
     const timeSheetOptions = [
         { label: "Weekly Timesheets", value: "weekly" },
@@ -34,6 +38,22 @@ const TimeSheet = () => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+
+    const fetchtimesheet = async () => {
+  try {
+    const response: any = await getemployeeTimeSheet("68468e814eacfb4787b749cd", {});
+    setTimesheet(response?.data?.data || []);
+    console.log(response?.data?.data, "Timesheet Data");
+  } catch (error) {
+    console.error("Error fetching in timesheet:", error);
+  }
+};
+
+
+  useEffect(() => {
+   fetchtimesheet();
+ }, []);
 
     return (
         <div className="relative">
@@ -111,9 +131,12 @@ const TimeSheet = () => {
                 {/* <hr className="border-[#006666] mb-6" /> */}
 
                 <div className="w-full">
-                    {timeSheetView === "weekly" && <WeeklyTimeSheet />}
-                    {timeSheetView === "daily" && <DailyTimeSheet />}
-                    {timeSheetView === "monthly" && <MonthlyTimeSheets />}
+                    <div className="w-full">
+  {/* {timeSheetView === "weekly" && <WeeklyTimeSheet timesheet={timesheet} />}
+  {timeSheetView === "daily" && <DailyTimeSheet timesheet={timesheet} />}
+  {timeSheetView === "monthly" && <MonthlyTimeSheets timesheet={timesheet} />} */}
+</div>
+
                 </div>
 
 
