@@ -499,82 +499,82 @@ const HRMAppraisalSystem = () => {
         () => (
             <div className="space-y-6">
                 {/* Stats Cards */}
-               <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Total Employees</p>
-        <p className="text-3xl lg:text-4xl font-bold text-gray-900">156</p>
-      </div>
-      <div className="p-2 lg:p-3 bg-blue-100 rounded-lg">
-        <User className="w-5 h-5 lg:w-6 lg:h-6 text-blue-600" />
-      </div>
-    </div>
-  </div>
+                <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Total Employees</p>
+                                <p className="text-3xl lg:text-4xl font-bold text-gray-900">156</p>
+                            </div>
+                            <div className="p-2 lg:p-3 bg-blue-100 rounded-lg">
+                                <User className="w-5 h-5 lg:w-6 lg:h-6 text-blue-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
-        <p className="text-3xl lg:text-4xl font-bold text-gray-900">23</p>
-      </div>
-      <div className="p-2 lg:p-3 bg-red-100 rounded-lg">
-        <Calendar className="w-5 h-5 lg:w-6 lg:h-6 text-red-600" />
-      </div>
-    </div>
-  </div>
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
+                                <p className="text-3xl lg:text-4xl font-bold text-gray-900">23</p>
+                            </div>
+                            <div className="p-2 lg:p-3 bg-red-100 rounded-lg">
+                                <Calendar className="w-5 h-5 lg:w-6 lg:h-6 text-red-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Avg Rating</p>
-        <p className="text-3xl lg:text-4xl font-bold text-gray-900">4.3</p>
-      </div>
-      <div className="p-2 lg:p-3 bg-yellow-100 rounded-lg">
-        <Star className="w-5 h-5 lg:w-6 lg:h-6 text-yellow-600" />
-      </div>
-    </div>
-  </div>
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+                                <p className="text-3xl lg:text-4xl font-bold text-gray-900">4.3</p>
+                            </div>
+                            <div className="p-2 lg:p-3 bg-yellow-100 rounded-lg">
+                                <Star className="w-5 h-5 lg:w-6 lg:h-6 text-yellow-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Completed</p>
-        <p className="text-3xl lg:text-4xl font-bold text-gray-900">89%</p>
-      </div>
-      <div className="p-2 lg:p-3 bg-green-100 rounded-lg">
-        <TrendingUp className="w-5 h-5 lg:w-6 lg:h-6 text-green-600" />
-      </div>
-    </div>
-  </div>
-</div>
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Completed</p>
+                                <p className="text-3xl lg:text-4xl font-bold text-gray-900">89%</p>
+                            </div>
+                            <div className="p-2 lg:p-3 bg-green-100 rounded-lg">
+                                <TrendingUp className="w-5 h-5 lg:w-6 lg:h-6 text-green-600" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Employee List with Search */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-  <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
-    {/* Search Input */}
-    <div className="w-full md:max-w-md">
-      <SearchInput
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Search employees name, position, or department..."
-      />
-    </div>
+                    <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+                        {/* Search Input */}
+                        <div className="w-full md:max-w-md">
+                            <SearchInput
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                placeholder="Search employees name, position, or department..."
+                            />
+                        </div>
 
-    {/* New Appraisal Button */}
-    <div className="w-100 md:w-auto">
-      <button
-        onClick={() => {
-          setShowAppraisalModal(true)
-          setModalMode("create")
-        }}
-        className="bg-[#006666] text-white px-4 py-2 rounded-lg hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
-      >
-        <Plus className="w-4 h-4" />
-        New Appraisal
-      </button>
-    </div>
-  </div>
+                        {/* New Appraisal Button */}
+                        <div className="w-100 md:w-auto">
+                            <button
+                                onClick={() => {
+                                    setShowAppraisalModal(true)
+                                    setModalMode("create")
+                                }}
+                                className="bg-[#006666] text-white px-4 py-2 rounded-lg hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
+                            >
+                                <Plus className="w-4 h-4" />
+                                New Appraisal
+                            </button>
+                        </div>
+                    </div>
 
 
 
@@ -1066,7 +1066,7 @@ const HRMAppraisalSystem = () => {
                 <div className="max-w-full py-3 px-2">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                           
+
                             <h1 className="text-3xl font-bold text-gray-900"> Appraisal </h1>
                         </div>
                     </div>

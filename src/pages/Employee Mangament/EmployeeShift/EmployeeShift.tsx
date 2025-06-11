@@ -254,7 +254,7 @@ const RotatingShiftAssign: React.FC = () => {
     return (
         <div className=" min-h-screen flex flex-col">
             {/* Header */}
-            <div className=" border-gray-200 py-2  sticky top-0 z-10">
+            <div className=" border-gray-200 py-2  ">
                 <div className="flex items-center justify-between">
                     <h1 className="text-4xl font-semibold text-gray-900"
                         
@@ -353,29 +353,30 @@ const RotatingShiftAssign: React.FC = () => {
 
                 {/* Group Filter Header */}
 
-                {showGroupFilter && groupBy && (
-                    <div className="mt-4 inline-flex relative left-[1100px] bg-gray-100 p-2 rounded  border-b-2 border-blue-500">
-                        <span className="text-sm font-medium">
-                            Grouped by: {groupBy === 'rotatingShift' ? 'Rotating Shift' :
-                                groupBy === 'department' ? 'Department' :
-                                    groupBy === 'jobRole' ? 'Job Role' :
-                                        groupBy === 'reportingManager' ? 'Reporting Manager' : ''}
-                        </span>
-                        <button
-                            onClick={() => {
-                                setGroupBy(null);
-                                setShowGroupFilter(false);
-                            }}
-                            className="text-gray-500 hover:text-gray-700 ml-2"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
-                    </div>
-                )}
-            </div>
+               
+            {showGroupFilter && groupBy && (
+  <div className="  absolute top-20 right-4 bg-gray-100 p-2 rounded border-b-2 border-blue-500 shadow mt-20">
+    <span className="text-sm font-medium">
+      {groupBy === 'rotatingShift' ? 'Rotating Shift' :
+       groupBy === 'department' ? 'Department' :
+       groupBy === 'jobRole' ? 'Job Role' :
+       groupBy === 'reportingManager' ? 'Reporting Manager' : ''}
+    </span>
+    <button
+      onClick={() => {
+        setGroupBy(null);
+        setShowGroupFilter(false);
+      }}
+      className="text-gray-500 hover:text-gray-700 ml-2 "
+    >
+      <X className="w-4 h-4" />
+    </button>
+  </div>
+)}
+</div>
             {/* Table Container */}
-            <div className="flex-1 overflow-hidden mt-10">
-                <div className="h-full overflow-auto custom-scrollbar">
+            <div className="  flex-1 overflow-hidden mt-12">
+                <div className=" h-full overflow-auto custom-scrollbar">
                     <table className="w-full">
                         <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
                             <tr>
@@ -854,7 +855,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={handleDelete}
-                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#006666] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                                 >
                                     Delete
                                 </button>
