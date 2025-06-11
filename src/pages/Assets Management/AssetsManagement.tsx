@@ -231,6 +231,7 @@ const AssetsManagement: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+  
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [assets, setAssets] = useState<Asset[]>([

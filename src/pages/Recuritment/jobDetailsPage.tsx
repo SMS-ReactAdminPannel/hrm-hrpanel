@@ -116,11 +116,11 @@ const JobDetailsPage: React.FC = () => {
     navigate(-1);
   };
 
-  const handleApplyNow = () => {
-    if (job) {
-      navigate(`/recruitment/application-form?recruitmentId=${job.id}`);
-    }
-  };
+  // const handleApplyNow = () => {
+  //   if (job) {
+  //     navigate(`/recruitment/application-form?recruitmentId=${job.id}`);
+  //   }
+  // };
 
   if (!job) {
     return (
@@ -130,48 +130,46 @@ const JobDetailsPage: React.FC = () => {
     );
   }
 
+
+  const limitedDescription =
+  job.description?.split(" ").slice(0, 100).join(" ") + "..." || "";
+
+
   return (
     
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 w-full max-w-md relative text-white">
-            
-            {/* Close Button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-4 right-4 text-2xl text-white hover:text-gray-900"
-            >
-              &times;
-            </button>
-      
-            {/* Job Title */}
-            <h2 className="text-2xl font-bold mb-2 mt-4">{job.title}</h2>
-      
-            {/* Description */}
-            <p className="text-sm text-gray-200 mb-6">{job.description}</p>
-      
-            {/* Job Roles */}
-            <div className="mb-10">
-              <h4 className="font-semibold text-sm mb-3">Job positions :</h4>
-              <ul className="space-y-3">
-                {job.roles.map((role, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-white">
-                    <span className="text-red-400 text-base mt-1">●</span>
-                    <span>{role}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-      
-            {/* Apply Now Button */}
-            <button
-              onClick={handleApplyNow}
-              className="w-full border border-red-400 text-red-400 py-3 rounded-md text-sm font-medium hover:bg-red-100 hover:text-red-700 transition"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-      );
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/30">
+    <div className="h-full w-full max-w-lg bg-white text-gray-900 shadow-xl p-8 overflow-y-auto relative">
+      {/* Close Button */}
+      <button
+        onClick={handleClose}
+        className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800"
+      >
+        &times;
+      </button>
+
+      {/* Job Title */}
+      <h2 className="text-3xl font-bold mb-4">{job.title}</h2>
+
+      {/* Description */}
+      <p className="text-sm text-gray-700 mb-6 leading-relaxed">
+        {limitedDescription}
+      </p>
+
+      {/* Job Roles */}
+      <div>
+        <h4 className="font-semibold text-base mb-3">Job Positions:</h4>
+        <ul className="space-y-2 pl-4 list-disc text-sm text-gray-800">
+          {job.roles.map((role, i) => (
+            <li key={i}>{role}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+};
+
+export default JobDetailsPage;
       
 //     <div className="m-52 mb-[3000px] mt-1 py-40 px-48 pt-24 bg-transparent backdrop-blur-md overflow-y-auto justify-center flex items-center min-w-screen">
 //     <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-10 w-full max-w-md relative">
@@ -213,9 +211,7 @@ const JobDetailsPage: React.FC = () => {
 //   </div>
   
 //   );
-};
 
-export default JobDetailsPage;
 
 
 // return (
