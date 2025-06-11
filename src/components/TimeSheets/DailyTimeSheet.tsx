@@ -87,7 +87,7 @@ const DailyTimeSheet = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.length === 0 ? (
-                            <tr>
+                            <tr className='bg-white'>
                                 <td colSpan={7} className="text-center py-6 text-gray-500">
                                     No matching employees found.
                                 </td>
