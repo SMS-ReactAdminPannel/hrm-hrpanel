@@ -43,11 +43,11 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
               <th className="px-6 py-3 text-center">Tracked (hr)</th>
             </tr>
           </thead>
-          <tbody>
-            {filteredUsers.length === 0 ? (
+          <tbody className='bg-white'>
+            {timesheet.length === 0 ? (
               <tr>
                 <td colSpan={7} className="text-center py-6 text-gray-500">
-                  No matching employees found.
+                  No matching timesheet found.
                 </td>
               </tr>
             ) : (
@@ -56,7 +56,7 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
                   key={index}
                   className="bg-[#eff4f5] border-b border-slate-200/50 group cursor-pointer"
                 >
-                  <td className="px-6 py-4 flex items-center gap-3 border-b border-slate-200/50">
+                  <td className="px-6 py-4 flex  items-center gap-3 border-b border-slate-200/50">
                     <span className="font-medium text-gray-700">{user.name}</span>
                   </td>
                   <td className="px-6 py-4 text-center">{user.firstIn}</td>

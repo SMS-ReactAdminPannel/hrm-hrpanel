@@ -17,6 +17,17 @@ class Client {
       employeeTimesheet: (timesheetId: string, data: any) =>
         httpClient.get(API_END_POINTS.timesheet.getemployeetimesheet(timesheetId), data),
     },
+    
+    grievance:{
+       createGrievance: (data: any) =>
+    httpClient.post(API_END_POINTS.grievance.creategrievance, data),
+
+  getAllGrievances: () =>
+    httpClient.get(API_END_POINTS.grievance.getallgrievance),
+
+  updateGrievanceStatus: (grievanceId: string, data: any) =>
+    httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data),
+    }
   };
 }
 

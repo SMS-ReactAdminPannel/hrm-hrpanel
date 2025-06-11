@@ -132,9 +132,9 @@ const TimeSheet = () => {
 
                 <div className="w-full">
                     <div className="w-full">
-  {/* {timeSheetView === "weekly" && <WeeklyTimeSheet timesheet={timesheet} />}
+  {timeSheetView === "weekly" && <WeeklyTimeSheet timesheet={timesheet} />}
   {timeSheetView === "daily" && <DailyTimeSheet timesheet={timesheet} />}
-  {timeSheetView === "monthly" && <MonthlyTimeSheets timesheet={timesheet} />} */}
+  {timeSheetView === "monthly" && <MonthlyTimeSheets timesheet={timesheet} />}
 </div>
 
                 </div>
