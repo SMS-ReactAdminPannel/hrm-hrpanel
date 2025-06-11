@@ -71,7 +71,6 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
 
   return (
     <div className="fixed top-0 right-0 h-full w-full max-w-2xl z-50 bg-white shadow-xl rounded-lg p-6"
-      style={{ fontFamily: FONTS.paragraph.fontFamily }}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-[#006666]"

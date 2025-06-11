@@ -583,10 +583,10 @@ const AssetsManagement: React.FC = () => {
         
       </div>
 
-      <div className="relative p-2 max-w-full ">
+      <div className="relative max-w-full ">
   
         <div className="mb-6">
-          <h1 className="text-4xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1" style={FONTS.header}>
+          <h1 className=" text-[black] leading-relaxed" style={FONTS.header}>
             Asset 
           </h1>
 
@@ -603,7 +603,7 @@ const AssetsManagement: React.FC = () => {
               placeholder="Search assets, assignees, or serial numbers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-[250px] pl-10 pr-4 py-2 bg-white/70  border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
+              className="w-[250px] pl-10 pr-4 py-2 bg-[#eff4f5]  border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
             />
           </div>
 
@@ -612,7 +612,7 @@ const AssetsManagement: React.FC = () => {
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-white/70 border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
@@ -626,7 +626,7 @@ const AssetsManagement: React.FC = () => {
               </button>
 
               {showCategoryDropdown && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-[#eff4f5] backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
                   {categories.map((cat) => (
                     <button
                       key={cat}
@@ -660,7 +660,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Total Assets</p>
@@ -669,7 +669,7 @@ const AssetsManagement: React.FC = () => {
               <Package className="w-8 h-8 text-blue-600" />
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Active</p>
@@ -682,7 +682,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Maintenance</p>
@@ -695,7 +695,7 @@ const AssetsManagement: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Categories</p>
@@ -707,17 +707,17 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         {/* Assets Table */}
-        <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
+        <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full bg-[#eff4f5]">
               <thead className="bg-[#006666] text-white">
                 <tr>
-                  <th className="text-left px-6 py-4 font-medium">Asset Details</th>
-                  <th className="text-left px-6 py-4 font-medium">Assigned To</th>
-                  <th className="text-left px-6 py-4 font-medium">Category</th>
-                  <th className="text-left px-6 py-4 font-medium">Serial Number</th>
-                  <th className="text-left px-6 py-4 font-medium">Status</th>
-                  <th className="text-left px-6 py-4 font-medium">Actions</th>
+                  <th className="text-left px-6 py-4 font-md">Asset Details</th>
+                  <th className="text-left px-6 py-4 font-md">Assigned To</th>
+                  <th className="text-left px-6 py-4 font-md">Category</th>
+                  <th className="text-left px-6 py-4 font-md">Serial Number</th>
+                  <th className="text-left px-6 py-4 font-md">Status</th>
+                  <th className="text-left px-6 py-4 font-md">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -725,7 +725,7 @@ const AssetsManagement: React.FC = () => {
                   <tr
                     key={asset.id}
                     onClick={() => handleRowClick(asset)}
-                    className="border-b border-slate-200/50 hover:bg-white/40 transition-all duration-200 group cursor-pointer"
+                    className="border-b border-slate-200/50 transition-all duration-200 group cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <td className="px-6 py-4">

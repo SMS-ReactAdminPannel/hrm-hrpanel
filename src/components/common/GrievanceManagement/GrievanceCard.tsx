@@ -7,7 +7,7 @@ type Props = {
 
 export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
   return (
-    <div className="bg-white shadow rounded-md p-2 border-l-4 transition-all hover:shadow-lg cursor-pointer border-[#006666]">
+    <div className="bg-[#eff4f5] shadow rounded-md p-2 border-l-4 transition-all hover:shadow-lg cursor-pointer border-[#006666]">
       <div className="flex justify-between items-start">
         <h3 className="text-lg font-semibold text-[#006666]">{grievance.title}</h3>
         <span

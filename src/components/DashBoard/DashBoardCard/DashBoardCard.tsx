@@ -1,5 +1,4 @@
 
-//icon
 import { MdSupervisorAccount } from "react-icons/md";
 import { FaSuitcase } from "react-icons/fa";
 import { MdPersonAddAlt1 } from "react-icons/md";

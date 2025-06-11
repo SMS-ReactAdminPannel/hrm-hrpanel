@@ -20,12 +20,12 @@ export const Empolyeetotal: React.FC<DashboardCardProps> = ({
   dataPoints,
 }) => {
   return (
-    <div className="rounded-xl shadow-md p-3 w-full h-full border  overflow-hidden "> 
+    <div className="rounded-xl shadow-md p-3 w-full h-full border bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 overflow-hidden "> 
        <div className="flex-1 flex-cols ">
         <div className="flex flex-col justify-center  grow flex-2">
-            <h3 className="text-xl font-semibold"> {title}</h3>
-          <p className="text-md text-gray-500">{desc}</p>
-          <span className="text-md font-bold" style={{ color: perColor }}>
+            <h3 className="text-xl font-semibold "> {title}</h3>
+          <p className="text-sm text-black">{desc}</p>
+          <span className="text-sm font-semibold" style={{ color: perColor }}>
             {value}
           </span>   
           

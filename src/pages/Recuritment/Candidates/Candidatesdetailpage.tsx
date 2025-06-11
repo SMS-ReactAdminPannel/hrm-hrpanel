@@ -42,13 +42,13 @@ const [resumeURL, setResumeURL] = useState<string | null>(null)
 
 
   return (
-    <div className="p-10 bg-white min-h-screen">
+    <div className="p-10 bg-[#eff4f5]  min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center border-b pb-4 mb-4">
         <div className="flex items-center gap-4">
-          <div className="h-16 w-16 rounded bg-red-600 text-white text-2xl font-bold flex items-center justify-center">
+          {/* <div className="h-16 w-16 rounded bg-red-600 text-white text-2xl font-bold flex items-center justify-center">
             {candidate.avatar}
-          </div>
+          </div> */}
           <div>
             <h1 className="text-xl font-semibold">{candidate.name}</h1>
             <p className="text-gray-500 text-sm">{candidate.job}</p>
