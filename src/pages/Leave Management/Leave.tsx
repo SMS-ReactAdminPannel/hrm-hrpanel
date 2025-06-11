@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import DoughnutChart from '../../components/leave management/leaveChart';
 import { useState, useEffect } from 'react';
+import { FONTS } from '../../constants/uiConstants';
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -242,11 +243,16 @@ const navigateToDate = (date: Date) => {
 };
 
   return (
-    <div className="container flex mx-auto px-4 py-6 grid grid-cols-2 lg:grid-cols-2 gap-6">
+    <div >
+      <div>
+        <h1 className=" font-bold" style={FONTS.header}>Leave</h1>
+      </div>
+    <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
+      
       {/* Main grid layout */}
-      <div className="space-y-6 w-5/4">
+      <div className="space-y-3 w-5/4">
         {/* Charts row */}
-        <div className="grid md:grid-cols-3 gap-4 p-4 rounded-lg shadow">
+        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
           <DoughnutChart 
             percentage={30} 
             content='Annual Leave' 
@@ -337,7 +343,7 @@ const navigateToDate = (date: Date) => {
             {dayNames.map((day) => (
               <div
                 key={day}
-                className="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase"
+                className=" py-2 text-center text-xs font-medium text-gray-500 uppercase"
               >
                 {day}
               </div>
@@ -345,7 +351,7 @@ const navigateToDate = (date: Date) => {
           </div>
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-px bg-gray-200">
+          <div className="grid grid-cols-7 gap-px bg-gray-50">
             {days.map((day, idx) => (
               <div
                 key={idx}
@@ -373,9 +379,9 @@ const navigateToDate = (date: Date) => {
       </div>
 
       {/* Holiday List */}
-<div className="p-6 w-3/4 ml-auto rounded-lg shadow bg-white">
+<div className=" w-3/4 ml-auto p-5 rounded-lg shadow bg-gray-50">
   <div className="flex items-center justify-between mb-4">
-    <h5 className="text-xl font-bold text-gray-900">Holidays list</h5>
+    <h5 className="text-xl font-bold text-gray-900 ml-2" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>Holidays List</h5>
   </div>
   <div className="space-y-4">
     {holidays.length > 0 ? (
@@ -407,7 +413,7 @@ const navigateToDate = (date: Date) => {
                 e.stopPropagation();
                 deleteEvent(holiday.id);
               }}
-              className="p-2 text-red-500 hover:text-red-700"
+              className="px-4 py-2 text-red-500 rounded-md hover:text-red-700"
               title="Delete holiday"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -420,8 +426,8 @@ const navigateToDate = (date: Date) => {
     ) : (
       <p className="text-gray-500 text-center py-4">No holidays found</p>
     )}
-  </div>
-</div>
+       </div>
+       </div>
 
 
       {/* Add Event Modal */}
@@ -482,6 +488,7 @@ const navigateToDate = (date: Date) => {
         </div>
       )}
     
+     </div>
     </div>
   );
 };

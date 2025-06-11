@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, MoreVertical, Edit, Copy, Calendar, Trash2, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { FONTS } from '../../../constants/uiConstants';
 
 interface Employee {
     id: string;
@@ -251,38 +252,47 @@ const RotatingShiftAssign: React.FC = () => {
     };
 
     return (
-        <div className="bg-white min-h-screen flex flex-col">
+        <div className=" min-h-screen flex flex-col">
             {/* Header */}
-            <div className="border-b border-gray-200 px-6 py-4 bg-white sticky top-0 z-10">
+            <div className=" border-gray-200 py-2">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-4xl font-semibold text-gray-900">Rotating Shift Assign</h1>
-                    <div className="flex items-center gap-3">
-                        <div className="relative">
+                    <h1 className="text-black" style={FONTS.header}>Rotating Shift Assign</h1>
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <div className="relative w-100 md:w-64">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <input
                                 type="text"
                                 placeholder="Search by employee name"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
+                                className="w-full pl-10 pr-4 py-2 border border-gray-300 bg-[#eff4f5] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                
                             />
                         </div>
+
+
 
                         {/* Group By Dropdown */}
                         <div className="relative" ref={groupDropdownRef} style={{ zIndex: 99 }}>
                             <button
-                                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 text-sm md:text-base"
+                               
                                 onClick={() => {
                                     setIsGroupDropdownOpen(!isGroupDropdownOpen);
                                 }}
                             >
                                 <MoreVertical className="w-4 h-4" />
                                 Group By
-                                {isGroupDropdownOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                {isGroupDropdownOpen ? (
+                                    <ChevronUp className="w-4 h-4" />
+                                ) : (
+                                    <ChevronDown className="w-4 h-4" />
+                                )}
                             </button>
 
+
                             {isGroupDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
                                     <button
                                         className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                                         onClick={() => handleGroupBySelect(null)}
@@ -318,7 +328,7 @@ const RotatingShiftAssign: React.FC = () => {
                         </div>
 
                         <button
-                            className="text-white px-6 py-2 rounded-lg font-medium"
+                            className="text-white px-4 md:px-6 py-2 rounded-lg font-medium text-sm md:text-base transition-colors duration-200"
                             style={{
                                 backgroundColor: '#006666',
                             }}
@@ -328,6 +338,7 @@ const RotatingShiftAssign: React.FC = () => {
                         >
                             Assign
                         </button>
+
                     </div>
                 </div>
 
@@ -354,91 +365,88 @@ const RotatingShiftAssign: React.FC = () => {
                 )}
             </div>
             {/* Table Container */}
-            <div className="flex-1 overflow-hidden mt-20">
-                <div className="h-full overflow-auto custom-scrollbar">
-                    <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200 sticky top-0 ">
+            <div className="flex-1 overflow-hidden mt-10">
+                <div className="h-full overflow-auto rounded-md custom-scrollbar">
+                    <table className="w-full ">
+                        <thead className="bg-[#006666] border-b border-gray-200 sticky top-0">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]">
                                     Employee
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
                                     Title
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[120px]">
                                     Based On
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[180px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[180px]">
                                     Rotate
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
                                     Start Date
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[150px]">
                                     Current Shift
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
                                     Next Shift
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[150px]">
                                     Next Switch
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px] sticky right-0 bg-gray-50">
+                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]">
                                     Actions
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+
+                        <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
                             {Object.keys(groupedEmployees).length > 0 ? (
                                 Object.entries(groupedEmployees).map(([groupKey, groupEmployees]) => (
                                     <React.Fragment key={groupKey}>
-                                        {/* Group Header Row */}
                                         {groupBy && (
                                             <tr className="bg-gray-50">
-                                                <td colSpan={9} className="px-6 py-3 font-medium text-gray-900">
+                                                <td colSpan={9} className="px-4 lg:px-6 py-3 font-medium text-gray-900">
                                                     {getGroupHeader(groupKey)}
                                                 </td>
                                             </tr>
                                         )}
 
-                                        {/* Employee Rows */}
                                         {groupEmployees.map((employee) => (
-                                            <tr key={employee.id} className="hover:bg-gray-50">
-                                                <td className="px-6 py-4 whitespace-nowrap">
+                                            <tr key={employee.id}>
+                                                <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
-                                                        <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium mr-3">
-                                                            {getInitials(employee.name)}
-                                                        </div>
+                                                        
                                                         <div>
                                                             <div className="text-sm font-medium text-gray-900">{employee.name}</div>
                                                             <div className="text-sm text-gray-500">{employee.employeeId}</div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.startDate}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.startDate}</td>
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                                                     <span className={`px-2 py-1 rounded-full text-xs ${employee.currentShift === 'None' ? 'bg-gray-100 text-gray-800' :
-                                                        employee.currentShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
-                                                            employee.currentShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
-                                                                'bg-green-100 text-green-800'
+                                                            employee.currentShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
+                                                                employee.currentShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
+                                                                    'bg-green-100 text-green-800'
                                                         }`}>
                                                         {employee.currentShift}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                                                     <span className={`px-2 py-1 rounded-full text-xs ${employee.nextShift === 'None' ? 'bg-gray-100 text-gray-800' :
-                                                        employee.nextShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
-                                                            employee.nextShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
-                                                                'bg-green-100 text-green-800'
+                                                            employee.nextShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
+                                                                employee.nextShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
+                                                                    'bg-green-100 text-green-800'
                                                         }`}>
                                                         {employee.nextShift}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.nextSwitch}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap sticky right-0 bg-white">
+                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.nextSwitch}</td>
+                                                <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
                                                     <div className="flex items-center gap-2">
                                                         <button
                                                             className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
@@ -446,7 +454,6 @@ const RotatingShiftAssign: React.FC = () => {
                                                         >
                                                             <Edit className="w-4 h-4" />
                                                         </button>
-
                                                         <button
                                                             className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
                                                             onClick={() => openDeleteModal(employee)}
@@ -471,10 +478,11 @@ const RotatingShiftAssign: React.FC = () => {
                 </div>
             </div>
 
+
             {/* Assign Modal */}
             {isAssignModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg w-full max-w-2xl">
+                    <div className="bg-white rounded-md w-full max-w-2xl">
                         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
                             <h2 className="text-xl font-semibold text-gray-900">Assign Rotating Shift</h2>
                             <button
@@ -622,16 +630,18 @@ const RotatingShiftAssign: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={() => setIsAssignModalOpen(false)}
-                                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    className="px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 >
                                     Cancel
                                 </button>
+
                                 <button
                                     type="submit"
-                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    className="px-3 py-2 md:px-4 md:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 >
                                     Assign Shift
                                 </button>
+
                             </div>
                         </form>
                     </div>

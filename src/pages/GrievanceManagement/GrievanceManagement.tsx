@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react"
 import { GrievanceCard } from "../../components/common/GrievanceManagement/GrievanceCard";
 import { GrievanceDetailCard } from "../../components/common/GrievanceManagement/GrievanceDetailCard";
+import { FONTS } from "../../constants/uiConstants";
 
 export type Grievance = {
   id: number;
@@ -111,10 +112,10 @@ const GrievanceManagement = () => {
 }, [filter]);
 
   return (
-    <div className="min-h-screen bg-[#fef7f4] p-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-[#006666] mb-6">
-          Grievance Management
+    <div className="min-h-screen">
+      <div className="max-w-full ">
+        <h1 className=" text-[black] mb-6" style={FONTS.header}>
+          Grievances
         </h1>
 
         <div className="flex space-x-4 mb-6">

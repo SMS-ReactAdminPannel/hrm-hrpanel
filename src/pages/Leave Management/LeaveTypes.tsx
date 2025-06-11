@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import LeaveTypeCard from './LeaveCards';
+import { FONTS } from '../../constants/uiConstants';
 
 type Card = {
   id: number;
@@ -271,26 +272,44 @@ export default function LeaveTypes() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" >
+      
       {/* Main content */}
-      <div className={`p-6 transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
+      <div className={` transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
         <div className="flex  md:flex-row justify-between mb-6 gap-4">
+          <div className=' font-bold ' style={FONTS.header} >
+        Leave Types
+      </div>
           <div className=" flex gap-5 ml-auto">
-            <input
-              type="text"
-              placeholder="Search leave types..."
-              className="w-52 p-3 ml-auto border border-gray-300  transition-all"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 pb-2 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search employees..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
 
             <button 
-            className="bg-blue-600 ml-auto w-38 hover:bg-blue-700 text-white px-6 py-3 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+            className=" ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
             onClick={() => {
               setEditingCard(null);
               setIsModalOpen(true);
             }}
+            style={{ backgroundColor: '#006666' }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
@@ -327,7 +346,7 @@ export default function LeaveTypes() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div 
             ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
@@ -336,7 +355,7 @@ export default function LeaveTypes() {
                 </h3>
                 <button 
                   onClick={closeModal}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-gray-500 px-4 py-2 rounded-md hover:text-gray-700 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -495,14 +514,14 @@ export default function LeaveTypes() {
                 
                 <div className="flex justify-end space-x-3 pt-4">
                   <button 
-                    className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
                     onClick={closeModal}
                     type="button"
                   >
                     Cancel
                   </button>
                   <button 
-                    className={`px-6 py-2.5 rounded-lg text-white transition-colors ${!newCard.title || !newCard.totalDays ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    className={`px-4 py-2 rounded-md text-white transition-colors ${!newCard.title || !newCard.totalDays ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
                     onClick={handleAddCard}
                     type="button"
                     disabled={!newCard.title || !newCard.totalDays}
@@ -521,7 +540,7 @@ export default function LeaveTypes() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div 
             ref={detailsModalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
@@ -533,7 +552,7 @@ export default function LeaveTypes() {
                 </div>
                 <button 
                   onClick={closeDetailsModal}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-gray-500 px-4 py-2 rounded-md hover:text-gray-700 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -556,7 +575,7 @@ export default function LeaveTypes() {
               
               <div className="flex justify-end mt-6">
                 <button 
-                  className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                   onClick={closeDetailsModal}
                   type="button"
                 >

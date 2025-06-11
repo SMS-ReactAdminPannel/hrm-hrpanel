@@ -58,10 +58,10 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm mb-4">
+    <div className="bg-white rounded-lg border border-gray-200 shadow mb-4">
       <div className="flex items-center justify-between p-4">
         <div
-          className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors flex-1 -m-2 p-2 rounded"
+          className="flex items-center gap-3 cursor-pointer transition-colors flex-1 -m-2 p-2 rounded"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? (

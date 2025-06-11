@@ -32,13 +32,14 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
-import CandidatesList from "../pages/Recuritment/Candidates";
+import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 // import JobDetails from "../pages/Recuritment/JobDetails";
 // import JobDetailsModal from "../pages/Recuritment/JobDetails";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
+import DepartmentList from "../pages/Department/DepartmentList";
 
 
 const AppRoutes = () => {
@@ -49,7 +50,6 @@ const AppRoutes = () => {
       {isAuthenticated ? (
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="assets-management" element={<AssetsManagement />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
@@ -57,7 +57,7 @@ const AppRoutes = () => {
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
-          <Route path="candidates" element={<CandidatesList />} />
+          {/* <Route path="candidates" element={<CandidatesList />} /> */}
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
           <Route path="training-management" element={<TrainingManage />} />
@@ -66,6 +66,7 @@ const AppRoutes = () => {
           <Route path="announcement" element={<Announcement />} />
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
+          <Route path="asset" element={<AssetsManagement />} />
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
@@ -73,12 +74,14 @@ const AppRoutes = () => {
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="profile" element={<Profile />} /> 
-          <Route path="grievance-management" element={<GrievanceManagement/>}/>
+          <Route path="grievance" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
+          <Route path="visitormanagement" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />
-      <Route path="candidates/:id" element={<CandidateDetailPage />} />
+          <Route path="candidates" element={<CandidateDetailPage />} />
       <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
       <Route path="/job/:id" element={<JobDetailsPage />} />
+      <Route path="/departments" element={<DepartmentList />} />
         </Route>
       ) : (
         <>

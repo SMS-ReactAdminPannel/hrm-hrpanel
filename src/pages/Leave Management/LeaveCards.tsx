@@ -30,7 +30,7 @@ export default function LeaveTypeCard({
   getInitials
 }: LeaveTypeCardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
       <div className="p-5">
         <div className="flex justify-between items-start">
           <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function LeaveTypeCard({
           <div className="relative" ref={dropdownRef}>
             <button 
               onClick={toggleDropdown}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              className="text-gray-500 rounded-md hover:text-gray-700 focus:outline-none"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -61,7 +61,7 @@ export default function LeaveTypeCard({
                       onEdit(card);
                       toggleDropdown();
                     }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100"
                   >
                     Edit
                   </button>
@@ -70,13 +70,13 @@ export default function LeaveTypeCard({
                       onShowDetails(card);
                       toggleDropdown();
                     }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100"
                   >
                     View Details
                   </button>
                   <button
                     onClick={() => onDelete(card.id)}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 rounded-md hover:bg-gray-100"
                   >
                     Delete
                   </button>
@@ -99,7 +99,7 @@ export default function LeaveTypeCard({
           
           <button 
             onClick={() => onShowDetails(card)}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            className="text-blue-600 rounded-md hover:text-blue-800 text-sm font-medium"
           >
             View Details
           </button>

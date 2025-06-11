@@ -21,6 +21,7 @@ import { BarChart2, Users, Briefcase, Sliders, Calendar, TrendingUp, Percent } f
 import RecruitmentPipeline from "./pipeline";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
+import { FONTS } from "../../constants/uiConstants";
 
 const COLORS = ["#D9D9D9", "#F8D147", "#00C49F", "#FF4D4F", "#B2F296"];
 
@@ -139,8 +140,8 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    <div className="p-4 mx-auto max-w-screen-xl ">
-        <h1 className="text-3xl font-semibold text-[#10493e] mb-6">
+    <div className="p-4 mx-auto max-w-screen-xl">
+        <h1 className=" mb-6" style={FONTS.header}>
           Recruitment Dashboard
         </h1>
 
@@ -263,117 +264,101 @@ export default function RecruitmentDashboard() {
 
 
 
-        <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-  {/* Skill Zone Status */}
-  <Card className="shadow-md rounded-lg">
-    <CardHeader>
-      <CardTitle>Skill Zone Status</CardTitle>
-    </CardHeader>
-    <CardContent className="space-y-4">
-      <ul className="space-y-2">
-        <li className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="bg-blue-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-medium">DE</div>
-            <span className="text-sm text-gray-700">Designer</span>
-          </div>
-          <span className="text-sm font-medium text-gray-600">2 Candidates</span>
-        </li>
-        <li className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-medium">SI</div>
-            <span className="text-sm text-gray-700">Social Media Influencer</span>
-          </div>
-          <span className="text-sm font-medium text-gray-600">0 Candidates</span>
-        </li>
-      </ul>
-    </CardContent>
-  </Card>
+        <div className="p-4 space-y-6 ">
+          <div className="grid grid-cols-3 gap-6 rounded">
+            {/* Skill Zone Status */}
+            <div className="bg-white p-4 rounded shadow col-span-1">
+              <h2 className="text-lg font-semibold mb-4">Skill Zone Status</h2>
+              <ul className="space-y-2">
+                <li className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-blue-500 text-white rounded-full h-8 w-8 flex items-center justify-center">DE</div>
+                    <span>Designer</span>
+                  </div>
+                  <span>2 Candidates</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center">SI</div>
+                    <span>Social Media Influencer</span>
+                  </div>
+                  <span>0 Candidates</span>
+                </li>
+              </ul>
+            </div>
 
-  {/* Candidate Offer Letter Status */}
-  <Card className="shadow-md rounded-lg">
-    <CardHeader>
-      <CardTitle>Candidate Offer Letter Status</CardTitle>
-    </CardHeader>
-    <CardContent className="h-[200px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie data={offerLetterData} dataKey="value" outerRadius={80}>
-            {offerLetterData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
-    </CardContent>
-  </Card>
+            {/* Candidate Offer Letter Status */}
+            <div className="bg-white p-4 rounded shadow col-span-1">
+              <h2 className="text-lg font-semibold mb-4">Candidate Offer Letter Status</h2>
+              <ResponsiveContainer width="100%" height={200}>
+                <PieChart>
+                  <Pie data={offerLetterData} dataKey="value" outerRadius={80}>
+                    {offerLetterData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
 
-  {/* Candidate Onboard */}
-  <Card className="shadow-md rounded-lg">
-    <CardHeader>
-      <CardTitle>Candidate on Onboard</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="bg-purple-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-medium">HA</div>
-          <span className="text-sm text-gray-700">Haroon</span>
+            {/* Candidate Onboard */}
+            <div className="bg-white p-4 rounded shadow col-span-1">
+              <h2 className="text-lg font-semibold mb-4">Candidate on Onboard</h2>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="bg-purple-500 text-white rounded-full h-8 w-8 flex items-center justify-center">HA</div>
+                  <span>Haroon</span>
+                </div>
+                <span>FD-002-Finance</span>
+                <a href="#" className="text-blue-500">View</a>
+              </div>
+            </div>
+          </div>
+
+          {/* Joinings Per Month and Hiring Pipeline */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Joinings Per Month */}
+            <div className="bg-white p-4 rounded shadow">
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-semibold">Joinings Per Month</h2>
+                <select className="border rounded px-2 py-1 text-sm">
+                  <option>2025</option>
+                </select>
+              </div>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={joiningData}>
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="value" fill="#006666" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Current Hiring Pipeline */}
+            <div className="bg-white p-4 rounded shadow">
+              <h2 className="text-lg font-semibold mb-2">Current Hiring Pipeline</h2>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left border-b">
+                    <th className="py-2">Job Positions</th>
+                    <th className="py-2">Initial</th>
+                    <th className="py-2">Test</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pipelineData.map((job, idx) => (
+                    <tr key={idx} className="border-b">
+                      <td className="py-1">{job.title}</td>
+                      <td>{job.initial}</td>
+                      <td>{job.test}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <span className="text-sm font-medium text-gray-600">FD-002-Finance</span>
-        <a href="#" className="text-sm text-blue-600 hover:underline">View</a>
-      </div>
-    </CardContent>
-  </Card>
-</div>
-
-{/* Second Row: Joinings and Pipeline */}
-<div className="grid grid-cols-2 md:grid-cols-2 gap-6 mt-6">
-  {/* Joinings Per Month */}
-  <Card className="shadow-md rounded-lg">
-    <CardHeader className="flex flex-row justify-between items-center">
-      <CardTitle>Joinings Per Month</CardTitle>
-      <select className="border rounded px-2 py-1 text-sm text-gray-600">
-        <option>2025</option>
-      </select>
-    </CardHeader>
-    <CardContent className="h-[220px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={joiningData}>
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="value" fill="#006666" />
-        </BarChart>
-      </ResponsiveContainer>
-    </CardContent>
-  </Card>
-
-  {/* Current Hiring Pipeline */}
-  <Card className="shadow-md rounded-lg">
-    <CardHeader>
-      <CardTitle>Current Hiring Pipeline</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="text-left border-b">
-            <th className="py-2">Job Positions</th>
-            <th className="py-2">Initial</th>
-            <th className="py-2">Test</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pipelineData.map((job, idx) => (
-            <tr key={idx} className="border-b">
-              <td className="py-2">{job.title}</td>
-              <td>{job.initial}</td>
-              <td>{job.test}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </CardContent>
-  </Card>
-</div>
 
 
 

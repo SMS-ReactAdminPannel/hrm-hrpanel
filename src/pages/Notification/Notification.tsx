@@ -228,24 +228,24 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 rounded-lg">
       <div className="flex">
         {/* Main Content */}
-        <div className="w-1/2 w-full transition-all duration-300">
-          <div className="w-full p-6 bg-white">
+        <div className={`w-1/2 w-full transition-all duration-300 ${selectedNotification ? "blur-sm" : ""}`}>
+          <div className="w-full p-6 bg-white rounded-lg">
             {/* Back Button */}
             <div className="mb-4">
               <button
                 onClick={handleBackClick}
-                className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors"
+                className="flex items-center gap-2 text-gray-600 transition-colors"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span className="text-sm">Back</span>
+                <span className="text-sm"></span>
               </button>
             </div>
 
             {/* Header */}
-            <div className="mb-6">
+            <div className="mb-6 ">
               <div className="flex items-center justify-between mb-4">
                 <h1 className="text-xl font-semibold text-gray-900">{notificationsData.all.length} Notification</h1>
                 <div className="relative w-80">
@@ -255,7 +255,7 @@ export default function NotificationsPage() {
                     placeholder="Search.."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 pr-4 py-3 bg-white/70 border border-white/20 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
+                    className="pl-10 pr-4 px-4 py-2 bg-white/70 border border-gray rounded-md  shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200 w-full"
                   />
                 </div>
               </div>
@@ -310,7 +310,7 @@ export default function NotificationsPage() {
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    {notification.name && <p className="text-sm font-medium text-gray-900 mb-1">{notification.name}</p>}
+                    {notification.name && <p className="text-md font-medium text-gray-900 mb-1">{notification.name}</p>}
                     <p className="text-sm text-gray-700 leading-relaxed">{notification.message}</p>
                     <div className="flex items-center mt-2 space-x-2">
                       <Clock className="h-3 w-3 text-gray-400" />
@@ -320,8 +320,8 @@ export default function NotificationsPage() {
 
                   {/* Avatar */}
                   <div className="flex-shrink-0">
-                    <div className="h-8 w-8 rounded-full bg-[#006666] flex items-center justify-center">
-                      <User className="h-4 w-4 text-white" />
+                    <div className="h-7 w-7 rounded-lg bg-[#006666] flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
                     </div>
                   </div>
                 </div>
@@ -341,7 +341,7 @@ export default function NotificationsPage() {
 
         {/* Details Panel */}
         {selectedNotification && (
-          <div className="w-1/2 bg-white border-l border-gray-200 p-6 fixed right-0 top-0 h-full overflow-y-auto">
+          <div className="w-1/2 bg-white border-l border-gray-200 p-6 fixed right-0 top-0 h-full overflow-y-auto scrollbar-hidden">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-gray-900">Notification Details</h2>
@@ -351,16 +351,16 @@ export default function NotificationsPage() {
             </div>
 
             {/* Notification Details */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {/* Icon and Type */}
               <div className="flex items-center space-x-4">
-                <div className={`p-3 rounded-lg ${selectedNotification.isStarred ? "bg-yellow-100" : "bg-gray-200"}`}>
+                <div className={`p-2 rounded-lg ${selectedNotification.isStarred ? "bg-yellow-100" : "bg-gray-200"}`}>
                   {selectedNotification.icon === "star" ? (
                     <Star
-                      className={`h-6 w-6 ${selectedNotification.isStarred ? "text-yellow-600" : "text-gray-600"}`}
+                      className={`h-5 w-5 ${selectedNotification.isStarred ? "text-yellow-600" : "text-gray-600"}`}
                     />
                   ) : (
-                    <FileText className="h-6 w-6 text-gray-600" />
+                    <FileText className="h-5 w-5 text-gray-600 " />
                   )}
                 </div>
                 <div>
@@ -376,8 +376,11 @@ export default function NotificationsPage() {
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">From</h3>
                   <div className="flex items-center space-x-3">
-                    <div className="h-10 w-10 rounded-full bg-[#006666] flex items-center justify-center">
-                      <User className="h-5 w-5 text-white" />
+                    <div className="h-8 w-8 rounded-lg bg-[#006666] flex items-center justify-center">
+                      <User
+                        className="h-5 w-5 text-white
+                      "
+                      />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">{selectedNotification.name}</p>
@@ -423,7 +426,7 @@ export default function NotificationsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> /* notification end */
         )}
       </div>
     </div>
