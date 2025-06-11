@@ -574,7 +574,7 @@ const HRMTrainingDashboard: React.FC = () => {
     trend?: string
     color: string
   }> = ({ title, value, icon, trend, color }) => (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 px-4 py-2 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div>
 
@@ -755,16 +755,16 @@ const HRMTrainingDashboard: React.FC = () => {
     const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
 
     return (
-      <tr className="hover:bg-gray-300 bg-white transition-colors">
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{employee.id}</td>
+      <tr className=" bg-red-200 transition-colors text-gray-900">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">{employee.id}</td>
         <td className="px-4 py-4 whitespace-nowrap">
           <div className="flex items-center ">
             <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
               {employee.avatar}
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-              <p className="text-sm text-gray-500">{employee.position}</p>
+              <p className="text-xm font-medium text-gray-900 ">{employee.name}</p>
+              <p className="text-xm text-gray-900">{employee.position}</p>
             </div>
           </div>
         </td>
@@ -777,7 +777,7 @@ const HRMTrainingDashboard: React.FC = () => {
                 style={{ width: `${programProgress}%` }}
               ></div>
             </div>
-            <span className="text-sm text-gray-900">{programProgress}%</span>
+            <span className="text-lg text-gray-900">{programProgress}%</span>
           </div>
         </td>
         {selectedProgram && (
@@ -786,17 +786,20 @@ const HRMTrainingDashboard: React.FC = () => {
           </td>
         )}
         {!selectedProgram && (
-          <td className="px-20 py-4 whitespace-nowrap text-sm text-gray-900">{employee.completedCourses}</td>
+          <td className="px-20 py-4 whitespace-nowrap text-lg text-gray-900">{employee.completedCourses}</td>
         )}
         <td className="px-6 py-4 whitespace-nowrap">
           <span
-            className={`px-2 py-1 rounded-full text-xs font-medium ${programProgress === 100
+            className={`px-2 py-1 rounded-full text-lg font-medium ${programProgress === 100
                 ? "bg-green-100 text-green-800"
-                : programProgress > 50
-                  ? "bg-blue-100 text-blue-800"
+              : employee.status === "active"
+                  ? //"bg-blue-100 text-blue-800"
+                  'bg-blue-400 text-white'
                   : employee.status === "pending"
-                    ? "bg-yellow-100 text-yellow-800"
-                    : "bg-red-100 text-red-800"
+                    ? "bg-yellow-500 text-white"
+                  : employee.status === "overdue"
+                    ? "bg-red-800 text-white"
+                    : ""
               }`}
           >
             {programProgress === 100 ? "Completed" : employee.status}
@@ -835,7 +838,7 @@ const HRMTrainingDashboard: React.FC = () => {
             className="flex space-x-4"
             style={{
               fontFamily: FONTS.paragraph.fontFamily,
-              fontSize: '18px',
+              fontSize: FONTS.paragraph.fontSize,
             }}
           >
             {[
@@ -907,8 +910,7 @@ const HRMTrainingDashboard: React.FC = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 
-             backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
+            <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
               <h2
                 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4"
                 style={{
@@ -1156,13 +1158,15 @@ const HRMTrainingDashboard: React.FC = () => {
             )}
 
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100   backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
-              <div className="px-6 py-4 lg:px-8 lg:py-6 border-b border-gray-200 ">
+            <div className=" rounded-xl shadow-sm backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100  ">
+              <div className=" py-4 lg:px-[2%] lg:py-6  rounded-xl">
                 <h2
-                  className="text-lg lg:text-xl font-bold text-gray-900  "
+                  className="text-lg lg:text-xl font-bold text-gray-900 "
                   style={{
-                    fontFamily: FONTS.paragraph.fontFamily,
-                    fontWeight: FONTS.paragraph.fontWeight,
+                          fontFamily: FONTS.header2.fontFamily,
+                          fontWeight: FONTS.header2.fontWeight,
+                          fontSize: FONTS.header2.fontSize
+
                   }}
                 >
                   {selectedProgram
@@ -1174,16 +1178,16 @@ const HRMTrainingDashboard: React.FC = () => {
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,
-                    }}
+            }}
                   >
                     Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
                   </p>
                 )}
               </div>
 
-              <div className="overflow-x-auto  ">
-                <table className="min-w-full divide-y divide-gray-200 ">
-                  <thead className=" ">
+              <div className="overflow-x-auto ">
+                <table className="min-w-full divide-y divide-gray-200 border-separate border-spacing-y-1">
+                  <thead className="">
                     <tr>
                       {[
                         "Employee ID",
@@ -1195,12 +1199,12 @@ const HRMTrainingDashboard: React.FC = () => {
                       ].map((heading, idx) => (
                         <th
                           key={idx}
-                          className="px-6 py-3 text-left text-xs lg:text-sm font-medium text-black
-                           uppercase tracking-wider "
+                          className="px-6 py-3 text-left text-sm  lg:text-sm font-medium text-black
+                           tracking-wider "
                           style={{
                             fontFamily: FONTS.paragraph.fontFamily,
                             fontWeight: FONTS.paragraph.fontWeight,
-                          }}
+                            fontSize:FONTS.paragraph.fontSize                         }}
                         >
                           {heading}
                         </th>
@@ -1208,7 +1212,7 @@ const HRMTrainingDashboard: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody
-                    className="bg-gray-900 divide-y divide-gray-200 text-sm lg:text-base backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 space-y-10"
+                    className=" divide-y divide-gray-200 text-sm lg:text-base"
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,

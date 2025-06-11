@@ -114,19 +114,27 @@ const GrievanceManagement = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6" style={FONTS.header}>
+        <h1 className=" text-[black] mb-6"
+         style={{fontFamily:FONTS.header.fontFamily,
+          fontSize:FONTS.header.fontSize,
+
+         }}>
           Grievances
         </h1>
-
+          {/* ALL , UNSOLVED AND SOLVED NAVBAR  */}
         <div className="flex space-x-4 mb-6">
           {(["all", "unsolved", "solved"] as const).map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
-              className={`px-4 py-2 rounded-full font-medium capitalize border transition-all duration-200 text-sm ${
+              style={{fontFamily:FONTS.header.fontFamily,
+                      fontSize:FONTS.paragraph.fontSize
+              }}
+              className={`px-4 py-2 bg-red-200 rounded-full font-medium
+                 capitalize  transition-all duration-200 text-sm ${
                 filter === status
-                  ? "bg-[#006666] text-white border-[#006666]"
-                  : "text-[#006666] border-[#006666] hover:bg-[#e6f4f4]"
+                ? " text-black backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
+                : "text-[#006666]  hover:bg-gray-400 hover:text-white"
               }`}
             >
               {status}
@@ -134,17 +142,22 @@ const GrievanceManagement = () => {
           ))}
         </div>
 
-        <div className="flex gap-6">
-          <div className="w-1/2">
-            <div className="space-y-4">
+        <div className="flex gap-6 backdrop-blur-md backdrop-saturate-150 backdrop-contrast-100">
+          {/* Grievance List Panel */}
+          <div className={`w-full ${selectedGrievance ? 'w-1/2' : 'w-full'} transition-all duration-300`}>
+            <div className="space-y-2">
               {filteredGrievances.length === 0 ? (
-                <p className="text-center text-gray-400 mt-12">No grievances to show.</p>
+                <p className="text-center text-gray-400 mt-8">No grievances to show.</p>
               ) : (
                 filteredGrievances.map((grievance) => (
                   <div
                     key={grievance.id}
                     onClick={() => setSelectedGrievance(grievance)}
                     className="cursor-pointer"
+                    style={{
+                      fontFamily: FONTS.paragraph.fontFamily,
+                      fontSize: FONTS.header3.fontSize,
+                    }}
                   >
                     <GrievanceCard grievance={grievance} />
                   </div>
@@ -153,18 +166,21 @@ const GrievanceManagement = () => {
             </div>
           </div>
 
-          <div className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6">
-            {selectedGrievance ? (
+          {/* Grievance Detail Panel - Show only if one is selected */}
+          {selectedGrievance && (
+            <div
+              className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6 transition-all duration-300"
+              style={{ fontSize: FONTS.paragraph.fontSize }}
+            >
               <GrievanceDetailCard
                 grievance={selectedGrievance}
                 onClose={() => setSelectedGrievance(null)}
                 onMarkSolved={() => markAsSolved(selectedGrievance.id)}
               />
-            ) : (
-              <p className="text-center text-gray-400 mt-12">Select a grievance to view details.</p>
-            )}
-          </div>
+            </div>
+          )}
         </div>
+
       </div>
     </div>
   );

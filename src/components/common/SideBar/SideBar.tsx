@@ -140,7 +140,7 @@ const SideBar = ({
           <SidebarLink to="/training-management" icon={<AiOutlineIssuesClose />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
 
           {/* Logout */}
-          <div
+          {/* <div
             onClick={handleLogout}
             className={`flex items-center transition-all px-2 py-1 cursor-pointer ${actualOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
               } rounded-full hover:bg-white/20`}
@@ -149,7 +149,7 @@ const SideBar = ({
               <FiPower />
             </div>
             {actualOpen && <span style={{ color: COLOR.white }}>Logout</span>}
-          </div>
+          </div> */}
         </nav>
       </div>
     </div>
