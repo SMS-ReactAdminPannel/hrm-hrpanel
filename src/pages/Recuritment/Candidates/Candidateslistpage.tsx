@@ -19,7 +19,7 @@ const CandidatesList = () => {
         <input
           type="text"
           placeholder="Search candidates..."
-          className="border border-gray-300 rounded-md px-4 py-2"
+          className="bg-[#eff4f5]  rounded-md px-4 py-2"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -29,7 +29,7 @@ const CandidatesList = () => {
           <div
             key={candidate.id}
             onClick={() => navigate(`/candidates/${candidate.id}`)}
-            className="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition"
+            className="bg-[#eff4f5]  rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition"
           >
             <h2 className="text-lg font-semibold text-gray-800">
               {candidate.name}

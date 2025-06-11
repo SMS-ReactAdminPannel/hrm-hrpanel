@@ -35,6 +35,7 @@ import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
+import Chat from "../pages/ChatAPP/Chat";
 
 
 const AppRoutes = () => {
@@ -45,7 +46,6 @@ const AppRoutes = () => {
       {isAuthenticated ? (
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="assets-management" element={<AssetsManagement />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
@@ -56,12 +56,14 @@ const AppRoutes = () => {
           {/* <Route path="candidates" element={<CandidatesList />} /> */}
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
-          <Route path="trainingmanagement" element={<TrainingManage />} />
+          <Route path="training-management" element={<TrainingManage />} />
+          <Route path="chat" element={<Chat />} />
           <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
           <Route path="announcement" element={<Announcement />} />
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
+          <Route path="asset" element={<AssetsManagement />} />
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
@@ -69,7 +71,7 @@ const AppRoutes = () => {
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="profile" element={<Profile />} /> 
-          <Route path="grievance-management" element={<GrievanceManagement/>}/>
+          <Route path="grievance" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitormanagement" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />

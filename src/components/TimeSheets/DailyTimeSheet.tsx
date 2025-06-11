@@ -62,8 +62,7 @@ const DailyTimeSheet = () => {
     );
 
     return (
-        <div className="py-5"
-            style={{ fontFamily: FONTS.paragraph.fontFamily }}   >
+        <div className="py-5" >
             <div className="overflow-x-auto rounded-lg">
                 <table className="min-w-full border-collapse text-sm shadow-lg">
                     <thead className="bg-[#006666] text-white">
@@ -74,7 +73,7 @@ const DailyTimeSheet = () => {
                                     placeholder="Search by name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full border border-gray-300 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                                    className="w-full border border-gray-300  bg-[#eff4f5]  text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
                                 />
                             </th>
                             <th className="px-6 py-3 text-center">First In</th>
@@ -94,13 +93,9 @@ const DailyTimeSheet = () => {
                             </tr>
                         ) : (
                             filteredUsers.map((user) => (
-                                <tr key={user.name} className="bg-white border-b border-slate-200/50 hover:bg-gray-200 group cursor-pointer">
+                                <tr key={user.name} className="bg-[#eff4f5]  border-b border-slate-200/50 group cursor-pointer">
                                     <td className="px-6 py-4 flex items-center gap-3 border-b border-slate-200/50  cursor-pointer">
-                                        <img
-                                            src={user.profilePic}
-                                            alt={user.name}
-                                            className="w-9 h-9 rounded-full object-cover"
-                                        />
+                                        
                                         <span className="font-medium text-gray-700">{user.name}</span>
                                     </td>
                                     <td className=" px-6 py-4 text-center">{user.firstIn}</td>

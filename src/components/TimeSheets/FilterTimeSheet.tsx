@@ -62,8 +62,7 @@ const FilterTimeSheet = () => {
                     <button
                         type="button"
                         onClick={() => toggleDropdown(index)}
-                        style={{ fontFamily: FONTS.paragraph.fontFamily }}
-                        className="w-full px-4 py-2 bg-white  border-[#006666] text-black rounded-md shadow-lg flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
+                        className="w-full px-4 py-2 bg-[#eff4f5]  text-black rounded-md shadow-lg flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
                     >
                         {dropdownStates[index].selected || dropdown.title}
                         <span className="ml-2">&#9662;</span>

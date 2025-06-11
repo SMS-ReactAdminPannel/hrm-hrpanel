@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
+import { FONTS } from '../../constants/uiConstants';
 
 type Department = 'Engineering' | 'Marketing' | 'HR' | 'Finance' | 'Operations';
 type JobTitle = 'Manager' | 'Developer' | 'Designer' | 'Analyst' | 'Specialist';
@@ -38,6 +39,8 @@ const EmployeeManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState<Department | ''>('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
 
   const itemsPerPage = 5;
 
@@ -91,16 +94,35 @@ const EmployeeManagement = () => {
     { name: 'On-site', value: 3 },
   ];
 
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6">Employee Management</h1>
+  const [showAddForm, setShowAddForm] = useState(false);
+const [newEmployee, setNewEmployee] = useState<Employee>({
+  id: '',
+  name: '',
+  email: '',
+  contactNumber: '',
+  department: 'Engineering',
+  jobTitle: 'Manager',
+  hireDate: '',
+  employmentType: 'Full-time',
+});
 
-      {/* Cards */}
+
+  return (
+    <div className="container mx-auto px-4 py-2">
+  <div className="flex justify-between items-center mb-6">
+    <h1 className="text-black" style={FONTS.header}>Employee</h1>
+    <button
+      onClick={() => setShowAddForm(true)}
+      className="bg-[#006666] hover:bg-teal-700 text-white px-4 py-2 rounded-md shadow-md"
+    >
+      + Add Employee
+    </button>
+  </div>
       
       
   {/* Total Employees */}
   <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-       <div className="bg-white w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+       <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
            <div className="flex items-center justify-between">
              <div>
                <p className="text-sm font-medium text-gray-500 mb-1">Total Employees</p>
@@ -116,7 +138,7 @@ const EmployeeManagement = () => {
          </div>
 
   {/* New Employees */}
- <div className="bg-white w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+ <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
           <div className="flex items-center justify-between">
              <div>
                <p className="text-sm font-medium text-gray-500 mb-1">New Employees</p>
@@ -140,7 +162,7 @@ const EmployeeManagement = () => {
 
 
   {/* Resigned Employees */}
-  <div className="bg-white w-full max-w-md rounded-lg p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+  <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
            <div className="flex items-center justify-between">
              <div>
                <p className="text-sm font-medium text-gray-500 mb-1">Resigned Employees</p>
@@ -156,7 +178,7 @@ const EmployeeManagement = () => {
          </div>
 
   {/* Work Mode Stats */}
-  <div className="bg-white p-4 rounded shadow border">
+  <div className="bg-[#eff4f5] p-4 rounded shadow border">
     <h3 className="text-lg font-semibold text-gray-800 mb-4">Work Mode Stats</h3>
     {workModeData.map((mode, index) => (
       <div key={mode.name} className="flex justify-between items-center mb-2">
@@ -183,7 +205,7 @@ const EmployeeManagement = () => {
           <input
             type="text"
             placeholder="Search employees..."
-            className="w-100 pl-10 pr-4 py-2 border rounded-lg"
+            className="w-100 pl-10 pr-4 py-2 border bg-[#eff4f5] rounded-lg"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -219,42 +241,40 @@ const EmployeeManagement = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded shadow overflow-x-auto">
+      <div className="bg-[#eff4f5] rounded shadow overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-100">
+          <thead className="bg-[#006666] text-md">
             <tr>
               {['id', 'name', 'email', 'department', 'jobTitle', 'employmentType'].map((key) => (
                 <th
                   key={key}
-                  className="px-4 py-3 text-left text- font-medium text-gray-600 uppercase cursor-pointer"
+                  className="px-4 py-3 text-left text-md font-medium text-white  cursor-pointer"
                   onClick={() => requestSort(key as keyof Employee)}
                 >
                   {key}
                   {sortConfig?.key === key && (sortConfig.direction === 'ascending' ? ' ↑' : ' ↓')}
                 </th>
               ))}
-              <th className="px-4 py-2 text-left text- font-medium text-gray-600 uppercase">Actions</th>
+              <th className="px-4 py-2 text-left text-md text-white">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {paginatedEmployees.map((emp) => (
               <tr key={emp.id}>
-                <td className="px-4 py-5">{emp.id}</td>
-                <td className="px-4 py-2 flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-[#006666] text-white flex items-center justify-center font-bold">
-                    {emp.name.charAt(0)}
-                  </div>
+                <td className="px-4 py-5 text-sm">{emp.id}</td>
+                <td className="px-4 py-2  text-sm">
+                  
                   {emp.name}
                 </td>
-                <td className="px-4 py-2">{emp.email}</td>
-                <td className="px-4 py-2">{emp.department}</td>
-                <td className="px-4 py-2">{emp.jobTitle}</td>
+                <td className="px-4 py-2 text-sm">{emp.email}</td>
+                <td className="px-4 py-2 text-sm">{emp.department}</td>
+                <td className="px-4 py-2 text-sm">{emp.jobTitle}</td>
                 <td className="px-4 py-2">
                   <span className={`px-2 py-1 text-xs rounded-full ${getEmploymentTypeColor(emp.employmentType)}`}>
                     {emp.employmentType}
                   </span>
                 </td>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="px-4 py-2">
                   <button className="text-blue-600"><FaEdit /></button>
                   <button className="text-red-600"><RiDeleteBinLine /></button>
                 </td>
@@ -269,19 +289,139 @@ const EmployeeManagement = () => {
         </table>
       </div>
 
+      {showAddForm && (
+  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
+      <h2 className="text-xl font-semibold mb-4">Add New Employee</h2>
+
+      <div className="grid grid-cols-2 gap-4">
+        {['id', 'name', 'email', 'contactNumber', 'hireDate'].map((field) => (
+          <div key={field} className="flex flex-col">
+            <input
+              type={field === 'hireDate' ? 'date' : 'text'}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              value={(newEmployee as any)[field]}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, [field]: e.target.value });
+                setErrors({ ...errors, [field]: "" });
+              }}
+              className={`border rounded p-2 ${errors[field] ? "border-red-500" : ""}`}
+            />
+            {errors[field] && (
+              <span className="text-sm text-red-500">{errors[field]}</span>
+            )}
+          </div>
+        ))}
+
+        <div className="flex flex-col">
+          <select
+            value={newEmployee.department}
+            onChange={(e) => {
+              setNewEmployee({ ...newEmployee, department: e.target.value as Department });
+              setErrors({ ...errors, department: "" });
+            }}
+            className={`border rounded p-2 ${errors.department ? "border-red-500" : ""}`}
+          >
+            <option value="">Select Department</option>
+            {['Engineering', 'Marketing', 'HR', 'Finance', 'Operations'].map((dept) => (
+              <option key={dept}>{dept}</option>
+            ))}
+          </select>
+          {errors.department && (
+            <span className="text-sm text-red-500">{errors.department}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col">
+          <select
+            value={newEmployee.jobTitle}
+            onChange={(e) => {
+              setNewEmployee({ ...newEmployee, jobTitle: e.target.value as JobTitle });
+              setErrors({ ...errors, jobTitle: "" });
+            }}
+            className={`border rounded p-2 ${errors.jobTitle ? "border-red-500" : ""}`}
+          >
+            <option value="">Select Job Title</option>
+            {['Manager', 'Developer', 'Designer', 'Analyst', 'Specialist'].map((job) => (
+              <option key={job}>{job}</option>
+            ))}
+          </select>
+          {errors.jobTitle && (
+            <span className="text-sm text-red-500">{errors.jobTitle}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col">
+          <select
+            value={newEmployee.employmentType}
+            onChange={(e) => {
+              setNewEmployee({ ...newEmployee, employmentType: e.target.value as EmploymentType });
+              setErrors({ ...errors, employmentType: "" });
+            }}
+            className={`border rounded p-2 ${errors.employmentType ? "border-red-500" : ""}`}
+          >
+            <option value="">Select Employment Type</option>
+            {['Full-time', 'Part-time', 'Contract', 'Intern'].map((type) => (
+              <option key={type}>{type}</option>
+            ))}
+          </select>
+          {errors.employmentType && (
+            <span className="text-sm text-red-500">{errors.employmentType}</span>
+          )}
+        </div>
+      </div>
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          className="bg-gray-300 text-black px-4 py-2 rounded"
+          onClick={() => setShowAddForm(false)}
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-[#006666] text-white px-4 py-2 rounded"
+          onClick={() => {
+            const newErrors: Record<string, string> = {};
+            const requiredFields = ['id', 'name', 'email', 'contactNumber', 'hireDate', 'department', 'jobTitle', 'employmentType'];
+
+            requiredFields.forEach((field) => {
+              if (!(newEmployee as any)[field]?.trim?.()) {
+                newErrors[field] = `${field} is required`;
+              }
+            });
+
+            if (Object.keys(newErrors).length > 0) {
+              setErrors(newErrors);
+              return;
+            }
+
+            // Simulate add
+            console.log('Add:', newEmployee);
+            setShowAddForm(false);
+          }}
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
       {/* Pagination */}
       <div className="flex justify-center mt-4">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border rounded mx-1 disabled:opacity-50"
+          className="px-3 py-1 border bg-white rounded mx-1 disabled:opacity-50"
         >
           Previous
         </button>
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border rounded mx-1 disabled:opacity-50"
+          className="px-3 py-1 border bg-white rounded mx-1 disabled:opacity-50"
         >
           Next
         </button>

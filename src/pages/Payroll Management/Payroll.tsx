@@ -81,25 +81,25 @@ const Payroll = () => {
     switch (status) {
       case "Paid":
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-100 text-green-800">
             Paid
           </span>
         )
       case "Pending":
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-100 text-red-800">
             Pending
           </span>
         )
       case "Processing":
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800">
             Processing
           </span>
         )
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-800">
             {status}
           </span>
         )
@@ -112,8 +112,8 @@ const Payroll = () => {
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900" >Payroll Management</h1>
-            <p className="text-gray-600">Manage employee payroll and compensation</p>
+            <h1 className=" text-black" style={FONTS.header}>Payroll</h1>
+            <p className="text-black" style={FONTS.paragraph}>Manage employee payroll and compensation</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -132,10 +132,10 @@ const Payroll = () => {
                 placeholder="Search employees..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-[#eff4f5]  placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="inline-flex items-center px-4 py-2  text-sm font-medium rounded-md shadow-sm text-white bg-[#006666] ">
               Process Payroll
             </button>
           </div>
@@ -144,7 +144,7 @@ const Payroll = () => {
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Total Employees Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -171,7 +171,7 @@ const Payroll = () => {
           </div>
 
           {/* Monthly Payroll Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -198,7 +198,7 @@ const Payroll = () => {
           </div>
 
           {/* Pending Payments Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -225,7 +225,7 @@ const Payroll = () => {
           </div>
 
           {/* Average Salary Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -253,38 +253,36 @@ const Payroll = () => {
         </div>
 
         {/* Employee Table */}
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Employee Payroll</h3>
-          </div>
+        <div className="bg-[#eff4f5] shadow overflow-hidden sm:rounded-md">
+          
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-[#006666] ">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Employee
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Position
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Department
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Salary
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Hours
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Last Payment
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
                   <tr
                     key={employee.id}
