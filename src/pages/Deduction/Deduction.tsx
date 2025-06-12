@@ -80,7 +80,7 @@ const CustomSelect = ({
 
   return (
     <div className={`space-y-2 relative ${className}`} ref={dropdownRef}>
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <label className="block text-sm font-medium text-white">{label}</label>
       
       {/* Custom dropdown button */}
       <button
@@ -169,7 +169,7 @@ function DeductionCard({
           <div className="relative" ref={dropdownRef}>
             <button 
               onClick={toggleDropdown}
-              className="text-gray-500 hover:text-gray-700 p-1 rounded-md transition-colors"
+              className="text-gray-500 hover:text-white p-1 rounded-md transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -185,7 +185,7 @@ function DeductionCard({
                       onEdit(card);
                       setShowDropdown(false);
                     }}
-                    className="block w-full rounded-md text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 transition-colors"
+                    className="block w-full rounded-md text-left px-4 py-2 text-sm text-white hover:bg-blue-100 transition-colors"
                   >
                     Edit
                   </button>
@@ -206,18 +206,18 @@ function DeductionCard({
         </div>
         
         <div className="mt-4">
-          <h3 className="text-lg font-semibold text-gray-800" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.title}</h3>
+          <h3 className="text-2xl font-bold text-gray-800" >{card.title}</h3>
           <p className="text-sm text-black mt-1">{card.deductionType}</p>
         </div>
         
         <div className="mt-4 flex justify-between items-center">
           <div>
             <p className="text-sm text-black">Employer Rate</p>
-            <p className="text-gray-800 font-medium" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.employerRate}%</p>
+            <p className="text-gray-800 font-medium" >{card.employerRate}%</p>
           </div>
           <div>
             <p className="text-sm text-black">Employee Rate</p>
-            <p className="text-gray-800 font-medium" style={{fontFamily:FONTS.header2.fontFamily, fontSize:FONTS.header2.fontSize, fontWeight:FONTS.header2.fontWeight}}>{card.employeeRate}%</p>
+            <p className="text-gray-800 font-medium" >{card.employeeRate}%</p>
           </div>
         </div>
         
@@ -498,34 +498,34 @@ export default function Deduction() {
 
       {/* Add/Edit Card Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div 
             ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className=" rounded-xl w-[800px] border bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
           >
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800">
+              <div className="flex bg-[#] border-b bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 justify-between items-center p-6 sticky top-0 z-50">
+                <h3 className="text-2xl text-white">
                   {editingCard ? "Edit Deduction" : "Create New Deduction"}
                 </h3>
                 <button 
                   onClick={closeModal}
-                  className="text-gray-500 rounded-md hover:text-gray-700 transition-colors"
+                  className="text-black rounded-md hover:text-white transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
+            <div className="p-6">
               
               <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-3 md:grid-cols-2 gap-3">
                   {/* Title */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Title*</label>
+                    <label className="block text-sm font-medium text-white">Title*</label>
                     <input
                       type="text"
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
+                      className="w-full p-3 border border-gray-300 rounded-md transition-all"
                       value={newCard.title}
                       onChange={(e) => setNewCard({...newCard, title: e.target.value})}
                       placeholder="Enter deduction title"
@@ -575,11 +575,11 @@ export default function Deduction() {
                   
                   {/* Employer Rate */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Employer Rate (%)</label>
+                    <label className="block text-sm font-medium text-white">Employer Rate (%)</label>
                     <input
                       type="number"
                       step="0.1"
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
+                      className="w-full p-1 border border-gray-300 rounded-md transition-all"
                       value={newCard.employerRate}
                       onChange={(e) => setNewCard({...newCard, employerRate: e.target.value})}
                       placeholder="Enter employer rate"
@@ -588,7 +588,7 @@ export default function Deduction() {
                   
                   {/* Employee Rate */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Employee Rate (%)</label>
+                    <label className="block text-sm font-medium text-white">Employee Rate (%)</label>
                     <input
                       type="number"
                       step="0.1"
@@ -621,7 +621,7 @@ export default function Deduction() {
                   
                   {/* Eligibility Value */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Eligibility Value</label>
+                    <label className="block text-sm font-medium text-white">Eligibility Value</label>
                     <input
                       type="number"
                       step="0.1"
@@ -635,14 +635,14 @@ export default function Deduction() {
                 
                 <div className="flex justify-end space-x-3 pt-4">
                   <button 
-                    className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 border border-gray-300 rounded-md text-white hover:text-black hover:bg-gray-50 transition-colors"
                     onClick={closeModal}
                     type="button"
                   >
                     Cancel
                   </button>
                   <button 
-                    className={`px-6 py-2.5 rounded-md text-white transition-colors ${!newCard.title ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    className="px-6 py-1 rounded-md text-white transition-colors bg-[#006666] hover:bg-green-700"
                     onClick={handleAddCard}
                     type="button"
                     disabled={!newCard.title}
@@ -673,7 +673,7 @@ export default function Deduction() {
                 </div>
                 <button 
                   onClick={closeDetailsModal}
-                  className="text-gray-500 rounded-md hover:text-gray-700 transition-colors"
+                  className="text-gray-500 rounded-md hover:text-white transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

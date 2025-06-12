@@ -2,6 +2,7 @@ import { useState,useEffect } from "react"
 import { GrievanceCard } from "../../components/common/GrievanceManagement/GrievanceCard";
 import { GrievanceDetailCard } from "../../components/common/GrievanceManagement/GrievanceDetailCard";
 import { FONTS } from "../../constants/uiConstants";
+import { getAllGrievances, updateGrievanceStatus } from "../../features/Grievance/services";
 
 export type Grievance = {
   id: number;
@@ -92,7 +93,8 @@ const initialGrievances: Grievance[] = [
 ];
 
 const GrievanceManagement = () => {
-  const [grievances, setGrievances] = useState(initialGrievances);
+  const [grievances, setGrievances] = useState<Grievance[]>([]);
+
   const [filter, setFilter] = useState<"all" | "solved" | "unsolved">("all");
   const [selectedGrievance, setSelectedGrievance] = useState<Grievance | null>(null);
 
@@ -100,28 +102,57 @@ const GrievanceManagement = () => {
     filter === "all" ? true : g.status === filter
   );
 
-  const markAsSolved = (id: number) => {
+  const markAsSolved = async (id: number) => {
+  if (!id) {
+    console.warn("markAsSolved called with invalid ID:", id);
+    return;
+  }
+
+  try {
+    const updatedStatus: { status: "solved" } = { status: "solved" };
+    await updateGrievanceStatus(id.toString(), updatedStatus);
+
     setGrievances((prev) =>
       prev.map((g) => (g.id === id ? { ...g, status: "solved" } : g))
     );
+
     setSelectedGrievance(null);
-  };
+  } catch (error) {
+    console.error("Failed to update grievance status", error);
+  }
+};
 
    useEffect(() => {
   setSelectedGrievance(null);
 }, [filter]);
 
+const fetchGrievances = async () => {
+  try {
+    const response: any = await getAllGrievances();
+    console.log("API Response:", response);
+
+    const grievances = response?.data ?? []; // adjust if shape is different
+    setGrievances(grievances);
+  } catch (error) {
+    console.error("Error fetching grievances:", error);
+  }
+};
+
+
+
+  useEffect(() => {
+   fetchGrievances();
+ }, []);
+
+
   return (
-    <div className="h-[100%] ">
-      <div className="h-screen w-[80%]  overflow-hidden flex flex-col p-6 fixed">
-        
-        <h1
-          className="text-black mb-3"
-          style={{ 
-            fontFamily: FONTS.header.fontFamily,
-            fontSize: FONTS.header.fontSize,
-          }}
-        >
+    <div className="min-h-screen bg-white">
+      <div className="max-w-full ">
+        <h1 className=" text-[black] mb-6"
+         style={{fontFamily:FONTS.header.fontFamily,
+          fontSize:FONTS.header.fontSize,
+
+         }}>
           Grievances
         </h1>
 
