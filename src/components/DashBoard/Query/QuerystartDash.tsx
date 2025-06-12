@@ -68,9 +68,9 @@ export default function SupportTracker() {
         </div>
 
         {/* Bottom Section - Metrics */}
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4 gap-1">
           {/* New Queries */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 bg-white rounded-xl p-1 shadow-md">
             <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
               <Ticket className="w-4 h-4 text-purple-600" />
             </div>
@@ -81,7 +81,7 @@ export default function SupportTracker() {
           </div>
 
           {/* Solved */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 bg-white rounded-xl shadow-md">
             <div className="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center">
               <CheckCircle className="w-4 h-4 text-teal-600" />
             </div>
@@ -92,7 +92,7 @@ export default function SupportTracker() {
           </div>
 
           {/* Unsolved */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 bg-white rounded-xl p-1 shadow-md">
             <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
               <Clock className="w-4 h-4 text-orange-600" />
             </div>
