@@ -36,6 +36,11 @@ import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
 import Reports from "../pages/Employee Mangament/Reports/Reports";
+import OpenRecruitments from "../pages/Recuritment/openRecruitments";
+// import JobDetails from "../pages/Recuritment/JobDetails";
+// import JobDetailsModal from "../pages/Recuritment/JobDetails";
+import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
+import DepartmentList from "../pages/Department/DepartmentList";
 
 
 const AppRoutes = () => {
@@ -75,7 +80,10 @@ const AppRoutes = () => {
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitor-management" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />
-          <Route path="/candidates" element={<CandidateDetailPage />} />
+          <Route path="candidates" element={<CandidateDetailPage />} />
+      <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
+      <Route path="/job/:id" element={<JobDetailsPage />} />
+      <Route path="/departments" element={<DepartmentList />} />
         </Route>
       ) : (
         <>

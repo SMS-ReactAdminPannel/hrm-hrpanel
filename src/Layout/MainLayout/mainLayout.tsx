@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar/SideBar';
 import NavBar from '../../components/common/Navbar/NavBar';
 import { useState } from 'react';
-import mainbg2 from '../../assets/mainbg2.jpg';
+import mainlayout5 from '../../assets/main layout5.jpg';
 
-const SIDEBAR_WIDTH_OPEN = 240;
-const SIDEBAR_WIDTH_CLOSED = 96;
+const SIDEBAR_WIDTH_OPEN = 288;
+const SIDEBAR_WIDTH_CLOSED = 80;
 
 export const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -17,7 +17,7 @@ export const MainLayout = () => {
       <div
   className="absolute inset-0 bg-cover bg-no-repeat bg-center z-0"
   style={{
-    backgroundImage: `url(${mainbg2})`,
+    backgroundImage: `url(${mainlayout5})`,
   
   }}
 />
