@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef } from "react"
 import { X, Upload, FileText, File, Check } from "lucide-react"
 import { FONTS } from "../../constants/uiConstants"
@@ -32,14 +31,15 @@ export default function OnboardingTemplate() {
     directDeposit: useRef<HTMLInputElement>(null),
   }
 
-  const onboardingTasks = [
+  // Mock data for tasks - in a real app, this would come from an API or database
+  const [onboardingTasks, setOnboardingTasks] = useState([
     { id: 1, title: "Complete I-9 Form", category: "Legal", priority: "High", dueDate: "Day 1" },
     { id: 2, title: "Submit Tax Documents", category: "Finance", priority: "High", dueDate: "Day 1" },
     { id: 3, title: "IT Equipment Setup", category: "Technology", priority: "Medium", dueDate: "Day 2" },
     { id: 4, title: "Office Tour", category: "Orientation", priority: "Medium", dueDate: "Day 3" },
     { id: 5, title: "Meet Team Members", category: "Social", priority: "Low", dueDate: "Week 1" },
     { id: 6, title: "Complete Training Modules", category: "Training", priority: "High", dueDate: "Week 2" },
-  ]
+  ])
 
   const getRandomColor = () => {
     const colors = ['#006666'];
@@ -245,7 +245,6 @@ export default function OnboardingTemplate() {
               { id: "welcome", name: "Welcome" },
               { id: "documents", name: "Documents" },
               { id: "profile", name: "Profile" },
-              { id: "tasks", name: "Tasks" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -280,8 +279,8 @@ export default function OnboardingTemplate() {
                   <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                     Your Team
                   </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3  rounded-lg">
+                  <div className="space-y-3">                                  
+                    <div className="flex items-center gap-3 p-3  rounded-lg" onClick={() => setActiveTab("documents")}>
                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
                         SM
                       </div>
@@ -290,7 +289,8 @@ export default function OnboardingTemplate() {
                         <p className="text-sm text-gray-500">Engineering Manager</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3  rounded-lg">
+                    
+                    <div className="flex items-center gap-3 p-3  rounded-lg" onClick={() => setActiveTab("documents")}>
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
                         JD
                       </div>
@@ -328,9 +328,21 @@ export default function OnboardingTemplate() {
           {/* Documents Tab */}
           {activeTab === "documents" && (
             <div className="space-y-6">
+              <div className="grid grid-cols-2">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Required Documents</h2>
                 <p className="text-gray-600">Please upload the following documents to complete your onboarding</p>
+              </div>
+              <div className="rounded-lg overflow-hidden transition-all p-4 ml-auto">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => setActiveTab("tasks")}
+                      className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors ml-auto"
+                    >
+                      View Tasks
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="grid gap-4">
@@ -352,6 +364,9 @@ export default function OnboardingTemplate() {
                   description="Banking information for payroll"
                   icon={<File className="w-5 h-5" />}
                 />
+
+                {/* Add Tasks Button in Documents Tab */}
+                
               </div>
             </div>
           )}
@@ -457,10 +472,22 @@ export default function OnboardingTemplate() {
           {/* Tasks Tab */}
           {activeTab === "tasks" && (
             <div className="space-y-6">
+              <div className="grid grid-cols-2">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Onboarding Checklist</h2>
                 <p className="text-black">Complete these tasks during your first few weeks</p>
               </div>
+               <div className="rounded-lg overflow-hidden transition-all p-4 ml-auto">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => setActiveTab("documents")}
+                      className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors ml-auto"
+                    >
+                      Go Back
+                    </button>
+                  </div>
+                </div>
+                </div>
 
               <div className="space-y-4">
                 {onboardingTasks.map((task) => (

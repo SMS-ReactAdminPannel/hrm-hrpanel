@@ -166,7 +166,7 @@ export default function RecruitmentPipeline() {
                 <Editor
                   apiKey="your_tinymce_api_key"
                   value={formData.description}
-                  onEditorChange={(newContent) =>
+                  onEditorChange={(newContent: any) =>
                     setFormData({ ...formData, description: newContent })
                   }
                   init={{

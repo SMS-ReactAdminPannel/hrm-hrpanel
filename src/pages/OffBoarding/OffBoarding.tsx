@@ -247,7 +247,7 @@ const AdvancedHRMOffboarding = () => {
   const tabs: { id: "dashboard" | "requests" | "analytics"; label: string; icon: React.ElementType }[] = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "requests", label: "Exit Requests", icon: FileText },
-    { id: "analytics", label: "Analytics", icon: MessageSquare },
+    // { id: "analytics", label: "Analytics", icon: MessageSquare },
   ]
 
   const exitAnalytics = {
@@ -497,13 +497,6 @@ const AdvancedHRMOffboarding = () => {
         <div className="lg:col-span-2 bg-white p-6 rounded-lg border shadow-sm">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Recent Exit Requests</h3>
-            <button
-              onClick={() => setShowNewRequestModal(true)}
-              className="bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              New Request
-            </button>
           </div>
           <div className="space-y-4">
             {filteredRequests.slice(0, 3).map((req) => (
@@ -544,7 +537,7 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Exit Reasons Full Width Section */}
-      <div className="bg-white p-6 rounded-lg border shadow-sm">
+      <div className=" p-6 rounded-lg border shadow-sm">
         <h3 className="text-lg font-semibold mb-4">Exit Reasons Analysis</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {exitAnalytics.topReasons.map((reason, idx) => (
@@ -1043,7 +1036,7 @@ const AdvancedHRMOffboarding = () => {
               </div>
             </div>
           ))}
-        {activeTab === "analytics" && renderAnalytics()}
+        {/* {activeTab === "analytics" && renderAnalytics()} */}
       </div>
 
       {/* File Viewer Modal */}

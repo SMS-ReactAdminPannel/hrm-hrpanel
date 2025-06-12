@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, Star, FileText, Clock, User, ArrowLeft, X } from "lucide-react"
 
 // Dummy notification data
@@ -226,6 +226,10 @@ export default function NotificationsPage() {
     // Close the details panel
     setSelectedNotification(null)
   }
+
+  useEffect(() => {
+    
+  })
 
   return (
     <div className="min-h-screen bg-gray-50 rounded-lg">
