@@ -1,150 +1,101 @@
-import { useParams, useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { ArrowLeft, Briefcase, Plus, Trash2, Users } from "lucide-react"
-
-
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState, type JSXElementConstructor, type Key, type ReactElement, type ReactNode, type ReactPortal } from "react";
+import { ArrowLeft, Plus, Trash2, Users } from "lucide-react";
+import axios from "axios";
 
 type Employee = {
-  id: string
-  name: string
-  role: string
-}
+  id: string;
+  name: string;
+  role: string;
+};
 
 type Department = {
-  requiredRoles: any
-  id: string
-  name: string
-  description: string
-  employees: Employee[]
-}
+  id: string;
+  name: string;
+  description: string;
+  requiredRoles: string[];
+  employees: Employee[];
+};
 
 const EmployeesPage = () => {
-  const { departmentId } = useParams<{ departmentId: string }>()
-  const navigate = useNavigate()
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const department = state?.department;
 
-  const departments: Record<string, {
-    id: string
-    name: string
-    description: string
-    subDescription: string
-    image: string
-    employeeCount: number
-    requiredRoles: string[]
-    employees: { id: string, name: string, role: string }[]
-  }> = {
-    hr: {
-      id: "hr",
-      name: "Human Resources",
-      description: "Managing talent and organizational culture",
-      subDescription: "Recruitment, employee relations, and HR policies",
-      image: "/placeholder.svg",
-      employeeCount: 2,
-      requiredRoles: ["HR Manager", "Recruiter", "Training Specialist"],
-      employees: [
-        { id: "1", name: "Alice", role: "HR Manager" },
-        { id: "2", name: "Bob", role: "Recruiter" },
-      ],
-    },
-    engineering: {
-      id: "engineering",
-      name: "Engineering",
-      description: "Building innovative technology solutions",
-      subDescription: "Software development, architecture, and technical leadership",
-      image: "/placeholder.svg",
-      employeeCount: 3,
-      requiredRoles: [
-        "Frontend Developer",
-        "Backend Developer",
-        "DevOps Engineer",
-        "QA Engineer",
-        "UI/UX Designer"
-      ],
-      employees: [
-        { id: "1", name: "Charlie", role: "Frontend Developer" },
-        { id: "2", name: "David", role: "Backend Developer" },
-        { id: "3", name: "Eva", role: "DevOps Engineer" },
-      ],
-    },
-    sales: {
-      id: "sales",
-      name: "Sales",
-      description: "Driving revenue and customer relationships",
-      subDescription: "Business development, client management, and growth strategies",
-      image: "/placeholder.svg",
-      employeeCount: 0,
-      requiredRoles: ["Sales Executive", "Account Manager", "Sales Analyst"],
-      employees: [],
-    },
-    marketing: {
-      id: "marketing",
-      name: "Marketing",
-      description: "Promoting brand and driving user acquisition",
-      subDescription: "Content, campaigns, and market research",
-      image: "/placeholder.svg?height=200&width=300",
-      employeeCount: 2,
-      requiredRoles: ["Content Strategist", "SEO Specialist", "Marketing Manager"],
-      employees: [
-        { id: "1", name: "Fiona", role: "Content Strategist" },
-        { id: "2", name: "George", role: "SEO Specialist" },
-      ],
-    },
-    finance: {
-      id: "finance",
-      name: "Finance",
-      description: "Managing budgets and financial planning",
-      subDescription: "Accounting, payroll, and forecasting",
-      image: "/placeholder.svg?height=200&width=300",
-      employeeCount: 1,
-      requiredRoles: ["Finance Manager", "Accountant", "Payroll Specialist"],
-      employees: [
-        { id: "1", name: "Helen", role: "Finance Manager" },
-      ],
-    },
-    "customer-support": {
-      id: "customer-support",
-      name: "Customer Support",
-      description: "Assisting users and resolving queries",
-      subDescription: "Support tickets, live chat, and helpdesk",
-      image: "/placeholder.svg?height=200&width=300",
-      employeeCount: 3,
-      requiredRoles: ["Support Agent", "Team Lead", "Technical Support"],
-      employees: [
-        { id: "1", name: "Ian", role: "Support Agent" },
-        { id: "2", name: "Jane", role: "Support Agent" },
-        { id: "3", name: "Kevin", role: "Team Lead" },
-      ],
-    }
-  }
+  const { departmentId } = useParams<{ departmentId: string }>();
+  // const departmentIdNum = parseInt(departmentId || "", 10);
+  
+  // const navigate = useNavigate();
 
-  const [department, setDepartment] = useState<Department>(
-    departments[departmentId || "hr"] || departments.hr
-  )
-  const [newEmployee, setNewEmployee] = useState({ name: "", role: "" })
+  // const [department, setDepartment] = useState<Department | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [newEmployee, setNewEmployee] = useState({ name: "", role: "" });
 
-  const filledRoles = department.employees.map(emp => emp.role);
-const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRoles.includes(role)) || [];
-
-  const handleAddEmployee = () => {
-    if (newEmployee.name.trim() && newEmployee.role.trim()) {
-      const employee: Employee = {
-        id: Date.now().toString(),
-        name: newEmployee.name.trim(),
-        role: newEmployee.role.trim(),
+  useEffect(() => {
+    const fetchDepartment = async (departmentData?: any) => {
+      try {
+        const res = await axios.get(`/api/departments/${departmentId}`);
+  
+        // Ensure employees is an array even if undefined
+        const departmentData = {
+          ...res.data,
+          employees: Array.isArray(res.data.employees) ? res.data.employees : [],
+        };
+  
+        fetchDepartment(departmentData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Failed to load department", err);
+        setError("Department not found.");
+        setLoading(false);
       }
-      setDepartment((prev) => ({
-        ...prev,
-        employees: [...prev.employees, employee],
-      }))
-      setNewEmployee({ name: "", role: "" })
-    }
-  }
+    };
+  
+    fetchDepartment();
+  }, [departmentId]);
+  
 
-  const handleDeleteEmployee = (employeeId: string) => {
-    setDepartment((prev) => ({
-      ...prev,
-      employees: prev.employees.filter((emp) => emp.id !== employeeId),
-    }))
-  }
+  const handleAddEmployee = async () => {
+    if (!newEmployee.name.trim() || !newEmployee.role.trim() || !department) return;
+
+    const newEmp = {
+      id: Date.now().toString(), // or let backend assign ID
+      name: newEmployee.name.trim(),
+      role: newEmployee.role.trim(),
+    };
+
+    // try {
+    //   const res = await axios.post(`/api/departments/${departmentId}/employees`, newEmp);
+    //   department((prev) =>
+    //     prev ? { ...prev, employees: [...prev.employees, res.data] } : null
+    //   );
+    //   setNewEmployee({ name: "", role: "" });
+    // } catch (err) {
+    //   console.error("Error adding employee", err);
+    // }
+  };
+
+  const handleDeleteEmployee = async (employeeId: string) => {
+    if (!department) return;
+
+    // try {
+    //   await axios.delete(`/api/departments/${departmentId}/employees/${employeeId}`);
+    //   department((prev) =>
+    //     prev ? { ...prev, employees: prev.employees.filter((e) => e.id !== employeeId) } : null
+    //   );
+    // } catch (err) {
+    //   console.error("Error deleting employee", err);
+    // }
+  };
+
+  const filledRoles = department?.employees.map((emp: { role: any; }) => emp.role) || [];
+  const vacantRoles =
+    department?.requiredRoles.filter((role: any) => !filledRoles.includes(role)) || [];
+
+  if (loading) return <div className="text-white p-6">Loading...</div>;
+  if (error) return <div className="text-red-500 p-6">{error}</div>;
+  if (!department) return null;
 
   return (
     <div className="min-h-screen p-6">
@@ -183,7 +134,7 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
   </div>
   <div className="rounded-xl bg-indigo-100 p-4 shadow">
     <h4 className="text-xl font-medium text-indigo-700">Active Roles</h4>
-    <p className="text-2xl font-bold text-indigo-800">{[...new Set(department.employees.map(e => e.role))].length}</p>
+    <p className="text-2xl font-bold text-indigo-800">{[...new Set(department.employees.map((e: { role: any; }) => e.role))].length}</p>
   </div>
   <div className="rounded-xl bg-indigo-200 border p-4 shadow-sm">
     <div className="flex items-center gap-3">
@@ -242,14 +193,14 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
                   </thead>
                   <tbody className="divide-y divide-slate-200">
                     {department.employees.length > 0 ? (
-                      department.employees.map((employee, index) => (
+                      department.employees.map((employee: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; role: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }, index: number) => (
                         <tr key={employee.id} className="transition hover:bg-slate-50">
                           <td className="px-4 py-4 text-sm font-medium text-slate-900">{index + 1}</td>
                           <td className="px-4 py-4 text-sm text-slate-700">{employee.name}</td>
                           <td className="px-4 py-4 text-sm text-slate-700">{employee.role}</td>
                           <td className="px-4 py-4">
                             <button
-                              onClick={() => handleDeleteEmployee(employee.id)}
+                              onClick={() => typeof employee.id === "string" ? handleDeleteEmployee(employee.id) : undefined}
                               className="h-8 w-8 flex items-center justify-center rounded-full bg-red-500 text-white hover:bg-red-600"
                             >
                               <Trash2 className="h-4 w-4" />

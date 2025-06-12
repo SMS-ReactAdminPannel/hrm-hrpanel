@@ -1,83 +1,72 @@
-import axios from "axios";
+import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 
+const backEndUrl: string = "http://localhost:3002";
 
- const backEndUrl: string = 'http://localhost:3002'
 const Axios = axios.create({
-    baseURL:backEndUrl,
-    timeout:50000000,
-    headers:{
-        "Content-Type":"application/json",
-    }
-
+  baseURL: backEndUrl,
+  timeout: 50000000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-Axios.interceptors.request.use((config)=> {
-    const token =localStorage.getItem("authToken");
-    
-    if(token){
-        config.headers["Authorization"] = `${token ? token :""}`;
-    }
-    return config;
+// Request interceptor to attach auth token
+Axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken");
+
+  if (token) {
+    config.headers["Authorization"] = token;
+  }
+
+  return config;
 });
 
+// Response interceptor to handle session expiration
 Axios.interceptors.response.use(
-    (response)=>response,
-    (error)=>{
-        if (error?.response && error?.response?.status === 401 && error?.response?.data?.status === "session_expired") {
-            localStorage.removeItem("authToken")
-        }
+  (response) => response,
+  (error) => {
+    if (
+      error?.response &&
+      error.response.status === 401 &&
+      error.response.data?.status === "session_expired"
+    ) {
+      localStorage.removeItem("authToken");
     }
-)
+    return Promise.reject(error);
+  }
+);
 
-class HttpClient{
-    async get(url:string,params?:string){
-    const response:unknown = await Axios.get(url,{
-        params:params,
-        headers:{
-
-        }
-        
-    })
-    return response;
-    }
-
-    async post(url:string,data:any){
-        const response:unknown =  await Axios.post(url,data,{
-          
-            headers:{
-
-            }
-        });
-        return response;
-    }
-
-  async update(url:string,data:string,params?:string){
-
-    const response =await Axios.put(url,data,{
-        params:params,
-        headers:{
-
-        }
-         
+class HttpClient {
+  async get<T = any>(url: string, params?: any): Promise<AxiosResponse<T>> {
+    const response = await Axios.get<T>(url, {
+      params,
     });
-    return response?.data;
+    return response;
   }
 
-  async delete(url:string){
-
-    const response = await Axios.delete(url,)
-    return response?.data;
+  async post<T = any>(url: string, data: any): Promise<AxiosResponse<T>> {
+    const response = await Axios.post<T>(url, data);
+    return response;
   }
 
-  async fileGet(url:string){
-    const response= Axios.get(url,{
-        responseType:"blob",
-        headers:{
+  async update<T = any>(url: string, data: any, params?: any): Promise<T> {
+    const response = await Axios.put<T>(url, data, {
+      params,
+    });
+    return response.data;
+  }
 
-        }
-    })
+  async delete<T = any>(url: string): Promise<T> {
+    const response = await Axios.delete<T>(url);
+    return response.data;
+  }
+
+  async fileGet(url: string): Promise<AxiosResponse<Blob>> {
+    const response = await Axios.get(url, {
+      responseType: "blob",
+    });
     return response;
   }
 }
 
-export default  new HttpClient();
+export default new HttpClient();

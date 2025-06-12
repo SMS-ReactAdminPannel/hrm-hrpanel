@@ -12,6 +12,14 @@ export const API_END_POINTS = {
     creategrievance:"/api/hr/grievance/create",
     getallgrievance:"/api/hr/grievance/getall",
     patchgrievance:(id:string)=>`/api/hr/grievance/${id}/status`
-  }
+  },
+
+  asset: {
+    getAllAssets: "/api/asset/all",
+    getAssetById: (id: string) => `/api/asset/${id}`,
+    createAsset: "/api/asset/create",
+    updateAsset: (id: string) => `/api/asset/update/${id}`,
+    deleteAsset: (id: string) => `/api/asset/delete/${id}`,
+  },
 };
 
