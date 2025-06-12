@@ -19,7 +19,6 @@ import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
-import Reports from "../pages/Employee Mangament/Reports/Reports";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
 import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
 import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
@@ -36,6 +35,7 @@ import VisitorManagementSystem from "../pages/Visitor Management/VisitorManageme
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
+import Reports from "../pages/Employee Mangament/Reports/Reports";
 
 
 const AppRoutes = () => {
@@ -67,7 +67,7 @@ const AppRoutes = () => {
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
-          <Route path="reports" element={<Reports />} />
+          {/* <Route path="reports" element={<Reports />} /> */}
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="profile" element={<Profile />} /> 
