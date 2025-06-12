@@ -35,6 +35,7 @@ import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
+import Chat from "../pages/ChatAPP/Chat";
 
 
 const AppRoutes = () => {
@@ -56,6 +57,7 @@ const AppRoutes = () => {
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
           <Route path="training-management" element={<TrainingManage />} />
+          <Route path="chat" element={<Chat />} />
           <Route path="profile" element={<Profile />} />
           <Route path="shift" element={<EmployeeShift />} />
           <Route path="announcement" element={<Announcement />} />
