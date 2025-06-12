@@ -30,6 +30,7 @@ const Input = ({ value, onChange, placeholder }: { value: string, onChange: (e: 
 export default function CandidatesPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
+  
 
  
 

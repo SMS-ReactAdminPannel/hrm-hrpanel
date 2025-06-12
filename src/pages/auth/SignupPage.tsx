@@ -4,6 +4,11 @@ import { useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "./AuthContext"
 
+type SignupData = {
+  email: string;
+  password: string;
+};
+
 const SignupPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -14,7 +19,9 @@ const SignupPage = () => {
    const { signup } = useAuth()
 
 
-
+const onSubmit = (data: SignupData) => {
+    console.log("Signup Data:", data);
+  };
   
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {

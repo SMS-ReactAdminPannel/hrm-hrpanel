@@ -1,3 +1,4 @@
+
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
@@ -28,7 +29,25 @@ class Client {
   updateGrievanceStatus: (grievanceId: string, data: any) =>
   httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
 
-    }
+    },
+
+    hrprofile:{
+       postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
+       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data)
+    },
+
+    candidates:{
+       createcandidates: (data: any) =>
+    httpClient.post(API_END_POINTS.candidates.createcandidates, data),
+
+  getAllcandidates: () =>
+    httpClient.get(API_END_POINTS.candidates.getallcandidates),
+
+  updateStatus: (candidatesId: string, data: any) =>
+  httpClient.update(API_END_POINTS.candidates.patchstatus(candidatesId), data)
+
+    },
+
   };
 }
 
