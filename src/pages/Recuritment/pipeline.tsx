@@ -398,9 +398,9 @@ export default function RecruitmentPipeline() {
       {/* Filters */}
       <div className="flex gap-2 items-center mb-4">
         <Input placeholder="Search" className="w-1/3" />
-        <Button className=" text-gray-800 text-white hover:bg-gray-100">
+        {/* <Button className=" text-gray-800 text-white hover:bg-gray-100">
           Filter
-        </Button>
+        </Button> */}
         <div className="flex items-center gap-1">
           <button className="bg-[#006666] hover:bg-[#004C4C]  text-white px-5 py-2 rounded-xl font-medium transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
        onClick={() => setIsStageModalOpen(true)}> +stage </button>
@@ -409,7 +409,7 @@ export default function RecruitmentPipeline() {
 
       {/* Tabs */}
       <Tabs tabs={[]} activeTab={""} onTabChange={() => {}} />
-      <TabsList>
+      {/* <TabsList>
         <div className="gap-2 flex">
           <TabsTrigger value="Finance Manager" isActive={false} onClick={() => {}}>
             Finance Manager (7)
@@ -421,7 +421,7 @@ export default function RecruitmentPipeline() {
             CEO (2)
           </TabsTrigger>
         </div>
-      </TabsList>
+      </TabsList> */}
 
       {/* Candidate Pipeline */}
       <div className="mt-4 h-[70vh] pr-2">
@@ -437,12 +437,7 @@ export default function RecruitmentPipeline() {
                       stage
                     )}
                   </h2>
-                  <div className="flex items-center gap-2">
-                    {/* <div className="w-6 h-6"> */}
-                      <h1>HR</h1>
-                    {/* </div> */}
-                    <Button>+</Button>
-                  </div>
+                  <button className="bg-[#006666] px-2 py-0.5 rounded-md text-white">+</button>
                 </div>
 
                 <div className="grid grid-cols-7 font-semibold text-sm border-b py-2">
