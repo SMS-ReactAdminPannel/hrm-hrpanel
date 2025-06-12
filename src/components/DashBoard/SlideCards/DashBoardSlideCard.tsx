@@ -38,6 +38,7 @@ const cardItems = [
       { label: "Bugs Fixed", value: "34" },
     ],
   },
+  
 ];
 
 const DashBoardSlideCard = () => {
