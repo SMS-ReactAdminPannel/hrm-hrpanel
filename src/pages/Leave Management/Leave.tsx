@@ -245,12 +245,12 @@ const navigateToDate = (date: Date) => {
   return (
     <div >
       <div>
-        <h1 className="text-2xl font-bold py-6">Leave Management</h1>
+        <h1 className=" font-bold" style={FONTS.header}>Leave</h1>
       </div>
     <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
       
       {/* Main grid layout */}
-      <div className="space-y-6 w-5/4">
+      <div className="space-y-3 w-5/4">
         {/* Charts row */}
         <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
           <DoughnutChart 

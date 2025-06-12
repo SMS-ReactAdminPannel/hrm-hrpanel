@@ -1,56 +1,86 @@
 import React from 'react';
-import { Award } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { FONTS } from '../../../constants/uiConstants';
 
-const Reports: React.FC = () => {
+interface ReportsProps {
+  setActiveTab: (tab: string) => void;
+}
+
+const Reports: React.FC<ReportsProps> = ({ setActiveTab }) => {
+  const paragraphStyle = {
+  fontFamily: FONTS.paragraph.fontFamily,
+  fontWeight: FONTS.paragraph.fontWeight,
+};
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#006666] rounded-lg">
-                <Award className="w-6 h-6 text-white" />
-              </div>
-              <h1 className="text-2xl font-bold text-gray-900">Appraisal Reports</h1>
-            </div>
-          </div>
+    <div>
+      <button
+        onClick={() => setActiveTab('dashboard')}
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition mb-7 "
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span
+          className="text-sm font-medium"
+          style={{
+            fontFamily: FONTS.paragraph.fontFamily,
+            fontWeight: FONTS.paragraph.fontWeight,
+          }}
+        >
+          Back to Dashboard
+        </span>
+      </button>
+      <section className="  rounded-xl shadow-sm">
+        <div className='flex justify-between items-center'>
+          <h3
+            className="text-2xl font-semibold"
+            style={{
+              fontFamily: FONTS.paragraph.fontFamily,
+              fontWeight: FONTS.paragraph.fontWeight,
+            }}
+          >
+            Performance Analytics
+          </h3>
         </div>
-      </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Analytics</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-2">Department Performance</h4>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-blue-700">Engineering</span>
-                    <span className="font-semibold text-blue-900">4.5</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-blue-700">Product</span>
-                    <span className="font-semibold text-blue-900">4.2</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-blue-700">Design</span>
-                    <span className="font-semibold text-blue-900">4.8</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-lg">
-                <h4 className="font-medium text-green-900 mb-2">Completion Rate</h4>
-                <div className="text-3xl font-bold text-green-900 mb-2">89%</div>
-                <p className="text-green-700 text-sm">+5% from last quarter</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+
+
+<div className="flex justify-between items-center gap-6">
+  {/* Department Performance Card */}
+  <div className="bg-gray-50 min-h-[200px] w-1/2 p-6 rounded-lg shadow-sm mt-5">
+    <h4 className="text-xl font-bold mb-3" style={paragraphStyle}>
+      Department Performance
+    </h4>
+    <ul className="space-y-3">
+      {[
+        { name: 'Engineering', score: '4.5' },
+        { name: 'Product', score: '4.2' },
+        { name: 'Design', score: '4.8' },
+      ].map(({ name, score }) => (
+        <li
+          key={name}
+          className="flex justify-between text-gray-700 text-sm lg:text-base"
+        >
+          <span style={paragraphStyle}>{name}</span>
+          <span style={paragraphStyle}>{score}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {/* Completion Rate Card */}
+  <div className="bg-gray-50 min-h-[200px] w-1/2 p-6 rounded-lg shadow-sm mt-5">
+    <h4 className="text-xl font-bold mb-3" style={paragraphStyle}>
+      Completion Rate
+    </h4>
+    <div className="text-4xl font-bold mb-2" style={paragraphStyle}>
+      89%
+    </div>
+    <p className="text-sm text-gray-700 lg:text-base" style={paragraphStyle}>
+      +5% from last quarter
+    </p>
+  </div>
+</div>
+      </section>
+
     </div>
   );
 };
