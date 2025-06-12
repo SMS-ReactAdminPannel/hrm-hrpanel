@@ -574,7 +574,7 @@ const HRMTrainingDashboard: React.FC = () => {
     trend?: string
     color: string
   }> = ({ title, value, icon, trend, color }) => (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 px-4 py-2 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div>
 
@@ -755,16 +755,16 @@ const HRMTrainingDashboard: React.FC = () => {
     const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
 
     return (
-      <tr className="hover:bg-gray-50 transition-colors">
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{employee.id}</td>
+      <tr className=" bg-red-200 transition-colors text-gray-900">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">{employee.id}</td>
         <td className="px-4 py-4 whitespace-nowrap">
-          <div className="flex items-center">
+          <div className="flex items-center ">
             <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
               {employee.avatar}
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-              <p className="text-sm text-gray-500">{employee.position}</p>
+              <p className="text-xm font-medium text-gray-900 ">{employee.name}</p>
+              <p className="text-xm text-gray-900">{employee.position}</p>
             </div>
           </div>
         </td>
@@ -777,7 +777,7 @@ const HRMTrainingDashboard: React.FC = () => {
                 style={{ width: `${programProgress}%` }}
               ></div>
             </div>
-            <span className="text-sm text-gray-900">{programProgress}%</span>
+            <span className="text-lg text-gray-900">{programProgress}%</span>
           </div>
         </td>
         {selectedProgram && (
@@ -786,17 +786,20 @@ const HRMTrainingDashboard: React.FC = () => {
           </td>
         )}
         {!selectedProgram && (
-          <td className="px-20 py-4 whitespace-nowrap text-sm text-gray-900">{employee.completedCourses}</td>
+          <td className="px-20 py-4 whitespace-nowrap text-lg text-gray-900">{employee.completedCourses}</td>
         )}
         <td className="px-6 py-4 whitespace-nowrap">
           <span
-            className={`px-2 py-1 rounded-full text-xs font-medium ${programProgress === 100
+            className={`px-2 py-1 rounded-full text-lg font-medium ${programProgress === 100
                 ? "bg-green-100 text-green-800"
-                : programProgress > 50
-                  ? "bg-blue-100 text-blue-800"
+              : employee.status === "active"
+                  ? //"bg-blue-100 text-blue-800"
+                  'bg-blue-400 text-white'
                   : employee.status === "pending"
-                    ? "bg-yellow-100 text-yellow-800"
-                    : "bg-red-100 text-red-800"
+                    ? "bg-yellow-500 text-white"
+                  : employee.status === "overdue"
+                    ? "bg-red-800 text-white"
+                    : ""
               }`}
           >
             {programProgress === 100 ? "Completed" : employee.status}
@@ -835,7 +838,7 @@ const HRMTrainingDashboard: React.FC = () => {
             className="flex space-x-4"
             style={{
               fontFamily: FONTS.paragraph.fontFamily,
-              fontSize: '18px',
+              fontSize: FONTS.paragraph.fontSize,
             }}
           >
             {[
@@ -852,10 +855,10 @@ const HRMTrainingDashboard: React.FC = () => {
                     setSelectedProgram(null);
                   }
                 }}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium bg-gray-400  border border-gray-300 
             ${activeTab === tab.id
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-blue-700 text-black-700 backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border border-black"
+                    : "bg-red-200 text-gray-700 hover:bg-gray-400 hover:text-white "
                   }`}
               >
                 <tab.icon className="w-5 h-5" />
@@ -874,7 +877,7 @@ const HRMTrainingDashboard: React.FC = () => {
         {activeTab === "overview" && (
           <div className="space-y-8">
             {/* Stats Grid */}
-            <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
 
               <StatCard
                 title="Total Employees"
@@ -907,7 +910,7 @@ const HRMTrainingDashboard: React.FC = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
               <h2
                 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4"
                 style={{
@@ -919,7 +922,7 @@ const HRMTrainingDashboard: React.FC = () => {
                 Recent Activity
               </h2>
 
-              <div className="space-y-3 md:space-y-4 lg:space-y-5"
+              <div className="space-y-3 md:space-y-4 lg:space-y-5  text-black"
                 style={{
                   fontFamily: FONTS.paragraph.fontFamily,
 
@@ -959,14 +962,15 @@ const HRMTrainingDashboard: React.FC = () => {
                 ].map((activity, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center space-x-3 p-3 rounded-lg  hover:bg-gray-300 transition-colors
+                    bg-white hover:scale-101"
                   >
                     <activity.icon className={`w-5 h-5 ${activity.color}`} />
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">{activity.action}</p>
+                      <p className="text-xl font-medium text-gray-900 ">{activity.action}</p>
                       <p className="text-sm text-gray-600">{activity.program}</p>
                     </div>
-                    <span className="text-xs text-gray-500">{activity.time}</span>
+                    <span className="text-sm text-gray-500">{activity.time}</span>
                   </div>
                 ))}
               </div>
@@ -983,15 +987,16 @@ const HRMTrainingDashboard: React.FC = () => {
             }}
           >
             {/* Search and Filter */}
-            <div className="flex flex-row sm:flex-row md:flex-row gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="flex flex-row sm:flex-row md:flex-row gap-4 ">
+              <div className="flex-1 relative ">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5 text-black" />
                 <input
                   type="text"
                   placeholder="Search programs..."
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="w-100 md:w-96 pl-10 pr-4 py-2 border border-[#006666] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  className="w-100 md:w-96 pl-10 pr-4 py-2  rounded-lg 
+                  focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent bg-red-200 placeholder:text-black "
                 />
               </div>
               <div className="flex items-center space-x-2"
@@ -1001,13 +1006,14 @@ const HRMTrainingDashboard: React.FC = () => {
                   fontWeight: FONTS.paragraph.fontWeight,
                 }}
               >
+                {/* BOTH FILTER SYMBOL AND ALL CATEGORY */}
                 <div className="flex items-center gap-2">
-                  <Filter className="w-5 h-5 text-gray-400" />
+                  <Filter className="w-[20%] h-8 text-black bg-red-200  " />
 
                   <select
                     value={selectedCategory}
                     onChange={handleCategoryChange}
-                    className="w-full md:w-60 border border-[#006666] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    className="w-full md:w-60  rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,
@@ -1022,9 +1028,11 @@ const HRMTrainingDashboard: React.FC = () => {
                 </div>
 
               </div>
+              {/* NEW PROGRAM BUTTON */}
               <button
                 onClick={handleShowNewProgramForm}
                 className="flex items-center space-x-2 bg-[#006666] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
+               
                 style={{
                   fontFamily: FONTS.paragraph.fontFamily,
                   fontWeight: FONTS.paragraph.fontWeight,
@@ -1067,7 +1075,7 @@ const HRMTrainingDashboard: React.FC = () => {
                     <div className="flex items-center space-x-4">
                       <button
                         onClick={handleBackToPrograms}
-                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
+                        className=" flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
                         style={{
                           fontFamily: FONTS.paragraph.fontFamily,
 
@@ -1150,13 +1158,15 @@ const HRMTrainingDashboard: React.FC = () => {
             )}
 
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="px-6 py-4 lg:px-8 lg:py-6 border-b border-gray-200">
+            <div className=" rounded-xl shadow-sm backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100  ">
+              <div className=" py-4 lg:px-[2%] lg:py-6  rounded-xl">
                 <h2
-                  className="text-lg lg:text-xl font-semibold text-gray-900"
+                  className="text-lg lg:text-xl font-bold text-gray-900 "
                   style={{
-                    fontFamily: FONTS.paragraph.fontFamily,
-                    fontWeight: FONTS.paragraph.fontWeight,
+                          fontFamily: FONTS.header2.fontFamily,
+                          fontWeight: FONTS.header2.fontWeight,
+                          fontSize: FONTS.header2.fontSize
+
                   }}
                 >
                   {selectedProgram
@@ -1164,20 +1174,20 @@ const HRMTrainingDashboard: React.FC = () => {
                     : "Employee Training Progress"}
                 </h2>
                 {selectedProgram && (
-                  <p className="text-sm lg:text-base text-gray-600 mt-1"
+                  <p className="text-sm lg:text-base text-gray-600 mt-1 "
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,
-                    }}
+            }}
                   >
                     Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
                   </p>
                 )}
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+              <div className="overflow-x-auto ">
+                <table className="min-w-full divide-y divide-gray-200 border-separate border-spacing-y-1">
+                  <thead className="">
                     <tr>
                       {[
                         "Employee ID",
@@ -1189,23 +1199,24 @@ const HRMTrainingDashboard: React.FC = () => {
                       ].map((heading, idx) => (
                         <th
                           key={idx}
-                          className="px-6 py-3 text-left text-xs lg:text-sm font-medium text-gray-500 uppercase tracking-wider"
+                          className="px-6 py-3 text-left text-sm  lg:text-sm font-medium text-black
+                           tracking-wider "
                           style={{
                             fontFamily: FONTS.paragraph.fontFamily,
                             fontWeight: FONTS.paragraph.fontWeight,
-                          }}
+                            fontSize:FONTS.paragraph.fontSize                         }}
                         >
                           {heading}
                         </th>
                       ))}
                     </tr>
                   </thead>
-
                   <tbody
-                    className="bg-white divide-y divide-gray-200 text-sm lg:text-base"
+                    className=" divide-y divide-gray-200 text-sm lg:text-base"
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,
+                      marginBottom : '10px', 
                     }}
                   >
                     {displayedEmployees.map((employee) => (

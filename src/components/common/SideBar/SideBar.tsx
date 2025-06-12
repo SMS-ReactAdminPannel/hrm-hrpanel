@@ -135,17 +135,16 @@ const SideBar = ({
 
 
           {/* Logout */}
-          <div className="mt-4 pt-4 border-t border-white/20">
-            <div
-              onClick={handleLogout}
-              className={`flex items-center transition-all px-3 py-2 cursor-pointer rounded-xl hover:bg-white/20 ${
-                actualOpen ? "justify-start gap-3" : "justify-center px-0"
-              }`}
-            >
-              <div className="text-xl text-white"><FiPower /></div>
-              {actualOpen && <span className="text-white font-medium">Logout</span>}
+          {/* <div
+            onClick={handleLogout}
+            className={`flex items-center transition-all px-2 py-1 cursor-pointer ${actualOpen ? "w-full justify-start gap-5 pl-5 pr-1" : "justify-center w-10 h-8"
+              } rounded-full hover:bg-white/20`}
+          >
+            <div className="text-xl" style={{ color: COLOR.white }}>
+              <FiPower />
             </div>
-          </div>
+            {actualOpen && <span style={{ color: COLOR.white }}>Logout</span>}
+          </div> */}
         </nav>
       </div>
     </div>

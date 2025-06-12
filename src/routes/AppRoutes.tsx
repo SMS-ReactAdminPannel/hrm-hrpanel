@@ -76,7 +76,7 @@ const AppRoutes = () => {
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="profile" element={<Profile />} /> 
-          <Route path="grievance" element={<GrievanceManagement/>}/>
+          <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitor-management" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />
