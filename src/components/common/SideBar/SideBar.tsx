@@ -19,7 +19,7 @@ import {
   RiBriefcaseLine,
   RiUserFollowLine,
 } from "react-icons/ri";
-import { MdBusiness, MdEventAvailable } from "react-icons/md";
+import { MdBusiness, MdEventAvailable, MdOutlineVisibility } from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { MdMoneyOffCsred } from "react-icons/md";
@@ -139,6 +139,15 @@ const SideBar = ({
           <SidebarLink to="/grievance" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/training-management" icon={<AiOutlineIssuesClose />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
             <SidebarLink to="/chat" icon={<AiOutlineIssuesClose />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/visitor-management" icon={<MdOutlineVisibility />} label="Visitor Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+
+
 
           {/* Logout */}
           <div
