@@ -26,7 +26,8 @@ class Client {
     httpClient.get(API_END_POINTS.grievance.getallgrievance),
 
   updateGrievanceStatus: (grievanceId: string, data: any) =>
-    httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data),
+  httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
+
     }
   };
 }

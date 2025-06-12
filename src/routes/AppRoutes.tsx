@@ -35,6 +35,7 @@ import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
+import CandidatesList from "../pages/Recuritment/Candidates/Candidateslistpage";
 
 
 const AppRoutes = () => {
@@ -74,6 +75,7 @@ const AppRoutes = () => {
           <Route path="visitormanagement" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />
           <Route path="/candidates" element={<CandidateDetailPage />} />
+          <Route path="candidatelists" element={<CandidatesList />} />
         </Route>
       ) : (
         <>
@@ -81,6 +83,7 @@ const AppRoutes = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          
           {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </>
       )}
