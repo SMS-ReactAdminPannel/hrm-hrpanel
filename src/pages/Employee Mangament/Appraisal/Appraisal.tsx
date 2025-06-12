@@ -12,6 +12,7 @@ import {
     Search,
 } from "lucide-react"
 import { FONTS } from "../../../constants/uiConstants"
+import Reports from "../Reports/Reports"
 
 interface Employee {
     id: string
@@ -123,7 +124,7 @@ const TextArea = React.memo<{
 TextArea.displayName = "TextArea"
 
 const HRMAppraisalSystem = () => {
-    const [activeTab, setActiveTab] = useState<"dashboard" | "appraisal">("dashboard")
+    const [activeTab, setActiveTab] = useState<"dashboard" | "appraisal" | "reports">("dashboard")
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null)
     const [showAppraisalModal, setShowAppraisalModal] = useState(false)
     const [modalMode, setModalMode] = useState<"select" | "view" | "create">("select")
@@ -196,7 +197,7 @@ const HRMAppraisalSystem = () => {
                 name: "Surya",
                 position: "Product Manager",
                 department: "Product",
-                   rating: 4.2,
+                rating: 4.2,
                 lastAppraisal: "2024-02-20",
                 nextAppraisal: "2024-08-20",
                 status: "in-progress",
@@ -492,82 +493,82 @@ const HRMAppraisalSystem = () => {
         () => (
             <div className="space-y-6">
                 {/* Stats Cards */}
-               <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-  <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Total Employees</p>
-        <p className="text-2xl font-bold text-gray-900">156</p>
-      </div>
-      <div className=" lg:p-2 bg-blue-100 rounded-md">
-        <User className="w-4 h-4 lg:w-4 lg:h-4 text-blue-600" />
-      </div>
-    </div>
-  </div>
+                <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                    <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Total Employees</p>
+                                <p className="text-2xl font-bold text-gray-900">156</p>
+                            </div>
+                            <div className=" lg:p-2 bg-blue-100 rounded-md">
+                                <User className="w-4 h-4 lg:w-4 lg:h-4 text-blue-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
-        <p className="text-2xl  font-bold text-gray-900">23</p>
-      </div>
-      <div className=" lg:p-2 bg-red-100 rounded-lg">
-        <Calendar className="w-4 h-4 lg:w-4 lg:h-4 text-red-600" />
-      </div>
-    </div>
-  </div>
+                    <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
+                                <p className="text-2xl  font-bold text-gray-900">23</p>
+                            </div>
+                            <div className=" lg:p-2 bg-red-100 rounded-lg">
+                                <Calendar className="w-4 h-4 lg:w-4 lg:h-4 text-red-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Avg Rating</p>
-        <p className="text-2xl font-bold text-gray-900">4.3</p>
-      </div>
-      <div className=" lg:p-2 bg-yellow-100 rounded-lg">
-        <Star className="w-4 h-4 lg:w-4 lg:h-4 text-yellow-600" />
-      </div>
-    </div>
-  </div>
+                    <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+                                <p className="text-2xl font-bold text-gray-900">4.3</p>
+                            </div>
+                            <div className=" lg:p-2 bg-yellow-100 rounded-lg">
+                                <Star className="w-4 h-4 lg:w-4 lg:h-4 text-yellow-600" />
+                            </div>
+                        </div>
+                    </div>
 
-  <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-sm font-medium text-gray-600">Completed</p>
-        <p className="text-2xl  font-bold text-gray-900">89%</p>
-      </div>
-      <div className=" lg:p-2 bg-green-100 rounded-lg">
-        <TrendingUp className="w-4 h-4 lg:w-4 lg:h-4 text-green-600" />
-      </div>
-    </div>
-  </div>
-</div>
+                    <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600">Completed</p>
+                                <p className="text-2xl  font-bold text-gray-900">89%</p>
+                            </div>
+                            <div className=" lg:p-2 bg-green-100 rounded-lg">
+                                <TrendingUp className="w-4 h-4 lg:w-4 lg:h-4 text-green-600" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Employee List with Search */}
                 <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
-  <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
-    {/* Search Input */}
-    <div className="w-full  md:max-w-md">
-      <SearchInput
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Search employees name, position, or department..."
-      />
-    </div>
+                    <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+                        {/* Search Input */}
+                        <div className="w-full  md:max-w-md">
+                            <SearchInput
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                placeholder="Search employees name, position, or department..."
+                            />
+                        </div>
 
-    {/* New Appraisal Button */}
-    <div className="w-100 md:w-auto">
-      <button
-        onClick={() => {
-          setShowAppraisalModal(true)
-          setModalMode("create")
-        }}
-        className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
-      >
-        <Plus className="w-4 h-4" />
-        New Appraisal
-      </button>
-    </div>
-  </div>
+                        {/* New Appraisal Button */}
+                        <div className="w-100 md:w-auto">
+                            <button
+                                onClick={() => {
+                                    setShowAppraisalModal(true)
+                                    setModalMode("create")
+                                }}
+                                className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
+                            >
+                                <Plus className="w-4 h-4" />
+                                New Appraisal
+                            </button>
+                        </div>
+                    </div>
 
 
 
@@ -599,12 +600,12 @@ const HRMAppraisalSystem = () => {
                                 {filteredEmployees.map((employee) => (
                                     <tr key={employee.id}>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                        
-                                                <div className="ml-4">
-                                                    <div className="text-sm font-medium text-gray-900">{employee.name}</div>
-                                                    <div className="text-sm text-gray-500">{employee.department}</div>
-                                                </div>
-                                            
+
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium text-gray-900">{employee.name}</div>
+                                                <div className="text-sm text-gray-500">{employee.department}</div>
+                                            </div>
+
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.position}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -668,20 +669,20 @@ const HRMAppraisalSystem = () => {
                 </button>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <div>
-                            <h2 className="text-xl font-semibold text-gray-900">{selectedEmployee.name}</h2>
-                            <p className="text-gray-600">
-                                {selectedEmployee.position} • {selectedEmployee.department}
-                            </p>
-                            <div className="flex items-center gap-2 mt-2">
-                                <span
-                                    className={`inline-flex px-2 py-1 text-xs font-semibold rounded-md ${getStatusColor(selectedEmployee.status)}`}
-                                >
-                                    {selectedEmployee.status}
-                                </span>
-                                <span className="text-sm text-gray-500">Last Appraisal: {selectedEmployee.lastAppraisal}</span>
-                            </div>
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-900">{selectedEmployee.name}</h2>
+                        <p className="text-gray-600">
+                            {selectedEmployee.position} • {selectedEmployee.department}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                            <span
+                                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-md ${getStatusColor(selectedEmployee.status)}`}
+                            >
+                                {selectedEmployee.status}
+                            </span>
+                            <span className="text-sm text-gray-500">Last Appraisal: {selectedEmployee.lastAppraisal}</span>
                         </div>
+                    </div>
 
                     <div className="space-y-8">
                         <h3 className="text-lg font-semibold text-gray-900">Performance Evaluation</h3>
@@ -778,7 +779,7 @@ const HRMAppraisalSystem = () => {
                                                 setModalMode("view")
                                             }}
                                         >
-                                           
+
                                             <div className="flex-1">
                                                 <div className="font-medium text-gray-900">{employee.name}</div>
                                                 <div className="text-sm text-gray-500">
@@ -823,21 +824,21 @@ const HRMAppraisalSystem = () => {
                                     >
                                         <ArrowLeft className="w-5 h-5" />
                                     </button>
-                                    
-                                        <div>
-                                            <h2 className="text-xl font-semibold text-gray-900">{modalEmployee.name}</h2>
-                                            <p className="text-gray-600">
-                                                {modalEmployee.position} • {modalEmployee.department}
-                                            </p>
-                                            <div className="flex items-center gap-2 mt-2">
-                                                <span
-                                                    className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(modalEmployee.status)}`}
-                                                >
-                                                    {modalEmployee.status}
-                                                </span>
-                                                <span className="text-sm text-gray-500">Last Appraisal: {modalEmployee.lastAppraisal}</span>
-                                            </div>
+
+                                    <div>
+                                        <h2 className="text-xl font-semibold text-gray-900">{modalEmployee.name}</h2>
+                                        <p className="text-gray-600">
+                                            {modalEmployee.position} • {modalEmployee.department}
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <span
+                                                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(modalEmployee.status)}`}
+                                            >
+                                                {modalEmployee.status}
+                                            </span>
+                                            <span className="text-sm text-gray-500">Last Appraisal: {modalEmployee.lastAppraisal}</span>
                                         </div>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-8">
@@ -1031,14 +1032,26 @@ const HRMAppraisalSystem = () => {
     ])
 
     return (
-        <div className="min-h-screen  ">
+        <div className=" ">
             {/* Header */}
             <header className=" border-gray-200 ">
-                <div className="max-w-full py-3 px-2">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                           
+                <div className="max-w-full  px-2">
+                    <div className="">
+                        <div className="flex justify-between items-center gap-3">
+
+                            {activeTab !== "reports" &&(
                             <h1 className=" text-black" style={FONTS.header}> Appraisal </h1>
+
+                            )}
+                            {activeTab !== "reports" && (
+                                <button
+                                    className="text-white bg-[#006666] px-3 py-1 rounded-md"
+                                    onClick={() => setActiveTab("reports")}
+                                >
+                                    Reports
+                                </button>
+                            )}
+
                         </div>
                     </div>
                 </div>
@@ -1048,6 +1061,7 @@ const HRMAppraisalSystem = () => {
             <main className="max-w-full py-8">
                 {activeTab === "dashboard" && Dashboard}
                 {activeTab === "appraisal" && AppraisalView}
+                {activeTab === "reports" && <Reports setActiveTab={setActiveTab} />}
             </main>
 
             {/* Appraisal Modal */}
