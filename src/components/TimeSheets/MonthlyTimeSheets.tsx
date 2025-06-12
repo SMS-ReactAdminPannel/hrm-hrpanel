@@ -49,9 +49,9 @@ const MonthlyTimeSheets = ({ timesheet }: MonthlyTimeSheetsProps) => {
     <div className="py-5 overflow-x-auto" style={{ fontFamily: FONTS.paragraph.fontFamily }}>
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse text-sm shadow-lg">
-          <thead className="bg-[#006666] text-white">
+          <thead className="bg-[#6f70ce] text-white">
             <tr>
-              <th className="sticky left-0 bg-[#006666] px-4 py-3 text-left min-w-[200px] border-r border-[#006666]">
+              <th className="sticky left-0 bg-[#6f70ce] px-4 py-3 text-left min-w-[200px] border-r border-[#6f70ce]">
                 <input
                   type="text"
                   placeholder="Search by name..."
@@ -61,8 +61,8 @@ const MonthlyTimeSheets = ({ timesheet }: MonthlyTimeSheetsProps) => {
                 />
               </th>
               {days.map(({ day, weekday }) => (
-                <th key={day} className="px-3 text-center whitespace-nowrap">
-                  {day} <br />({weekday})
+                <th key={day} className="px-3 text-center">
+                  {day} <br /><span className='text-gray-700 text-[10px]'>{weekday}</span>
                 </th>
               ))}
             </tr>

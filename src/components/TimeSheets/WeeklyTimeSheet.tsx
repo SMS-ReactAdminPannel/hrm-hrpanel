@@ -38,7 +38,7 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
     <div className="py-5">
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse text-sm shadow-lg">
-          <thead className="bg-[#006666] text-white">
+          <thead className="bg-[#6f70ce] text-white">
             <tr>
               <th className="p-3 text-left">
                 <input
