@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { Plus, Users, Trash2, X } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 type Employee = {
   id: string
@@ -14,7 +15,6 @@ type Department = {
   name: string
   description: string
   subDescription: string
-  image: string
   employeeCount: number
   employees: Employee[]
 }
@@ -30,7 +30,6 @@ const DepartmentList: React.FC = () => {
       name: "Human Resources",
       description: "Managing talent and organizational culture",
       subDescription: "Recruitment, employee relations, and HR policies",
-      image: "/placeholder.svg",
       employeeCount: 2,
       employees: [
         { id: "1", name: "Alice", role: "HR Manager" },
@@ -42,7 +41,6 @@ const DepartmentList: React.FC = () => {
       name: "Engineering",
       description: "Building innovative technology solutions",
       subDescription: "Software development, architecture, and technical leadership",
-      image: "/placeholder.svg",
       employeeCount: 3,
       employees: [
         { id: "1", name: "Charlie", role: "Frontend Developer" },
@@ -55,7 +53,6 @@ const DepartmentList: React.FC = () => {
       name: "Sales",
       description: "Driving revenue and customer relationships",
       subDescription: "Business development, client management, and growth strategies",
-      image: "/placeholder.svg",
       employeeCount: 0,
       employees: [],
     },
@@ -64,7 +61,6 @@ const DepartmentList: React.FC = () => {
       name: "Marketing",
       description: "Promoting brand and driving user acquisition",
       subDescription: "Content, campaigns, and market research",
-      image: "/placeholder.svg?height=200&width=300",
       employeeCount: 2,
       employees: [
         { id: "1", name: "Fiona", role: "Content Strategist" },
@@ -76,7 +72,6 @@ const DepartmentList: React.FC = () => {
       name: "Finance",
       description: "Managing budgets and financial planning",
       subDescription: "Accounting, payroll, and forecasting",
-      image: "/placeholder.svg?height=200&width=300",
       employeeCount: 1,
       employees: [
         { id: "1", name: "Helen", role: "Finance Manager" },
@@ -87,7 +82,6 @@ const DepartmentList: React.FC = () => {
       name: "Customer Support",
       description: "Assisting users and resolving queries",
       subDescription: "Support tickets, live chat, and helpdesk",
-      image: "/placeholder.svg?height=200&width=300",
       employeeCount: 3,
       employees: [
         { id: "1", name: "Ian", role: "Support Agent" },
@@ -96,6 +90,8 @@ const DepartmentList: React.FC = () => {
       ],
     },
   ])
+
+  const navigate = useNavigate()
 
   const handleCreateDepartment = () => {
     const trimmedName = newDeptName.trim()
@@ -120,7 +116,6 @@ const DepartmentList: React.FC = () => {
       name: trimmedName,
       description: trimmedDesc,
       subDescription: trimmedSubDesc,
-      image: "/placeholder.svg",
       employees: [],
       employeeCount: 0,
     }
@@ -138,46 +133,53 @@ const DepartmentList: React.FC = () => {
   }
 
   const handleCardClick = (departmentId: string) => {
-    alert(`Navigate to: /departments/${departmentId}/employees`) // Replace with actual routing logic if needed
+    navigate(`/departments/${departmentId}/employees`)
   }
+
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
 
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-  {/* Heading Section */}
-  <div>
-    <h1 className="text-4xl font-bold text-white">Departments</h1>
-    <p className="text-white/80">Manage your organization's departments</p>
-  </div>
-
-  {/* Create Button */}
-  <button
-    onClick={() => setIsCreateModalOpen(true)}
-    className="ml-auto flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow transition hover:bg-blue-700"
-  >
-    <Plus className="h-5 w-5" />
-    Create Department
-  </button>
-</div>
+        <div className="relative mb-8">
+          <div className="text-left">
+            <h1 className="text-4xl font-bold text-white">Departments</h1>
+            <p className="text-white/80">Manage your organization's departments</p>
+          </div>
+          <div className="absolute top-0 right-0">
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow transition hover:bg-blue-700"
+            >
+              <Plus className="h-5 w-5" />
+              Create Department
+            </button>
+          </div>
+        </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {departments.map((dept) => (
             <div
               key={dept.id}
               onClick={() => handleCardClick(dept.id)}
-              className="group bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition transform hover:scale-105 cursor-pointer"
+              className="group bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition cursor-pointer"
             >
-              <div className="relative">
-                <img src={dept.image} alt={dept.name} className="w-full h-48 object-cover" />
-                <div className="absolute right-3 top-3">
-                  <button
-                    onClick={(e) => handleDeleteDepartment(dept.id, e)}
-                    className="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
+              {/* Icon Header Instead of Image */}
+              <div className="relative bg-blue-100 p-6 flex justify-between items-start">
+                <div className="bg-blue-500 text-white font-bold rounded-full w-12 h-12 flex items-center justify-center text-lg shadow">
+                  {getInitials(dept.name)}
                 </div>
+                <button
+                  onClick={(e) => handleDeleteDepartment(dept.id, e)}
+                  className="bg-red-400 hover:bg-red-300 text-white rounded-full p-2 shadow"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-slate-800 mb-2">{dept.name}</h3>
