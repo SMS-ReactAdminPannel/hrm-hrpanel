@@ -4,7 +4,7 @@ import {
   Star, MapPin, Briefcase, GraduationCap
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import CandidateDetailPage from "./Candidatesdetailpage"
+// import CandidateDetailPage from "./Candidatesdetailpage"
 
 // Simple utility components built with TailwindCSS
 const Card = ({ children }: { children: React.ReactNode }) => <div className="bg-white rounded-xl shadow-sm border p-4">{children}</div>

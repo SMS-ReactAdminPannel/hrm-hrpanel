@@ -135,7 +135,7 @@ export default function RecruitmentPipeline() {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold">Recruitments</h1>
-        <Button className="bg-red-500 text-white" onClick={() => setIsModalOpen(true)}>
+        <Button className=" text-white" onClick={() => setIsModalOpen(true)}>
           + Recruitment
         </Button>
       </div>
@@ -438,9 +438,9 @@ export default function RecruitmentPipeline() {
                     )}
                   </h2>
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6">
-                      <Avatar />
-                    </div>
+                    {/* <div className="w-6 h-6"> */}
+                      <h1>HR</h1>
+                    {/* </div> */}
                     <Button>+</Button>
                   </div>
                 </div>

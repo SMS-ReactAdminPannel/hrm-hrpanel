@@ -1,6 +1,7 @@
 import React from "react";
 import type { Grievance } from "../../../pages/GrievanceManagement/GrievanceManagement";
 import { ArrowLeft } from "lucide-react";
+import { FONTS } from "../../../constants/uiConstants";
 
 type Props = {
   grievance: Grievance;
@@ -14,18 +15,21 @@ export const GrievanceDetailCard: React.FC<Props> = ({
   onMarkSolved,
 }) => {
   return (
-    <div className="flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-md">
+    <div className="px-8 py-8 flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-md ">
       
       <button
         onClick={onClose}
-        className="flex items-center text-[#006666] text-sm font-medium mb-6 hover:underline w-fit"
+        className="flex items-center  text-green text-sm 
+        font-medium mb-6 hover:underline w-fit  rounded  "
+        style={{fontSize:FONTS.header3.fontSize}}
       >
-        <ArrowLeft className="mr-2" size={18} />
-        Back
+        <ArrowLeft className="mr-2" size={25} />
+       
       </button>
 
     
-      <h2 className="text-xl font-bold text-[#006666] mb-2">{grievance.title}</h2>
+      <h2 className="text-xl font-bold text-[#006666] mb-2"
+      style={{fontSize:FONTS.header.fontSize}}>{grievance.title}</h2>
 
     
       <span
@@ -39,12 +43,15 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       </span>
 
 
-<h3 className="text-sm font-semibold text-gray-800 mb-1">Issue Description:</h3>
-<p className="text-gray-700 mb-6 whitespace-pre-line">{grievance.description}</p>
+<h3 className="text-sm font-semibold text-gray-800 mb-2"
+style={{fontSize:FONTS.header3.fontSize}}>Issue Description:</h3>
+<p className="text-gray-700 mb-3 whitespace-pre-line"
+style={{fontSize:FONTS.paragraph.fontSize}}>{grievance.description}</p>
 
 
       
-      <div className="text-sm text-gray-600 space-y-1 mb-4">
+      <div className="text-sm text-gray-600 space-y-1 mb-4 "
+        style={{ fontSize: FONTS.paragraph.fontSize }}>
         <p><strong>Employee:</strong> {grievance.employee}</p>
         <p><strong>Employee ID:</strong> {grievance.empid}</p>
         <p><strong>Mail ID:</strong> {grievance.mail}</p>

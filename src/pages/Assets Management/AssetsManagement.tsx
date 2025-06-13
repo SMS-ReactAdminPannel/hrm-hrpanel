@@ -232,6 +232,7 @@ const AssetsManagement: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+  
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [assets, setAssets] = useState<Asset[]>([
@@ -710,7 +711,7 @@ const AssetsManagement: React.FC = () => {
         <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full bg-[#eff4f5]">
-              <thead className="bg-[#006666] text-white">
+              <thead className="bg-[#6f70ce] text-white">
                 <tr>
                   <th className="text-left px-6 py-4 font-md">Asset Details</th>
                   <th className="text-left px-6 py-4 font-md">Assigned To</th>
