@@ -1,6 +1,6 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
-import { X, Calendar, ChevronDown } from "lucide-react"
+import { X, ChevronDown } from "lucide-react"
 
 interface Asset {
   id: string

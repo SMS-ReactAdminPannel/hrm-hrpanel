@@ -48,6 +48,25 @@ class Client {
 
     },
 
+    assetcategory:{
+      createasset:(data:any)=>
+        httpClient.post(API_END_POINTS.assetcategory.createasset,data),
+
+      getasset:(assetId: string,data:any)=>
+        httpClient.get(API_END_POINTS.assetcategory.getasset(assetId), data),
+
+      getallasset:()=>
+        httpClient.get(API_END_POINTS.assetcategory.getallasset),
+
+      updateasset: (assetId: string, data: any) =>
+       httpClient.update(API_END_POINTS.assetcategory.updateasset(assetId), data),
+
+      deleteasset: (assetId: string) =>
+      httpClient.delete(API_END_POINTS.assetcategory.deleteasset(assetId))
+
+
+    }
+
   };
 }
 

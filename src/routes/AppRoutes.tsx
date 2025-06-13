@@ -44,6 +44,7 @@ import CandidatesPage from "../pages/Recuritment/Candidates";
 
 
 
+
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
@@ -80,7 +81,6 @@ const AppRoutes = () => {
           <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitor-management" element={<VisitorManagementSystem />}/>
-          <Route path="/" element={<CandidatesPage />} />
           <Route path="candidates" element={<CandidateDetailPage />} />
           <Route path="/candidatelists" element={<CandidatesPage />} />
       <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
@@ -88,14 +88,14 @@ const AppRoutes = () => {
       <Route path="/departments" element={<DepartmentList />} />
         </Route>
       ) : (
-        <>
-          <Route path="/login" element={<LoginPage />} />
+        <Route path="/">
+          <Route index path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           
           {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-        </>
+        </Route>
       )}
           
     </Routes>

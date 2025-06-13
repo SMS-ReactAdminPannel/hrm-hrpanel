@@ -3,12 +3,12 @@ import { useState, type JSX } from "react"
 import { Link, useLocation } from "react-router-dom"
 import {
   FiHome, FiUsers, FiChevronDown, FiChevronRight,
-  FiUserCheck, FiPower, FiMenu
+  FiUserCheck, FiMenu
 } from "react-icons/fi"
 import { AiOutlineIssuesClose } from "react-icons/ai"
 import {
-  RiMenu2Line,
-  RiMenu3Line,
+  // RiMenu2Line,
+  // RiMenu3Line,
   RiUserSearchLine,
   RiMoneyDollarCircleLine,
   RiTimeLine,
@@ -21,9 +21,9 @@ import { GrAnnounce } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { GiLaptop } from "react-icons/gi";
-import { FaUserTimes } from "react-icons/fa";
+// import { FaUserTimes } from "react-icons/fa";
 import { MdOutlineSick } from "react-icons/md";
-import { TbReportSearch } from "react-icons/tb";
+// import { TbReportSearch } from "react-icons/tb";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 
 
@@ -49,10 +49,10 @@ const SideBar = ({
     setIsOpen(!isOpen)
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken")
-    localStorage.removeItem("userEmail")
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem("authToken")
+  //   localStorage.removeItem("userEmail")
+  // }
 
   return (
     <div
@@ -121,7 +121,7 @@ const SideBar = ({
           <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/deduction" icon={<MdMoneyOffCsred />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/training-management" icon={<AiOutlineIssuesClose />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
            <SidebarLink to="/candidatelists" icon={<AiOutlineIssuesClose />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} />
             <SidebarLink to="/chat" icon={<AiOutlineIssuesClose />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />

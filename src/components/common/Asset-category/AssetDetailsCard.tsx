@@ -70,11 +70,6 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
       <div ref={modalRef} className="bg-white rounded-md shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-[#006666] to-[#008080]">
           <div className="flex items-center gap-4">
-            {/* <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold ${asset.avatarBg}`}
-            >
-              {asset.avatar}
-            </div> */}
             <div>
               <h2 className="text-xl font-bold text-white">{asset.name}</h2>
               <p className="text-white/80 text-sm">Asset Details</p>

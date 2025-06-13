@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, type JSX } from 'react';
 import { Search, Star, Moon, Bell } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../pages/auth/AuthContext';
 
 
 export default function Navbar() {
@@ -12,6 +13,7 @@ export default function Navbar() {
   const bookmarkRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+  const {logout} = useAuth()
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -39,6 +41,11 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 const navigate = useNavigate()
+
+const handleLogout = ()=>{
+    logout()
+    navigate('/login')
+}
 
 
   return (
@@ -179,7 +186,7 @@ const navigate = useNavigate()
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">My Profile</div>
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Inbox</div>
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Settings</div>
-              <div className="px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-100 font-medium">Log Out</div>
+              <div className="px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-100 font-medium" onClick={handleLogout}>Log Out</div>
             </div>
           )}
         </div>
