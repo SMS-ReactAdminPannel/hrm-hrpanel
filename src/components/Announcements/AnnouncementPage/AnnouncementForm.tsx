@@ -17,8 +17,8 @@ type Props = {
 
 const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, onClose, isEditing }) => {
   return (
-   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-  <div className="border w-full max-w-xl rounded-lg p-6 shadow-lg relative backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-clip-padding animate-fade-in">
+   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50  ">
+  <div className="border w-full max-w-xl rounded-lg p-6 shadow-lg relative backdrop-filter bg-[#]  backdrop-blur bg-opacity-10 backdrop-saturate-100 shadow-2xl max-h-[90vh] overflow-y-autobackdrop-contrast-100 bg-clip-padding animate-fade-in ">
     <h2 className="text-xl font-semibold text-white mb-4">
       {isEditing ? "Edit Announcement" : "Add New Announcement"}
     </h2>
