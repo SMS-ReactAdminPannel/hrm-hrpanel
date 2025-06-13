@@ -146,39 +146,46 @@ const fetchGrievances = async () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6"
-         style={{fontFamily:FONTS.header.fontFamily,
-          fontSize:FONTS.header.fontSize,
-
-         }}>
+    <div className="h-[100%] ">
+      <div className="h-screen w-[80%]  overflow-hidden flex flex-col p-6 fixed">
+        
+        <h1
+          className="text-black mb-3"
+          style={{ 
+            fontFamily: FONTS.header.fontFamily,
+            fontSize: FONTS.header.fontSize,
+          }}
+        >
           Grievances
         </h1>
-          {/* ALL , UNSOLVED AND SOLVED NAVBAR  */}
-        <div className="flex space-x-4 mb-6">
+
+       
+        <div className="flex space-x-4 mb-4">
           {(["all", "unsolved", "solved"] as const).map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
-              style={{fontFamily:FONTS.header.fontFamily,
-                      fontSize:FONTS.paragraph.fontSize
+              style={{
+                fontFamily: FONTS.header.fontFamily,
+                fontSize: FONTS.paragraph.fontSize,
               }}
-              className={`px-4 py-2 bg-red-200 rounded-full font-medium
-                 capitalize  transition-all duration-200 text-sm ${
-                filter === status
-                ? " text-black backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
-                : "text-[#006666]  hover:bg-gray-400 hover:text-white"
-              }`}
+              className={`px-4 py-2 bg-red-200 rounded-full font-medium capitalize transition-all duration-200 text-sm ${filter === status
+                  ? "text-black backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
+                  : "text-[#006666] hover:bg-gray-400 hover:text-white"
+                }`}
             >
               {status}
             </button>
           ))}
         </div>
 
-        <div className="flex gap-6 backdrop-blur-md backdrop-saturate-150 backdrop-contrast-100">
-          {/* Grievance List Panel */}
-          <div className={`w-full ${selectedGrievance ? 'w-1/2' : 'w-full'} transition-all duration-300`}>
+        
+        <div className="flex flex-1 gap-6 backdrop-blur-md backdrop-saturate-150 backdrop-contrast-100 ">
+         
+          <div
+            className={` ${selectedGrievance ? "w-1/2 h-[50%]" : "w-1/2  h-[10%]"
+              } h-[66%] overflow-y-auto pr-4`}
+          >
             <div className="space-y-2">
               {filteredGrievances.length === 0 ? (
                 <p className="text-center text-gray-400 mt-8">No grievances to show.</p>
@@ -187,7 +194,6 @@ const fetchGrievances = async () => {
                   <div
                     key={grievance.id}
                     onClick={() => setSelectedGrievance(grievance)}
-                    className="cursor-pointer"
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontSize: FONTS.header3.fontSize,
@@ -200,10 +206,10 @@ const fetchGrievances = async () => {
             </div>
           </div>
 
-          {/* Grievance Detail Panel - Show only if one is selected */}
+          {/* Grievance Detail */}
           {selectedGrievance && (
             <div
-              className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6 transition-all duration-300"
+              className="w-1/2 h-[66%] overflow-hidden bg-[#fef7f4] border-l border-[#ecdcd7]  "
               style={{ fontSize: FONTS.paragraph.fontSize }}
             >
               <GrievanceDetailCard
@@ -214,8 +220,8 @@ const fetchGrievances = async () => {
             </div>
           )}
         </div>
-
       </div>
+
     </div>
   );
 };
