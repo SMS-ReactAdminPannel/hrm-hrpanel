@@ -1,5 +1,3 @@
-
-
 export const API_END_POINTS = {
   timesheet: {
     postclockin: "/api/hr/timesheet/clock-in",
@@ -24,6 +22,16 @@ export const API_END_POINTS = {
     createcandidates:"/api/hr/candidates/create",
     getallcandidates:"/api/hr/candidates/getall",
     patchstatus:(id:string)=>`/api/hr/candidates/${id}/status`
+  },
+  asset: {
+    getAllAssets: "/api/asset/all",
+    getAssetById: (id: string) => `/api/asset/${id}`,
+    createAsset: "/api/asset/create",
+    updateAsset: (id: string) => `/api/asset/update/${id}`,
+    deleteAsset: (id: string) => `/api/asset/delete/${id}`,
+  },
+  department : {
+    getAll:  "/api/department/all",
   }
 };
 
