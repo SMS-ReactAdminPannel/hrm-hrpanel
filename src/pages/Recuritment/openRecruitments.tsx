@@ -295,15 +295,16 @@ export default function OpenRecruitments() {
 
       {showCreateModal && (
         <div className="fixed inset-0 z-10 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative max-h-[90vh] overflow-y-auto
+          backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
             <button
-              className="absolute top-4 right-4 text-gray-700 hover:text-red-500 text-2xl z-20"
+              className="absolute top-4 right-4 text-gray-300 hover:text-white text-2xl z-20"
               onClick={() => setShowCreateModal(false)}
             >
               &times;
             </button>
 
-            <h2 className="text-xl font-bold mb-6">Create Job Posting</h2>
+            <h2 className="text-xl font-bold mb-6 text-white">Create Job Posting</h2>
 
             <form
               className="space-y-4"
@@ -316,7 +317,7 @@ export default function OpenRecruitments() {
             >
               {/* Company Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Company Name *</label>
+                <label className="block text-sm font-medium text-white mb-1">Company Name *</label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -327,7 +328,7 @@ export default function OpenRecruitments() {
 
               {/* Job Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
+                <label className="block text-sm font-medium text-white mb-1">Job Title *</label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -350,19 +351,19 @@ export default function OpenRecruitments() {
 
               {/* Job Roles */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Job Roles/Skills *</label>
+                <label className="block text-sm font-medium text-white mb-1">Job Roles/Skills *</label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Django Dev, Training Coordinator (comma separated)"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">Separate multiple roles with commas</p>
+                <p className="text-xs text-white mt-1">Separate multiple roles with commas</p>
               </div>
 
               {/* Capacity */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Capacity *</label>
+                <label className="block text-sm font-medium text-white mb-1">Capacity *</label>
                 <input
                   type="number"
                   min="1"
@@ -374,7 +375,7 @@ export default function OpenRecruitments() {
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Job Description *</label>
+                <label className="block text-sm font-medium text-white mb-1">Job Description *</label>
                 <textarea
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={4}
@@ -385,7 +386,7 @@ export default function OpenRecruitments() {
 
               {/* Location */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <label className="block text-sm font-medium text-white mb-1">Location</label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -396,7 +397,7 @@ export default function OpenRecruitments() {
               {/* Salary Range */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Min Salary</label>
+                  <label className="block text-sm font-medium text-white mb-1">Min Salary</label>
                   <input
                     type="number"
                     className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -404,7 +405,7 @@ export default function OpenRecruitments() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Max Salary</label>
+                  <label className="block text-sm font-medium text-white mb-1">Max Salary</label>
                   <input
                     type="number"
                     className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"

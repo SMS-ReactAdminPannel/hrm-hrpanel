@@ -61,10 +61,10 @@ const navigate = useNavigate()
         </div>
 
         <div className="relative" ref={bookmarkRef}>
-          <IconButton
+          {/* <IconButton
             icon={<Star className="w-5 h-5 text-gray-600" />}
             onClick={() => setShowBookmark((prev) => !prev)}
-          />
+          /> */}
           {showBookmark && (
             <div className="absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-xl p-4 z-50">
               <h3 className="font-semibold text-lg mb-3 text-center">Bookmark</h3>
@@ -81,7 +81,7 @@ const navigate = useNavigate()
         </div>
 
         
-        <IconButton icon={<Moon className="w-5 h-5 text-gray-600" />} />
+        {/* <IconButton icon={<Moon className="w-5 h-5 text-gray-600" />} /> */}
        
         <div className="relative" ref={notificationRef}>
           <div
@@ -177,8 +177,8 @@ const navigate = useNavigate()
           {showProfileMenu && (
             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-50 py-2">
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">My Profile</div>
-              <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Inbox</div>
-              <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Settings</div>
+              {/* <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Inbox</div> */}
+              {/* <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Settings</div> */}
               <div className="px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-100 font-medium">Log Out</div>
             </div>
           )}

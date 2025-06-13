@@ -1,5 +1,5 @@
 import { useState } from "react"
-import type { Employee } from "./employee"
+import type { Employee } from "./employe_interface"
 import { Dropdown, DropdownItem } from "./dropdown"
 import { AlertDialog } from "./alert-dialogue"
 import { MoreVertical, Edit, Trash2, Mail, Phone, ChevronDown, ChevronRight } from "lucide-react"

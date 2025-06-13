@@ -184,7 +184,9 @@ const DepartmentList: React.FC = () => {
 
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative
+          backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100
+          border border-white">
             <button
               onClick={() => setIsCreateModalOpen(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
@@ -224,7 +226,7 @@ const DepartmentList: React.FC = () => {
               </button>
               <button
                 onClick={handleCreateDepartment}
-                className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 text-sm bg-[#006666]  text-white rounded "
               >
                 Create
               </button>

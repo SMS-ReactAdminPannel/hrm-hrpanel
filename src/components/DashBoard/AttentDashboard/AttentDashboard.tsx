@@ -9,8 +9,10 @@ import { CardForProcessBar } from "./Charts/CardsForProcessBar";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { FaExclamation } from "react-icons/fa";
+import { FONTS } from "../../../constants/uiConstants";
 
-const AttentDashboard = () => {
+const 
+AttentDashboard = () => {
   return (
     <div className="flex bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
       {/* Main content */}
@@ -19,23 +21,26 @@ const AttentDashboard = () => {
         <div className="flex justify-between  p-4">
           <div className="flex-1 flex flex-col">
             <div className="mb-14">
-              <h1 className="text-xl text-black font-semibold">Attendance</h1>
-              <p className=" text-sm ">
+              <h1 className="text-xl text-black font-semibold mb-3"
+              style={{fontSize:FONTS.header2.fontSize}}>Attendance</h1>
+              <p className=" text-sm "
+                style={{ fontSize: FONTS.header3.fontSize }}>
                 Weekly Attendance Overview
               </p>
             </div>
             <div>
-              <p className="text-md text-black">Total Employees</p>
+              <p className="text-md text-black"
+              style={{fontSize:FONTS.paragraph.fontSize}}>Total Employees</p>
               <p className="text-lg font-semibold">234k</p>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 ">
             <StackBar />
           </div>
         </div>
 
         {/* Bottom Card */}
-        <div className="flex justify-around p-4">
+        <div className="flex justify-around p-4 ">
           <CardForProcessBar
             icon={<RxCross2 />}
             title="Absent"
