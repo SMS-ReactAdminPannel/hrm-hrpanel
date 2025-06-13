@@ -4,7 +4,7 @@ import axios from "axios";
  const backEndUrl: string = 'http://localhost:3002'
 const Axios = axios.create({
     baseURL:backEndUrl,
-    timeout:50000000,
+    timeout:5000000,
     headers:{
         "Content-Type":"application/json",
     }
