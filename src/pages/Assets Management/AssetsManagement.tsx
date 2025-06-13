@@ -578,16 +578,17 @@ const AssetsManagement: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen py-5 px-5">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br 
+        from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
         
       </div>
 
       <div className="relative max-w-full ">
   
-        <div className="mb-6">
-          <h1 className=" text-[black] leading-relaxed" style={FONTS.header}>
+        <div className="mb-5">
+          <h1 className=" text-[black] leading-relaxed " style={FONTS.header}>
             Asset 
           </h1>
 
@@ -595,25 +596,28 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         
-        <div className="mb-8 flex flex-row  gap-4">
+        <div className="mb-6 flex flex-row  gap-4">
           <div className="relative max-w-2xl">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 " />
             <input
             required
               type="text"
               placeholder="Search assets, assignees, or serial numbers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-[250px] pl-10 pr-4 py-2 bg-[#eff4f5]  border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
+              className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-[#eff4f5]  placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+
             />
           </div>
 
           <div className="flex gap-3 ml-auto">
             <div className="relative" ref={categoryDropdownRef}>
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5 z-10 " />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg 
+                focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer 
+                 text-sm transition-all duration-200 flex items-center justify-between min-w-[180px]"
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
@@ -651,21 +655,23 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
+               rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-5 h-5 text-sm" />
               Add Asset
             </button>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
+        <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-5">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border
+           border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Total Assets</p>
-                <p className="text-2xl font-bold text-slate-800">{assets.length}</p>
+                <p className="text-xl font-bold text-slate-800">{assets.length}</p>
               </div>
               <Package className="w-8 h-8 text-blue-600" />
             </div>
@@ -674,7 +680,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Active</p>
-                <p className="text-2xl font-bold text-emerald-600">
+                <p className="text-xl font-bold text-emerald-600">
                   {assets.filter((a) => a.status === "active").length}
                 </p>
               </div>
@@ -687,7 +693,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Maintenance</p>
-                <p className="text-2xl font-bold text-amber-600">
+                <p className="text-xl font-bold text-amber-600">
                   {assets.filter((a) => a.status === "maintenance").length}
                 </p>
               </div>
@@ -700,7 +706,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Categories</p>
-                <p className="text-2xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
+                <p className="text-xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
               </div>
               <Filter className="w-8 h-8 text-purple-600" />
             </div>
@@ -708,17 +714,17 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         {/* Assets Table */}
-        <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
+        <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow  overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full bg-[#eff4f5]">
-              <thead className="bg-[#6f70ce] text-white">
+              <thead className="bg-[#006666] text-white">
                 <tr>
-                  <th className="text-left px-6 py-4 font-md">Asset Details</th>
-                  <th className="text-left px-6 py-4 font-md">Assigned To</th>
-                  <th className="text-left px-6 py-4 font-md">Category</th>
-                  <th className="text-left px-6 py-4 font-md">Serial Number</th>
-                  <th className="text-left px-6 py-4 font-md">Status</th>
-                  <th className="text-left px-6 py-4 font-md">Actions</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Asset Details</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Assigned To</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Category</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Serial Number</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Status</th>
+                  <th className="text-left text-sm px-6 py-4 font-md">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -726,7 +732,7 @@ const AssetsManagement: React.FC = () => {
                   <tr
                     key={asset.id}
                     onClick={() => handleRowClick(asset)}
-                    className="border-b border-slate-200/50 transition-all duration-200 group cursor-pointer"
+                    className="border-b border-slate-200/50 transition-all duration-200 group cursor-pointer text-sm"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <td className="px-6 py-4">
@@ -885,12 +891,14 @@ const AssetsManagement: React.FC = () => {
 
 
       {showModal && (
-  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div
       ref={modalRef}
-      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+      className=" rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 
+      transform transition-all duration-300  max-h-[90vh] overflow-y-auto
+       backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-10 backdrop-contrast-100"
     >
-      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
+      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-white mb-6">
         {editingAsset ? "Edit Asset" : "Add New Asset"}
       </h2>
 
@@ -903,7 +911,7 @@ const AssetsManagement: React.FC = () => {
       >
         {/* Asset Name */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Asset Name</label>
+          <label className="block text-sm font-medium text-white mb-2">Asset Name</label>
           <input
             type="text"
             required
@@ -916,7 +924,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Assigned To */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Assigned To</label>
+          <label className="block text-sm font-medium text-white mb-2">Assigned To</label>
           <input
             type="text"
             required
@@ -929,18 +937,18 @@ const AssetsManagement: React.FC = () => {
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
+          <label className="block text-sm font-medium text-white mb-2">Category</label>
           <div className="relative" ref={modalCategoryDropdownRef}>
             <button
               type="button"
               onClick={() => setShowModalCategoryDropdown(!showModalCategoryDropdown)}
-              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
+              className="w-full px-4 py-3 bg-white/70 text-white  border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
             >
               <span className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
                 {newAsset.category || "Select category"}
               </span>
               <svg
-                className={`w-4 h-4 transition-transform duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
+                      className={`w-4 h-4 transition-transform text-white duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -978,7 +986,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Serial Number */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Serial Number</label>
+          <label className="block text-sm font-medium text-white mb-2">Serial Number</label>
           <input
             type="text"
             required
@@ -991,7 +999,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Status */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
+          <label className="block text-sm font-medium text-white mb-2">Status</label>
           <div className="relative" ref={modalStatusDropdownRef}>
             <button
               type="button"
@@ -1018,7 +1026,7 @@ const AssetsManagement: React.FC = () => {
             </button>
 
             {showModalStatusDropdown && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-md shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full text-white left-0 right-0 mt-2 backdrop-blur-sm border border-white/20 rounded-md shadow-xl z-50 overflow-hidden">
                 {(["active", "maintenance", "returned"] as const).map((status) => (
                   <button
                     key={status}
@@ -1052,7 +1060,7 @@ const AssetsManagement: React.FC = () => {
           <button
             type="button"
             onClick={handleCloseModal}
-            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
+            className="flex-1 px-4 py-2  text-white border border-slate-300 text-slate-700 rounded-md hover:scale-105 transition-all font-medium"
           >
             Cancel
           </button>
@@ -1071,8 +1079,9 @@ const AssetsManagement: React.FC = () => {
 
     
       {showDeleteModal && assetToDelete && (
-        <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
+        <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4
+        backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 ">
+          <div className="  rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
             <div className="text-center">
               <div className="w-16 h-16 bg-[#006666] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-[white]" />
@@ -1104,8 +1113,10 @@ const AssetsManagement: React.FC = () => {
 
     
       {showDetailModal && selectedAsset && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-md p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0  backdrop-blur-sm flex items-center justify-center z-50 p-4   backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+          <div className=" backdrop-blur-sm rounded-md p-4 w-full max-w-4xl shadow-2xl
+           border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto
+             backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-teal-600 bg-clip-text text-transparent">
                 Asset Details
@@ -1120,7 +1131,8 @@ const AssetsManagement: React.FC = () => {
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8   backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
+            >
         
               <div className="bg-white/60 rounded-md p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
@@ -1128,38 +1140,44 @@ const AssetsManagement: React.FC = () => {
                     {getCategoryIcon(selectedAsset.category)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-slate-800">Asset Information</h3>
-                    <p className="text-slate-600">Complete asset details</p>
+                    <h3 className="text-xl font-semibold text-slate-800"
+                      style={{ fontSize: FONTS.header2.fontSize }}>Asset Information</h3>
+                    <p className="text-slate-600"
+                      style={{ fontSize: FONTS.paragraph.fontSize }}>Complete asset details</p>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Asset Name</label>
-                      <p className="text-lg font-semibold text-slate-800">{selectedAsset.name}</p>
+                      <label className="text-sm font-sm text-slate-600"
+                        style={{ fontSize: FONTS.header3.fontSize }}>Asset Name</label>
+                      <p className="text-lg font-sm text-slate-800">{selectedAsset.name}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Category</label>
+                      <label className="text-sm font-sm text-slate-600"
+                        style={{ fontSize: FONTS.header3.fontSize }}>Category</label>
                       <div className="flex items-center gap-2 mt-1">
                         {getCategoryIcon(selectedAsset.category)}
-                        <span className="text-slate-800 font-medium">{selectedAsset.category}</span>
+                        <span className="text-slate-800 font-sm">{selectedAsset.category}</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Serial Number</label>
+                      <label className="text-sm font-sm text-slate-600"
+                        style={{ fontSize: FONTS.header3.fontSize }}>Serial Number</label>
                       <code className="block bg-slate-100 px-3 py-2 rounded-md text-sm font-mono text-slate-800 mt-1">
                         {selectedAsset.serialNumber}
                       </code>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-600">Status</label>
+                      <label className="text-sm font-sm text-slate-600"
+                        style={{ fontSize: FONTS.header3.fontSize }}>Status</label>
                       <div className="mt-1">
                         <span
-                          className={`inline-flex px-3 py-1 rounded-md text-xs font-medium border ${getStatusColor(selectedAsset.status)}`}
+                          className={`inline-flex px-3 py-1 rounded-md text-xs font-sm border ${getStatusColor(selectedAsset.status)}`}
                         >
                           {String(selectedAsset.status).charAt(0).toUpperCase() + String(selectedAsset.status).slice(1)}
                         </span>
@@ -1168,7 +1186,8 @@ const AssetsManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-600">Date Added</label>
+                    <label className="text-sm font-sm text-slate-600"
+                      style={{ fontSize: FONTS.header3.fontSize }}>Date Added</label>
                     <p className="text-slate-800 font-medium mt-1">
                       {new Date(selectedAsset.dateAdded).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -1179,7 +1198,8 @@ const AssetsManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-600">Asset ID</label>
+                    <label className="text-sm font-sm text-slate-600"
+                      style={{ fontSize: FONTS.header3.fontSize }}>Asset ID</label>
                     <p className="text-slate-800 font-medium mt-1">#{selectedAsset.id}</p>
                   </div>
                 </div>
@@ -1199,7 +1219,8 @@ const AssetsManagement: React.FC = () => {
                             .join("")}
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Employee Information</h3>
+                          <h3 className="text-xl font-semibold text-slate-800"
+                            style={{ fontSize: FONTS.header2.fontSize }}>Employee Information</h3>
                           <p className="text-slate-600">Assigned user details</p>
                         </div>
                       </div>
@@ -1208,28 +1229,33 @@ const AssetsManagement: React.FC = () => {
                         <div className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Full Name</label>
+                              <label className="text-sm font-sm text-slate-600"
+                                style={{ fontSize: FONTS.header3.fontSize }}>Full Name</label>
                               <p className="text-lg font-semibold text-slate-800">{employee.name}</p>
                             </div>
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Position</label>
-                              <p className="text-slate-800 font-medium">{employee.position}</p>
+                              <label className="text-sm font-sm text-slate-600"
+                                style={{ fontSize: FONTS.header3.fontSize }}>Position</label>
+                              <p className="text-slate-800 font-sm">{employee.position}</p>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Department</label>
-                              <p className="text-slate-800 font-medium">{employee.department}</p>
+                              <label className="text-smfont-sm text-slate-600"
+                                style={{ fontSize: FONTS.header3.fontSize }}>Department</label>
+                              <p className="text-slate-800 font-sm">{employee.department}</p>
                             </div>
                             <div>
-                              <label className="text-sm font-medium text-slate-600">Manager</label>
-                              <p className="text-slate-800 font-medium">{employee.manager}</p>
+                              <label className="text-sm font-sm text-slate-600"
+                                style={{ fontSize: FONTS.header3.fontSize }}>Manager</label>
+                              <p className="text-slate-800 font-sm">{employee.manager}</p>
                             </div>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Email Address</label>
+                            <label className="text-sm font-sm text-slate-600"
+                              style={{ fontSize: FONTS.header3.fontSize }}>Email Address</label>
                             <a
                               href={`mailto:${employee.email}`}
                               className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
@@ -1239,18 +1265,20 @@ const AssetsManagement: React.FC = () => {
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Phone Number</label>
+                            <label className="text-sm font-sm text-slate-600"
+                              style={{ fontSize: FONTS.header3.fontSize }}>Phone Number</label>
                             <a
                               href={`tel:${employee.phone}`}
-                              className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
+                              className="block text-teal-600 hover:text-teal-700 font-sm mt-1"
                             >
                               {employee.phone}
                             </a>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-slate-600">Start Date</label>
-                            <p className="text-slate-800 font-medium mt-1">
+                            <label className="text-sm font-sm text-slate-600"
+                              style={{ fontSize: FONTS.header3.fontSize }}>Start Date</label>
+                            <p className="text-slate-800 font-sm mt-1">
                               {new Date(employee.startDate).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",

@@ -452,71 +452,79 @@ const AdvancedHRMOffboarding = () => {
 
   const renderDashboard = () => (
     <div className="space-y-6">
-      {/* Stats Cards */}
+      {/* Stats Cards  below the navbar*/}
       <div className="grid grid-cols-4 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <div className="bg-gray-200 p-4 rounded-lg border shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Active Exits</p>
-              <p className="text-3xl font-bold text-blue-600">12</p>
+              <p className="text-sm text-gray-600"
+              style={{fontSize:FONTS.header3.fontSize}}>Active Exits</p>
+              <p className="text-3xl font-bold text-blue-600 mt-2">12</p>
             </div>
             <Users className="w-8 h-8 text-blue-600" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <div className="bg-gray-200 p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">This Month</p>
-              <p className="text-3xl font-bold text-orange-600">{exitAnalytics.thisMonth.total}</p>
+              <p className="text-sm text-gray-600"
+                style={{ fontSize: FONTS.header3.fontSize }}>This Month</p>
+              <p className="text-3xl font-bold text-orange-600 mt-2">{exitAnalytics.thisMonth.total}</p>
             </div>
             <Calendar className="w-8 h-8 text-orange-600" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <div className="bg-gray-200 p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Avg Notice Period</p>
-              <p className="text-3xl font-bold text-green-600">{exitAnalytics.thisMonth.avgNoticePeriod}d</p>
+              <p className="text-sm text-gray-600"
+                style={{ fontSize: FONTS.header3.fontSize }}>Avg Notice Period</p>
+              <p className="text-3xl font-bold text-green-600 mt-2 mt-2 mt-2">{exitAnalytics.thisMonth.avgNoticePeriod}d</p>
             </div>
             <Clock className="w-8 h-8 text-green-600" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg border shadow-sm">
+        <div className="bg-gray-200 p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Completed</p>
-              <p className="text-3xl font-bold text-purple-600">45</p>
+              <p className="text-sm text-gray-600"
+                style={{ fontSize: FONTS.header3.fontSize }}>Completed</p>
+              <p className="text-3xl font-bold text-purple-600 mt-2">45</p>
             </div>
             <CheckCircle className="w-8 h-8 text-purple-600" />
           </div>
         </div>
       </div>
 
-      {/* Quick Actions & Recent Activity */}
+      {/*Recent Exit Request */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white p-6 rounded-lg border shadow-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Recent Exit Requests</h3>
+        <div className="lg:col-span-2  p-6 rounded-lg border shadow-sm bg-gray-200 backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+          <div className="flex justify-between items-center mb-4 ">
+            <h3 className="text-lg font-semibold"
+              style={{ fontSize: FONTS.header2.fontSize }}>Recent Exit Requests</h3>
             <button
               onClick={() => setShowNewRequestModal(true)}
               className="bg-[#006666] text-white px-4 py-2 rounded-md flex items-center"
+              style={{fontSize:FONTS.paragraph.fontSize}}
             >
               <Plus className="w-4 h-4 mr-2" />
               New Request
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {filteredRequests.slice(0, 3).map((req) => (
               <div
                 key={req.id}
-                className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
+                className="border rounded-lg p-4 bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                style={{fontSize:FONTS.header3.fontSize}}
                 onClick={() => setSelectedEmployee(req)}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <div className="text-2xl">{req.employee.avatar}</div>
+                    <div className="text-xl">{req.employee.avatar}</div>
                     <div>
-                      <h4 className="font-medium">{req.employee.name}</h4>
+                      <h4 className="font-medium"
+                        style={{ fontSize: FONTS.paragraph.fontSize }}>{req.employee.name}</h4>
                       <p className="text-sm text-gray-500">
                         {req.employee.department} • {req.exitDetails.type}
                       </p>
@@ -544,14 +552,17 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Exit Reasons Full Width Section */}
-      <div className="bg-white p-6 rounded-lg border shadow-sm">
-        <h3 className="text-lg font-semibold mb-4">Exit Reasons Analysis</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="bg-gray-200 p-6 rounded-lg border shadow-sm backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+        <h3 className="text-lg font-semibold mb-4"
+          style={{ fontSize: FONTS.header2.fontSize }}>Exit Reasons Analysis</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {exitAnalytics.topReasons.map((reason, idx) => (
-            <div key={idx} className="border rounded-lg p-4">
+            <div key={idx} className="border rounded-lg p-4 bg-gray-200 hover:bg-gray-300">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-medium">{reason.reason}</span>
-                <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">{reason.count}</span>
+                <span className="font-medium"
+                  style={{ fontSize: FONTS.paragraph.fontSize }}>{reason.reason}</span>
+                <span className="text-sm bg-blue-300 text-blue-800 px-2 py-1 rounded"
+                  style={{ fontSize: FONTS.paragraph.fontSize }}>{reason.count}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
@@ -559,7 +570,8 @@ const AdvancedHRMOffboarding = () => {
                   style={{ width: `${reason.percentage}%` }}
                 ></div>
               </div>
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-gray-500 mt-1"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>
                 <span>{reason.percentage}% of exits</span>
                 <span>#{idx + 1} reason</span>
               </div>
@@ -850,24 +862,26 @@ const AdvancedHRMOffboarding = () => {
       {/* Header */}
       <div className="px-7 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">HRM Offboarding System</h1>
+          <h1 className="text-2xl font-bold text-gray-800"
+          style={{fontSize:FONTS.header.fontSize,fontFamily:FONTS.header.fontFamily}}>HRM Offboarding System</h1>
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+              <Search className="w-4 h-4 absolute left-3 top-3 text-gray-600  " />
               <input
                 type="text"
                 placeholder="Search employees..."
-                className="pl-10 pr-4 py-2 border rounded-lg w-64"
+                className="pl-10 pr-4 py-2 border rounded-lg w-64 bg-gray-200"
                 value={searchQuery}
                 onChange={handleSearch}
+                style={{fontSize:FONTS.paragraph.fontSize}}
               />
             </div>
             <div className="relative" ref={filterRef}>
               <button 
-                className="px-4 py-2.5 bg-white rounded-md"
+                className="px-4 py-2.5 bg-gray-200 rounded-md"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
               >
-                <Filter className="w-5 h-5 text-gray-500" />
+                <Filter className="w-5 h-5 text-gray-600 " />
               </button>
               
               {isFilterOpen && (
@@ -949,20 +963,21 @@ const AdvancedHRMOffboarding = () => {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
+      {/* Navigation Tabs ---------------DASHBOARD,EXIT REQUEST,ANALYTICS*/}
       <div className="px-7">
         <div className="flex space-x-8">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center rounded-md space-x-2 py-4 border-b-2 ${
+              style={{fontSize:FONTS.paragraph.fontSize}}
+              className={`flex items-center rounded-md space-x-2 py-4 border-b-5  ${
                 activeTab === tab.id
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-gray-800"
-              }`}
+                ? "border-blue-600 text-[#0E2148] "
+                  : "border-transparent text-[#0E2148] hover:bg-gray-300"
+              } `}
             >
-              <tab.icon className="w-4 h-4" />
+              <tab.icon className="w-4 h-4"  />
               <span>{tab.label}</span>
             </button>
           ))}

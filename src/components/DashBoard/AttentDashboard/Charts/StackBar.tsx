@@ -81,7 +81,7 @@ const options = {
 
 const StackBar: React.FC = () => {
   return (
-    <div className="w-full h-[250px]">
+    <div className="w-full h-[250px] ">
       <Bar data={data} options={options} />
     </div>
   );

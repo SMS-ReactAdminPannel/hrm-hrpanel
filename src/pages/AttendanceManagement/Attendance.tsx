@@ -5,6 +5,7 @@ import { FaBriefcase } from "react-icons/fa"
 import { IoIosPeople } from "react-icons/io"
 import { MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
+import { FONTS } from "../../constants/uiConstants"
 
 const Attendance: React.FC = () => {
 
@@ -116,9 +117,11 @@ const dummyData: Person[] = [
 
   return (
     
-    <div className=" space-y-6 min-h-screen w-full">
+    <div className=" space-y-6 min-h-screen w-full px-5 py-5">
       <div>
-        <p className="text-3xl font-bold bg-[#006666] bg-clip-text text-transparent mt-2 leading-relaxed pb-1 font-family-poppins">
+        <p className=" font-bold bg-black bg-clip-text text-transparent mt-2 
+        leading-relaxed pb-1 font-family-poppins"
+        style={{fontSize:FONTS.header.fontSize}}>
           Attendance 
         </p>
       </div>
@@ -126,35 +129,35 @@ const dummyData: Person[] = [
         {/* Top Section */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Left: No of Employees Card */}
-          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between ">
+          <div className="flex-1 bg-gray-100 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between ">
             <div>
-              <p className=" text-xl font medium truncate text-gray-500 font-family-poppins  ">No Of Employees</p>
-              <p className="text-lg font-bold text-gray-900">{details.length}</p>
+              <p className=" text-sm font medium truncate text-gray-500 font-family-poppins  ">No Of Employees</p>
+              <p className="text-sm font-bold text-gray-900">{details.length}</p>
             </div>
             <IoIosPeople className="w-10 h-10 text-green-600" />
           </div>
-          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
+          <div className="flex-1 bg-gray-100 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center h-32 justify-between">
             <div>
-              <p className="text-xl font medium truncate text-gray-500 font-family-poppins">Total Duration</p>
-              <p className="text-lg font-bold text-gray-900">9 Hrs</p>
+              <p className="text-sm font medium truncate text-gray-500 font-family-poppins">Total Duration</p>
+              <p className="text-sm font-bold text-gray-900">9 Hrs</p>
             </div>
             <MdTimer className="w-10 h-10 text-red-600" />
           </div>
-          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
+          <div className="flex-1 bg-gray-100 backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between">
   {/* Permission Summary Card */}
-  <div className="cursor-pointer flex justify-between items-center max-w-sm" onClick={() => setIsOpen(true)}>
+  <div className=" cursor-pointer flex justify-between items-center max-w-sm " onClick={() => setIsOpen(true)}>
     <div>
-      <p className="text-gray-600 text-xl">Permission</p>
-      <p className="text-2xl font-bold">{dummyData.length}</p>
+      <p className="text-gray-600 text-sm">Permission</p>
+      <p className="text-xm font-bold">{dummyData.length}</p>
     </div>
     <MdTimer className="w-10 h-10 text-yellow-400 ml-16" />
   </div>
 </div>
           
           {/* Right: Pie Chart with Labels */}
-          <div className="flex-1 bg-white backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
+          <div className="bg-gray-100 flex-1  backdrop-blur-sm rounded-lg p-6 shadow border border-white/20  transition-all duration-200 flex items-center justify-between h-32">
             <div>
-              <p className=" text-gray-600 text-xl mb-1">Attendance</p>
+              <p className=" text-gray-600 text-sm mb-1">Attendance</p>
               <p className="text-green-600">Present: {details.filter((emp) => emp.Status === "Present").length}</p>
               <p className="text-red-500">Absent: {details.filter((emp) => emp.Status === "Absent").length}</p>
             </div>
@@ -184,7 +187,7 @@ const dummyData: Person[] = [
   <div>
     <input
       type="date"
-      className="pw-[250px] pl-8 px-4 py-2 bg-white border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200"
+      className="pw-[250px] pl-8 px-4 py-2 bg-gray-200 border border-white/20 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-teal-500/50 font-family-poppins focus:border-transparent transition-all duration-200"
       value={selectedDate}
       onChange={(e) => setSelectedDate(e.target.value)}
     />
@@ -198,17 +201,18 @@ const dummyData: Person[] = [
     <input
       type="search"
       placeholder="Search by Name, Designation or Status"
-      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-gray-200 
+      placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
     />
   </div>
 
   {/* Designation Dropdown - Right-aligned */}
-  <div className="relative w-48" ref={designationDropdownRef}> {/* Reduced width */}
+  <div className="relative w-48 bg" ref={designationDropdownRef}> {/* Reduced width */}
     <button
       onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-      className="w-full pl-3 pr-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent"
+      className="w-full pl-3 pr-4 py-2 bg-gray-200 border border-gray-300 rounded-md shadow-sm text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent"
     >
       <span className="flex items-center gap-2 truncate">
         <FaBriefcase className="text-gray-400 flex-shrink-0" />
@@ -260,13 +264,13 @@ const dummyData: Person[] = [
         <table className="min-w-full  divide-y divide-gray-900">
           <thead className="bg-[#006666] text-white ">
             <tr>
-              <th className="px-6 py-5 text-left text-xs  font-bold  uppercase tracking-wider">ID</th>
-              <th className="px-6 py-5 text-left text-xs font-bold font-bold uppercase tracking-wider">Name</th>
-              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Designation</th>
-              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Status</th>
-              <th className="px-6 py-5 text-left text-xs font-bold uppercase tracking-wider">Check In</th>
-              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Check Out</th>
-              <th className="px-6 py-5 text-left text-xs font-bold  uppercase tracking-wider">Duration</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">ID</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Name</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Designation</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Status</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Check In</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Check Out</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -276,11 +280,11 @@ const dummyData: Person[] = [
           className="hover:bg-gray-100 cursor-pointer transition duration-200"
           onClick={() => handleClick(item)}  // Navigate here
         >
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.ID}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
+                <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 text-left font-family-poppins">{item.ID}</td>
+                <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
                   <div className="flex items-center gap-2">
                     {/* Initial Circle */}
-                    <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center text-sm font-semibold">
+                        <div className="w-8 h-8 rounded-full bg-teal-500 text-white text-left flex items-center justify-center text-sm font-semibold">
                       {item.Name?.charAt(0).toUpperCase()}
                     </div>
 
@@ -288,18 +292,18 @@ const dummyData: Person[] = [
                     <span>{item.Name}</span>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Designation}</td>
-                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
+                    <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 text-left font-family-poppinsr">{item.Designation}</td>
+                 <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 font-family-poppins">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold
-                      ${item.Status === "Present" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs  font-bold
+                      ${item.Status === "Present" ? "bg-green-100 text-green-800 text-left" : "bg-red-100 text-red-800 text-left"}`}
                   >
                     {item.Status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckIn}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppins">{item.CheckOut}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-family-poppinsr">{item.Duration}</td>
+                    <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 text-left font-family-poppins">{item.CheckIn}</td>
+                    <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 text-left font-family-poppins">{item.CheckOut}</td>
+                    <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-900 text-left font-family-poppinsr">{item.Duration}</td>
               </tr>
             ))}
           </tbody>

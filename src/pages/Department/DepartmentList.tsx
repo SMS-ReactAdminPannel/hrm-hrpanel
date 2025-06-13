@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { Plus, Users, Trash2, X } from "lucide-react"
+import { FONTS } from "../../constants/uiConstants"
 
 type Employee = {
   id: string
@@ -146,19 +147,44 @@ const DepartmentList: React.FC = () => {
       <div className="max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
   {/* Heading Section */}
-  <div>
-    <h1 className="text-4xl font-bold text-white">Departments</h1>
-    <p className="text-white/80">Manage your organization's departments</p>
-  </div>
+          <div className="flex items-start justify-between w-full">
+            <div>
+              <h1
+                className="text-4xl font-bold text-black"
+                style={{
+                  fontSize: FONTS.header.fontSize,
+                  fontFamily: FONTS.header.fontFamily,
+                }}
+              >
+                Departments
+              </h1>
+              <p
+                className="text-black"
+                style={{
+                  fontSize: FONTS.header3.fontSize,
+                  fontFamily: FONTS.header.fontFamily,
+                }}
+              >
+                Manage your organization's departments
+              </p>
+            </div>
 
-  {/* Create Button */}
-  <button
-    onClick={() => setIsCreateModalOpen(true)}
-    className="ml-auto flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow transition hover:bg-blue-700"
-  >
-    <Plus className="h-5 w-5" />
-    Create Department
-  </button>
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="flex gap-2 rounded-xl bg-[#006666] px-6 py-3 text-sm font-medium text-white shadow transition"
+              style={{fontSize:FONTS.paragraph.fontSize
+                ,fontFamily:FONTS.header.fontFamily
+              }}
+           >
+              <Plus className="h-5 w-5" />
+              Create Department
+            </button>
+          </div>
+
+
+
+ 
+ 
 </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -166,7 +192,7 @@ const DepartmentList: React.FC = () => {
             <div
               key={dept.id}
               onClick={() => handleCardClick(dept.id)}
-              className="group bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition transform hover:scale-105 cursor-pointer"
+              className="group bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition transform hover:scale-103 cursor-pointer"
             >
               <div className="relative">
                 <img src={dept.image} alt={dept.name} className="w-full h-48 object-cover" />
@@ -180,9 +206,12 @@ const DepartmentList: React.FC = () => {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{dept.name}</h3>
-                <p className="text-slate-700 text-sm">{dept.description}</p>
-                <p className="text-slate-500 text-sm mt-1">{dept.subDescription}</p>
+                <h3 className="text-xl font-bold text-slate-800 mb-2"
+                style={{fontSize:FONTS.header3.fontSize}}>{dept.name}</h3>
+                <p className="text-slate-700 text-sm"
+                  style={{ fontSize: FONTS.paragraph.fontSize }}>{dept.description}</p>
+                <p className="text-slate-500 text-sm mt-1"
+                  style={{ fontSize: FONTS.paragraph.fontSize }}>{dept.subDescription}</p>
                 <div className="flex justify-between items-center mt-4 border-t pt-3">
                   <div className="flex items-center gap-2 text-blue-600">
                     <Users className="h-4 w-4" />
@@ -208,7 +237,9 @@ const DepartmentList: React.FC = () => {
 
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative
+          backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100
+          border border-white">
             <button
               onClick={() => setIsCreateModalOpen(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
@@ -248,7 +279,7 @@ const DepartmentList: React.FC = () => {
               </button>
               <button
                 onClick={handleCreateDepartment}
-                className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 text-sm bg-[#006666]  text-white rounded "
               >
                 Create
               </button>

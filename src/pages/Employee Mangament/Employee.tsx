@@ -114,6 +114,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
     <button
       onClick={() => setShowAddForm(true)}
       className="bg-[#006666] hover:bg-teal-700 text-white px-4 py-2 rounded-md shadow-md"
+      style={{fontSize:FONTS.paragraph.fontSize}}
     >
       + Add Employee
     </button>
@@ -122,12 +123,14 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
       
   {/* Total Employees */}
   <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-       <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+       <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border
+        border-gray-100 hover:shadow-md transition-all duration-200 mx-auto ">
            <div className="flex items-center justify-between">
              <div>
-               <p className="text-sm font-medium text-gray-500 mb-1">Total Employees</p>
+              <p className="text-sm font-medium text-black mb-1"
+               style={{fontSize:FONTS.paragraph.fontSize}}>Total Employees</p>
                <p className="text-5xl font-semibold text-indigo-600 mt-3">{employees.length}</p>
-               <p className="text-xs text-gray-400 mt-5">Across all departments</p>
+               <p className="text-xs text-black mt-5">Across all departments</p>
              </div>
              <div className="p-3 rounded-lg bg-indigo-50">
                <svg className="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -141,7 +144,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
  <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
           <div className="flex items-center justify-between">
              <div>
-               <p className="text-sm font-medium text-gray-500 mb-1">New Employees</p>
+              <p className="text-sm font-medium text-black mb-1"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>New Employees</p>
                <p className="text-5xl font-semibold text-emerald-600 mt-3">
                  {employees.filter(emp => {
                   const hireDate = new Date(emp.hireDate);
@@ -150,7 +154,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
                   return hireDate >= thirtyDaysAgo;
                 }).length}
               </p>
-              <p className="text-xs text-gray-400 mt-5">Last 30 days</p>
+              <p className="text-xs text-black mt-5">Last 30 days</p>
             </div>
             <div className="p-3 rounded-lg bg-emerald-50">
               <svg className="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
@@ -165,9 +169,10 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
   <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
            <div className="flex items-center justify-between">
              <div>
-               <p className="text-sm font-medium text-gray-500 mb-1">Resigned Employees</p>
+              <p className="text-sm font-medium text-black mb-1"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Resigned Employees</p>
                <p className="text-5xl font-semibold text-amber-600 mt-3">0</p>
-               <p className="text-xs text-gray-400 mt-5">This quarter</p>
+              <p className="text-xs text-black mt-5">This quarter</p>
              </div>
              <div className="p-3 rounded-lg bg-amber-50">
                <svg className="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
@@ -179,7 +184,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
 
   {/* Work Mode Stats */}
   <div className="bg-[#eff4f5] p-4 rounded shadow border">
-    <h3 className="text-lg font-semibold text-gray-800 mb-4">Work Mode Stats</h3>
+          <h3 className="text-lg font-semibold text-black mb-4"
+            style={{ fontSize: FONTS.paragraph.fontSize }}>Work Mode Stats</h3>
     {workModeData.map((mode, index) => (
       <div key={mode.name} className="flex justify-between items-center mb-2">
         <span className="text-sm">{mode.name}</span>
@@ -205,7 +211,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
           <input
             type="text"
             placeholder="Search employees..."
-            className="w-100 pl-10 pr-4 py-2 border bg-[#eff4f5] rounded-lg"
+            className="w-100 pl-10 pr-4 py-2 border bg-gray-300 rounded-lg"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -218,7 +224,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
         </div>
 
         <div className="relative">
-          <CiFilter className="text-3xl text-[#006666] cursor-pointer" onClick={() => setFilterOpen(!filterOpen)} />
+          <CiFilter className="text-3xl  bg-[#006666] text-white cursor-pointer" onClick={() => setFilterOpen(!filterOpen)} />
           {filterOpen && (
             <div className="absolute right-0 mt-2 bg-white border rounded shadow w-48 z-10">
               <select
@@ -248,7 +254,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
               {['id', 'name', 'email', 'department', 'jobTitle', 'employmentType'].map((key) => (
                 <th
                   key={key}
-                  className="px-4 py-3 text-left text-md font-medium text-white  cursor-pointer"
+                  className="px-4 py-3 text-left text-md font-medium text-white uppercase cursor-pointer"
+                  style={{fontSize:FONTS.paragraph.fontSize}}
                   onClick={() => requestSort(key as keyof Employee)}
                 >
                   {key}
@@ -275,8 +282,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
                   </span>
                 </td>
                 <td className="px-4 py-2">
-                  <button className="text-blue-600"><FaEdit /></button>
-                  <button className="text-red-600"><RiDeleteBinLine /></button>
+                  <button className="text-blue-600 "><FaEdit /></button>
+                  <button className="text-red-600 ml-3 "><RiDeleteBinLine /></button>
                 </td>
               </tr>
             ))}
@@ -291,12 +298,14 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
 
       {showAddForm && (
   <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
-      <h2 className="text-xl font-semibold mb-4">Add New Employee</h2>
+    <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+      <h2 className="text-xl font-semibold mb-4 text-white"
+      style={{fontSize:FONTS.header2.fontSize}}>Add New Employee</h2>
 
       <div className="grid grid-cols-2 gap-4">
         {['id', 'name', 'email', 'contactNumber', 'hireDate'].map((field) => (
-          <div key={field} className="flex flex-col">
+          <div key={field} className="flex flex-col ">
             <input
               type={field === 'hireDate' ? 'date' : 'text'}
               placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
@@ -305,7 +314,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
                 setNewEmployee({ ...newEmployee, [field]: e.target.value });
                 setErrors({ ...errors, [field]: "" });
               }}
-              className={`border rounded p-2 ${errors[field] ? "border-red-500" : ""}`}
+              className={`border rounded p-2  ${errors[field] ? "border-red-500" : ""}`}
             />
             {errors[field] && (
               <span className="text-sm text-red-500">{errors[field]}</span>
@@ -373,7 +382,7 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
 
       <div className="flex justify-end gap-3 mt-6">
         <button
-          className="bg-gray-300 text-black px-4 py-2 rounded"
+          className="bg-gray-300 text-black px-4 py-2 rounded "
           onClick={() => setShowAddForm(false)}
         >
           Cancel
@@ -414,14 +423,14 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border bg-white rounded mx-1 disabled:opacity-50"
+          className="px-3 py-1 border bg-white text-black rounded mx-1 disabled:opacity-50"
         >
           Previous
         </button>
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border bg-white rounded mx-1 disabled:opacity-50"
+          className="px-3 py-1 border bg-[#006666] text-white rounded mx-1 disabled:opacity-50"
         >
           Next
         </button>

@@ -497,7 +497,8 @@ const HRMAppraisalSystem = () => {
                     <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-gray-600">Total Employees</p>
+                                <p className="text-sm font-medium text-gray-600"
+                                style={{fontSize:FONTS.header3.fontSize}}>Total Employees</p>
                                 <p className="text-2xl font-bold text-gray-900">156</p>
                             </div>
                             <div className=" lg:p-2 bg-blue-100 rounded-md">
@@ -509,7 +510,8 @@ const HRMAppraisalSystem = () => {
                     <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
+                                <p className="text-sm font-medium text-gray-600"
+                                    style={{ fontSize: FONTS.header3.fontSize }}>Pending Reviews</p>
                                 <p className="text-2xl  font-bold text-gray-900">23</p>
                             </div>
                             <div className=" lg:p-2 bg-red-100 rounded-lg">
@@ -521,7 +523,8 @@ const HRMAppraisalSystem = () => {
                     <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+                                <p className="text-sm font-medium text-gray-600"
+                                    style={{ fontSize: FONTS.header3.fontSize }}>Avg Rating</p>
                                 <p className="text-2xl font-bold text-gray-900">4.3</p>
                             </div>
                             <div className=" lg:p-2 bg-yellow-100 rounded-lg">
@@ -533,7 +536,8 @@ const HRMAppraisalSystem = () => {
                     <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-gray-600">Completed</p>
+                                <p className="text-sm font-medium text-gray-600"
+                                    style={{ fontSize: FONTS.header3.fontSize }}>Completed</p>
                                 <p className="text-2xl  font-bold text-gray-900">89%</p>
                             </div>
                             <div className=" lg:p-2 bg-green-100 rounded-lg">
@@ -545,9 +549,10 @@ const HRMAppraisalSystem = () => {
 
                 {/* Employee List with Search */}
                 <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
-                    <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+                    <div className="p-4 md:p-6 border-b border-gray-200
+                     flex flex-row md:flex-row md:justify-between md:items-center gap-4">
                         {/* Search Input */}
-                        <div className="w-full  md:max-w-md">
+                        <div className="w-full text-black md:max-w-md">
                             <SearchInput
                                 value={searchTerm}
                                 onChange={handleSearchChange}
@@ -574,7 +579,8 @@ const HRMAppraisalSystem = () => {
 
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-[#006666]">
+                            <thead className="bg-[#006666]"
+                            style={{fontSize:FONTS.header3.fontSize}}>
                                 <tr>
                                     <th className="px-6 py-3 text-left text-md font-medium text-white">
                                         Employee
@@ -601,7 +607,7 @@ const HRMAppraisalSystem = () => {
                                     <tr key={employee.id}>
                                         <td className="px-6 py-4 whitespace-nowrap">
 
-                                            <div className="ml-4">
+                                            <div className="">
                                                 <div className="text-sm font-medium text-gray-900">{employee.name}</div>
                                                 <div className="text-sm text-gray-500">{employee.department}</div>
                                             </div>
@@ -746,9 +752,11 @@ const HRMAppraisalSystem = () => {
 
         return (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto
+                backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100
+                border border-white ">
                     <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-                        <h3 className="text-xl font-semibold text-gray-900">
+                        <h3 className="text-xl text-white font-semibold text-gray-900">
                             {modalMode === "select" && "Select Employee"}
                             {modalMode === "view" && modalEmployee && `Appraisal for ${modalEmployee.name}`}
                             {modalMode === "create" && "Create New Appraisal"}
@@ -759,17 +767,17 @@ const HRMAppraisalSystem = () => {
                                 setModalEmployee(null)
                                 setModalMode("select")
                             }}
-                            className="text-gray-500 hover:text-gray-700"
+                            className="text-gray-900 "
                         >
-                            <X className="w-6 h-6" />
+                            <X className="w-6 h-6 hover:text-white" />
                         </button>
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-6 ">
                         {modalMode === "select" && (
-                            <div className="space-y-4">
-                                <h4 className="font-medium text-gray-900">Select Employee</h4>
-                                <div className="space-y-3">
+                            <div className="space-y-4 text-white ">
+                                <h4 className="font-medium text-white ">Select Employe</h4>
+                                <div className="space-y-3 ">
                                     {employees.map((employee) => (
                                         <div
                                             key={employee.id}

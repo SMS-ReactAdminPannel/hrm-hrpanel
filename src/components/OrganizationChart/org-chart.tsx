@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import type { Employee, EmployeeNode } from "./employee"
+import type { Employee, EmployeeNode } from "./employe_interface"
 import { EmployeeCard } from "./employee-card"
 import { Building2 } from "lucide-react"
 
