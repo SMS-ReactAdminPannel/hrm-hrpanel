@@ -263,14 +263,21 @@ const dummyData: Person[] = [
       <div className="overflow-x-auto sm:rounded-md shadow">
         <table className="min-w-full  divide-y divide-gray-900">
           <thead className="bg-[#006666] text-white ">
-            <tr>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">ID</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Name</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Designation</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Status</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Check In</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Check Out</th>
-              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider">Duration</th>
+            <tr style={{ fontSize: FONTS.header2.fontSize }}>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>ID</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Name</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Designation</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Status</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Check In</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Check Out</th>
+              <th className="px-6 py-5 text-left text-sm font-bold text-white  tracking-wider"
+                style={{ fontSize: FONTS.paragraph.fontSize }}>Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">

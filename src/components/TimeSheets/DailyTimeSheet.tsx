@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FONTS } from '../../constants/uiConstants';
 
 interface DailyTimeSheetProps {
   timesheet: {
@@ -35,12 +36,35 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
                   className="w-full border border-gray-300 bg-[#eff4f5] text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
                 />
               </th>
-              <th className="px-6 py-3 text-center">First In</th>
-              <th className="px-6 py-3 text-center">Last Out</th>
-              <th className="px-6 py-3 text-center">Regular (hr)</th>
-              <th className="px-6 py-3 text-center">Overtime (hr)</th>
-              <th className="px-6 py-3 text-center">Double OT (hr)</th>
-              <th className="px-6 py-3 text-center">Tracked (hr)</th>
+              <th className="px-6 py-3 text-center"
+              style={{fontSize:FONTS.paragraph.fontSize,
+                fontFamily:FONTS.paragraph.fontFamily
+              }}>First In</th>
+              <th className="px-6 py-3 text-center"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.paragraph.fontFamily
+                }}>Last Out</th>
+              <th className="px-6 py-3 text-center"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.paragraph.fontFamily
+                }}>Regular (hr)</th>
+              <th className="px-6 py-3 text-center"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.paragraph.fontFamily
+                }}>Overtime (hr)</th>
+              <th className="px-6 py-3 text-center"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.paragraph.fontFamily
+                }}>Double OT (hr)</th>
+              <th className="px-6 py-3 text-center"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.paragraph.fontFamily
+                }}>Tracked (hr)</th>
             </tr>
           </thead>
           <tbody className='bg-white'>
