@@ -27,8 +27,25 @@ class Client {
 
   updateGrievanceStatus: (grievanceId: string, data: any) =>
     httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data),
-    }
+    },
+     appraisal: {
+      create: (data: any) =>
+        httpClient.post(API_END_POINTS.appraisal.create, data),
+
+      getAll: (params?: any) =>
+        httpClient.get(API_END_POINTS.appraisal.getAll,  params ),
+
+      getById: (appraisalId: string) =>
+        httpClient.get(API_END_POINTS.appraisal.getById(appraisalId)),
+
+      update: (appraisalId: string, data: any) =>
+        httpClient.update(API_END_POINTS.appraisal.update(appraisalId), data),
+
+      delete: (appraisalId: string) =>
+        httpClient.delete(API_END_POINTS.appraisal.delete(appraisalId)),
+    },
   };
 }
+
 
 export default Client;
