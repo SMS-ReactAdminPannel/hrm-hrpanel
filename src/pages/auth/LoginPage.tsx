@@ -1,10 +1,12 @@
-"use client"
+
 
 import { useState, type FormEvent } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
+import { postLogin } from "../../features/auth/service"
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("")
@@ -14,6 +16,26 @@ export const LoginPage = () => {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login } = useAuth()
+  
+
+  type LoginData = {
+	email: string;
+	password: string;
+};
+
+ const onSubmit = async (data: LoginData) => {
+  try {
+    const User: any = await postLogin(data);
+    await login(data.email, data.password);
+    console.log(User);
+
+    navigate("/");
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -58,7 +80,14 @@ export const LoginPage = () => {
         <div className="bg-white bg-opacity-90 backdrop-blur-sm p-8 rounded-xl shadow-2xl max-w-md w-full mx-4">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#006666]">Login</h2>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form 
+  onSubmit={(e) => {
+    e.preventDefault();
+    onSubmit({ email, password });
+  }}
+  className="space-y-4"
+>
+
             <input
               type="email"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

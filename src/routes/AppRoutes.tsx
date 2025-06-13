@@ -32,7 +32,6 @@ import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
-import CandidatesPage from "../pages/Recuritment/Candidates";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
 import Reports from "../pages/Employee Mangament/Reports/Reports";
@@ -43,6 +42,8 @@ import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import Employees from "../components/Department/Employees"
 import EmployeesPage from "../components/Department/Employees";
+import CandidatesPage from "../pages/Recuritment/Candidates";
+
 
 
 const AppRoutes = () => {
@@ -83,6 +84,7 @@ const AppRoutes = () => {
           <Route path="visitor-management" element={<VisitorManagementSystem />}/>
           <Route path="/" element={<CandidatesPage />} />
           <Route path="candidates" element={<CandidateDetailPage />} />
+          <Route path="/candidatelists" element={<CandidatesPage />} />
       <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
       <Route path="/job/:id" element={<JobDetailsPage />} />
       <Route path="/departments" element={<DepartmentList />} />
@@ -95,6 +97,7 @@ const AppRoutes = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          
           {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </>
       )}
