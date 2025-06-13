@@ -216,7 +216,7 @@ const HRMAppraisalSystem = () => {
   }
 };
 fetchAppraisals();
-  }, []);
+  }, [1000]);
 
   // Static employee data
   const employees = useMemo<Employee[]>(
@@ -657,15 +657,15 @@ fetchAppraisals();
               </thead>
               <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
                 {appraisals.map((employee) => (
-                  <tr key={employee._id}>
+                  <tr >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">
                           {employee.Employee}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        {/* <div className="text-sm text-gray-500">
                           {employee.department}
-                        </div>
+                        </div> */}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

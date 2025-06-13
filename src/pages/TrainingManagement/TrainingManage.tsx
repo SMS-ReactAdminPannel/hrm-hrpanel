@@ -115,9 +115,9 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className=" rounded-xl bg-white p-10  max-w-md mx-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-900"
+      <div className=" rounded-xl bg-white p-10  backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100">
+        <div className="flex justify-between items-center mb-6 ">
+          <h2 className="text-xl font-semibold text-white"
 
 
             style={{
@@ -128,7 +128,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           >
 
             Create New Program</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors"
+          <button onClick={onClose} className="text-white transition-colors"
             style={{
               fontFamily: FONTS.paragraph.fontFamily,
 
@@ -143,7 +143,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="title"
-              className="bd-white block text-sm font-medium text-gray-700 mb-1"
+              className="bd-white block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -159,7 +159,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               value={formData.title}
               onChange={handleTitleChange}
               placeholder="Enter program title"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent"
               required
             />
           </div>
@@ -167,7 +167,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="category"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -181,7 +181,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               id="category"
               value={formData.category}
               onChange={handleCategoryChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
 
@@ -202,7 +202,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="duration"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -218,7 +218,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               value={formData.duration}
               onChange={handleDurationChange}
               placeholder="e.g., 4 weeks, 2 months"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
 
@@ -231,7 +231,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="instructor"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -247,7 +247,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               value={formData.instructor}
               onChange={handleInstructorChange}
               placeholder="Enter instructor name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
 
@@ -261,7 +261,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="startDate"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -276,7 +276,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               type="date"
               value={formData.startDate}
               onChange={handleStartDateChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
 
@@ -290,7 +290,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition-colors"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontWeight: FONTS.paragraph.fontWeight,
@@ -301,7 +301,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
 
             <button
               type="submit"
-              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors"
+              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 bg-[#4c469f] text-white rounded-lg transition-colors hover:bg-[#3b3880]"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontWeight: FONTS.paragraph.fontWeight,
@@ -637,58 +637,58 @@ const HRMTrainingDashboard: React.FC = () => {
     </div>
   )
 
-  const ParticipantCard: React.FC<{ employee: Employee }> = ({ employee }) => {
-    const progress = selectedProgram ? employee.programProgress[selectedProgram.id] || 0 : employee.trainingProgress
-    const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
+  // const ParticipantCard: React.FC<{ employee: Employee }> = ({ employee }) => {
+  //   const progress = selectedProgram ? employee.programProgress[selectedProgram.id] || 0 : employee.trainingProgress
+  //   const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
 
-    return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center space-x-3 mb-2">
-              <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-xs font-medium">
-                {employee.avatar}
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-                <p className="text-xs text-gray-600">{employee.position}</p>
-              </div>
-            </div>
-            <div className="space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-600">Progress</span>
-                <span className="text-sm font-bold text-gray-900">{progress}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className={`h-2 rounded-full transition-all duration-300 ${progress === 100 ? "bg-green-600" : progress > 50 ? "bg-blue-600" : "bg-yellow-600"
-                    }`}
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-              {enrollmentDate && (
-                <p className="text-xs text-gray-500 mt-1">Enrolled: {new Date(enrollmentDate).toLocaleDateString()}</p>
-              )}
-            </div>
-          </div>
-          <div className="ml-4">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${progress === 100
-                  ? "bg-green-100 text-green-800"
-                  : progress > 50
-                    ? "bg-blue-100 text-blue-800"
-                    : progress > 0
-                      ? "bg-yellow-100 text-yellow-800"
-                      : "bg-gray-100 text-gray-800"
-                }`}
-            >
-              {progress === 100 ? "Completed" : progress > 0 ? "In Progress" : "Not Started"}
-            </span>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  //   return (
+  //     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+  //       <div className="flex items-center justify-between">
+  //         <div className="flex-1">
+  //           <div className="flex items-center space-x-3 mb-2">
+  //             <div className="w-8 h-8 bg-[#4c469f] rounded-full flex items-center justify-center text-white text-xs font-medium">
+  //               {employee.avatar}
+  //             </div>
+  //             <div>
+  //               <p className="text-sm font-medium text-gray-900">{employee.name}</p>
+  //               <p className="text-xs text-gray-600">{employee.position}</p>
+  //             </div>
+  //           </div>
+  //           <div className="space-y-1">
+  //             <div className="flex justify-between items-center">
+  //               <span className="text-xs text-gray-600">Progress</span>
+  //               <span className="text-sm font-bold text-gray-900">{progress}%</span>
+  //             </div>
+  //             <div className="w-full bg-gray-200 rounded-full h-2">
+  //               <div
+  //                 className={`h-2 rounded-full transition-all duration-300 ${progress === 100 ? "bg-green-600" : progress > 50 ? "bg-blue-600" : "bg-yellow-600"
+  //                   }`}
+  //                 style={{ width: `${progress}%` }}
+  //               ></div>
+  //             </div>
+  //             {enrollmentDate && (
+  //               <p className="text-xs text-gray-500 mt-1">Enrolled: {new Date(enrollmentDate).toLocaleDateString()}</p>
+  //             )}
+  //           </div>
+  //         </div>
+  //         <div className="ml-4">
+  //           <span
+  //             className={`px-3 py-1 rounded-full text-xs font-medium ${progress === 100
+  //                 ? "bg-green-100 text-green-800"
+  //                 : progress > 50
+  //                   ? "bg-blue-100 text-blue-800"
+  //                   : progress > 0
+  //                     ? "bg-yellow-100 text-yellow-800"
+  //                     : "bg-gray-100 text-gray-800"
+  //               }`}
+  //           >
+  //             {progress === 100 ? "Completed" : progress > 0 ? "In Progress" : "Not Started"}
+  //           </span>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   const ProgramCard: React.FC<{ program: TrainingProgram }> = ({ program }) => (
     <div
@@ -717,7 +717,7 @@ const HRMTrainingDashboard: React.FC = () => {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Participants</span>
-          <span className="text-sm font-medium text-[#006666]">{program.enrolled} enrolled</span>
+          <span className="text-sm font-medium text-[#4c469f]">{program.enrolled} enrolled</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Progress</span>
@@ -727,7 +727,7 @@ const HRMTrainingDashboard: React.FC = () => {
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
-            className="bg-[#006666] h-2 rounded-full transition-all duration-300"
+            className="bg-[#4c469f] h-2 rounded-full transition-all duration-300"
             style={{ width: `${program.enrolled > 0 ? (program.completed / program.enrolled) * 100 : 0}%` }}
           ></div>
         </div>
@@ -755,11 +755,11 @@ const HRMTrainingDashboard: React.FC = () => {
     const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
 
     return (
-      <tr className=" bg-red-200 transition-colors text-gray-900">
+      <tr className=" bg-white transition-colors text-gray-900">
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">{employee.id}</td>
         <td className="px-4 py-4 whitespace-nowrap">
           <div className="flex items-center ">
-            <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
+            <div className="w-8 h-8 bg-[#4c469f] rounded-full flex items-center justify-center text-white text-sm font-medium">
               {employee.avatar}
             </div>
             <div className="ml-3">
@@ -816,13 +816,13 @@ const HRMTrainingDashboard: React.FC = () => {
         <div className="max-w-full px-3">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <h1 className=" font-bold text" style={{ fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize, fontWeight: FONTS.header.fontWeight }}>Training Management</h1>
-              {selectedProgram && (
+              <h1 className=" font-bold text-white" style={{ fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize, fontWeight: FONTS.header.fontWeight }}>Training</h1>
+              {/* {selectedProgram && (
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <span>→</span>
                   <span className="font-medium">{selectedProgram.title}</span>
                 </div>
-              )}
+              )} */}
             </div>
             <div className="flex items-center space-x-4"></div>
           </div>
@@ -847,23 +847,18 @@ const HRMTrainingDashboard: React.FC = () => {
               { id: "employees", label: "Employees", icon: Users },
               { id: "analytics", label: "Analytics", icon: PieChart },
             ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  if (tab.id !== "employees") {
-                    setSelectedProgram(null);
-                  }
-                }}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium bg-gray-400  border border-gray-300 
-            ${activeTab === tab.id
-                  ? "bg-blue-700 text-black-700 backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border border-black"
-                    : "bg-red-200 text-gray-700 hover:bg-gray-400 hover:text-white "
-                  }`}
-              >
-                <tab.icon className="w-5 h-5" />
-                <span>{tab.label}</span>
-              </button>
+                  <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium 
+                ${activeTab === tab.id
+                  ? "bg-[#4c469f] text-white"
+                  : "bg-[#dedcf5] text-black"
+                }`}
+            >
+              <tab.icon className="w-5 h-5" />
+              <span>{tab.label}</span>
+            </button>
             ))}
           </div>
         </div>
@@ -912,7 +907,7 @@ const HRMTrainingDashboard: React.FC = () => {
             {/* Recent Activity */}
             <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
               <h2
-                className="text-lg lg:text-xl font-semibold text-gray-900 mb-4"
+                className="text-lg lg:text-xl font-semibold text-white mb-4"
                 style={{
                   fontFamily: FONTS.header.fontFamily,
                   fontSize: FONTS.header.fontSize,
@@ -962,7 +957,7 @@ const HRMTrainingDashboard: React.FC = () => {
                 ].map((activity, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 p-3 rounded-lg  hover:bg-gray-300 transition-colors
+                    className="flex items-center space-x-3 p-3 rounded-lg  hover:bg-[#ededf5] transition-colors
                     bg-white hover:scale-101"
                   >
                     <activity.icon className={`w-5 h-5 ${activity.color}`} />
@@ -989,14 +984,14 @@ const HRMTrainingDashboard: React.FC = () => {
             {/* Search and Filter */}
             <div className="flex flex-row sm:flex-row md:flex-row gap-4 ">
               <div className="flex-1 relative ">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5 text-black" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search programs..."
                   value={searchTerm}
                   onChange={handleSearchChange}
                   className="w-100 md:w-96 pl-10 pr-4 py-2  rounded-lg 
-                  focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent bg-red-200 placeholder:text-black "
+                  focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent bg-gray-100 placeholder:text-gray-500 "
                 />
               </div>
               <div className="flex items-center space-x-2"
@@ -1008,12 +1003,12 @@ const HRMTrainingDashboard: React.FC = () => {
               >
                 {/* BOTH FILTER SYMBOL AND ALL CATEGORY */}
                 <div className="flex items-center gap-2">
-                  <Filter className="w-[20%] h-8 text-black bg-red-200  " />
+                  <Filter className="w-[20%] h-8 text-black   " />
 
                   <select
                     value={selectedCategory}
                     onChange={handleCategoryChange}
-                    className="w-full md:w-60  rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    className="w-full md:w-60  rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4c469] focus:border-transparent"
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
                       fontWeight: FONTS.paragraph.fontWeight,
@@ -1031,7 +1026,7 @@ const HRMTrainingDashboard: React.FC = () => {
               {/* NEW PROGRAM BUTTON */}
               <button
                 onClick={handleShowNewProgramForm}
-                className="flex items-center space-x-2 bg-[#006666] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
+                className="flex items-center space-x-2 bg-[#4c469f] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg transition-colors"
                
                 style={{
                   fontFamily: FONTS.paragraph.fontFamily,
@@ -1075,7 +1070,7 @@ const HRMTrainingDashboard: React.FC = () => {
                     <div className="flex items-center space-x-4">
                       <button
                         onClick={handleBackToPrograms}
-                        className=" flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
+                        className=" flex items-center space-x-2 text-white transition-colors"
                         style={{
                           fontFamily: FONTS.paragraph.fontFamily,
 
@@ -1158,10 +1153,10 @@ const HRMTrainingDashboard: React.FC = () => {
             )}
 
 
-            <div className=" rounded-xl shadow-sm backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100  ">
+            <div className=" rounded-xl shadow-sm  ">
               <div className=" py-4 lg:px-[2%] lg:py-6  rounded-xl">
                 <h2
-                  className="text-lg lg:text-xl font-bold text-gray-900 "
+                  className="text-lg lg:text-xl font-bold text-white "
                   style={{
                           fontFamily: FONTS.header2.fontFamily,
                           fontWeight: FONTS.header2.fontWeight,
@@ -1173,7 +1168,7 @@ const HRMTrainingDashboard: React.FC = () => {
                     ? `Participants in ${selectedProgram.title}`
                     : "Employee Training Progress"}
                 </h2>
-                {selectedProgram && (
+                {/* {selectedProgram && (
                   <p className="text-sm lg:text-base text-gray-600 mt-1 "
                     style={{
                       fontFamily: FONTS.paragraph.fontFamily,
@@ -1182,12 +1177,12 @@ const HRMTrainingDashboard: React.FC = () => {
                   >
                     Showing {getEmployeesForProgram(selectedProgram.id).length} enrolled participants
                   </p>
-                )}
+                )} */}
               </div>
 
-              <div className="overflow-x-auto ">
-                <table className="min-w-full divide-y divide-gray-200 border-separate border-spacing-y-1">
-                  <thead className="">
+              <div className="overflow-x-auto rounded-lg">
+                <table className="min-w-full ">
+                  <thead className="bg-[#5e59a9]">
                     <tr>
                       {[
                         "Employee ID",
@@ -1199,7 +1194,7 @@ const HRMTrainingDashboard: React.FC = () => {
                       ].map((heading, idx) => (
                         <th
                           key={idx}
-                          className="px-6 py-3 text-left text-sm  lg:text-sm font-medium text-black
+                          className="px-6 py-3 text-left text-sm  lg:text-sm font-medium text-white
                            tracking-wider "
                           style={{
                             fontFamily: FONTS.paragraph.fontFamily,
