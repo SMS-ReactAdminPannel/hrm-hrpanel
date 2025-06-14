@@ -2,16 +2,25 @@ import { useState } from "react"
 import type { Employee } from "./employe_interface"
 import { Dropdown, DropdownItem } from "./dropdown"
 import { AlertDialog } from "./alert-dialogue"
-import { MoreVertical, Edit, Trash2, Mail, Phone } from "lucide-react"
+import { MoreVertical, Edit, Trash2, Mail, Phone, ChevronDown, ChevronRight } from "lucide-react"
 
 interface EmployeeCardProps {
   employee: Employee
   onEdit: (employee: Employee) => void
   onDelete: (employeeId: string) => void
   level: number
+  isExpanded?: boolean
+  hasChildren?: boolean
 }
 
-export function EmployeeCard({ employee, onEdit, onDelete, level }: EmployeeCardProps) {
+export function EmployeeCard({ 
+  employee, 
+  onEdit, 
+  onDelete, 
+  level, 
+  isExpanded = false, 
+  hasChildren = false 
+}: EmployeeCardProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   const handleDelete = () => {
@@ -55,7 +64,9 @@ export function EmployeeCard({ employee, onEdit, onDelete, level }: EmployeeCard
   return (
     <>
       <div
-        className={`w-full max-w-xs rounded-xl border-2 ${levelStyles.card} shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden`}
+        className={`w-full max-w-xs rounded-xl border-2 ${levelStyles.card} shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden ${
+          hasChildren ? 'hover:scale-105' : ''
+        }`}
       >
         <div className="p-4">
           {/* Header with Avatar */}
@@ -128,6 +139,27 @@ export function EmployeeCard({ employee, onEdit, onDelete, level }: EmployeeCard
             </div>
           </div>
         </div>
+
+        {/* Expand/Collapse Indicator */}
+        {hasChildren && (
+          <div className="px-4 pb-3">
+            <div className="flex items-center justify-center">
+              <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${levelStyles.badge} text-xs font-medium transition-all duration-200`}>
+                {isExpanded ? (
+                  <>
+                    <ChevronDown className="w-3 h-3" />
+                    <span>Collapse</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronRight className="w-3 h-3" />
+                    <span>Expand</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <AlertDialog

@@ -1,8 +1,11 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Plus, Users, Trash2, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import axios from "axios" // ✅ Ensure axios is imported
+import EmployeesPage from "../../components/Department/Employees"
+import type { JSX } from "react/jsx-runtime"
 
 type Employee = {
   id: string
@@ -11,6 +14,7 @@ type Employee = {
 }
 
 type Department = {
+  _id?: string
   id: string
   name: string
   description: string
@@ -24,124 +28,92 @@ const DepartmentList: React.FC = () => {
   const [newDeptName, setNewDeptName] = useState("")
   const [newDeptDescription, setNewDeptDescription] = useState("")
   const [newDeptSubDescription, setNewDeptSubDescription] = useState("")
-  const [departments, setDepartments] = useState<Department[]>([
-    {
-      id: "hr",
-      name: "Human Resources",
-      description: "Managing talent and organizational culture",
-      subDescription: "Recruitment, employee relations, and HR policies",
-      employeeCount: 2,
-      employees: [
-        { id: "1", name: "Alice", role: "HR Manager" },
-        { id: "2", name: "Bob", role: "Recruiter" },
-      ],
-    },
-    {
-      id: "engineering",
-      name: "Engineering",
-      description: "Building innovative technology solutions",
-      subDescription: "Software development, architecture, and technical leadership",
-      employeeCount: 3,
-      employees: [
-        { id: "1", name: "Charlie", role: "Frontend Developer" },
-        { id: "2", name: "David", role: "Backend Developer" },
-        { id: "3", name: "Eva", role: "DevOps Engineer" },
-      ],
-    },
-    {
-      id: "sales",
-      name: "Sales",
-      description: "Driving revenue and customer relationships",
-      subDescription: "Business development, client management, and growth strategies",
-      employeeCount: 0,
-      employees: [],
-    },
-    {
-      id: "marketing",
-      name: "Marketing",
-      description: "Promoting brand and driving user acquisition",
-      subDescription: "Content, campaigns, and market research",
-      employeeCount: 2,
-      employees: [
-        { id: "1", name: "Fiona", role: "Content Strategist" },
-        { id: "2", name: "George", role: "SEO Specialist" },
-      ],
-    },
-    {
-      id: "finance",
-      name: "Finance",
-      description: "Managing budgets and financial planning",
-      subDescription: "Accounting, payroll, and forecasting",
-      employeeCount: 1,
-      employees: [
-        { id: "1", name: "Helen", role: "Finance Manager" },
-      ],
-    },
-    {
-      id: "customer-support",
-      name: "Customer Support",
-      description: "Assisting users and resolving queries",
-      subDescription: "Support tickets, live chat, and helpdesk",
-      employeeCount: 3,
-      employees: [
-        { id: "1", name: "Ian", role: "Support Agent" },
-        { id: "2", name: "Jane", role: "Support Agent" },
-        { id: "3", name: "Kevin", role: "Team Lead" },
-      ],
-    },
-  ])
+  const [departments, setDepartments] = useState<Department[]>([])
 
   const navigate = useNavigate()
 
-  const handleCreateDepartment = () => {
+  const fetchDepartments = async () => {
+    try {
+      const res = await axios.get("http://localhost:3002/api/departments")
+      setDepartments(res.data)
+    } catch (error) {
+      console.error("Failed to fetch departments:", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDepartments()
+  }, [])
+
+  const handleCreateDepartment = async () => {
     const trimmedName = newDeptName.trim()
     const trimmedDesc = newDeptDescription.trim()
     const trimmedSubDesc = newDeptSubDescription.trim()
-
+  
     if (!trimmedName || !trimmedDesc || !trimmedSubDesc) {
       alert("All fields are required.")
       return
     }
-
+  
     const newId = trimmedName.toLowerCase().replace(/\s+/g, "-")
-    const exists = departments.some((dept) => dept.id === newId)
-
-    if (exists) {
-      alert("Department with this name already exists.")
-      return
-    }
-
-    const newDept: Department = {
+  
+    const payload = {
       id: newId,
       name: trimmedName,
       description: trimmedDesc,
       subDescription: trimmedSubDesc,
-      employees: [],
-      employeeCount: 0,
     }
-
-    setDepartments([...departments, newDept])
-    setNewDeptName("")
-    setNewDeptDescription("")
-    setNewDeptSubDescription("")
-    setIsCreateModalOpen(false)
+  
+    console.log("Creating department with:", payload) // Debug info
+  
+    try {
+      const res = await axios.post("http://localhost:3002/api/departments/create", payload)
+  
+      const newDept: Department = res.data
+      setDepartments([...departments, { ...newDept, employees: [], employeeCount: 0 }])
+  
+      setNewDeptName("")
+      setNewDeptDescription("")
+      setNewDeptSubDescription("")
+      setIsCreateModalOpen(false)
+    } catch (error: any) {
+      if (error.response) {
+        // Server responded with a status code outside 2xx
+        console.error("Backend error:", error.response.data)
+        alert(`Failed to create department: ${error.response.data.message || "Unknown error"}`)
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error("No response from server:", error.request)
+        alert("No response from server.")
+      } else {
+        // Something else went wrong
+        console.error("Error setting up request:", error.message)
+        alert("Error creating department.")
+      }
+    }
   }
+  
 
   const handleDeleteDepartment = (id: string, e: React.MouseEvent) => {
     e.stopPropagation()
     setDepartments(departments.filter((dept) => dept.id !== id))
   }
 
-  const handleCardClick = (departmentId: string) => {
-    navigate(`/departments/${departmentId}/employees`)
-  }
+  // const handleCardClick = (EmployeesPage?: () => JSX.Element | null) => {
+  //   navigate(`/employees`)
+  // }   
 
+  const handleCardClick = (dept: any) => {
+    navigate("/employees", { state: { department: dept } });
+  };
+ 
   const getInitials = (name: string) =>
     name
       .split(" ")
       .map((n) => n[0])
       .join("")
       .toUpperCase()
+
 
   return (
     <div className="min-h-screen p-6">
@@ -161,48 +133,47 @@ const DepartmentList: React.FC = () => {
             </button>
           </div>
         </div>
-
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {departments.map((dept) => (
-            <div
-              key={dept.id}
-              onClick={() => handleCardClick(dept.id)}
-              className="group bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition cursor-pointer"
-            >
-              {/* Icon Header Instead of Image */}
-              <div className="relative bg-blue-100 p-6 flex justify-between items-start">
-                <div className="bg-blue-500 text-white font-bold rounded-full w-12 h-12 flex items-center justify-center text-lg shadow">
-                  {getInitials(dept.name)}
-                </div>
-                <button
-                  onClick={(e) => handleDeleteDepartment(dept.id, e)}
-                  className="bg-red-400 hover:bg-red-300 text-white rounded-full p-2 shadow"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-800 mb-2"
-                style={{fontSize:FONTS.header3.fontSize}}>{dept.name}</h3>
-                <p className="text-slate-700 text-sm"
-                  style={{ fontSize: FONTS.paragraph.fontSize }}>{dept.description}</p>
-                <p className="text-slate-500 text-sm mt-1"
-                  style={{ fontSize: FONTS.paragraph.fontSize }}>{dept.subDescription}</p>
-                <div className="flex justify-between items-center mt-4 border-t pt-3">
-                  <div className="flex items-center gap-2 text-blue-600">
-                    <Users className="h-4 w-4" />
-                    <span className="text-sm">
-                      {dept.employees.length} Employee{dept.employees.length !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                  <div className="text-xs bg-blue-100 text-blue-700 rounded-full px-3 py-1 font-medium">
-                    Click to view
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+  {departments.map((dept) => (
+    <div
+      key={dept.id}
+      role="button"
+      tabIndex={0}
+      onClick={() => handleCardClick(dept)}
+      className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform hover:scale-[1.01] transition duration-200 cursor-pointer"
+    >
+      <div className="relative bg-blue-100 p-6 flex justify-between items-start">
+        <div className="bg-blue-500 text-white font-bold rounded-full w-12 h-12 flex items-center justify-center text-lg shadow">
+          {getInitials(dept.name)}
         </div>
+        <button
+          onClick={(e) => handleDeleteDepartment(dept.id, e)}
+          aria-label="Delete Department"
+          className="bg-red-400 hover:bg-red-300 text-white rounded-full p-2 shadow"
+        >
+          <Trash2 className="h-4 w-4" />
+        </button>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-slate-800 mb-1">{dept.name}</h3>
+        <p className="text-slate-700 text-sm line-clamp-2">{dept.description}</p>
+        <p className="text-slate-500 text-xs mt-1 line-clamp-1">{dept.subDescription}</p>
+        <div className="flex justify-between items-center mt-4 border-t pt-3">
+          <div className="flex items-center gap-2 text-blue-600">
+            <Users className="h-4 w-4" />
+            <span className="text-sm">
+              {dept.employees.length} Employee{dept.employees.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+          <div className="text-xs bg-blue-100 text-blue-700 rounded-full px-3 py-1 font-medium">
+            Click to view
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
 
         {departments.length === 0 && (
           <div className="flex justify-center items-center h-64 text-white">

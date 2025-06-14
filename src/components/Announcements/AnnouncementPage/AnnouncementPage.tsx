@@ -87,7 +87,27 @@ const Announcement = () => {
       </section>
       {/* button */}
 <div className="flex justify-between"> 
- <div>
+<div className="flex  gap-4  rounded-lg ">
+          <aside className="flex items-center gap-2 text-gray-700">
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
+                <Search className="w-4 h-4" />
+              </span>
+              <input
+                id="search"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+                placeholder="Search by title..."
+                className="pl-9 bg-gray-100 rounded-md px-8 py-2.5  focus:outline-none focus:ring-2 focus:ring-[#4c469f]"
+              />
+            </div>
+          </aside>
+        </div>
+         <div>
    <button
   onClick={() => {
     setShowModal(true);
@@ -135,31 +155,11 @@ const Announcement = () => {
 
   <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
 
-  <span className="relative text-base font-semibold ">Add Announcement</span>
+  <span className="relative text-base font-semibold"
+  
+  >Add Announcement</span>
 </button>
  </div>
-        <div className="flex  gap-4  rounded-lg ">
-          <aside className="flex items-center gap-2 text-gray-700">
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
-                <Search className="w-4 h-4 text-black" />
-              </span>
-              <input
-                id="search"
-                type="text"
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-                placeholder="Search by title..."
-                className="pl-9 bg-gray-100 rounded-md px-8 py-2.5  focus:outline-none focus:ring-2 focus:ring-[#4c469f]"
-              />
-            </div>
-          </aside>
-        </div>
-
-
 </div>
       <div className="my-4 rounded-lg">
 

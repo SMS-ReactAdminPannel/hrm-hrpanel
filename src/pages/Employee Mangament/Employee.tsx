@@ -95,6 +95,16 @@ const EmployeeManagement = () => {
   ];
 
   const [showAddForm, setShowAddForm] = useState(false);
+
+// Define departments array for dropdown
+const departments = [
+  { _id: '1', name: 'Engineering' },
+  { _id: '2', name: 'Marketing' },
+  { _id: '3', name: 'HR' },
+  { _id: '4', name: 'Finance' },
+  { _id: '5', name: 'Operations' },
+];
+
 const [newEmployee, setNewEmployee] = useState<Employee>({
   id: '',
   name: '',
@@ -297,122 +307,133 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
       </div>
 
       {showAddForm && (
-  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative
-    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
-      <h2 className="text-xl font-semibold mb-4 text-white"
-      style={{fontSize:FONTS.header2.fontSize}}>Add New Employee</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
+        <h2 className="text-xl font-semibold mb-4">Add New Employee</h2>
 
-      <div className="grid grid-cols-2 gap-4">
-        {['id', 'name', 'email', 'contactNumber', 'hireDate'].map((field) => (
-          <div key={field} className="flex flex-col ">
-            <input
-              type={field === 'hireDate' ? 'date' : 'text'}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              value={(newEmployee as any)[field]}
+        <div className="grid grid-cols-2 gap-4">
+          {['id', 'name', 'email', 'contactNumber', 'hireDate'].map((field) => (
+            <div key={field} className="flex flex-col">
+              <input
+                type={field === 'hireDate' ? 'date' : 'text'}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={(newEmployee as any)[field]}
+                onChange={(e) => {
+                  setNewEmployee({ ...newEmployee, [field]: e.target.value });
+                }}
+                className={`border rounded p-2 ${errors[field] ? "border-red-500" : ""}`}
+              />
+              {errors[field] && (
+                <span className="text-sm text-red-500">{errors[field]}</span>
+              )}
+            </div>
+          ))}
+
+          {/* 🔽 Department Dropdown - Dynamic */}
+          <div className="flex flex-col">
+            <select
+              value={newEmployee.department}
               onChange={(e) => {
-                setNewEmployee({ ...newEmployee, [field]: e.target.value });
-                setErrors({ ...errors, [field]: "" });
+                setNewEmployee({ ...newEmployee, department: e.target.value as Department });
+                setErrors({ ...errors, department: "" });
               }}
-              className={`border rounded p-2  ${errors[field] ? "border-red-500" : ""}`}
-            />
-            {errors[field] && (
-              <span className="text-sm text-red-500">{errors[field]}</span>
+              className={`border rounded p-2 ${errors.department ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Department</option>
+              {departments.map((dept) => (
+                <option key={dept._id} value={dept.name}>
+                  {dept.name}
+                </option>
+              ))}
+            </select>
+            {errors.department && (
+              <span className="text-sm text-red-500">{errors.department}</span>
             )}
           </div>
-        ))}
 
-        <div className="flex flex-col">
-          <select
-            value={newEmployee.department}
-            onChange={(e) => {
-              setNewEmployee({ ...newEmployee, department: e.target.value as Department });
-              setErrors({ ...errors, department: "" });
-            }}
-            className={`border rounded p-2 ${errors.department ? "border-red-500" : ""}`}
-          >
-            <option value="">Select Department</option>
-            {['Engineering', 'Marketing', 'HR', 'Finance', 'Operations'].map((dept) => (
-              <option key={dept}>{dept}</option>
-            ))}
-          </select>
-          {errors.department && (
-            <span className="text-sm text-red-500">{errors.department}</span>
-          )}
+          {/* Job Title */}
+          <div className="flex flex-col">
+            <select
+              value={newEmployee.jobTitle}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, jobTitle: e.target.value as JobTitle });
+                setErrors({ ...errors, jobTitle: "" });
+              }}
+              className={`border rounded p-2 ${errors.jobTitle ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Job Title</option>
+              {['Manager', 'Developer', 'Designer', 'Analyst', 'Specialist'].map((job) => (
+                <option key={job}>{job}</option>
+              ))}
+            </select>
+            {errors.jobTitle && (
+              <span className="text-sm text-red-500">{errors.jobTitle}</span>
+            )}
+          </div>
+
+          {/* Employment Type */}
+          <div className="flex flex-col">
+            <select
+              value={newEmployee.employmentType}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, employmentType: e.target.value as EmploymentType });
+                setErrors({ ...errors, employmentType: "" });
+              }}
+              className={`border rounded p-2 ${errors.employmentType ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Employment Type</option>
+              {['Full-time', 'Part-time', 'Contract', 'Intern'].map((type) => (
+                <option key={type}>{type}</option>
+              ))}
+            </select>
+            {errors.employmentType && (
+              <span className="text-sm text-red-500">{errors.employmentType}</span>
+            )}
+          </div>
         </div>
 
-        <div className="flex flex-col">
-          <select
-            value={newEmployee.jobTitle}
-            onChange={(e) => {
-              setNewEmployee({ ...newEmployee, jobTitle: e.target.value as JobTitle });
-              setErrors({ ...errors, jobTitle: "" });
-            }}
-            className={`border rounded p-2 ${errors.jobTitle ? "border-red-500" : ""}`}
+        <div className="flex justify-end gap-3 mt-6">
+          <button
+            className="bg-gray-300 text-black px-4 py-2 rounded"
+            onClick={() => setShowAddForm(false)}
           >
-            <option value="">Select Job Title</option>
-            {['Manager', 'Developer', 'Designer', 'Analyst', 'Specialist'].map((job) => (
-              <option key={job}>{job}</option>
-            ))}
-          </select>
-          {errors.jobTitle && (
-            <span className="text-sm text-red-500">{errors.jobTitle}</span>
-          )}
-        </div>
+            Cancel
+          </button>
+          <button
+            className="bg-[#006666] text-white px-4 py-2 rounded"
+            onClick={() => {
+              const newErrors: Record<string, string> = {};
+              const requiredFields = [
+                'id',
+                'name',
+                'email',
+                'contactNumber',
+                'hireDate',
+                'department',
+                'jobTitle',
+                'employmentType',
+              ];
 
-        <div className="flex flex-col">
-          <select
-            value={newEmployee.employmentType}
-            onChange={(e) => {
-              setNewEmployee({ ...newEmployee, employmentType: e.target.value as EmploymentType });
-              setErrors({ ...errors, employmentType: "" });
-            }}
-            className={`border rounded p-2 ${errors.employmentType ? "border-red-500" : ""}`}
-          >
-            <option value="">Select Employment Type</option>
-            {['Full-time', 'Part-time', 'Contract', 'Intern'].map((type) => (
-              <option key={type}>{type}</option>
-            ))}
-          </select>
-          {errors.employmentType && (
-            <span className="text-sm text-red-500">{errors.employmentType}</span>
-          )}
-        </div>
-      </div>
+              requiredFields.forEach((field) => {
+                if (!(newEmployee as any)[field]?.trim?.()) {
+                  newErrors[field] = `${field} is required`;
+                }
+              });
 
-      <div className="flex justify-end gap-3 mt-6">
-        <button
-          className="bg-gray-300 text-black px-4 py-2 rounded "
-          onClick={() => setShowAddForm(false)}
-        >
-          Cancel
-        </button>
-        <button
-          className="bg-[#006666] text-white px-4 py-2 rounded"
-          onClick={() => {
-            const newErrors: Record<string, string> = {};
-            const requiredFields = ['id', 'name', 'email', 'contactNumber', 'hireDate', 'department', 'jobTitle', 'employmentType'];
-
-            requiredFields.forEach((field) => {
-              if (!(newEmployee as any)[field]?.trim?.()) {
-                newErrors[field] = `${field} is required`;
+              if (Object.keys(newErrors).length > 0) {
+                setErrors(newErrors);
+                return;
               }
-            });
 
-            if (Object.keys(newErrors).length > 0) {
-              setErrors(newErrors);
-              return;
-            }
-
-            // Simulate add
-            console.log('Add:', newEmployee);
-            setShowAddForm(false);
-          }}
-        >
-          Add
-        </button>
+              // Simulate add
+              console.log('Add:', newEmployee);
+              setShowAddForm(false);
+            }}
+          >
+            Add
+          </button>
+        </div>
       </div>
-    </div>
   </div>
 )}
 

@@ -28,7 +28,7 @@ export const FONTS = {
     paragraph: {
         fontFamily: "Poppins", 
         fontWeight: 400,
-        fontSize: '18px'
+        fontSize: '14px'
     },
 
 }

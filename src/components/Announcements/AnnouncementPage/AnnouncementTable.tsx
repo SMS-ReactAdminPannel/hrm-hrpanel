@@ -25,8 +25,8 @@ const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) =
                       }}>
           <tr>
             <th className="w-40 px-6 py-3 text-left">Title</th>
-            <th className="w-36 px-6 py-3 text-left">Start Date <br />(yyyy-mm-dd)</th>
-            <th className="w-36 px-6 py-3 text-left">End Date<br />(yyyy-mm-dd)</th>
+            <th className="w-36 px-6 py-3 text-left">Start Date</th>
+            <th className="w-36 px-6 py-3 text-left">End Date</th>
             <th className="w-[30rem] px-6 py-3 text-left">Description</th>
             <th className="w-28 px-6 py-3 text-center">Action</th>
           </tr>
