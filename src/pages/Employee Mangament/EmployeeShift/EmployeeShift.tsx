@@ -252,7 +252,7 @@ const RotatingShiftAssign: React.FC = () => {
     };
 
     return (
-        <div className=" min-h-screen flex flex-col fixed w-[79%]">
+        <div className=" min-h-screen flex flex-col ">
             {/* Header */}
             <div className=" border-gray-200 py-2">
                 <div className="flex items-center justify-between">

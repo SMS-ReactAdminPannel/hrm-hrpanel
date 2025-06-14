@@ -8,7 +8,7 @@ import { offboardingRequests } from "./constants"
 import { DashboardStats } from "./dashboard-stats"
 import { RecentRequests } from "./recent-request"
 import { ExitReasonsAnalysis } from "./exit-reasons-analysis"
-import { SearchFilter } from "./search-filter"
+// import { SearchFilter } from "./search-filter"
 import { FileViewer } from "./file-viewer"
 import { EmployeeDetails } from "./employee-details"
 
@@ -206,22 +206,12 @@ const AdvancedHRMOffboardings = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div>
+      <h1 className="text-2xl font-bold text-black py-4 pb-8">HRM Offboarding System</h1>
+    <div className="min-h-screen rounded-lg "> 
       {/* Header */}
-      <div className="bg-white border-b px-7 py-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">HRM Offboarding System</h1>
-          <SearchFilter
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            filters={filters}
-            onFiltersChange={setFilters}
-          />
-        </div>
-      </div>
-
       {/* Navigation Tabs */}
-      <div className="bg-white border-b px-7">
+      <div className="text-black px-7 rounded-md">
         <div className="flex space-x-8">
           {tabs.map((tab) => (
             <button
@@ -229,8 +219,8 @@ const AdvancedHRMOffboardings = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center rounded-md space-x-2 py-4 border-b-2 ${
                 activeTab === tab.id
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-gray-800"
+                  ? "border-white text-white "
+                  : "border-transparent text-black hover:text-gray-800"
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -241,7 +231,7 @@ const AdvancedHRMOffboardings = () => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6">
+      <div className="pt-5">
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "requests" &&
           (selectedEmployee ? (
@@ -265,6 +255,8 @@ const AdvancedHRMOffboardings = () => {
         onClose={closeFileViewer}
       />
     </div>
+    </div>
+    
   )
 }
 

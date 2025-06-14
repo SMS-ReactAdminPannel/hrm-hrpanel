@@ -130,7 +130,7 @@ export const EmployeeDetails = ({
       </div>
 
       {/* Exit Details & Progress */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 lg:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-lg border shadow-sm">
           <h3 className="text-lg font-semibold mb-4">Exit Information</h3>
           <div className="space-y-3">

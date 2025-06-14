@@ -11,7 +11,7 @@ import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
-import LeaveTypes from "../pages/Leave Management/LeaveTypes";
+import LeaveTypes from "../pages/Leave Types/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
@@ -20,7 +20,7 @@ import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
-import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
+import OnboardingTemplate from "../pages/OnBoarding/OnBoarding";
 import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
 
 import SignupPage from "../pages/auth/SignupPage";
@@ -42,6 +42,7 @@ import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import OTPValidation from "../pages/OTPValidation/OTPValidation";
 
 
 
@@ -89,6 +90,7 @@ const AppRoutes = () => {
       <Route path="/departments" element={<DepartmentList />} />
       <Route path="/" element={<DepartmentList />} />
       <Route path="/employees" element={<EmployeesPage />} />
+       <Route path="/otp-validation" element={<OTPValidation />} />
         </Route>
       ) : (
         <>
