@@ -146,13 +146,16 @@ const fetchGrievances = async () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6"
-         style={{fontFamily:FONTS.header.fontFamily,
-          fontSize:FONTS.header.fontSize,
-
-         }}>
+    <div className="h-[100%] ">
+      <div className="h-screen w-[80%]  overflow-hidden flex flex-col p-6 fixed">
+        
+        <h1
+          className="text-black mb-3"
+          style={{ 
+            fontFamily: FONTS.header.fontFamily,
+            fontSize: FONTS.header.fontSize,
+          }}
+        >
           Grievances
         </h1>
 

@@ -12,6 +12,14 @@ export const API_END_POINTS = {
     creategrievance:"/api/hr/grievance/create",
     getallgrievance:"/api/hr/grievance/getall",
     patchgrievance:(id:string)=>`/api/hr/grievance/${id}/status`
-  }
+  },
+  appraisal: {
+    create: "/api/hr/Appraisal/",  // POST
+    getAll: "/api/hr/Appraisal/",  // GET
+    getById: (id: string) => `/api/hr/Appraisal/${id}`,  // GET
+    update: (id: string) => `/api/hr/Appraisal/${id}`,   // PUT
+    delete: (id: string) => `/api/hr/Appraisal/${id}`,   // DELETE
+  },
 };
+
 
