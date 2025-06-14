@@ -7,6 +7,7 @@ import HomeIntro4 from "../../components/HomeIntro/HomeIntro4";
 import HomeIntro5 from "../../components/HomeIntro/HomeIntro5";
 import HomeIntro6 from "../../components/HomeIntro/HomeIntro6";
 
+
 const HomePage = () => {
   const [step, setStep] = useState(1);
 
@@ -17,7 +18,7 @@ const HomePage = () => {
   };
 
   const handleSkip = () => {
-    if (step < 6) {
+    if (step < 7) {
       setStep(step + 1);
     }
   };
@@ -36,6 +37,7 @@ const HomePage = () => {
       case 4: return <HomeIntro4 />;
       case 5: return <HomeIntro5 />;
       case 6: return <HomeIntro6 />;
+      
       default: return null;
     }
   };
@@ -66,7 +68,7 @@ const HomePage = () => {
             </button>
           )}
           <button
-            className={`${step==5?"bg-[#006666]":"bg-green-600"} text-white p-2 px-6 rounded-lg text-end`}
+            className={`${step==6?"bg-[#006666]":"bg-green-600"} text-white p-2 px-6 rounded-lg text-end`}
             onClick={handleContinue}
           >
             {step<6?"Continue":"Finish"}

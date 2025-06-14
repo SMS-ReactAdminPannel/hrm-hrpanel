@@ -144,7 +144,7 @@ const fetchGrievances = async () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mt-5">
       <div className="max-w-full ">
         <h1 className=" text-[black] mb-6" style={FONTS.header}>
           Grievances

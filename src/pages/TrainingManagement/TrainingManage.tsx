@@ -813,9 +813,9 @@ const HRMTrainingDashboard: React.FC = () => {
     <div className="min-h-screen ">
       {/* Header */}
       <header className="   border-gray-200">
-        <div className="max-w-full px-3">
+        <div className="max-w-full">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center ">
               <h1 className=" font-bold text-white" style={{ fontFamily: FONTS.header.fontFamily, fontSize: FONTS.header.fontSize, fontWeight: FONTS.header.fontWeight }}>Training</h1>
               {/* {selectedProgram && (
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -833,7 +833,7 @@ const HRMTrainingDashboard: React.FC = () => {
 
 
       <nav className="shadow-sm">
-        <div className="max-w-full px-3 py-3">
+        <div className="max-w-full py-3">
           <div
             className="flex space-x-4"
             style={{

@@ -140,7 +140,7 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    <div className="p-4 mx-auto max-w-screen-xl">
+    <div className=" mx-auto max-w-screen-xl">
         <h1 className=" mb-6" style={FONTS.header}>
           Recruitment Dashboard
         </h1>

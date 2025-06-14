@@ -161,11 +161,11 @@ export default function OrganizationChart() {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="container mx-auto  py-8 max-w-7xl">
 
         {/* Header: Title + Add Button */}
         <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center ">
             {/* <div className="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
               <Users className="w-8 h-8" />
             </div> */}

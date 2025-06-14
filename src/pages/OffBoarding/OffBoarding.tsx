@@ -511,6 +511,23 @@ const AdvancedHRMOffboarding = () => {
               New Request
             </button>
           </div>
+
+          {/* new request form */}
+          {
+            showNewRequestModal &&(
+              <div className="fixed inset-0 z-80 bg-black/40 ">
+                <button
+                onClick={()=> setShowNewRequestModal(false)}
+                style={{fontSize:FONTS.header3.fontSize}}
+                  className="bg-[#006666]   text-white text-black ">
+                     close</button>
+                <div className="bg-[#006666]  text-white px-4 py-2 text-center mt-6 ">
+                  <p>Welcome to New Request Page</p>
+                  </div>
+                
+              </div>
+            )
+          }
           <div className="space-y-4 ">
             {filteredRequests.slice(0, 3).map((req) => (
               <div
@@ -860,7 +877,7 @@ const AdvancedHRMOffboarding = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="px-7 py-4">
+      <div className=" py-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-800"
           style={{fontSize:FONTS.header.fontSize,fontFamily:FONTS.header.fontFamily}}>HRM Offboarding System</h1>
@@ -964,7 +981,7 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Navigation Tabs ---------------DASHBOARD,EXIT REQUEST,ANALYTICS*/}
-      <div className="px-7">
+      <div className="">
         <div className="flex space-x-8">
           {tabs.map((tab) => (
             <button
@@ -985,7 +1002,7 @@ const AdvancedHRMOffboarding = () => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6">
+      <div className="py-6">
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "requests" &&
           (selectedEmployee ? (

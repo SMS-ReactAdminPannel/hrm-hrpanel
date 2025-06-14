@@ -76,18 +76,18 @@ const Announcement = () => {
 
   return (
     <div
-      className=" text-[17px] relative"
+      
       style={{ fontFamily: FONTS.paragraph.fontFamily }}
     >
-      <section className="flex justify-between items-center mb-4">
+      <section className="flex justify-between items-center mb-2 ">
         <h1 className=" text-black" style={FONTS.header}>
           Announcements
         </h1>
         
       </section>
       {/* button */}
-<div className="flex justify-between"> 
-<div className="flex  gap-4  rounded-lg ">
+      <div className="flex justify-between"> 
+        <div className="flex  gap-4  rounded-lg ">
           <aside className="flex items-center gap-2 text-gray-700">
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
@@ -138,7 +138,7 @@ const Announcement = () => {
     </svg>
   </span>
 
-  <span className="absolute top-0 right-0 w-12 h-full -mr-3">
+  <span className="absolute top-0 right-0 w-12 h-full -mr-10">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="object-cover w-full h-full"
@@ -157,7 +157,7 @@ const Announcement = () => {
 
   <span className="relative text-base font-semibold"
   
-  >Add Announcement</span>
+  >Add   Announcement</span>
 </button>
  </div>
 </div>

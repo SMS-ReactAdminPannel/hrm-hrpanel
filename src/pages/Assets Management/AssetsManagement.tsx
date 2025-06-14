@@ -579,7 +579,7 @@ const AssetsManagement: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen py-5 px-5">
+    <div className="min-h-screen  ">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br 
         from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>

@@ -440,7 +440,7 @@ export default function Deduction() {
       <div className={` transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
         <div className="flex md:flex-row justify-between mb-6 gap-4">
-          <div className='text-2xl font-bold px-2 py-2'
+          <div className='text-2xl font-bold  py-2'
            style={{
                       fontSize: FONTS.header.fontSize,
                       fontFamily: FONTS.header.fontFamily
