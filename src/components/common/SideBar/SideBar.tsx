@@ -25,6 +25,7 @@ import { FaUserTimes } from "react-icons/fa";
 import { MdOutlineSick } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { FONTS } from "../../../constants/uiConstants"
 
 
 
@@ -68,6 +69,11 @@ const SideBar = ({
       {/* Header */}
       <div className="flex flex-col scrollbar-hide h-16  ">
         <div className="flex items-center justify-between p-4 h-16">
+          {actualOpen && <div className="text-white text-xl font-semibold"
+            style={{
+              fontSize: FONTS.header2.fontSize,
+              fontFamily: FONTS.header.fontFamily
+            }}>HRM</div>}
           <button
             onClick={handleToggle}
             className="p-2 rounded-md transition duration-200 hover:bg-white/10"
@@ -75,7 +81,7 @@ const SideBar = ({
           >
             <FiMenu size={20} color="white" />
           </button>
-          {actualOpen && <div className="text-white text-xl font-semibold">HRM</div>}
+         
         </div>
       </div>
 
@@ -121,7 +127,7 @@ const SideBar = ({
           <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/deduction" icon={<MdMoneyOffCsred />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/grievance" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/grievance" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/training-management" icon={<AiOutlineIssuesClose />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/chat" icon={<AiOutlineIssuesClose />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />

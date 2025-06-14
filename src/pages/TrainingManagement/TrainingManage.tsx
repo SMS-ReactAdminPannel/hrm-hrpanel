@@ -114,10 +114,13 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
   )
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className=" rounded-xl bg-white p-10  max-w-md mx-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-900"
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+      <div className=" rounded-xl bg-white p-10  max-w-md mx-4
+      backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+        <div className="flex justify-between items-center mb-6
+        backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+          <h2 className="text-xl font-semibold text-white"
 
 
             style={{
@@ -135,7 +138,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
               fontWeight: FONTS.paragraph.fontWeight,
             }}
           >
-            <X className="w-5 h-5 ml-8" />
+            <X className="w-5 h-5 ml-8 text-white" />
           </button>
         </div>
 
@@ -143,7 +146,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="title"
-              className="bd-white block text-sm font-medium text-gray-700 mb-1"
+              className="bd-white block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -167,7 +170,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="category"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -202,7 +205,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="duration"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -231,7 +234,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="instructor"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -261,7 +264,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
           <div>
             <label
               htmlFor="startDate"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-white mb-1"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontSize: FONTS.paragraph.fontSize,
@@ -290,7 +293,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex-1 px-4 py-2 md:px-6 md:py-2.5 border border-gray-300 text-white rounded-lg bg-[#006666]  hover:bg-[#005555] hover:text-black transition-colors"
               style={{
                 fontFamily: FONTS.paragraph.fontFamily,
                 fontWeight: FONTS.paragraph.fontWeight,

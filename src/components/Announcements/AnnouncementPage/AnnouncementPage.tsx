@@ -80,7 +80,7 @@ const Announcement = () => {
       style={{ fontFamily: FONTS.paragraph.fontFamily }}
     >
       <section className="flex justify-between items-center mb-4">
-        <h1 className=" text-white" style={FONTS.header}>
+        <h1 className=" text-black" style={FONTS.header}>
           Announcements
         </h1>
         
@@ -99,9 +99,9 @@ const Announcement = () => {
     });
     setEditIndex(null);
   }}
-  className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#4c469f] rounded-md group"
+            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#006666]  rounded-md group"
 >
-  <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-[#3e3a85] rounded-full group-hover:w-56 group-hover:h-56"></span>
+  {/* <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-[#3e3a85] rounded-full group-hover:w-56 group-hover:h-56"></span> */}
 
   <span className="absolute bottom-0 left-0 h-full -ml-2">
     <svg
@@ -135,14 +135,14 @@ const Announcement = () => {
 
   <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
 
-  <span className="relative text-base font-semibold">Add Announcement</span>
+  <span className="relative text-base font-semibold ">Add Announcement</span>
 </button>
  </div>
         <div className="flex  gap-4  rounded-lg ">
           <aside className="flex items-center gap-2 text-gray-700">
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
-                <Search className="w-4 h-4" />
+                <Search className="w-4 h-4 text-black" />
               </span>
               <input
                 id="search"
