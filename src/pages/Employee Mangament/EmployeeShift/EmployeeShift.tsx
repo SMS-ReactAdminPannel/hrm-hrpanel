@@ -252,20 +252,21 @@ const RotatingShiftAssign: React.FC = () => {
     };
 
     return (
-        <div className=" min-h-screen flex flex-col">
+        <div className=" min-h-screen flex flex-col fixed w-[79%]">
             {/* Header */}
             <div className=" border-gray-200 py-2">
                 <div className="flex items-center justify-between">
                     <h1 className="text-black" style={FONTS.header}>Rotating Shift Assign</h1>
                     <div className="flex items-center gap-3 md:gap-4">
                         <div className="relative w-100 md:w-64">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                            <Search className="absolute left-3 top-1/2 
+                            transform -translate-y-1/2 text-black  w-4 h-4" />
                             <input
                                 type="text"
                                 placeholder="Search by employee name"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 border border-gray-300 bg-[#eff4f5] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full pl-10 pr-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 
                             />
                         </div>
@@ -275,7 +276,9 @@ const RotatingShiftAssign: React.FC = () => {
                         {/* Group By Dropdown */}
                         <div className="relative" ref={groupDropdownRef} style={{ zIndex: 99 }}>
                             <button
-                                className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 text-sm md:text-base"
+                                className="flex items-center gap-2 px-3
+                                 md:px-4 py-2 border border-gray-300 rounded-md
+                                  hover:bg-[#005353] text-sm md:text-base bg-[#006666] text-white"
                                
                                 onClick={() => {
                                     setIsGroupDropdownOpen(!isGroupDropdownOpen);
@@ -367,35 +370,37 @@ const RotatingShiftAssign: React.FC = () => {
 </div>
             {/* Table Container */}
             <div className="flex-1 overflow-hidden mt-10">
-                <div className="h-full overflow-auto rounded-md custom-scrollbar">
+                <div className="h-full overflow-auto rounded-md custom-scrollbar w-[100%]">
                     <table className="w-full ">
                         <thead className="bg-[#006666] border-b border-gray-200 sticky top-0">
-                            <tr>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]">
+                            <tr style={{fontSize:FONTS.paragraph.fontSize,
+                                fontFamily:FONTS.header3.fontFamily
+                            }}>
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white min-w-[100px]">
                                     Employee
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white min-w-[100px]">
                                     Title
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[120px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white  min-w-[100px]">
                                     Based On
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[180px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white  min-w-[100px]">
                                     Rotate
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white min-w-[100px]">
                                     Start Date
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[150px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white  min-w-[100px]">
                                     Current Shift
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white min-w-[100px]">
                                     Next Shift
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white  min-w-[150px]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white  min-w-[100px]">
                                     Next Switch
                                 </th>
-                                <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]">
+                                <th className="px-2 lg:px-3 py-3 text-left text-md font-medium text-white min-w-[100px] sticky right-0 bg-[#006666]">
                                     Actions
                                 </th>
                             </tr>
@@ -415,7 +420,7 @@ const RotatingShiftAssign: React.FC = () => {
 
                                         {groupEmployees.map((employee) => (
                                             <tr key={employee.id}>
-                                                <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                                <td className="px-4 lg:px-3 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
                                                         
                                                         <div>
@@ -424,11 +429,11 @@ const RotatingShiftAssign: React.FC = () => {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.startDate}</td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.startDate}</td>
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">
                                                     <span className={`px-2 py-1 rounded-full text-xs ${employee.currentShift === 'None' ? 'bg-gray-100 text-gray-800' :
                                                             employee.currentShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
                                                                 employee.currentShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
@@ -437,7 +442,7 @@ const RotatingShiftAssign: React.FC = () => {
                                                         {employee.currentShift}
                                                     </span>
                                                 </td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">
                                                     <span className={`px-2 py-1 rounded-full text-xs ${employee.nextShift === 'None' ? 'bg-gray-100 text-gray-800' :
                                                             employee.nextShift.includes('Morning') ? 'bg-blue-100 text-blue-800' :
                                                                 employee.nextShift.includes('Night') ? 'bg-purple-100 text-purple-800' :
@@ -446,8 +451,8 @@ const RotatingShiftAssign: React.FC = () => {
                                                         {employee.nextShift}
                                                     </span>
                                                 </td>
-                                                <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.nextSwitch}</td>
-                                                <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
+                                                <td className="px-4 lg:px-3 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.nextSwitch}</td>
+                                                <td className="px-4 lg:px-3 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
                                                     <div className="flex items-center gap-2">
                                                         <button
                                                             className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
@@ -483,9 +488,10 @@ const RotatingShiftAssign: React.FC = () => {
             {/* Assign Modal */}
             {isAssignModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-md w-full max-w-2xl">
+                    <div className="bg-white rounded-md w-full max-w-2xl
+                    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
                         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-                            <h2 className="text-xl font-semibold text-gray-900">Assign Rotating Shift</h2>
+                            <h2 className="text-xl font-semibold text-white">Assign Rotating Shift</h2>
                             <button
                                 onClick={() => setIsAssignModalOpen(false)}
                                 className="text-gray-400 hover:text-gray-500"
@@ -496,7 +502,7 @@ const RotatingShiftAssign: React.FC = () => {
                         <form onSubmit={handleSubmit} className="p-6">
                             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                                 <div className="sm:col-span-2">
-                                    <label htmlFor="employee" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="employee" className="block text-sm font-medium text-white">
                                         Employee
                                     </label>
                                     <div className="mt-1">
@@ -513,7 +519,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div className="sm:col-span-2">
-                                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="title" className="block text-sm font-medium text-white">
                                         Title
                                     </label>
                                     <div className="mt-1">
@@ -530,7 +536,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="basedOn" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="basedOn" className="block text-sm font-medium text-white">
                                         Based On
                                     </label>
                                     <div className="mt-1">
@@ -549,7 +555,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="rotate" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="rotate" className="block text-sm font-medium text-white">
                                         Rotate
                                     </label>
                                     <div className="mt-1">
@@ -567,7 +573,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="startDate" className="block text-sm font-medium text-white">
                                         Start Date
                                     </label>
                                     <div className="mt-1">
@@ -584,7 +590,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="currentShift" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="currentShift" className="block text-sm font-medium text-white">
                                         Current Shift
                                     </label>
                                     <div className="mt-1">
@@ -606,7 +612,7 @@ const RotatingShiftAssign: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="nextShift" className="block text-sm font-medium text-gray-700">
+                                    <label htmlFor="nextShift" className="block text-sm font-medium text-white">
                                         Next Shift
                                     </label>
                                     <div className="mt-1">

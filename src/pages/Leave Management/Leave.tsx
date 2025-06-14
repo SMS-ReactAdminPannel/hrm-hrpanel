@@ -351,7 +351,7 @@ const navigateToDate = (date: Date) => {
           </div>
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-px bg-gray-50">
+          <div className="grid grid-cols-7  gap-px bg-gray-50">
             {days.map((day, idx) => (
               <div
                 key={idx}

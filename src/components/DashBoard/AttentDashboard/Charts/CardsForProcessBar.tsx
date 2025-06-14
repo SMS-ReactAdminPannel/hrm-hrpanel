@@ -17,7 +17,7 @@ export const CardForProcessBar: React.FC<DashboardCardProps> = ({
   backgroundColor,
 }) => {
   return (
-    <div className="rounded-xl shadow-md p-2 w-full  bg-white max-w-[140px] h-[80px] flex flex-col justify-between">
+    <div className="rounded-xl shadow-md p-2 w-full  bg-gray-300 max-w-[140px] h-[80px] flex flex-col justify-between">
       {/* Top Section: Icon + Title + Value */}
       <div className=" ">
         {/* Icon */}

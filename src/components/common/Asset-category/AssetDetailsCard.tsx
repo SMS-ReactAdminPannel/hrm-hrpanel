@@ -66,8 +66,10 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div ref={modalRef} className="bg-white rounded-md shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black  bg-opacity-50 flex items-center justify-center z-50 p-4
+     backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+      <div ref={modalRef} className="bg-white border border-white rounded-md shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto
+       backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-[#006666] to-[#008080]">
           <div className="flex items-center gap-4">
             {/* <div
@@ -102,38 +104,38 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Basic Information</h3>
+              <h3 className="text-lg font-semibold text-white border-b border-gray-200 pb-2">Basic Information</h3>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <Hash className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Hash className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Asset ID</p>
-                    <p className="text-gray-900 font-mono">{asset.id}</p>
+                    <p className="text-sm font-medium text-white">Asset ID</p>
+                    <p className="text-white font-mono">{asset.id}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Tag className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Tag className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Tracking ID</p>
-                    <p className="text-gray-900 font-mono text-[#006666] font-semibold">{asset.trackingId}</p>
+                    <p className="text-sm font-medium text-white">Tracking ID</p>
+                    <p className="text-gray-900 font-mono text-white font-semibold">{asset.trackingId}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Package className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Package className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Category</p>
-                    <p className="text-gray-900 capitalize">{asset.category || "Not specified"}</p>
+                    <p className="text-sm font-medium text-white">Category</p>
+                    <p className="text-white">{asset.category || "Not specified"}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Package className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Package className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Batch Number</p>
-                    <p className="text-gray-900 font-mono">{asset.batchNo}</p>
+                    <p className="text-sm font-medium text-white">Batch Number</p>
+                    <p className="text-white font-mono">{asset.batchNo}</p>
                   </div>
                 </div>
               </div>
@@ -141,32 +143,32 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
 
       
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+              <h3 className="text-lg font-semibold text-white border-b border-gray-200 pb-2">
                 Financial & Timeline
               </h3>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <DollarSign className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <DollarSign className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Cost</p>
-                    <p className="text-gray-900 font-semibold text-lg">{formatCurrency(asset.cost)}</p>
+                    <p className="text-sm font-medium text-white">Cost</p>
+                    <p className="text-white font-semibold text-lg">{formatCurrency(asset.cost)}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Calendar className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Purchase Date</p>
-                    <p className="text-gray-900">{formatDate(asset.purchaseDate)}</p>
+                    <p className="text-sm font-medium text-white">Purchase Date</p>
+                    <p className="text-white">{formatDate(asset.purchaseDate)}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-[#006666] mt-0.5" />
+                  <Clock className="w-5 h-5 text-white mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Expiry Date</p>
-                    <p className="text-gray-900">{formatDate(asset.expiryDate)}</p>
+                    <p className="text-sm font-medium text-white">Expiry Date</p>
+                    <p className="text-white">{formatDate(asset.expiryDate)}</p>
                   </div>
                 </div>
               </div>
@@ -175,33 +177,34 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
 
           
           {asset.description && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-3">Description</h3>
+            <div className="mt-6 ">
+              <h3 className="text-lg font-semibold text-white border-b border-gray-200 pb-2 mb-3">Description</h3>
               <div className="bg-gray-50 rounded-lg p-4">
                 <p className="text-gray-700 leading-relaxed">{asset.description}</p>
               </div>
             </div>
           )}
 
+
   
-          <div className="mt-6 bg-gradient-to-r from-[#006666]/5 to-[#008080]/5 rounded-md p-4 border border-[#006666]/20">
-            <h4 className="font-semibold text-[#006666] mb-2">Asset Summary</h4>
+          <div className="mt-6 bg-gradient-to-r from-[#006666]/5 to-[#008080]/5 rounded-md p-4 border border-white ">
+            <h4 className="font-semibold text-white mb-2">Asset Summary</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
-                <p className="text-gray-600">Status</p>
-                <p className="font-medium text-gray-900">{asset.status}</p>
+                <p className="text-white">Status</p>
+                <p className="font-medium text-white">{asset.status}</p>
               </div>
               <div>
-                <p className="text-gray-600">Category</p>
-                <p className="font-medium text-gray-900 capitalize">{asset.category || "N/A"}</p>
+                <p className="text-white">Category</p>
+                <p className="font-medium text-white capitalize">{asset.category || "N/A"}</p>
               </div>
               <div>
-                <p className="text-gray-600">Value</p>
-                <p className="font-medium text-gray-900">{formatCurrency(asset.cost)}</p>
+                <p className="text-white">Value</p>
+                <p className="font-medium text-white">{formatCurrency(asset.cost)}</p>
               </div>
               <div>
-                <p className="text-gray-600">Age</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-white">Age</p>
+                <p className="font-medium text-white">
                   {asset.purchaseDate
                     ? `${Math.floor((new Date().getTime() - new Date(asset.purchaseDate).getTime()) / (1000 * 60 * 60 * 24 * 30))} months`
                     : "N/A"}
@@ -211,7 +214,7 @@ const AssetDetailsCard: React.FC<AssetDetailsCardProps> = ({ isOpen, onClose, as
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50">
+        <div className="flex justify-end gap-3 p-6 border   bg-gradient-to-r from-[#006666] to-[#008080]">
           <button
             onClick={onClose}
             className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition-colors"

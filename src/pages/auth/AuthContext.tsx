@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true); // <- Add loading state
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser({ email });
       setIsAuthenticated(true);
     }
-    setLoading(false); // <- Set loading false once checked
+    setLoading(false); 
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
       setUser({ email });
-      setIsAuthenticated(false);
+      setIsAuthenticated(true);
     } else {
       throw new Error("Invalid login credentials");
     }
