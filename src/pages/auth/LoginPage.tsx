@@ -8,6 +8,7 @@ import { useAuth } from "./AuthContext"
 import { postLogin } from "../../features/auth/service"
 
 
+
   const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -29,7 +30,7 @@ import { postLogin } from "../../features/auth/service"
     await login(data.email, data.password);
     console.log(User);
 
-    navigate("/");
+    navigate("dashboard");
   } catch (error) {
     console.log("error", error);
   }
