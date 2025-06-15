@@ -1,5 +1,3 @@
-
-
 import { useState, type FormEvent } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
@@ -16,26 +14,6 @@ export const LoginPage = () => {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login } = useAuth()
-  
-
-  type LoginData = {
-	email: string;
-	password: string;
-};
-
- const onSubmit = async (data: LoginData) => {
-  try {
-    const User: any = await postLogin(data);
-    await login(data.email, data.password);
-    console.log(User);
-
-    navigate("/");
-  } catch (error) {
-    console.log("error", error);
-  }
-};
-
-
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -49,10 +27,29 @@ export const LoginPage = () => {
     }
 
     try {
-      await login(email, password)
-      navigate("/")
+      const User: any = await postLogin({ email, password })
+      console.log("Backend response:", User)
+      if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
+        await login(email, password)
+        console.log("Login successful:", User)
+        navigate("/")
+      } else {
+        const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
+        setError(errorMessage)
+      }
     } catch (err: any) {
-      setError("Login failed. Please try again.")
+      console.log("Login error:", err)
+      
+  
+      if (err.message?.includes("EmailId is not valid") || err.message?.includes("not registered")) {
+        setError("This email is not registered. Please sign up first.")
+      } else if (err.message?.includes("Password is incorrect")) {
+        setError("Incorrect password. Please try again.")
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message)
+      } else {
+        setError("Login failed. Please try again.")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -80,14 +77,7 @@ export const LoginPage = () => {
         <div className="bg-white bg-opacity-90 backdrop-blur-sm p-8 rounded-xl shadow-2xl max-w-md w-full mx-4">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#006666]">Login</h2>
 
-          <form 
-  onSubmit={(e) => {
-    e.preventDefault();
-    onSubmit({ email, password });
-  }}
-  className="space-y-4"
->
-
+          <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="email"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

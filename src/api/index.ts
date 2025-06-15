@@ -33,7 +33,8 @@ class Client {
 
     hrprofile:{
        postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
-       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data)
+       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data),
+       postlogout: () => httpClient.post(API_END_POINTS.hrprofile.postlogout,{})
     },
 
     candidates:{
