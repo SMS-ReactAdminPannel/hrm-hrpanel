@@ -30,11 +30,20 @@ export const API_END_POINTS = {
 
 
   assetcategory:{
-    createasset:"/api/hr/assetcategory/create",
-    getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
-    getallasset:"/api/hr/assetcategory/getall",
-    updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
-    deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+    createassetcategory:"/api/hr/assetcategory/create",
+    getassetcategory:(id:string)=>`/api/hr/assetcategory/get/${id}`,
+    getallassetcategory:"/api/hr/assetcategory/getall",
+    updateassetcategory:(id:string)=>`/api/hr/assetcategory/update/${id}`,
+    deleteassetcategory:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+  },
+
+  asset:{
+    createasset:"/api/hr/assetcategory/assetcreate",
+    getasset:(id:string)=>`/api/hr/assetcategory/assetget/${id}`,
+    getallasset:"/api/hr/assetcategory/assetgetall",
+    updateasset:(id:string)=>`/api/hr/assetcategory/assetupdate/${id}`,
+    deleteasset:(id:string)=>`/api/hr/assetcategory/assetdelete/${id}`,
+
 
   }
 };
