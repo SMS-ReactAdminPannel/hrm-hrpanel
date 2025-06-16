@@ -32,7 +32,7 @@ import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
-import CandidatesPage from "../pages/Recuritment/Candidates";
+import CandidatesPage from "../pages/Recuritment/Candidates/Candidateslistpage";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
 import Reports from "../pages/Employee Mangament/Reports/Reports";
@@ -42,6 +42,8 @@ import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
+import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
+import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
 // import EmployeesPage from "../components/Department/Employees";
 
 
@@ -51,44 +53,49 @@ const AppRoutes = () => {
   return (
     <Routes>
       {isAuthenticated ? (
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="attendance" element={<Attendance />} />
-          <Route path="attendance-id" element={<EmployeeDetails />} />
-          <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<Leave />} />
-          <Route path="organization-chart" element={<OrganizationChart />} />
-          <Route path="payroll" element={<Payroll />} />
-          <Route path="recruitment" element={<Recuritment />} />
-          {/* <Route path="candidates" element={<CandidatesList />} /> */}
-          <Route path="pipeline" element={<RecruitmentPipeline />} />
-          <Route path="time-sheet" element={<TimeSheet />} />
-          <Route path="training-management" element={<TrainingManage />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="shift" element={<EmployeeShift />} />
-          <Route path="announcement" element={<Announcement />} />
-          <Route path="leave-types" element={<LeaveTypes />} />
-          <Route path="deduction" element={<Deduction />} />
-          <Route path="asset" element={<AssetsManagement />} />
-          <Route path="asset-category" element={<Assetcategory />} />
-          <Route path="home-intro" element={<HomePage />} />
-          <Route path="appraisal" element={<Appraisal />} />
-          {/* <Route path="reports" element={<Reports />} /> */}
-          <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
-          <Route path="onboarding" element={<OnboardingTemplate />} />
-          <Route path="profile" element={<Profile />} /> 
-          <Route path="grievance-management" element={<GrievanceManagement/>}/>
-          <Route path="notification" element={<Notification/>}/>
-          <Route path="visitor-management" element={<VisitorManagementSystem />}/>
-          <Route path="/" element={<CandidatesPage />} />
-          <Route path="candidates" element={<CandidateDetailPage />} />
-      <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
-      <Route path="/job/:id" element={<JobDetailsPage />} />
-      <Route path="/departments" element={<DepartmentList />} />
-      <Route path="/" element={<DepartmentList />} />
-      <Route path="/employees" element={<EmployeesPage />} />
-        </Route>
+        <>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="attendance" element={<Attendance />} />
+            <Route path="attendance-id" element={<EmployeeDetails />} />
+            <Route path="employee" element={<Employee />} />
+            <Route path="leave-management" element={<Leave />} />
+            <Route path="organization-chart" element={<OrganizationChart />} />
+            <Route path="payroll" element={<Payroll />} />
+            {/* <Route path="recruitment" element={<Recuritment />} />
+            <Route path="candidates" element={<CandidatesPage />} /> */}
+            <Route path="pipeline" element={<RecruitmentPipeline />} />
+            <Route path="time-sheet" element={<TimeSheet />} />
+            <Route path="training-management" element={<TrainingManage />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="shift" element={<EmployeeShift />} />
+            <Route path="announcement" element={<Announcement />} />
+            <Route path="leave-types" element={<LeaveTypes />} />
+            <Route path="deduction" element={<Deduction />} />
+            <Route path="asset" element={<AssetsManagement />} />
+            <Route path="asset-category" element={<Assetcategory />} />
+            <Route path="home-intro" element={<HomePage />} />
+            <Route path="appraisal" element={<Appraisal />} />
+            {/* <Route path="reports" element={<Reports />} /> */}
+            <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
+            <Route path="onboarding" element={<OnboardingTemplate />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="grievance-management" element={<GrievanceManagement />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="visitor-management" element={<VisitorManagementSystem />} />
+            <Route path="/recruitment" element={<RecruitmentDashboard />} />
+    <Route path="recruitment/candidatesPage" element={<CandidatesPage />} />
+    <Route path="recruitment/candidatesDetailPage" element={<CandidateDetailPage />} />
+    <Route path="/recruitment/job-postings" element={<OpenRecruitments />} />
+    <Route path="pipeline" element={<RecruitmentPipeline />} />
+    <Route path="recruitment/job-postings" element={<JobDetailsPage />} />
+
+            <Route path="/departments" element={<DepartmentList />} />
+            {/* <Route path="/" element={<DepartmentList />} /> */}
+            <Route path="/employees" element={<EmployeesPage />} />
+          </Route>
+        </>
       ) : (
         <>
           <Route path="/login" element={<LoginPage />} />
@@ -98,7 +105,6 @@ const AppRoutes = () => {
           {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </>
       )}
-          
     </Routes>
   );
 };

@@ -15,11 +15,23 @@ export const API_END_POINTS = {
   },
 
   asset: {
-    getAllAssets: "/api/asset/all",
+    getAllAssets: "/api/assets",
     getAssetById: (id: string) => `/api/asset/${id}`,
-    createAsset: "/api/asset/create",
-    updateAsset: (id: string) => `/api/asset/update/${id}`,
-    deleteAsset: (id: string) => `/api/asset/delete/${id}`,
+    createAsset: "/api/assets",
+    updateAsset: (id: string) => `/api/assets/${id}`,
+    deleteAsset: (id: string) => `/api/assets/${id}`,
   },
+
+
+    jobPosting: {
+      getAll: "/api/job-postings",
+      getById: "/api/job-postings",   
+      create: "/api/job-postings",
+      update: "/api/job-postings",    
+      delete: "/api/job-postings",    
+    },
+ 
+  
 };
+
 
