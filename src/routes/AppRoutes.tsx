@@ -31,15 +31,21 @@ import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
+// import CandidatesPage from "../pages/Recuritment/Candidates/Candidateslistpage";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
-import OpenRecruitments from "../pages/Recuritment/openRecruitments";
+// import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
+// import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
+import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import HomeIntro from "../pages/HomePage/HomePage";
+
+// import EmployeesPage from "../components/Department/Employees";
+
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
