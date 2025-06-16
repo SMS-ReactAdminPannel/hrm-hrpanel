@@ -102,11 +102,6 @@ const AssetTable: React.FC<AssetTableProps> = ({
         
                 <td className="px-6 py-4 w-1/3">
                   <div className="flex items-center gap-3">
-                    {/* <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold ${asset.avatarBg} flex-shrink-0`}
-                    >
-                      {asset.avatar}
-                    </div> */}
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-semibold text-gray-900 truncate">
                         {asset.name}
