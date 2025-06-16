@@ -117,7 +117,7 @@ const dummyData: Person[] = [
 
   return (
     
-    <div className=" space-y-6 min-h-screen w-full px-5 py-5">
+    <div className=" space-y-6 min-h-screen w-full  py-5">
       <div>
         <p className=" font-bold bg-black bg-clip-text text-transparent mt-2 
         leading-relaxed pb-1 font-family-poppins"

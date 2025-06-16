@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Users, Clock, TrendingUp, CheckCircle, XCircle, User, Building, Phone, Mail, Calendar } from 'lucide-react';
+import { FONTS } from '../../constants/uiConstants';
 
 // Types
 interface Visitor {
@@ -232,7 +233,11 @@ const VisitorManagementSystem: React.FC = () => {
   );
 
   const VisitorCard: React.FC<{ visitor: Visitor; showCheckOut?: boolean }> = ({ visitor, showCheckOut = false }) => (
-    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ">
+    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 "
+      style={{
+        fontSize: FONTS.paragraph.fontSize
+        , fontFamily: FONTS.header.fontFamily
+      }}>
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-semibold text-gray-800">{visitor.name}</h3>
         <span className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -318,12 +323,19 @@ const VisitorManagementSystem: React.FC = () => {
   return (
     <div>
     
-    <div className="min-h-screen bg-gradient-to-br to-blue-800">
+    <div className="min-h-screen bg-gradient-to-br to-blue-800 ">
       <div className=" mx-auto">
         {/* Header */}
-
+        <h1 className='mb-5'
+            style={{
+              fontSize: FONTS.header.fontSize
+              , fontFamily: FONTS.header.fontFamily
+            }}>Visitors Management </h1>
         {/* Navigation */}
-        <div className="flex flex-wrap gap-2 bg-white/20 backdrop-blur-lg rounded-md p-2 mb-8">
+          <div className="flex flex-wrap gap-2 bg-[#006666] backdrop-blur-lg rounded-md p-2 mb-8"
+        style={{fontSize:FONTS.header3.fontSize
+          ,fontFamily:FONTS.header.fontFamily
+        }}>
           <TabButton tab="checkin" icon={<User className="w-5 h-5" />}>Check In</TabButton>
           <TabButton tab="visitors" icon={<Users className="w-5 h-5" />}>Current Visitors</TabButton>
           <TabButton tab="history" icon={<Clock className="w-5 h-5" />}>History</TabButton>
@@ -346,9 +358,17 @@ const VisitorManagementSystem: React.FC = () => {
           {/* Check In Tab */}
           {activeTab === 'checkin' && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-8 py-4 pl-4">Visitor Registration & Check-In</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-8 py-4 pl-4"
+                  style={{
+                    fontSize: FONTS.header2.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>Visitor Registration & Check-In</h2>
               
-              <div className="space-y-6 px-6">
+              <div className="space-y-6 px-6"
+                  style={{
+                    fontSize: FONTS.header3.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>
                 <div className="grid grid-cols-2 gap-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -417,6 +437,10 @@ const VisitorManagementSystem: React.FC = () => {
                       value={formData.department}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
+                          style={{
+                            fontSize: FONTS.paragraph.fontSize
+                            , fontFamily: FONTS.header.fontFamily
+                      }}
                     >
                       <option value="">Select Department</option>
                       <option value="HR">Human Resources</option>
@@ -437,6 +461,10 @@ const VisitorManagementSystem: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
+                        style={{
+                          fontSize: FONTS.paragraph.fontSize
+                          , fontFamily: FONTS.header.fontFamily
+                    }}
                   >
                     <option value="">Select Purpose</option>
                     <option value="Interview">Job Interview</option>
@@ -450,7 +478,11 @@ const VisitorManagementSystem: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Additional Notes</label>
+                  <label className="block text-xm font-semibold text-gray-700 mb-2"
+                      style={{
+                        fontSize: FONTS.paragraph.fontSize
+                        , fontFamily: FONTS.header.fontFamily
+                  }}>Additional Notes</label>
                   <textarea
                     name="notes"
                     value={formData.notes}
@@ -475,11 +507,15 @@ const VisitorManagementSystem: React.FC = () => {
           {/* Current Visitors Tab */}
           {activeTab === 'visitors' && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800  py-4 pl-4">Current Visitors</h2>
+              <h2 className="text-2xl font-bold text-gray-800  py-4 pl-4"
+                  style={{
+                    fontSize: FONTS.header3.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>Current Visitors</h2>
               
               <div className="mb-6 py-4 px-6">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Search visitors by name, company, or host..."
@@ -509,7 +545,11 @@ const VisitorManagementSystem: React.FC = () => {
           {/* History Tab */}
           {activeTab === 'history' && (
             <div className='grid py-4 px-6'>
-              <h2 className="text-2xl font-bold text-gray-800">Visit History</h2>
+              <h2 className="text-2xl font-bold text-gray-800"
+                  style={{
+                    fontSize: FONTS.header2.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>Visit History</h2>
               <div className='flex item-center ml-auto '>
               <div className="relative">
               <div className="absolute inset-y-0 pb-2 mt-2 left-0 pl-3 flex items-center pointer-events-none ">
@@ -532,7 +572,11 @@ const VisitorManagementSystem: React.FC = () => {
             </div>
             </div>
                  
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6"
+                  style={{
+                    fontSize: FONTS.header3.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
                   <input
@@ -575,9 +619,17 @@ const VisitorManagementSystem: React.FC = () => {
           {/* Dashboard Tab */}
           {activeTab === 'dashboard' && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 pb-8 py-4 pl-4">Dashboard & Analytics</h2>
+              <h2 className="text-2xl font-bold text-gray-800 pb-8 py-4 pl-4"
+                  style={{
+                    fontSize: FONTS.header2.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+              }}>Dashboard & Analytics</h2>
               
-              <div className="grid grid-cols-4 md:grid-cols-2 rounded-lg lg:grid-cols-4 gap-6 mb-8 py-4 px-6">
+                <div className="grid grid-cols-4 md:grid-cols-2 rounded-lg lg:grid-cols-4 gap-6 mb-8 py-4 px-6 bg-[#006666]"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize
+                    , fontFamily: FONTS.header.fontFamily
+                  }}>
                 <StatCard
                   title="Today's Visitors"
                   value={stats.todayVisitors}
@@ -602,13 +654,26 @@ const VisitorManagementSystem: React.FC = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-6">Recent Activity</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-6"
+                      style={{
+                        fontSize: FONTS.header2.fontSize
+                        , fontFamily: FONTS.header.fontFamily
+                      }}>Recent Activity</h3>
                   <div className="space-y-4">
                     {getRecentActivity().map((visit, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+                      <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm"
+                      >
                         <div>
-                          <div className="font-semibold text-gray-800">{visit.name}</div>
-                          <div className="text-sm text-gray-600">{visit.purpose}</div>
+                          <div className="font-semibold text-gray-800"
+                            style={{
+                              fontSize: FONTS.header3.fontSize
+                              , fontFamily: FONTS.header.fontFamily
+                      }}>{visit.name}</div>
+                          <div className="text-sm text-gray-600"
+                            style={{
+                              fontSize: FONTS.paragraph.fontSize
+                              , fontFamily: FONTS.header.fontFamily
+                      }}>{visit.purpose}</div>
                         </div>
                         <div className="text-sm text-gray-500">
                           {visit.checkIn.toLocaleTimeString()}
@@ -619,12 +684,24 @@ const VisitorManagementSystem: React.FC = () => {
                 </div>
 
                 <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-6">Top Hosts</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-6"
+                      style={{
+                        fontSize: FONTS.header2.fontSize
+                        , fontFamily: FONTS.header.fontFamily
+                      }}>Top Hosts</h3>
                   <div className="space-y-4">
                     {getTopHosts().map(([host, count], index) => (
                       <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                        <div className="font-semibold text-gray-800">{host}</div>
-                        <div className="text-sm font-semibold text-blue-600">{count} visits</div>
+                        <div className="font-semibold text-gray-800"
+                          style={{
+                            fontSize: FONTS.header3.fontSize
+                            , fontFamily: FONTS.header.fontFamily
+                    }}>{host}</div>
+                        <div className="text-sm font-semibold text-blue-600"
+                          style={{
+                            fontSize: FONTS.paragraph.fontSize
+                            , fontFamily: FONTS.header.fontFamily
+                    }}>{count} visits</div>
                       </div>
                     ))}
                   </div>

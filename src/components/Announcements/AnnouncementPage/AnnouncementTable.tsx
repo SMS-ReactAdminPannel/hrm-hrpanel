@@ -1,4 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
+import { FONTS } from "../../../constants/uiConstants";
 
 type Announcement = {
   title: string;
@@ -17,7 +18,11 @@ const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) =
   return (
     <div className={`overflow-x-auto ${data.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
       <table className="min-w-full table-fixed border-collapse text-sm bg-white">
-        <thead className="bg-[#5e59a9] text-white">
+        <thead className="bg-[#006666] text-white"
+         style={{
+                            fontSize: FONTS.paragraph.fontSize
+                            , fontFamily: FONTS.header.fontFamily
+                      }}>
           <tr>
             <th className="w-40 px-6 py-3 text-left">Title</th>
             <th className="w-36 px-6 py-3 text-left">Start Date</th>
@@ -41,8 +46,16 @@ const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) =
               <tr
                 key={index}
                 className="border-b border-slate-200/70 hover:bg-[#dbdaec] transition-all duration-200"
+                 style={{
+                                    
+                                     fontFamily: FONTS.header.fontFamily
+                              }}
               >
-                <td className="px-6 py-4 font-medium text-gray-700 break-words whitespace-normal">
+                <td className="px-6 py-4 font-medium text-gray-700 break-words whitespace-normal"
+                 style={{
+                            fontSize: FONTS.paragraph.fontSize,
+                            fontFamily: FONTS.header.fontFamily
+                          }}>
                   {item.title}
                 </td>
                 <td className="px-6 py-4 text-gray-600">{item.startDate}</td>

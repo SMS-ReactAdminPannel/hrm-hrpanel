@@ -250,7 +250,7 @@ const navigateToDate = (date: Date) => {
     <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
       
       {/* Main grid layout */}
-      <div className="space-y-3 w-5/4">
+      <div className="space-y-4 w-5/4">
         {/* Charts row */}
         <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
           <DoughnutChart 

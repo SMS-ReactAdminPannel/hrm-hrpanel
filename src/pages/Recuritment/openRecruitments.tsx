@@ -195,7 +195,7 @@ export default function OpenRecruitments() {
   const [showCreateModal, setShowCreateModal] = useState(false)
 
   return (
-    <div className="px-6 py-10 min-h-screen">
+    <div className=" py-10 min-h-screen">
       <div className="flex justify-center items-center mb-6 relative">
         <h1 className="text-4xl font-bold">Open Job Listings</h1>
         <button

@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
 import Employee from "../pages/Employee Mangament/Employee";
@@ -24,7 +23,7 @@ import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
 import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
 
 import SignupPage from "../pages/auth/SignupPage";
-import { LoginPage } from "../pages/auth/LoginPage";
+import LoginPage  from "../pages/auth/LoginPage";
 import ForgotPassword from "../pages/auth/ForgetPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 
@@ -34,7 +33,6 @@ import Notification from "../pages/Notification/Notification";
 import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
-import Reports from "../pages/Employee Mangament/Reports/Reports";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 // import JobDetails from "../pages/Recuritment/JobDetails";
 // import JobDetailsModal from "../pages/Recuritment/JobDetails";
@@ -42,6 +40,8 @@ import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import HomeIntro from "../pages/HomePage/HomePage";
 
 
 
@@ -51,8 +51,8 @@ const AppRoutes = () => {
   return (
     <Routes>
       {isAuthenticated ? (
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Dashboard />} />
+        <Route path="/" element={<HomeIntro />}>
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
@@ -84,11 +84,11 @@ const AppRoutes = () => {
           <Route path="/" element={<CandidatesPage />} />
           <Route path="candidates" element={<CandidateDetailPage />} />
           <Route path="/candidatelists" element={<CandidatesPage />} />
-      <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
-      <Route path="/job/:id" element={<JobDetailsPage />} />
-      <Route path="/departments" element={<DepartmentList />} />
-      <Route path="/" element={<DepartmentList />} />
-      <Route path="/employees" element={<EmployeesPage />} />
+          <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
+          <Route path="/job/:id" element={<JobDetailsPage />} />
+          <Route path="/departments" element={<DepartmentList />} />
+          <Route path="/" element={<DepartmentList />} />
+          <Route path="/employees" element={<EmployeesPage />} />
         </Route>
       ) : (
         <>

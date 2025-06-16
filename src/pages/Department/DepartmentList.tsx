@@ -116,7 +116,7 @@ const DepartmentList: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto">
         <div className="relative mb-8">
           <div className="text-left">
