@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
 import Employee from "../pages/Employee Mangament/Employee";
@@ -49,10 +49,11 @@ const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
   return (
+    
     <Routes>
       {isAuthenticated ? (
         <Route path="/" element={<HomeIntro />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
