@@ -2,7 +2,7 @@
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
-class Client {
+export default class Client {
   hr = {
     timesheet: {
       clockIn: (data: any) =>
@@ -62,4 +62,4 @@ class Client {
       
  
 
-export default new Client();
+// export default new Client();

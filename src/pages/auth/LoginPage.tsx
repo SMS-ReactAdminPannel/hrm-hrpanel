@@ -24,17 +24,37 @@ import { postLogin } from "../../features/auth/service"
 	password: string;
 };
 
- const onSubmit = async (data: LoginData) => {
-  try {
-    const User: any = await postLogin(data);
-    await login(data.email, data.password);
-    console.log(User);
+//  const onSubmit = async (data: LoginData) => {
+//   try {
+//     const User: any = await postLogin(data);
+//     await login(data.email, data.password);
+//     console.log(User);
 
-    navigate("dashboard");
-  } catch (error) {
-    console.log("error", error);
-  }
-};
+//     navigate("/dashboard");
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };
+
+    const onSubmit = async (data: LoginData) => {
+      try {
+        const User: any = await postLogin(data);
+        console.log(User)
+
+        if (!User) {
+          console.log("Login failed: No user data received.");
+          return;
+        }
+
+        await login(data.email, data.password); // assuming this sets auth state
+        console.log("User:", User);
+        navigate("/dashboard");
+
+      } catch (error) {
+        console.log("ERRROR OUTPUT", error);
+      }
+    };
+
 
 
 
