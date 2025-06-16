@@ -18,7 +18,7 @@ const HomePage = () => {
   };
 
   const handleSkip = () => {
-    if (step < 8) {
+    if (step < 7) {
       setStep(step + 1);
     }
   };
@@ -43,6 +43,7 @@ const HomePage = () => {
   };
 
   return (
+    
     <div className="w-3/4 bg-white m-auto rounded-xl p-4">
       <img src={Image} alt="Logo" className="w-36" />
 
@@ -68,7 +69,7 @@ const HomePage = () => {
             </button>
           )}
           <button
-            className={`${step==7?"bg-white":""} text-white p-2 px-6 rounded-lg text-end`}
+            className={`${step<=6?"bg-green-900":"bg-white-900"} text-white p-2 px-6 rounded-lg text-end`}
             onClick={handleContinue}
           >
             {step<7?"Continue":""}
