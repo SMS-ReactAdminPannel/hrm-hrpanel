@@ -1,9 +1,9 @@
 import Client from "../../api";
 
 // Get all grievances
-export const getAllGrievances = async () => {
+export const getAllGrievances = async (data:any) => {
   try {
-    const response = await new Client().hr.grievance.getAllGrievances();
+    const response = await new Client().hr.getAllGrievances(data);
     return response;
   } catch (error) {
     console.log("Error in getAllGrievances", error);
