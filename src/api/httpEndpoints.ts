@@ -32,6 +32,13 @@ export const API_END_POINTS = {
   },
   department : {
     getAll:  "/api/department/all",
+  },
+  announcement:{
+    AnnouncementCreate:"/api/hr/announcement/create",
+    AnnouncementGetOne:"/api/hr/announcement/get/:id",
+    AnnouncementGetAll:"/api/hr/announcement/getall",
+    AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
+    AnnouncementDelete:"/api/hr/announcement/delete/:id"
   }
 };
 
