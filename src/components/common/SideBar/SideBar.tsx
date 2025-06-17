@@ -3,12 +3,12 @@ import { useState, type JSX } from "react"
 import { Link, useLocation } from "react-router-dom"
 import {
   FiHome, FiUsers, FiChevronDown, FiChevronRight,
-  FiUserCheck, FiPower, FiMenu
+  FiUserCheck, FiMenu
 } from "react-icons/fi"
 import { AiOutlineIssuesClose } from "react-icons/ai"
 import {
-  RiMenu2Line,
-  RiMenu3Line,
+  // RiMenu2Line,
+  // RiMenu3Line,
   RiUserSearchLine,
   RiMoneyDollarCircleLine,
   RiTimeLine,
@@ -21,10 +21,20 @@ import { GrAnnounce } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { GiLaptop } from "react-icons/gi";
-import { FaUserTimes } from "react-icons/fa";
+// import { FaUserTimes } from "react-icons/fa";
 import { MdOutlineSick } from "react-icons/md";
-import { TbReportSearch } from "react-icons/tb";
+// import { TbReportSearch } from "react-icons/tb";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { FONTS } from "../../../constants/uiConstants"
+
+//icons
+import { CgCalendarDates } from "react-icons/cg";
+import { IoChatbox } from "react-icons/io5";
+import { FaListAlt } from "react-icons/fa";
+import { GoOrganization } from "react-icons/go";
+import { LuPackagePlus } from "react-icons/lu";
+import { MdHotelClass } from "react-icons/md";
+//<MdHotelClass /> training
 
 
 
@@ -49,10 +59,10 @@ const SideBar = ({
     setIsOpen(!isOpen)
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken")
-    localStorage.removeItem("userEmail")
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem("authToken")
+  //   localStorage.removeItem("userEmail")
+  // }
 
   return (
     <div
@@ -68,6 +78,11 @@ const SideBar = ({
       {/* Header */}
       <div className="flex flex-col scrollbar-hide h-16  ">
         <div className="flex items-center justify-between p-4 h-16">
+          {actualOpen && <div className="text-white text-xl font-semibold"
+            style={{
+              fontSize: FONTS.header2.fontSize,
+              fontFamily: FONTS.header.fontFamily
+            }}>HRM</div>}
           <button
             onClick={handleToggle}
             className="p-2 rounded-md transition duration-200 hover:bg-white/10"
@@ -75,7 +90,7 @@ const SideBar = ({
           >
             <FiMenu size={20} color="white" />
           </button>
-          {actualOpen && <div className="text-white text-xl font-semibold">HRM</div>}
+         
         </div>
       </div>
 
@@ -92,46 +107,63 @@ const SideBar = ({
 
           {/* Employee Group */}
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={actualOpen}>
+              <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={actualOpen}>
               <SidebarLink to="/employee" icon={<FiUsers />} label="Employee" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/shift" icon={<RiTimeLine />} label="Shifts" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/appraisal" icon={<FiUserCheck />} label="Appraisal" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/reports" icon={<TbReportSearch />} label="Reports" isOpen={actualOpen} onClick={handleLinkClick} />
+              
               </SidebarDropdown>
           </div>
-          <SidebarLink to="/departments" icon={<MdBusiness />} label="Departments" isOpen={actualOpen}onClick={handleLinkClick} />
-          <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
-
           {/* Recruitment Group */}
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<RiUserSearchLine />} label="Recruitment" isOpen={actualOpen}>
+            <SidebarDropdown icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen}>
               <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/candidates" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/recruitment/candidatesPage" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/recruitment/jobs" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/recruitment/job-postings" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
-
-          <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave Management" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/leave-types" icon={<MdOutlineSick />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/asset" icon={<GiLaptop />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/asset-category" icon={<RiArchiveDrawerLine />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/organization-chart" icon={<MdBusiness />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+            <SidebarDropdown icon={<RiUserSearchLine />} label="Boarding" isOpen={actualOpen}>
+              <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
+            </SidebarDropdown>
+          </div>
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+            <SidebarDropdown icon={<CgCalendarDates />} label="attendence timesheet" isOpen={actualOpen}>
+              <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
+            </SidebarDropdown>
+          </div>
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+            <SidebarDropdown icon={<LuPackagePlus />} label="assets" isOpen={actualOpen}>
+              <SidebarLink to="/asset" icon={<GiLaptop />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/asset-category" icon={<RiArchiveDrawerLine />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
+            </SidebarDropdown>
+          </div>
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+            <SidebarDropdown icon={<RiUserSearchLine />} label="leave " isOpen={actualOpen}>
+              <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave Management" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/leave-types" icon={<MdOutlineSick />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
+            </SidebarDropdown>
+          </div>
+          <SidebarLink to="/departments" icon={<MdBusiness />} label="Departments" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+        
+          <SidebarLink to="/organization-chart" icon={<GoOrganization />} label="Organization" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/deduction" icon={<MdMoneyOffCsred />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/grievance" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/training-management" icon={<AiOutlineIssuesClose />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
-            <SidebarLink to="/chat" icon={<AiOutlineIssuesClose />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/training-management" icon={<MdHotelClass />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/candidatelists" icon={<FaListAlt />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/chat" icon={<IoChatbox />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+          {/* <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+          {/* <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+          {/* <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/visitor-management" icon={<MdOutlineVisibility />} label="Visitor Management" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
-
+         
 
 
           {/* Logout */}

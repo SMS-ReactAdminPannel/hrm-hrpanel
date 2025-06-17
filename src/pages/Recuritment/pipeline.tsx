@@ -10,6 +10,7 @@ import Avatar from "../../components/ui/Avatar";
 import { Star, X } from "lucide-react";
 import { Editor } from "@tinymce/tinymce-react";
 import Toggle from "../../components/ui/toggle";
+import { FONTS } from "../../constants/uiConstants";
 
 
 
@@ -134,7 +135,8 @@ export default function RecruitmentPipeline() {
     <div className="p-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold">Recruitments</h1>
+        <h1 className="text-2xl font-semibold"
+        style={{fontSize: FONTS.header.fontSize}}>Recruitments</h1>
         <Button className=" text-white" onClick={() => setIsModalOpen(true)}>
           + Recruitment
         </Button>
@@ -143,17 +145,19 @@ export default function RecruitmentPipeline() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
-          <div className="bg-white border border-gray-300 rounded-md shadow-2xl w-full max-w-2xl relative max-h-[90vh] overflow-y-auto p-6 scrollbar-hide">
+          <div className="bg-white border border-gray-300 rounded-md shadow-2xl w-full 
+          max-w-2xl relative max-h-[90vh] overflow-y-auto p-6 scrollbar-hide
+          backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+              className="absolute top-3 right-3 text-gray-500 hover:text-white"
             >
               <X size={20} />
             </button>
-            <h2 className="text-xl font-semibold mb-4">Create Recruitment</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">Create Recruitment</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
+                <label className="block text-sm font-medium text-white mb-1">Title</label>
                 <Input
                   placeholder="e.g. Software Engineer"
                   value={formData.jobTitle}
@@ -162,7 +166,7 @@ export default function RecruitmentPipeline() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Description *</label>
+                <label className="block text-sm font-medium mb-1 text-white">Description *</label>
                 <Editor
                   apiKey="your_tinymce_api_key"
                   value={formData.description}
@@ -188,14 +192,14 @@ export default function RecruitmentPipeline() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Job Position</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Job Position</label>
                   <Input
                     value={formData.jobTitle}
                     onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Managers</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Managers</label>
                   <Input
                     value={formData.managers}
                     onChange={(e) => setFormData({ ...formData, managers: e.target.value })}
@@ -205,7 +209,7 @@ export default function RecruitmentPipeline() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Start Date</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Start Date</label>
                   <Input
                     type="date"
                     value={formData.startDate}
@@ -213,7 +217,7 @@ export default function RecruitmentPipeline() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">End Date</label>
+                  <label className="block text-sm font-medium mb-1 text-white">End Date</label>
                   <Input
                     type="date"
                     value={formData.endDate}
@@ -224,14 +228,14 @@ export default function RecruitmentPipeline() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Vacancy</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Vacancy</label>
                   <Input
                     value={formData.vacancy}
                     onChange={(e) => setFormData({ ...formData, vacancy: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Company</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Company</label>
                   <Input
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -241,7 +245,7 @@ export default function RecruitmentPipeline() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Survey Templates</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Survey Templates</label>
                   <Input
                     value={formData.surveyTemplates}
                     onChange={(e) =>
@@ -250,7 +254,7 @@ export default function RecruitmentPipeline() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Skills</label>
+                  <label className="block text-sm font-medium mb-1 text-white">Skills</label>
                   <Input
                     value={formData.skills}
                     onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
@@ -258,7 +262,7 @@ export default function RecruitmentPipeline() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 text-white ">
               <Dropdown
                 label="LinkdIn Account"
                 options={["hr ofc", "HR", "merlin", "TECH TEAM"]}
@@ -274,7 +278,7 @@ export default function RecruitmentPipeline() {
               />
               </div>
 
-              <div className="grid grid-cols-3 gap-4 pt-3">
+              <div className="grid grid-cols-3 gap-4 pt-3 text-white">
              
               <Toggle
                 label="is Published?"
@@ -287,7 +291,7 @@ export default function RecruitmentPipeline() {
                 onChange={(value) => setFormData({ ...formData, isImage: value })}
               />
               <Toggle
-                label="optional resumae"
+                label="optional resumae "
                 checked={formData.isOptional}
                 onChange={(value) => setFormData({ ...formData, isOptional: value })}
               />
@@ -304,14 +308,15 @@ export default function RecruitmentPipeline() {
 
 {isStageModalOpen && (
   <div className="fixed inset-0 z-80 bg-black/40 flex items-center justify-center">
-    <div className="bg-white rounded-md shadow-2xl w-full max-w-md p-8 relative">
+    <div className="bg-white rounded-md shadow-2xl w-full max-w-md p-8 relative
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
       <button
         onClick={() => setIsStageModalOpen(false)}
-        className="absolute top-3 right-3 text-gray-500 hover:text-black"
+        className="absolute top-3 right-3 text-gray-500 hover:text-white"
       >
         <X size={20} />
       </button>
-      <h2 className="text-xl font-semibold mb-4">Create Stage</h2>
+      <h2 className="text-xl font-semibold mb-4 text-white">Create Stage</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -336,16 +341,16 @@ export default function RecruitmentPipeline() {
 
 
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 ">
           <div>
-            <label className="block text-sm font-medium mb-1">Stage</label>
+            <label className="block text-sm font-medium mb-1 text-white">Stage</label>
             <Input
               value={formData.jobTitle}
               onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Recruitment</label>
+            <label className="block text-sm font-medium mb-1 text-white">Recruitment</label>
             <Input
               value={formData.managers}
               onChange={(e) => setFormData({ ...formData, managers: e.target.value })}
@@ -358,14 +363,14 @@ export default function RecruitmentPipeline() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Stage Managers</label>
+            <label className="block text-sm font-medium mb-1 text-white">Stage Managers</label>
             <Input
               value={formData.jobTitle}
               onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Stage Type</label>
+            <label className="block text-sm font-medium mb-1 text-white">Stage Type</label>
             <Input
               value={formData.managers}
               onChange={(e) => setFormData({ ...formData, managers: e.target.value })}
@@ -398,7 +403,7 @@ export default function RecruitmentPipeline() {
       {/* Filters */}
       <div className="flex gap-2 items-center mb-4">
         <Input placeholder="Search" className="w-1/3" />
-        {/* <Button className=" text-gray-800 text-white hover:bg-gray-100">
+        <Button className=" text-gray-800 text-white hover:bg-gray-100">
           Filter
         </Button> */}
         <div className="flex items-center gap-1">
@@ -429,18 +434,25 @@ export default function RecruitmentPipeline() {
           {stages.map((stage) => (
             <Card key={stage} className="mb-4">
               <CardContent className="pt-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-lg font-bold">
+                <div className="flex justify-between items-center mb-2 bg-[#004C4C] text-white">
+                  <h2 className="text-lg font-bold "
+                  style={{fontSize:FONTS.header3.fontSize}}>
                     {stage.includes("Cancelled") ? (
                       <span className="text-red-600">{stage}</span>
                     ) : (
                       stage
                     )}
                   </h2>
-                  <button className="bg-[#006666] px-2 py-0.5 rounded-md text-white">+</button>
+                  <div className="flex items-center gap-2">
+                    {/* <div className="w-6 h-6"> */}
+                      <h1>HR</h1>
+                    {/* </div> */}
+                    <Button>+</Button>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-7 font-semibold text-sm border-b py-2">
+                <div className="grid grid-cols-7 font-semibold text-sm border-b py-2 "
+                >
                   <div>Candidate</div>
                   <div>Email</div>
                   <div>Job Position</div>
@@ -458,7 +470,7 @@ export default function RecruitmentPipeline() {
                       className="grid grid-cols-7 py-2 border-b text-sm items-center"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="cursor-move">↕️</span>
+                        {/* <span className="cursor-move">↕️</span> */}
                         {c.name}
                       </div>
                       <div>{c.email}</div>

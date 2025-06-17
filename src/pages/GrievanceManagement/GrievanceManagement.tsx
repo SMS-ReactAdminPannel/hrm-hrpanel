@@ -5,7 +5,7 @@ import { FONTS } from "../../constants/uiConstants";
 import { getAllGrievances, updateGrievanceStatus } from "../../features/Grievance/services";
 
 export type Grievance = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   status: "solved" | "unsolved";
@@ -17,80 +17,6 @@ export type Grievance = {
   date: string;
 };
 
-const initialGrievances: Grievance[] = [
-  {
-    id: 1,
-    title: "Broken Chair",
-    description: "The chair at my desk is broken and causes back pain.",
-    status: "unsolved",
-    employee: "John Doe",
-    empid: "EMP001",
-    mail: "john.doe@example.com",
-    department: "Facilities",
-    role: "Office Assistant",
-    date: "2025-06-01",
-  },
-  {
-    id: 2,
-    title: "Late Salary",
-    description: "My salary was credited late this month.",
-    status: "solved",
-    employee: "Jane Smith",
-    empid: "EMP002",
-    mail: "jane.smith@example.com",
-    department: "Finance",
-    role: "Accountant",
-    date: "2025-05-28",
-  },
-  {
-    id: 3,
-    title: "System not working",
-    description: "My computer has not been starting up since morning.",
-    status: "unsolved",
-    employee: "Emily Clark",
-    empid: "EMP003",
-    mail: "emily.clark@example.com",
-    department: "IT",
-    role: "Support Engineer",
-    date: "2025-06-02",
-  },
-  {
-    id: 4,
-    title: "Internet Issues",
-    description: "The internet connection is very unstable and affecting my work.",
-    status: "unsolved",
-    employee: "Michael Brown",
-    empid: "EMP004",
-    mail: "michael.brown@example.com",
-    department: "IT",
-    role: "Developer",
-    date: "2025-06-03",
-  },
-  {
-    id: 5,
-    title: "No Air Conditioning",
-    description: "The AC in our cabin is not working for the past week.",
-    status: "solved",
-    employee: "Linda Johnson",
-    empid: "EMP005",
-    mail: "linda.johnson@example.com",
-    department: "Admin",
-    role: "Manager",
-    date: "2025-05-30",
-  },
-  {
-    id: 6,
-    title: "Unhygienic Pantry",
-    description: "The pantry area is not cleaned regularly.",
-    status: "unsolved",
-    employee: "Robert King",
-    empid: "EMP006",
-    mail: "robert.king@example.com",
-    department: "General Services",
-    role: "Staff",
-    date: "2025-06-03",
-  }
-];
 
 const GrievanceManagement = () => {
   const [grievances, setGrievances] = useState<Grievance[]>([]);
@@ -102,9 +28,9 @@ const GrievanceManagement = () => {
     filter === "all" ? true : g.status === filter
   );
 
-  const markAsSolved = async (id: number) => {
+  const markAsSolved = async (id: string) => {
   if (!id) {
-    console.warn("markAsSolved called with invalid ID:", id);
+    console.warn("markAsSolved called with invalid ID:",id);
     return;
   }
 
@@ -131,14 +57,12 @@ const fetchGrievances = async () => {
     const response: any = await getAllGrievances();
     console.log("API Response:", response);
 
-    const grievances = response?.data ?? []; // adjust if shape is different
+    const grievances = response?.data ?? []; 
     setGrievances(grievances);
   } catch (error) {
     console.error("Error fetching grievances:", error);
   }
 };
-
-
 
   useEffect(() => {
    fetchGrievances();
@@ -146,29 +70,21 @@ const fetchGrievances = async () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mt-5">
       <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6"
-         style={{fontFamily:FONTS.header.fontFamily,
-          fontSize:FONTS.header.fontSize,
-
-         }}>
+        <h1 className=" text-[black] mb-6" style={FONTS.header}>
           Grievances
         </h1>
-          {/* ALL , UNSOLVED AND SOLVED NAVBAR  */}
+
         <div className="flex space-x-4 mb-6">
           {(["all", "unsolved", "solved"] as const).map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
-              style={{fontFamily:FONTS.header.fontFamily,
-                      fontSize:FONTS.paragraph.fontSize
-              }}
-              className={`px-4 py-2 bg-red-200 rounded-full font-medium
-                 capitalize  transition-all duration-200 text-sm ${
+              className={`px-4 py-2 rounded-full font-medium capitalize border transition-all duration-200 text-sm ${
                 filter === status
-                ? " text-black backdrop-filter backdrop-blur  bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
-                : "text-[#006666]  hover:bg-gray-400 hover:text-white"
+                  ? "bg-[#006666] text-white border-[#006666]"
+                  : "text-[#006666] border-[#006666] hover:bg-[#e6f4f4]"
               }`}
             >
               {status}
@@ -176,22 +92,17 @@ const fetchGrievances = async () => {
           ))}
         </div>
 
-        <div className="flex gap-6 backdrop-blur-md backdrop-saturate-150 backdrop-contrast-100">
-          {/* Grievance List Panel */}
-          <div className={`w-full ${selectedGrievance ? 'w-1/2' : 'w-full'} transition-all duration-300`}>
-            <div className="space-y-2">
+        <div className="flex gap-6">
+          <div className="w-1/2">
+            <div className="space-y-4">
               {filteredGrievances.length === 0 ? (
-                <p className="text-center text-gray-400 mt-8">No grievances to show.</p>
+                <p className="text-center text-gray-400 mt-12">No grievances to show.</p>
               ) : (
                 filteredGrievances.map((grievance) => (
                   <div
                     key={grievance.id}
                     onClick={() => setSelectedGrievance(grievance)}
                     className="cursor-pointer"
-                    style={{
-                      fontFamily: FONTS.paragraph.fontFamily,
-                      fontSize: FONTS.header3.fontSize,
-                    }}
                   >
                     <GrievanceCard grievance={grievance} />
                   </div>
@@ -200,22 +111,27 @@ const fetchGrievances = async () => {
             </div>
           </div>
 
-          {/* Grievance Detail Panel - Show only if one is selected */}
-          {selectedGrievance && (
-            <div
-              className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6 transition-all duration-300"
-              style={{ fontSize: FONTS.paragraph.fontSize }}
-            >
+          <div className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6">
+            {selectedGrievance ? (
               <GrievanceDetailCard
-                grievance={selectedGrievance}
-                onClose={() => setSelectedGrievance(null)}
-                onMarkSolved={() => markAsSolved(selectedGrievance.id)}
-              />
-            </div>
-          )}
-        </div>
+  grievance={selectedGrievance}
+  onClose={() => setSelectedGrievance(null)}
+ onMarkSolved={() => {
+  if (selectedGrievance?.id) {
+    markAsSolved(selectedGrievance.id);
+  } else {
+    console.error("No valid grievance ID to mark as solved");
+  }
+}}
 
+/>
+            ) : (
+              <p className="text-center text-gray-400 mt-12">Select a grievance to view details.</p>
+            )}
+          </div>
+        </div>
       </div>
+
     </div>
   );
 };

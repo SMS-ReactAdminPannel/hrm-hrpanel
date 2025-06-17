@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FONTS } from "../../../constants/uiConstants";
 
 const cardItems = [
   {
@@ -61,8 +62,10 @@ const DashBoardSlideCard = () => {
         {/* Top Section: Title + Arrows + Dots */}
         <div className="flex justify-between items-center mb-2">
           <div>
-            <p className=" text-xl font-semibold">{current.title}</p>
-            <p className="text-sm text-black">{current.subtitle}</p>
+            <p className=" text-xl font-semibold mb-3"
+              style={{ fontSize: FONTS.header2.fontSize }}>{current.title}</p>
+            <p className="text-sm text-black "
+            style={{fontSize:FONTS.paragraph.fontSize }}>{current.subtitle}</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -82,17 +85,18 @@ const DashBoardSlideCard = () => {
         </div>
 
         {/* Body - Moved up */}
-        <div className="flex items-center gap-6 mt-6">
+        <div className="flex items-center gap-6 mt-3">
           {/* Stats */}
           <div className="flex-1">
-            <h2 className=" text-md mb-2">Spending</h2>
+            <h2 className=" text-md mb-2"
+            style={{fontSize:FONTS.header3.fontSize}}>Spending</h2>
             <div className="grid grid-cols-2 gap-3">
               {current.stats.map((stat, i) => (
                 <div key={i} className="flex gap-2">
                   <p className="bg-blue-100 rounded-lg font-bold p-1 text-sm w-16 h-8 flex justify-center items-center">
                     {stat.value}
                   </p>
-                  <p className="text-gray-600 text-sm mt-1">{stat.label}</p>
+                  <p className="text-black text-sm mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>

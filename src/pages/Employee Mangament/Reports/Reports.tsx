@@ -2,8 +2,10 @@ import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { FONTS } from '../../../constants/uiConstants';
 
+type TabType = "dashboard" | "appraisal" | "reports";
+
 interface ReportsProps {
-  setActiveTab: (tab: string) => void;
+  setActiveTab: (tab: TabType) => void;
 }
 
 const Reports: React.FC<ReportsProps> = ({ setActiveTab }) => {

@@ -249,129 +249,37 @@ const Leave = () => {
       <div>
         <h1 className=" font-bold" style={FONTS.header}>Leave</h1>
       </div>
-      <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
-
-        {/* Main grid layout */}
-        <div className="space-y-4 w-5/4">
-          {/* Charts row */}
-          {/* <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100  p-2 ">
-            <DoughnutChart
-              percentage={30}
-              content='Annual Leave'
-              filledColor="rgba(233, 30, 99, 0.7)"
-              emptyColor="rgba(100, 200, 150, 0.6)"
-              cutout="75%"
-              size="h-32 w-64"
-            />
-            <DoughnutChart
-              percentage={10}
-              content='Sick Leave'
-              filledColor="rgba(21, 30, 99, 0.7)"
-              emptyColor="rgba(100, 100, 150, 0.6)"
-              cutout="75%"
-              size="h-32 w-64"
-            />
-            <DoughnutChart
-              percentage={40}
-              content='Public Leave'
-              filledColor="rgba(72, 10, 99, 0.7)"
-              emptyColor="rgba(100, 100, 150, 0.6)"
-              cutout="75%"
-              size="h-32 w-64"
-            />
-          </div> */}
-
-          <div className="grid md:grid-cols-3 gap-4 rounded-lg">
-
-            <div className="bg-white overflow-hidden shadow rounded-md">
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-6 w-6 text-red-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5h6a1 1 0 011 1v4h4a1 1 0 011 1v6a1 1 0 01-1 1h-4v4a1 1 0 01-1 1H9a1 1 0 01-1-1v-4H4a1 1 0 01-1-1v-6a1 1 0 011-1h4V6a1 1 0 011-1z"
-                      />
-                    </svg>
-
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 truncate">Sick Leave</dt>
-                      <dd className="text-lg font-medium text-gray-900">10 days</dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white overflow-hidden shadow rounded-md">
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-6 w-6 text-yellow-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10m-12 9h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 truncate">Annual Leave</dt>
-                      <dd className="text-lg font-medium text-gray-900">30 days</dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white overflow-hidden shadow rounded-md">
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-6 w-6 text-blue-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-4 9l1.09 2.26L16 15l-2.18 1.26L14 19l-2-1.5L10 19l.18-2.74L8 15l2.91-.74L12 12zm-7 9h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 truncate">Public Leave</dt>
-                      <dd className="text-lg font-medium text-gray-900">40 days</dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+    <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
+      
+      {/* Main grid layout */}
+      <div className="space-y-3 w-5/4">
+        {/* Charts row */}
+        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
+          <DoughnutChart 
+            percentage={30} 
+            content='Annual Leave' 
+            filledColor="rgba(233, 30, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64" 
+          />
+          <DoughnutChart 
+            percentage={10} 
+            content='Sick Leave'
+            filledColor="rgba(21, 30, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64"
+          />
+          <DoughnutChart 
+            percentage={40} 
+            content='Public Leave'
+            filledColor="rgba(72, 10, 99, 0.7)"
+            emptyColor="rgba(200, 200, 200, 0.2)"
+            cutout="75%"
+            size="h-40 w-64"
+          />
+        </div>
 
           {/* Calendar section */}
           <div className="bg-white rounded-md shadow-md overflow-hidden">
@@ -444,33 +352,33 @@ const Leave = () => {
               ))}
             </div>
 
-            {/* Calendar Grid */}
-            <div className="grid grid-cols-7 gap-px bg-gray-50">
-              {days.map((day, idx) => (
+          {/* Calendar Grid */}
+          <div className="grid grid-cols-7 gap-px bg-gray-50">
+            {days.map((day, idx) => (
+              <div
+                key={idx}
+                className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
+              >
                 <div
-                  key={idx}
-                  className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
+                  className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
                 >
-                  <div
-                    className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
-                  >
-                    {day.date.getDate()}
-                  </div>
-                  <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
-                    {day.events.map((event) => (
-                      <div
-                        key={event.id}
-                        className={`${event.color} text-white text-xs p-1 rounded truncate`}
-                      >
-                        <div className="font-medium">{event.title}</div>
-                      </div>
-                    ))}
-                  </div>
+                  {day.date.getDate()}
                 </div>
-              ))}
-            </div>
+                <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
+                  {day.events.map((event) => (
+                    <div
+                      key={event.id}
+                      className={`${event.color} text-white text-xs p-1 rounded truncate`}
+                    >
+                      <div className="font-medium">{event.title}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
         {/* Holiday List */}
         <div className=" w-3/4 ml-auto p-5 rounded-lg shadow bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border">
