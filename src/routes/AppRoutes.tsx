@@ -1,4 +1,4 @@
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
 import Employee from "../pages/Employee Mangament/Employee";
@@ -47,13 +47,14 @@ import HomeIntro from "../pages/HomePage/HomePage";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
+  
 
   return (
     
     <Routes>
       {isAuthenticated ? (
-        <Route path="/" element={<HomeIntro />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<MainLayout/>}>
+          <Route index element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
@@ -73,7 +74,7 @@ const AppRoutes = () => {
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
           <Route path="asset-category" element={<Assetcategory />} />
-          <Route path="home-intro" element={<HomePage />} />
+          {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
           {/* <Route path="reports" element={<Reports />} /> */}
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
@@ -82,23 +83,22 @@ const AppRoutes = () => {
           <Route path="grievance-management" element={<GrievanceManagement/>}/>
           <Route path="notification" element={<Notification/>}/>
           <Route path="visitor-management" element={<VisitorManagementSystem />}/>
-          <Route path="/" element={<CandidatesPage />} />
+          <Route path="/hg" element={<CandidatesPage />} />
           <Route path="candidates" element={<CandidateDetailPage />} />
           <Route path="/candidatelists" element={<CandidatesPage />} />
           <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
           <Route path="/job/:id" element={<JobDetailsPage />} />
           <Route path="/departments" element={<DepartmentList />} />
-          <Route path="/" element={<DepartmentList />} />
+          <Route path="/hjh" element={<DepartmentList />} />
           <Route path="/employees" element={<EmployeesPage />} />
         </Route>
       ) : (
         <>
+          <Route path="/" element={<HomeIntro />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          
-          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
         </>
       )}
           

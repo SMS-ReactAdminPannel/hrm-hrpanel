@@ -6,8 +6,9 @@ import HomeIntro3 from "../../components/HomeIntro/HomeIntro3";
 import HomeIntro4 from "../../components/HomeIntro/HomeIntro4";
 import HomeIntro5 from "../../components/HomeIntro/HomeIntro5";
 import HomeIntro6 from "../../components/HomeIntro/HomeIntro6";
+import { Link } from "react-router-dom";
 
-import LoginPage from "../../pages/auth/LoginPage";
+
 
 const HomePage = () => {
   const [step, setStep] = useState(1);
@@ -44,16 +45,13 @@ const HomePage = () => {
  
   
   return (
-    <div className="w-[50%]   items-center justify-center">
-      {step > 6 ? (
-        <LoginPage />
-      ) : (
+    <div className="fixed w-[50%]  ml-[25%] ">
         <div className=" bg-white m-auto rounded-xl p-4">
           <img src={Image} alt="Logo" className="w-36" />
 
           {renderStep()}
 
-          <div className="flex justify-between mx-8">
+          <div className="flex justify-between ">
             {step > 1 ? (
               <button
                 className="bg-gray-200 text-black p-2 px-6 rounded-lg text-end mr-4"
@@ -74,17 +72,22 @@ const HomePage = () => {
                   Skip
                 </button>
               )}
+
+              {
+              step == 6 ? <Link to={"/login"} className="bg-green-900 text-white p-2 px-6 rounded-lg text-end">
+                Finish
+                </Link> :
               <button
-                className={`${step <= 6 ? "bg-green-900" : "bg-white-900"
+                className={`${step <= 6 ? "bg-green-900" : "bg-green-900"
                   } text-white p-2 px-6 rounded-lg text-end`}
                 onClick={handleContinue}
               >
                 {step < 7 ? "Continue" : ""}
               </button>
+              }
             </div>
           </div>
         </div>
-      )}
     </div>
   );
 };

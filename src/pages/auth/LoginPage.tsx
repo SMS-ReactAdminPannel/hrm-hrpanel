@@ -48,7 +48,7 @@ import { postLogin } from "../../features/auth/service"
 
         await login(data.email, data.password); // assuming this sets auth state
         console.log("User:", User);
-        navigate("/dashboard");
+        navigate("/");
 
       } catch (error) {
         console.log("ERRROR OUTPUT", error);
@@ -80,7 +80,7 @@ import { postLogin } from "../../features/auth/service"
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen ">
       {/* Left side: Video or iframe */}
       <div className="w-1/2 hidden lg:flex items-center justify-center bg-black">
         <iframe
