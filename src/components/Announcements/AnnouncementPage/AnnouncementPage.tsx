@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { announcements as initialAnnouncements } from "../AnnouncementDatas/AnnouncementsData";
 import AnnouncementTable from "./AnnouncementTable";
 import AnnouncementForm from "./AnnouncementForm";
@@ -6,6 +6,7 @@ import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { FONTS } from "../../../constants/uiConstants";
 import { Search } from "lucide-react";
+import {AnnouncementGetAll} from "../../../features/announcement/services"
 
 type AnnouncementType = {
   title: string;
@@ -73,6 +74,23 @@ const Announcement = () => {
     setEntriesPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
+
+  const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
+
+  const fetchannouncement = async (data:AnnouncementType) => {
+    try {
+      const response: any = await AnnouncementGetAll(data);
+      console.log("API Respchonse:", response);
+      const announcementdata = response?.data ?? [];
+      setannouncement(announcementdata);
+    } catch (error) {
+      console.error("Error fetching grievances:", error);
+    }
+  };
+  
+    useEffect(() => {
+      fetchannouncement();
+   }, []);
 
   return (
     <div
@@ -176,7 +194,7 @@ const Announcement = () => {
           />
         )}
         <AnnouncementTable
-          data={currentData}
+          data={announcement}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />

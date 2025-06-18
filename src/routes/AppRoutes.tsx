@@ -49,8 +49,10 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
+  
 
   return (
+    
     <Routes>
       {isAuthenticated ? (
         <Route path="/" element={<MainLayout />}>
@@ -77,7 +79,7 @@ const AppRoutes = () => {
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
           <Route path="asset-category" element={<Assetcategory />} />
-          <Route path="home-intro" element={<HomePage />} />
+          {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />

@@ -1,6 +1,6 @@
 import Client from "../../api";
 
-
+// Get all grievances
 export const getAllGrievances = async () => {
   try {
     const response = await new Client().hr.grievance.getAllGrievances();

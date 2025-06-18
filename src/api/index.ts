@@ -2,7 +2,7 @@
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
-class Client {
+export default class Client {
   hr = {
     timesheet: {
       clockIn: (data: any) => httpClient.post(API_END_POINTS.timesheet.postclockin, data),
@@ -30,6 +30,7 @@ class Client {
   httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
 
     },
+   
 
     hrprofile:{
        postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
@@ -47,6 +48,11 @@ class Client {
   updateStatus: (candidatesId: string, data: any) =>
   httpClient.update(API_END_POINTS.candidates.patchstatus(candidatesId), data)
 
+    },
+  
+    announcement:{
+      AnnouncementGetAll:(data:any) =>
+        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll,data),
     },
 
     assetcategory:{
@@ -71,4 +77,8 @@ class Client {
   };
 }
 
-export default Client;
+
+      
+ 
+
+// export default new Client();

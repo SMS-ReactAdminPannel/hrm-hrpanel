@@ -1,7 +1,8 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { FONTS } from "../../../constants/uiConstants";
+import { data } from "react-router-dom";
 
-type Announcement = {
+type AnnouncementType = {
   title: string;
   startDate: string;
   endDate: string;
@@ -9,11 +10,11 @@ type Announcement = {
 };
 
 type AnnouncementTableProps = {
-  data: Announcement[];
-  onEdit: (announcement: Announcement, index: number) => void;
+  data: AnnouncementType[];
+  onEdit: (announcement: AnnouncementType, index: number) => void;
   onDelete: (index: number) => void;
 };
-
+console.log("hello",data)
 const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) => {
   return (
     <div className={`overflow-x-auto ${data.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>

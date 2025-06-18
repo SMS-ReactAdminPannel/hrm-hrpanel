@@ -15,6 +15,46 @@ import { postLogin } from "../../features/auth/service"
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login } = useAuth()
+  
+
+  type LoginData = {
+	email: string;
+	password: string;
+};
+
+//  const onSubmit = async (data: LoginData) => {
+//   try {
+//     const User: any = await postLogin(data);
+//     await login(data.email, data.password);
+//     console.log(User);
+
+//     navigate("/dashboard");
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };
+
+    const onSubmit = async (data: LoginData) => {
+      try {
+        const User: any = await postLogin(data);
+        console.log(User)
+
+        if (!User) {
+          console.log("Login failed: No user data received.");
+          return;
+        }
+
+        await login(data.email, data.password); // assuming this sets auth state
+        console.log("User:", User);
+        navigate("/");
+
+      } catch (error) {
+        console.log("ERRROR OUTPUT", error);
+      }
+    };
+
+
+
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -57,7 +97,7 @@ import { postLogin } from "../../features/auth/service"
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen ">
       {/* Left side: Video or iframe */}
       <div className="w-1/2 hidden lg:flex items-center justify-center bg-black">
         <iframe
