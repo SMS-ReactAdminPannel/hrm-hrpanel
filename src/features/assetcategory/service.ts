@@ -2,9 +2,9 @@
 import Client from "../../api";
 
 
-export const createassetcategory = async (data: any) => {
+export const createasset = async (data: any) => {
   try {
-    const response = await new Client().hr.assetcategory.createassetcategory(data);
+    const response = await new Client().hr.asset.createasset(data);
     return response;
   } catch (error) {
     console.log("Error in createasset", error);
@@ -12,18 +12,18 @@ export const createassetcategory = async (data: any) => {
 };
 
 
-export const getassetcategory = async (assetId: string,data:any) => {
+export const getasset = async (assetId: string) => {
   try {
-    const response = await new Client().hr.assetcategory.getassetcategory(assetId,data);
+    const response = await new Client().hr.asset.getasset(assetId);
     return response;
   } catch (error) {
     console.log("Error in getasset", error);
   }
 };
 
-export const getallassetcategory = async () => {
+export const getallasset = async () => {
   try {
-    const response = await new Client().hr.assetcategory.getallassetcategory();
+    const response = await new Client().hr.asset.getallasset();
     return response;
   } catch (error) {
     console.log("Error in getAllasset", error);
@@ -31,9 +31,9 @@ export const getallassetcategory = async () => {
 };
 
 
-export const updateassetcategory = async (assetId: string, data:any) => {
+export const updateasset = async (assetId: string, data:any) => {
   try {
-    const response = await new Client().hr.assetcategory.updateassetcategory(assetId, data);
+    const response = await new Client().hr.asset.updateasset(assetId, data);
     return response;
   } catch (error) {
     console.error("Error in updateasset", error);
@@ -41,9 +41,9 @@ export const updateassetcategory = async (assetId: string, data:any) => {
   }
 };
 
-  export const deleteassetcategory = async (assetId: string) => {
+  export const deleteasset = async (assetId: string) => {
   try {
-    const response = await new Client().hr.assetcategory.deleteassetcategory(assetId);
+    const response = await new Client().hr.asset.deleteasset(assetId);
     return response;
   } catch (error) {
     console.error("Error in deleteasset", error);
@@ -54,36 +54,36 @@ export const updateassetcategory = async (assetId: string, data:any) => {
 
 
 
-export const createAsset = async (data: any) => {
+export const createAssetcategory = async (data: any) => {
   try {
-    const response = await new Client().hr.asset.assetcreate(data);
+    const response = await new Client().hr.assetcategory.createassetcategory(data);
     return response;
   } catch (error) {
     console.log("Error in createAsset", error);
   }
 };
 
-export const getAssetById = async (assetId: string,data:any) => {
+export const getAssetcategoryById = async (assetId: string) => {
   try {
-    const response = await new Client().hr.asset.assetget(assetId,data);
+    const response = await new Client().hr.assetcategory.getassetcategory(assetId);
     return response;
   } catch (error) {
     console.log("Error in getAssetById", error);
   }
 };
 
-export const getAllAssets = async () => {
+export const getAllAssetcategory = async () => {
   try {
-    const response = await new Client().hr.asset.assetgetall();
+    const response = await new Client().hr.assetcategory.getallassetcategory();
     return response;
   } catch (error) {
     console.log("Error in getAllAssets", error);
   }
 };
 
-export const updateAsset = async (assetId: string, data: any) => {
+export const updateAssetcategory = async (assetId: string, data: any) => {
   try {
-    const response = await new Client().hr.asset.assetupdate(assetId, data);
+    const response = await new Client().hr.assetcategory.updateassetcategory(assetId, data);
     return response;
   } catch (error) {
     console.error("Error in updateAsset", error);
@@ -91,9 +91,9 @@ export const updateAsset = async (assetId: string, data: any) => {
   }
 };
 
-export const deleteAsset = async (assetId: string) => {
+export const deleteAssetcategory = async (assetId: string) => {
   try {
-    const response = await new Client().hr.asset.assetdelete(assetId);
+    const response = await new Client().hr.assetcategory.deleteassetcategory(assetId);
     return response;
   } catch (error) {
     console.error("Error in deleteAsset", error);

@@ -28,23 +28,20 @@ export const API_END_POINTS = {
     patchstatus:(id:string)=>`/api/hr/candidates/${id}/status`
   },
 
-
-  assetcategory:{
-    createassetcategory:"/api/hr/assetcategory/create",
-    getassetcategory:(id:string)=>`/api/hr/assetcategory/get/${id}`,
-    getallassetcategory:"/api/hr/assetcategory/getall",
-    updateassetcategory:(id:string)=>`/api/hr/assetcategory/update/${id}`,
-    deleteassetcategory:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+   asset: {
+    createAsset: "/api/hr/assetproperty/create-assets",
+    getAllAsset: "/api/hr/assetproperty/getall-assets",
+    getAssetById: (id: string) => `/api/hr/assetproperty/get-assets/${id}`,
+    updateAsset: (id: string) => `/api/hr/assetproperty/update-assets/${id}`,
+    deleteAsset: (id: string) => `/api/hr/assetproperty/delete-assets/${id}`,
   },
 
-  asset:{
-    createasset:"/api/hr/assetcategory/assetcreate",
-    getasset:(id:string)=>`/api/hr/assetcategory/assetget/${id}`,
-    getallasset:"/api/hr/assetcategory/assetgetall",
-    updateasset:(id:string)=>`/api/hr/assetcategory/assetupdate/${id}`,
-    deleteasset:(id:string)=>`/api/hr/assetcategory/assetdelete/${id}`,
-
-
-  }
+  assetCategory: {
+    createCategory: "/api/hr/assetproperty/asset-categories",
+    getAllCategory: "/api/hr/assetproperty/getallasset-categories",
+    getCategoryById: (id: string) => `/api/hr/assetproperty/getasset-categories/${id}`,
+    updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
+    deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
+  },
 };
 

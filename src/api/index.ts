@@ -49,40 +49,40 @@ class Client {
 
     },
 
-    assetcategory:{
-      createassetcategory:(data:any)=>
-        httpClient.post(API_END_POINTS.assetcategory.createassetcategory,data),
+    asset:{
+      createasset:(data:any)=>
+        httpClient.post(API_END_POINTS.asset.createAsset,data),
 
-      getassetcategory:(assetId: string,data:any)=>
-        httpClient.get(API_END_POINTS.assetcategory.getassetcategory(assetId), data),
+      getasset:(assetId: string)=>
+        httpClient.get(API_END_POINTS.asset.getAssetById(assetId)),
 
-      getallassetcategory:()=>
-        httpClient.get(API_END_POINTS.assetcategory.getallassetcategory),
+      getallasset:()=>
+        httpClient.get(API_END_POINTS.asset.getAllAsset),
 
-      updateassetcategory: (assetId: string, data: any) =>
-       httpClient.update(API_END_POINTS.assetcategory.updateassetcategory(assetId), data),
+      updateasset: (assetId: string, data: any) =>
+       httpClient.update(API_END_POINTS.asset.updateAsset(assetId), data),
 
-      deleteassetcategory: (assetId: string) =>
-      httpClient.delete(API_END_POINTS.assetcategory.deleteassetcategory(assetId))
+      deleteasset: (assetId: string) =>
+      httpClient.delete(API_END_POINTS.asset.deleteAsset(assetId))
 
 
     },
 
-    asset:{
-      assetcreate:(data:any)=>
-        httpClient.post(API_END_POINTS.asset.createasset,data),
+    assetcategory:{
+      createassetcategory:(data:any)=>
+        httpClient.post(API_END_POINTS.assetCategory.createCategory,data),
 
-      assetget:(assetId: string,data:any)=>
-        httpClient.get(API_END_POINTS.asset.getasset(assetId), data),
+      getassetcategory:(assetId: string)=>
+        httpClient.get(API_END_POINTS.assetCategory.getCategoryById(assetId)),
 
-      assetgetall:()=>
-        httpClient.get(API_END_POINTS.asset.getallasset),
+      getallassetcategory:()=>
+        httpClient.get(API_END_POINTS.assetCategory.getAllCategory),
 
-      assetupdate: (assetId: string, data: any) =>
-       httpClient.update(API_END_POINTS.asset.updateasset(assetId), data),
+      updateassetcategory: (assetId: string, data: any) =>
+       httpClient.update(API_END_POINTS.assetCategory.updateCategory(assetId), data),
 
-      assetdelete: (assetId: string) =>
-      httpClient.delete(API_END_POINTS.asset.deleteasset(assetId))
+      deleteassetcategory: (assetId: string) =>
+      httpClient.delete(API_END_POINTS.assetCategory.deleteCategory(assetId))
 
 
     }
