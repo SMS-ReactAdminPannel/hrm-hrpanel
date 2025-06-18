@@ -19,3 +19,14 @@ export const postSignup = async (data: any) => {
     throw error; 
   }
 };
+
+
+export const postLogout = async () => {
+  try {
+    const response = await new Client().hr.hrprofile.postlogout();
+    return response;
+  } catch (error) {
+    console.log("Error during logout:", error);
+    throw error;
+  }
+};

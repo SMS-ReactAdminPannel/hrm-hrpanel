@@ -1,3 +1,6 @@
+
+
+
 export const API_END_POINTS = {
   timesheet: {
     postclockin: "/api/hr/timesheet/clock-in",
@@ -16,6 +19,7 @@ export const API_END_POINTS = {
   hrprofile:{
     Postlogin:"/api/hr/auth/signin",
     Postregister:"/api/hr/auth/",
+    postlogout:"/api/hr/auth/logout"
   },
 
   candidates:{
@@ -23,23 +27,34 @@ export const API_END_POINTS = {
     getallcandidates:"/api/hr/candidates/getall",
     patchstatus:(id:string)=>`/api/hr/candidates/${id}/status`
   },
+
+
+  assetcategory:{
+    createasset:"/api/hr/assetcategory/create",
+    getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
+    getallasset:"/api/hr/assetcategory/getall",
+    updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
+    deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+
+  },
   asset: {
-    getAllAssets: "/api/asset/all",
+    getAllAssets: "/api/assets",
     getAssetById: (id: string) => `/api/asset/${id}`,
-    createAsset: "/api/asset/create",
-    updateAsset: (id: string) => `/api/asset/update/${id}`,
-    deleteAsset: (id: string) => `/api/asset/delete/${id}`,
+    createAsset: "/api/assets",
+    updateAsset: (id: string) => `/api/assets/${id}`,
+    deleteAsset: (id: string) => `/api/assets/${id}`,
   },
-  department : {
-    getAll:  "/api/department/all",
-  },
-  announcement:{
-    AnnouncementCreate:"/api/hr/announcement/create",
-    AnnouncementGetOne:"/api/hr/announcement/get/:id",
-    AnnouncementGetAll:"/api/hr/announcement/getall",
-    AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
-    AnnouncementDelete:"/api/hr/announcement/delete/:id"
-  }
+
+
+    jobPosting: {
+      getAll: "/api/job-postings",
+      getById: "/api/job-postings",   
+      create: "/api/job-postings",
+      update: "/api/job-postings",    
+      delete: "/api/job-postings",    
+    },
+ 
+  
 };
 
 

@@ -12,11 +12,11 @@ export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
       <div className="flex justify-between items-start">
         <h3 className="text-lg "
           style={{
-            // TITLE OF THE CARD
+    
             fontSize: FONTS.header3.fontSize,
             fontFamily: FONTS.paragraph.fontFamily
           }}>{grievance.title}</h3>
-          {/* SOLVED STATUS IN RIGHT SIDE */}
+        
         <span
           className={`
             font-medium px-2 py-1 rounded-md ${
@@ -29,11 +29,11 @@ export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
         </span>
       </div>
      
-     {/* DESCRIPTION BELOW ISSUE DESCRIPTION */}
-      {/* <h3 className="text-sm font-semibold text-gray-800 mb-1" style={{
+
+      <h3 className="text-sm font-semibold text-gray-800 mb-1" style={{
         fontSize: FONTS.paragraph.fontSize,
         fontFamily: FONTS.paragraph.fontFamily
-      }}>Issue Description:</h3> */}
+      }}>Issue Description:</h3> 
 <p className="text-gray-700 mb-1 whitespace-pre-line">{grievance.description}</p>
 
       <div className=" text-sm text-gray-500"

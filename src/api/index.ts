@@ -5,30 +5,36 @@ import { API_END_POINTS } from "./httpEndpoints";
 export default class Client {
   hr = {
     timesheet: {
-      clockIn: (data: any) =>
-        httpClient.post(API_END_POINTS.timesheet.postclockin, data),
+      clockIn: (data: any) => httpClient.post(API_END_POINTS.timesheet.postclockin, data),
 
-      clockOut: (data: any) =>
-        httpClient.post(API_END_POINTS.timesheet.postclockout, data),
+      clockOut: (data: any) => httpClient.post(API_END_POINTS.timesheet.postclockout, data),
 
       submitTimesheet: (data: any) =>
         httpClient.get(API_END_POINTS.timesheet.getsubmittimesheet, data),
 
       approveTimesheet: (timesheetId: string, data: any) =>
-        httpClient.update(
-          API_END_POINTS.timesheet.patchapprovetimesheet(timesheetId),
-          data
-        ),
+        httpClient.update(API_END_POINTS.timesheet.patchapprovetimesheet(timesheetId), data),
 
       employeeTimesheet: (timesheetId: string, data: any) =>
         httpClient.get(API_END_POINTS.timesheet.getemployeetimesheet(timesheetId), data),
     },
+    
+    grievance:{
+       createGrievance: (data: any) =>
+    httpClient.post(API_END_POINTS.grievance.creategrievance, data),
 
-   
+  getAllGrievances: () =>
+    httpClient.get(API_END_POINTS.grievance.getallgrievance),
+
+  updateGrievanceStatus: (grievanceId: string, data: any) =>
+  httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
+
+    },
 
     hrprofile:{
        postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
-       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data)
+       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data),
+       postlogout: () => httpClient.post(API_END_POINTS.hrprofile.postlogout,{})
     },
 
     candidates:{
@@ -42,36 +48,27 @@ export default class Client {
   httpClient.update(API_END_POINTS.candidates.patchstatus(candidatesId), data)
 
     },
-    grievance: {
-      createGrievance: (data: any) =>
-        httpClient.post(API_END_POINTS.grievance.creategrievance, data),
 
-      updateGrievanceStatus: (grievanceId: string, data: any) =>
-        httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
+    assetcategory:{
+      createasset:(data:any)=>
+        httpClient.post(API_END_POINTS.assetcategory.createasset,data),
 
-    },
-    announcement:{
-      AnnouncementGetAll:(data:any) =>
-        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll,data),
-      AnnouncementGetOne:(data:any) =>
-        httpClient.get(API_END_POINTS.announcement.AnnouncementGetOne,data),
-      AnnouncementCreate:(data:any) =>
-        httpClient.post(API_END_POINTS.announcement.AnnouncementCreate,data),
-      AnnouncementDelete:(data:any) =>
-        httpClient.delete(API_END_POINTS.announcement.AnnouncementDelete,data),
+      getasset:(assetId: string,data:any)=>
+        httpClient.get(API_END_POINTS.assetcategory.getasset(assetId), data),
 
-    },
-    getAllGrievances: () =>
-        httpClient.get(API_END_POINTS.grievance.getallgrievance),
+      getallasset:()=>
+        httpClient.get(API_END_POINTS.assetcategory.getallasset),
 
-      updateGrievanceStatus: (grievanceId: string, data: any) =>
-        httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data),
+      updateasset: (assetId: string, data: any) =>
+       httpClient.update(API_END_POINTS.assetcategory.updateasset(assetId), data),
+
+      deleteasset: (assetId: string) =>
+      httpClient.delete(API_END_POINTS.assetcategory.deleteasset(assetId))
+
+
     }
 
   };
+}
 
-
-      
- 
-
-// export default new Client();
+export default Client;
