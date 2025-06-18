@@ -51,8 +51,8 @@ export default class Client {
     },
   
     announcement:{
-      AnnouncementGetAll:(data:any) =>
-        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll,data),
+      AnnouncementGetAll:() =>
+        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll),
     },
 
     asset:{

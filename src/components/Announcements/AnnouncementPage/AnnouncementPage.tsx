@@ -77,9 +77,9 @@ const Announcement = () => {
 
   const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
 
-  const fetchannouncement = async (data:AnnouncementType) => {
+  const fetchannouncement = async () => {
     try {
-      const response: any = await AnnouncementGetAll(data);
+      const response: any = await AnnouncementGetAll();
       console.log("API Respchonse:", response);
       const announcementdata = response?.data ?? [];
       setannouncement(announcementdata);
