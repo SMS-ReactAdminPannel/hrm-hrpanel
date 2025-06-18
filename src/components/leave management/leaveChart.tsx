@@ -15,10 +15,10 @@ interface DoughnutChartProps {
 const DoughnutChart: React.FC<DoughnutChartProps> = ({
   percentage = 50,
   filledColor = 'rgba(63, 81, 181, 0.7)',
-  emptyColor = 'rgba(0, 0, 0, 0)',
+  emptyColor = 'rgba(100, 0, 0, 0)',
   cutout = '65%',
   size = 'h-56 w-56', // Adjusted to match your height
-  content = ""
+  content = "",
 }) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
@@ -60,11 +60,11 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
       <div className={`relative h-38 ${size}`}>
         <canvas ref={chartRef} />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold">{percentage}</span>
+          <span className="text-xl font-bold">{percentage}</span>
         </div>
       </div>
       {content && (
-        <div className="font-bold text-2xl text-center w-full">
+        <div className=" text-xl text-center w-full">
           {content}
         </div>
       )}

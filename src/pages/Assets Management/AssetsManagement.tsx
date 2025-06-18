@@ -6,8 +6,13 @@ import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "l
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { FONTS } from "../../constants/uiConstants"
+import axios from "axios"
+import httpClient from "../../api/httpClient";
+import { API_END_POINTS } from "../../api/httpEndpoints";
+
 
 interface Asset {
+  [x: string]: any
   id: string
   name: string
   assignedTo: string
@@ -29,156 +34,7 @@ interface Employee {
 }
 
 const employees: Employee[] = [
-  // {
-  //   id: "1",
-  //   name: "Wikki",
-  //   email: "wikki@company.com",
-  //   department: "Engineering",
-  //   position: "Senior Developer",
-  //   phone: "+1 (555) 123-4567",
-  //   startDate: "2023-01-15",
-  //   manager: "John Smith",
-  // },
-  // {
-  //   id: "2",
-  //   name: "Sowmiya",
-  //   email: "sowmiya@company.com",
-  //   department: "Design",
-  //   position: "UI/UX Designer",
-  //   phone: "+1 (555) 234-5678",
-  //   startDate: "2023-02-01",
-  //   manager: "Jane Doe",
-  // },
-  // {
-  //   id: "3",
-  //   name: "Suruthiga",
-  //   email: "suruthiga@company.com",
-  //   department: "Marketing",
-  //   position: "Marketing Specialist",
-  //   phone: "+1 (555) 345-6789",
-  //   startDate: "2023-03-10",
-  //   manager: "Mike Johnson",
-  // },
-  // {
-  //   id: "4",
-  //   name: "Sumathi",
-  //   email: "sumathi@company.com",
-  //   department: "HR",
-  //   position: "HR Manager",
-  //   phone: "+1 (555) 456-7890",
-  //   startDate: "2022-11-20",
-  //   manager: "Sarah Wilson",
-  // },
-  // {
-  //   id: "5",
-  //   name: "Ammu",
-  //   email: "ammu@company.com",
-  //   department: "Finance",
-  //   position: "Financial Analyst",
-  //   phone: "+1 (555) 567-8901",
-  //   startDate: "2023-04-05",
-  //   manager: "David Brown",
-  // },
-  // {
-  //   id: "6",
-  //   name: "Sivasankar",
-  //   email: "sivasankar@company.com",
-  //   department: "Engineering",
-  //   position: "DevOps Engineer",
-  //   phone: "+1 (555) 678-9012",
-  //   startDate: "2023-01-30",
-  //   manager: "John Smith",
-  // },
-  // {
-  //   id: "7",
-  //   name: "Raajes",
-  //   email: "raajes@company.com",
-  //   department: "Sales",
-  //   position: "Sales Representative",
-  //   phone: "+1 (555) 789-0123",
-  //   startDate: "2023-05-15",
-  //   manager: "Lisa Garcia",
-  // },
-  // {
-  //   id: "8",
-  //   name: "Surya",
-  //   email: "surya@company.com",
-  //   department: "Engineering",
-  //   position: "Frontend Developer",
-  //   phone: "+1 (555) 890-1234",
-  //   startDate: "2023-06-01",
-  //   manager: "John Smith",
-  // },
-  // {
-  //   id: "9",
-  //   name: "John",
-  //   email: "john@company.com",
-  //   department: "Product",
-  //   position: "Product Manager",
-  //   phone: "+1 (555) 901-2345",
-  //   startDate: "2022-08-10",
-  //   manager: "Emily Davis",
-  // },
-  // {
-  //   id: "10",
-  //   name: "Jane",
-  //   email: "jane@company.com",
-  //   department: "Design",
-  //   position: "Graphic Designer",
-  //   phone: "+1 (555) 012-3456",
-  //   startDate: "2023-07-20",
-  //   manager: "Jane Doe",
-  // },
-  // {
-  //   id: "11",
-  //   name: "Bob",
-  //   email: "bob@company.com",
-  //   department: "IT",
-  //   position: "System Administrator",
-  //   phone: "+1 (555) 123-4567",
-  //   startDate: "2022-12-05",
-  //   manager: "Tom Anderson",
-  // },
-  // {
-  //   id: "12",
-  //   name: "Alice",
-  //   email: "alice@company.com",
-  //   department: "Engineering",
-  //   position: "Backend Developer",
-  //   phone: "+1 (555) 234-5678",
-  //   startDate: "2023-08-15",
-  //   manager: "John Smith",
-  // },
-  // {
-  //   id: "13",
-  //   name: "Charlie",
-  //   email: "charlie@company.com",
-  //   department: "Operations",
-  //   position: "Operations Manager",
-  //   phone: "+1 (555) 345-6789",
-  //   startDate: "2022-09-30",
-  //   manager: "Robert Lee",
-  // },
-  // {
-  //   id: "14",
-  //   name: "David",
-  //   email: "david@company.com",
-  //   department: "QA",
-  //   position: "QA Engineer",
-  //   phone: "+1 (555) 456-7890",
-  //   startDate: "2023-09-01",
-  //   manager: "Maria Rodriguez",
-  // },
-  // {
-  //   id: "15",
-  //   name: "Eva",
-  //   email: "eva@company.com",
-  //   department: "Engineering",
-  //   position: "Full Stack Developer",
-  //   phone: "+1 (555) 567-8901",
-  //   startDate: "2023-10-10",
-  //   manager: "John Smith",
-  // },
+ 
 ]
 
 const AssetsManagement: React.FC = () => {
@@ -192,6 +48,7 @@ const AssetsManagement: React.FC = () => {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState<boolean>(false)
   const [showModalCategoryDropdown, setShowModalCategoryDropdown] = useState<boolean>(false)
   const [showModalStatusDropdown, setShowModalStatusDropdown] = useState<boolean>(false)
+
 
   const modalRef = useRef<HTMLDivElement>(null)
   const categoryDropdownRef = useRef<HTMLDivElement>(null)
@@ -235,144 +92,37 @@ const AssetsManagement: React.FC = () => {
   
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
-  const [assets, setAssets] = useState<Asset[]>([
-    // {
-    //   id: "1",
-    //   name: 'MacBook Pro M1 13" (2021)',
-    //   assignedTo: "Wikki",
-    //   category: "Laptop",
-    //   serialNumber: "C03VM2MJGQ0D",
-    //   status: "active",
-    //   dateAdded: "2024-01-15",
-    // },
-    // {
-    //   id: "2",
-    //   name: "MacBook Air M1 (2020)",
-    //   assignedTo: "Sowmiya",
-    //   category: "Laptop",
-    //   serialNumber: "D04LY8N3KYOA",
-    //   status: "active",
-    //   dateAdded: "2024-02-10",
-    // },
+  const [assets, setAssets] = useState<Asset[]>([]);
 
-    // {
-    //   id: "3",
-    //   name: 'Monitor MSI 27"',
-    //   assignedTo: "Suruthiga",
-    //   category: "Monitor",
-    //   serialNumber: "G08MRZ8L34C",
-    //   status: "maintenance",
-    //   dateAdded: "2024-01-20",
-    // },
-    // {
-    //   id: "4",
-    //   name: "Magic Mouse Apple Gen 2",
-    //   assignedTo: "Sumathi",
-    //   category: "Accessory",
-    //   serialNumber: "H07TN0PS21D",
-    //   status: "active",
-    //   dateAdded: "2024-03-05",
-    // },
-    // {
-    //   id: "5",
-    //   name: 'Apple 32" Pro Display XDR',
-    //   assignedTo: "Ammu",
-    //   category: "Monitor",
-    //   serialNumber: "J08Q04C9XF8E",
-    //   status: "active",
-    //   dateAdded: "2024-02-28",
-    // },
-    // {
-    //   id: "6",
-    //   name: "ThinkPad X1 Carbon",
-    //   assignedTo: "Sivasankar",
-    //   category: "Laptop",
-    //   serialNumber: "H07TN0PS21D",
-    //   status: "maintenance",
-    //   dateAdded: "2024-03-05",
-    // },
-    // {
-    //   id: "7",
-    //   name: "Wireless Keyboard Logitech",
-    //   assignedTo: "Raajes",
-    //   category: "Accessory",
-    //   serialNumber: "H07TN0PS21D",
-    //   status: "active",
-    //   dateAdded: "2024-03-05",
-    // },
-    // {
-    //   id: "8",
-    //   name: "Magic Mouse Apple Gen 2",
-    //   assignedTo: "Surya",
-    //   category: "Accessory",
-    //   serialNumber: "H07TN0PS21D",
-    //   status: "active",
-    //   dateAdded: "2024-03-05",
-    // },
-    // {
-    //   id: "9",
-    //   name: "Dell XPS 13",
-    //   assignedTo: "John",
-    //   category: "Laptop",
-    //   serialNumber: "DXP13001",
-    //   status: "active",
-    //   dateAdded: "2024-03-10",
-    // },
-    // {
-    //   id: "10",
-    //   name: "Samsung Monitor 24",
-    //   assignedTo: "Jane",
-    //   category: "Monitor",
-    //   serialNumber: "SM24001",
-    //   status: "active",
-    //   dateAdded: "2024-03-12",
-    // },
-    // {
-    //   id: "11",
-    //   name: "Logitech Keyboard",
-    //   assignedTo: "Bob",
-    //   category: "Accessory",
-    //   serialNumber: "LK001",
-    //   status: "maintenance",
-    //   dateAdded: "2024-03-15",
-    // },
-    // {
-    //   id: "12",
-    //   name: "HP Laptop",
-    //   assignedTo: "Alice",
-    //   category: "Laptop",
-    //   serialNumber: "HP001",
-    //   status: "active",
-    //   dateAdded: "2024-03-18",
-    // },
-    // {
-    //   id: "13",
-    //   name: "LG Monitor 27",
-    //   assignedTo: "Charlie",
-    //   category: "Monitor",
-    //   serialNumber: "LG27001",
-    //   status: "returned",
-    //   dateAdded: "2024-03-20",
-    // },
-    // {
-    //   id: "14",
-    //   name: "Wireless Mouse",
-    //   assignedTo: "David",
-    //   category: "Accessory",
-    //   serialNumber: "WM001",
-    //   status: "active",
-    //   dateAdded: "2024-03-22",
-    // },
-    // {
-    //   id: "15",
-    //   name: "ThinkPad X1",
-    //   assignedTo: "Eva",
-    //   category: "Laptop",
-    //   serialNumber: "TPX1001",
-    //   status: "active",
-    //   dateAdded: "2024-03-25",
-    // },
-  ])
+  useEffect(() => {
+    const fetchAssets = async () => {
+      try {
+        const res = await httpClient.get(API_END_POINTS.asset.getAllAssets);
+        console.log(res.data); // Optional: Debug
+        setAssets(res.data);   // Make sure response is the array
+      } catch (err) {
+        console.error("Error fetching assets:", err);
+      }
+    };
+  
+    fetchAssets();
+  }, []);
+  
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3002/asset-categories") // Adjust path if needed
+  //     .then((res) => {
+  //       const categoryList = res.data.map((cat: any) => cat.name || cat.category); // match backend shape
+  //       setCategories(categoryList);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Failed to fetch categories", err);
+  //     });
+  // }, []);
+  
+
+   
+  
 
   const [newAsset, setNewAsset] = useState<Omit<Asset, "id" | "dateAdded">>({
     name: "",
@@ -394,32 +144,32 @@ const AssetsManagement: React.FC = () => {
   });
   
 
-  const handleAddAsset = (): void => {
-    if (newAsset.name && newAsset.assignedTo && newAsset.category && newAsset.serialNumber) {
-      const asset: Asset = {
+ 
+  const handleAddAsset = async (): Promise<void> => {
+    try {
+      const res = await httpClient.post(API_END_POINTS.asset.createAsset, {
         ...newAsset,
-        id: Date.now().toString(),
         dateAdded: new Date().toISOString().split("T")[0],
-      }
-      setAssets([...assets, asset])
+      });
+  
+      setAssets((prev) => [...prev, res.data]);
+  
       setNewAsset({
         name: "",
         assignedTo: "",
         category: "",
         serialNumber: "",
         status: "active",
-      })
-      setShowModal(false)
-      toast.success("Asset added successfully!", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      })
+      });
+  
+      setShowModal(false);
+      toast.success("Asset added successfully!");
+    } catch (err) {
+      console.error("Error adding asset", err);
+      toast.error("Failed to add asset");
     }
-  }
+  };
+  
 
   const handleEditAsset = (asset: Asset): void => {
     setEditingAsset(asset)
@@ -433,53 +183,71 @@ const AssetsManagement: React.FC = () => {
     setShowModal(true)
   }
 
-  const handleUpdateAsset = (): void => {
-    if (editingAsset && newAsset.name && newAsset.assignedTo && newAsset.category && newAsset.serialNumber) {
-      const updatedAssets = assets.map((asset) => (asset.id === editingAsset.id ? { ...asset, ...newAsset } : asset))
-      setAssets(updatedAssets)
-      setEditingAsset(null)
+  const handleUpdateAsset = async (): Promise<void> => {
+    if (!editingAsset) return;
+  
+    try {
+      const updated = {
+        ...editingAsset,
+        ...newAsset,
+      };
+  
+      await httpClient.update(API_END_POINTS.asset.updateAsset(editingAsset._id), updated);
+  
+      setAssets((prev) =>
+        prev.map((a) => (a._id === editingAsset._id ? { ...updated, _id: editingAsset._id } : a))
+      );
+  
+      setEditingAsset(null);
+      setShowModal(false);
       setNewAsset({
         name: "",
         assignedTo: "",
         category: "",
         serialNumber: "",
         status: "active",
-      })
-      setShowModal(false)
+      });
+  
       toast.success("Asset updated successfully!", {
         position: "top-right",
         autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      })
+      });
+    } catch (error) {
+      console.error("Failed to update asset", error);
+      toast.error("Failed to update asset.");
     }
-  }
-
+  };
+  
+  
+  
 
   const handleDeleteAsset = (asset: Asset): void => {
     setAssetToDelete(asset)
     setShowDeleteModal(true)
   }
 
- const confirmDeleteAsset = (): void => {
-  if (assetToDelete) {
-    setAssets((prev) => prev.filter((a) => a.id !== assetToDelete.id))
-    setAssetToDelete(null)
-    setShowDeleteModal(false)
-
-    toast.success("Asset deleted successfully!", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      toastId: "delete-success",
-    })
-  }
-}
+  const confirmDeleteAsset = async (): Promise<void> => {
+    if (assetToDelete) {
+      try {
+        await httpClient.delete(API_END_POINTS.asset.deleteAsset(assetToDelete._id));
+        setAssets((prev) => prev.filter((a) => a._id !== assetToDelete._id));
+        setAssetToDelete(null);
+        setShowDeleteModal(false);
+  
+        toast.success("Asset deleted successfully!", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+      } catch (err) {
+        console.error("Failed to delete asset", err);
+        toast.error("Failed to delete asset", {
+          position: "top-right",
+        });
+      }
+    }
+  };
+  
+  
 
 
   const handleCloseModal = (): void => {
@@ -579,17 +347,16 @@ const AssetsManagement: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen  ">
+    <div className="min-h-screen">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br 
-        from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
         
       </div>
 
       <div className="relative max-w-full ">
   
-        <div className="mb-5">
-          <h1 className=" text-[black] leading-relaxed " style={FONTS.header}>
+        <div className="mb-6">
+          <h1 className=" text-[black] leading-relaxed" style={FONTS.header}>
             Asset 
           </h1>
 
@@ -597,28 +364,25 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         
-        <div className="mb-6 flex flex-row  gap-4">
+        <div className="mb-8 flex flex-row  gap-4">
           <div className="relative max-w-2xl">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 " />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
             required
               type="text"
               placeholder="Search assets, assignees, or serial numbers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-[#eff4f5]  placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-
+              className="w-[250px] pl-10 pr-4 py-2 bg-[#eff4f5]  border border-white/20 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all duration-200"
             />
           </div>
 
           <div className="flex gap-3 ml-auto">
             <div className="relative" ref={categoryDropdownRef}>
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5 z-10 " />
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg 
-                focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer 
-                 text-sm transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
@@ -656,23 +420,21 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
-               rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-[#6f70ce] text-white rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
             >
-              <Plus className="w-5 h-5 text-sm" />
+              <Plus className="w-5 h-5" />
               Add Asset
             </button>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-5">
-          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border
-           border-white/20 hover:shadow-xl transition-all duration-200">
+        <div className="grid grid-cols-4 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Total Assets</p>
-                <p className="text-xl font-bold text-slate-800">{assets.length}</p>
+                <p className="text-2xl font-bold text-slate-800">{assets.length}</p>
               </div>
               <Package className="w-8 h-8 text-blue-600" />
             </div>
@@ -681,7 +443,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Active</p>
-                <p className="text-xl font-bold text-emerald-600">
+                <p className="text-2xl font-bold text-emerald-600">
                   {assets.filter((a) => a.status === "active").length}
                 </p>
               </div>
@@ -694,7 +456,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Maintenance</p>
-                <p className="text-xl font-bold text-amber-600">
+                <p className="text-2xl font-bold text-amber-600">
                   {assets.filter((a) => a.status === "maintenance").length}
                 </p>
               </div>
@@ -707,7 +469,7 @@ const AssetsManagement: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-600 text-sm">Categories</p>
-                <p className="text-xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
+                <p className="text-2xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
               </div>
               <Filter className="w-8 h-8 text-purple-600" />
             </div>
@@ -715,17 +477,17 @@ const AssetsManagement: React.FC = () => {
         </div>
 
         {/* Assets Table */}
-        <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow  overflow-hidden">
+        <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full bg-[#eff4f5]">
-              <thead className="bg-[#006666] text-white">
+            <table className="w-full ">
+              <thead className="bg-[#6f70ce] text-white">
                 <tr>
-                  <th className="text-left text-sm px-6 py-4 font-md">Asset Details</th>
-                  <th className="text-left text-sm px-6 py-4 font-md">Assigned To</th>
-                  <th className="text-left text-sm px-6 py-4 font-md">Category</th>
-                  <th className="text-left text-sm px-6 py-4 font-md">Serial Number</th>
-                  <th className="text-left text-sm px-6 py-4 font-md">Status</th>
-                  <th className="text-left text-sm px-6 py-4 font-md">Actions</th>
+                  <th className="text-left px-6 py-4 font-md">Asset Details</th>
+                  <th className="text-left px-6 py-4 font-md">Assigned To</th>
+                  <th className="text-left px-6 py-4 font-md">Category</th>
+                  <th className="text-left px-6 py-4 font-md">Serial Number</th>
+                  <th className="text-left px-6 py-4 font-md">Status</th>
+                  <th className="text-left px-6 py-4 font-md">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -733,7 +495,7 @@ const AssetsManagement: React.FC = () => {
                   <tr
                     key={asset.id}
                     onClick={() => handleRowClick(asset)}
-                    className="border-b border-slate-200/50 transition-all duration-200 group cursor-pointer text-sm"
+                    className="border-b border-slate-200/50 transition-all duration-200 group cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <td className="px-6 py-4">
@@ -892,14 +654,12 @@ const AssetsManagement: React.FC = () => {
 
 
       {showModal && (
-  <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div
       ref={modalRef}
-      className=" rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 
-      transform transition-all duration-300  max-h-[90vh] overflow-y-auto
-       backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-10 backdrop-contrast-100"
+      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
     >
-      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-white mb-6">
+      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
         {editingAsset ? "Edit Asset" : "Add New Asset"}
       </h2>
 
@@ -912,7 +672,7 @@ const AssetsManagement: React.FC = () => {
       >
         {/* Asset Name */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">Asset Name</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Asset Name</label>
           <input
             type="text"
             required
@@ -925,7 +685,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Assigned To */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">Assigned To</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Assigned To</label>
           <input
             type="text"
             required
@@ -938,18 +698,18 @@ const AssetsManagement: React.FC = () => {
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">Category</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
           <div className="relative" ref={modalCategoryDropdownRef}>
             <button
               type="button"
               onClick={() => setShowModalCategoryDropdown(!showModalCategoryDropdown)}
-              className="w-full px-4 py-3 bg-white/70 text-white  border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
+              className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
             >
               <span className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
                 {newAsset.category || "Select category"}
               </span>
               <svg
-                      className={`w-4 h-4 transition-transform text-white duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
+                className={`w-4 h-4 transition-transform duration-200 ${showModalCategoryDropdown ? "rotate-180" : ""}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -987,7 +747,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Serial Number */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">Serial Number</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Serial Number</label>
           <input
             type="text"
             required
@@ -1000,7 +760,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Status */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">Status</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
           <div className="relative" ref={modalStatusDropdownRef}>
             <button
               type="button"
@@ -1027,7 +787,7 @@ const AssetsManagement: React.FC = () => {
             </button>
 
             {showModalStatusDropdown && (
-              <div className="absolute top-full text-white left-0 right-0 mt-2 backdrop-blur-sm border border-white/20 rounded-md shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm border border-white/20 rounded-md shadow-xl z-50 overflow-hidden">
                 {(["active", "maintenance", "returned"] as const).map((status) => (
                   <button
                     key={status}
@@ -1061,13 +821,13 @@ const AssetsManagement: React.FC = () => {
           <button
             type="button"
             onClick={handleCloseModal}
-            className="flex-1 px-4 py-2  text-white border border-slate-300 text-slate-700 rounded-md hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#6f70ce] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
           >
             {editingAsset ? "Update Asset" : "Add Asset"}
           </button>
@@ -1080,9 +840,8 @@ const AssetsManagement: React.FC = () => {
 
     
       {showDeleteModal && assetToDelete && (
-        <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4
-        backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 ">
-          <div className="  rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
+        <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100">
             <div className="text-center">
               <div className="w-16 h-16 bg-[#006666] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-[white]" />
@@ -1102,7 +861,7 @@ const AssetsManagement: React.FC = () => {
                 </button>
                 <button
                   onClick={confirmDeleteAsset}
-                  className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
+                  className="flex-1 px-4 py-2 bg-[ text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
                 >
                   Delete
                 </button>
@@ -1114,10 +873,8 @@ const AssetsManagement: React.FC = () => {
 
     
       {showDetailModal && selectedAsset && (
-        <div className="fixed inset-0  backdrop-blur-sm flex items-center justify-center z-50 p-4   backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
-          <div className=" backdrop-blur-sm rounded-md p-4 w-full max-w-4xl shadow-2xl
-           border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto
-             backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90 backdrop-blur-sm rounded-md p-4 w-full max-w-4xl shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-teal-600 bg-clip-text text-transparent">
                 Asset Details
@@ -1132,8 +889,7 @@ const AssetsManagement: React.FC = () => {
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8   backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
-            >
+            <div className="grid md:grid-cols-2 gap-8">
         
               <div className="bg-white/60 rounded-md p-6 border border-white/20">
                 <div className="flex items-center gap-3 mb-6">
@@ -1141,44 +897,38 @@ const AssetsManagement: React.FC = () => {
                     {getCategoryIcon(selectedAsset.category)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-slate-800"
-                      style={{ fontSize: FONTS.header2.fontSize }}>Asset Information</h3>
-                    <p className="text-slate-600"
-                      style={{ fontSize: FONTS.paragraph.fontSize }}>Complete asset details</p>
+                    <h3 className="text-xl font-semibold text-slate-800">Asset Information</h3>
+                    <p className="text-slate-600">Complete asset details</p>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-sm text-slate-600"
-                        style={{ fontSize: FONTS.header3.fontSize }}>Asset Name</label>
-                      <p className="text-lg font-sm text-slate-800">{selectedAsset.name}</p>
+                      <label className="text-sm font-medium text-slate-600">Asset Name</label>
+                      <p className="text-lg font-semibold text-slate-800">{selectedAsset.name}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-sm text-slate-600"
-                        style={{ fontSize: FONTS.header3.fontSize }}>Category</label>
+                      <label className="text-sm font-medium text-slate-600">Category</label>
                       <div className="flex items-center gap-2 mt-1">
                         {getCategoryIcon(selectedAsset.category)}
-                        <span className="text-slate-800 font-sm">{selectedAsset.category}</span>
+                        <span className="text-slate-800 font-medium">{selectedAsset.category}</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-sm text-slate-600"
-                        style={{ fontSize: FONTS.header3.fontSize }}>Serial Number</label>
+                      <label className="text-sm font-medium text-slate-600">Serial Number</label>
                       <code className="block bg-slate-100 px-3 py-2 rounded-md text-sm font-mono text-slate-800 mt-1">
                         {selectedAsset.serialNumber}
                       </code>
                     </div>
                     <div>
-                      <label className="text-sm font-sm text-slate-600"
-                        style={{ fontSize: FONTS.header3.fontSize }}>Status</label>
+                      <label className="text-sm font-medium text-slate-600">Status</label>
                       <div className="mt-1">
                         <span
-                          className={`inline-flex px-3 py-1 rounded-md text-xs font-sm border ${getStatusColor(selectedAsset.status)}`}
+                          className={`inline-flex px-3 py-1 rounded-md text-xs font-medium border ${getStatusColor(selectedAsset.status)}`}
                         >
                           {String(selectedAsset.status).charAt(0).toUpperCase() + String(selectedAsset.status).slice(1)}
                         </span>
@@ -1187,8 +937,7 @@ const AssetsManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm font-sm text-slate-600"
-                      style={{ fontSize: FONTS.header3.fontSize }}>Date Added</label>
+                    <label className="text-sm font-medium text-slate-600">Date Added</label>
                     <p className="text-slate-800 font-medium mt-1">
                       {new Date(selectedAsset.dateAdded).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -1199,8 +948,7 @@ const AssetsManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm font-sm text-slate-600"
-                      style={{ fontSize: FONTS.header3.fontSize }}>Asset ID</label>
+                    <label className="text-sm font-medium text-slate-600">Asset ID</label>
                     <p className="text-slate-800 font-medium mt-1">#{selectedAsset.id}</p>
                   </div>
                 </div>
@@ -1220,8 +968,7 @@ const AssetsManagement: React.FC = () => {
                             .join("")}
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-slate-800"
-                            style={{ fontSize: FONTS.header2.fontSize }}>Employee Information</h3>
+                          <h3 className="text-xl font-semibold text-slate-800">Employee Information</h3>
                           <p className="text-slate-600">Assigned user details</p>
                         </div>
                       </div>
@@ -1230,33 +977,28 @@ const AssetsManagement: React.FC = () => {
                         <div className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-sm font-sm text-slate-600"
-                                style={{ fontSize: FONTS.header3.fontSize }}>Full Name</label>
+                              <label className="text-sm font-medium text-slate-600">Full Name</label>
                               <p className="text-lg font-semibold text-slate-800">{employee.name}</p>
                             </div>
                             <div>
-                              <label className="text-sm font-sm text-slate-600"
-                                style={{ fontSize: FONTS.header3.fontSize }}>Position</label>
-                              <p className="text-slate-800 font-sm">{employee.position}</p>
+                              <label className="text-sm font-medium text-slate-600">Position</label>
+                              <p className="text-slate-800 font-medium">{employee.position}</p>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label className="text-smfont-sm text-slate-600"
-                                style={{ fontSize: FONTS.header3.fontSize }}>Department</label>
-                              <p className="text-slate-800 font-sm">{employee.department}</p>
+                              <label className="text-sm font-medium text-slate-600">Department</label>
+                              <p className="text-slate-800 font-medium">{employee.department}</p>
                             </div>
                             <div>
-                              <label className="text-sm font-sm text-slate-600"
-                                style={{ fontSize: FONTS.header3.fontSize }}>Manager</label>
-                              <p className="text-slate-800 font-sm">{employee.manager}</p>
+                              <label className="text-sm font-medium text-slate-600">Manager</label>
+                              <p className="text-slate-800 font-medium">{employee.manager}</p>
                             </div>
                           </div>
 
                           <div>
-                            <label className="text-sm font-sm text-slate-600"
-                              style={{ fontSize: FONTS.header3.fontSize }}>Email Address</label>
+                            <label className="text-sm font-medium text-slate-600">Email Address</label>
                             <a
                               href={`mailto:${employee.email}`}
                               className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
@@ -1266,20 +1008,18 @@ const AssetsManagement: React.FC = () => {
                           </div>
 
                           <div>
-                            <label className="text-sm font-sm text-slate-600"
-                              style={{ fontSize: FONTS.header3.fontSize }}>Phone Number</label>
+                            <label className="text-sm font-medium text-slate-600">Phone Number</label>
                             <a
                               href={`tel:${employee.phone}`}
-                              className="block text-teal-600 hover:text-teal-700 font-sm mt-1"
+                              className="block text-teal-600 hover:text-teal-700 font-medium mt-1"
                             >
                               {employee.phone}
                             </a>
                           </div>
 
                           <div>
-                            <label className="text-sm font-sm text-slate-600"
-                              style={{ fontSize: FONTS.header3.fontSize }}>Start Date</label>
-                            <p className="text-slate-800 font-sm mt-1">
+                            <label className="text-sm font-medium text-slate-600">Start Date</label>
+                            <p className="text-slate-800 font-medium mt-1">
                               {new Date(employee.startDate).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",
