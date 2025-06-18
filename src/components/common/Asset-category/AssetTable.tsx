@@ -77,12 +77,13 @@ const AssetTable: React.FC<AssetTableProps> = ({
   
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-[#006666] ">
             <tr>
               {tableHeaders.map((header) => (
                 <th 
                   key={header.key}
-                  className={`text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${header.width}`}
+                  className={`text-left text-white text-sm
+                     px-6 py-4  font-semibold text-gray-600 uppercase tracking-wider ${header.width}`}
                 >
                   {header.label}
                 </th>
@@ -101,11 +102,6 @@ const AssetTable: React.FC<AssetTableProps> = ({
         
                 <td className="px-6 py-4 w-1/3">
                   <div className="flex items-center gap-3">
-                    {/* <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold ${asset.avatarBg} flex-shrink-0`}
-                    >
-                      {asset.avatar}
-                    </div> */}
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-semibold text-gray-900 truncate">
                         {asset.name}
@@ -120,12 +116,12 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 </td>
 
                 
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6 ">
                   <span
-                    className={`inline-flex items-center px-1 py-1 text-xs font-medium rounded-md border ${getStatusColor(asset.status)}`}
+                    className={`inline-flex items-center px-1 py-1 text-sm  rounded-md border ${getStatusColor(asset.status)}`}
                   >
-                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
-                      asset.status === "Available" ? "bg-green-400" : "bg-red-400"
+                    <span className={`w-1.5 h-1.5   rounded-full mr-1.5 ${
+                      asset.status === "Available" ? "bg-green-400 " : "bg-red-400"
                     }`}></span>
                     {asset.status === "Not-Available" ? "Unavailable" : asset.status}
                   </span>
@@ -133,7 +129,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
 
               
                 <td className="px-6 py-4 w-1/6">
-                  <span className="text-sm text-[#006666] hover:text-[#004d4d] font-medium transition-colors">
+                  <span className="text-sm text-gray-900 hover:text-[#004d4d] font-medium transition-colors">
                     {asset.trackingId}
                   </span>
                 </td>
@@ -156,7 +152,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
                       className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-[#006666] hover:bg-gray-100 rounded-md transition-all duration-200"
                       title="Edit Asset"
                     >
-                      <Edit className="w-4 h-4" />
+                      <Edit className="w-4 h-4 text-gray-600" />
                     </button>
                     <button
                       onClick={(e) => {
@@ -166,7 +162,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
                       className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all duration-200"
                       title="Delete Asset"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4 text-gray-600" />
                     </button>
                   </div>
                 </td>

@@ -108,7 +108,7 @@ const Payroll = () => {
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
-      <div className="flex flex-col gap-6 p-6">
+      <div className="flex flex-col gap-6 ">
         {/* Header with Search */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
@@ -133,7 +133,8 @@ const Payroll = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-[#eff4f5]  placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-              />
+            
+            />
             </div>
             <button className="inline-flex items-center px-4 py-2  text-sm font-medium rounded-md shadow-sm text-white bg-[#006666] ">
               Process Payroll

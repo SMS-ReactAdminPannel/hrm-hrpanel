@@ -28,7 +28,7 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       </button>
 
     
-      <h2 className="text-xl font-bold text-[#006666] mb-2"
+      <h2 className="text-xl font-bold text-black mb-2"
       style={{fontSize:FONTS.header.fontSize}}>{grievance.title}</h2>
 
     
@@ -43,14 +43,14 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       </span>
 
 
-<h3 className="text-sm font-semibold text-gray-800 mb-2"
+<h3 className="text-sm font-semibold text-black mb-2"
 style={{fontSize:FONTS.header3.fontSize}}>Issue Description:</h3>
 <p className="text-gray-700 mb-3 whitespace-pre-line"
 style={{fontSize:FONTS.paragraph.fontSize}}>{grievance.description}</p>
 
 
       
-      <div className="text-sm text-gray-600 space-y-1 mb-4 "
+      <div className="text-sm text-black space-y-1 mb-4 "
         style={{ fontSize: FONTS.paragraph.fontSize }}>
         <p><strong>Employee:</strong> {grievance.employee}</p>
         <p><strong>Employee ID:</strong> {grievance.empid}</p>

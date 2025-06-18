@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, type JSX } from 'react';
 import { Search, Star, Moon, Bell } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
+import { postLogout } from '../../../features/auth/service';
 
 export default function Navbar() {
   const [showBookmark, setShowBookmark] = useState(false);
@@ -12,25 +12,17 @@ export default function Navbar() {
   const bookmarkRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        bookmarkRef.current &&
-        !bookmarkRef.current.contains(event.target as Node)
-      ) {
+      if (bookmarkRef.current && !bookmarkRef.current.contains(event.target as Node)) {
         setShowBookmark(false);
       }
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target as Node)
-      ) {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
         setShowNotifications(false);
       }
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
-      ) {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setShowProfileMenu(false);
       }
     }
@@ -38,11 +30,18 @@ export default function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-const navigate = useNavigate()
 
+  const handleLogout = async () => {
+    try {
+      await postLogout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
-    <div className="flex items-center justify-between  px-6 py-4 border-b relative">
+    <div className="flex items-center justify-between px-6 py-4 border-b relative">
       <div>
         <h2 className="text-xl font-semibold flex items-center gap-1">
           Welcome HRM <span>👋</span>
@@ -61,10 +60,7 @@ const navigate = useNavigate()
         </div>
 
         <div className="relative" ref={bookmarkRef}>
-          <IconButton
-            icon={<Star className="w-5 h-5 text-gray-600" />}
-            onClick={() => setShowBookmark((prev) => !prev)}
-          />
+          <IconButton icon={<Star className="w-5 h-5 text-gray-600" />} onClick={() => setShowBookmark((prev) => !prev)} />
           {showBookmark && (
             <div className="absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-xl p-4 z-50">
               <h3 className="font-semibold text-lg mb-3 text-center">Bookmark</h3>
@@ -73,25 +69,20 @@ const navigate = useNavigate()
                 <BookmarkItem label="Profile" />
                 <BookmarkItem label="Tables" />
               </div>
-              <p className="text-center text-blue-600 font-medium cursor-pointer hover:underline">
-                Add New Bookmark
-              </p>
+              <p className="text-center text-blue-600 font-medium cursor-pointer hover:underline">Add New Bookmark</p>
             </div>
           )}
         </div>
 
-        
         <IconButton icon={<Moon className="w-5 h-5 text-gray-600" />} />
-       
+
         <div className="relative" ref={notificationRef}>
           <div
             onClick={() => setShowNotifications((prev) => !prev)}
             className="w-9 h-9 bg-white rounded-full shadow flex items-center justify-center cursor-pointer hover:scale-110 transition"
           >
             <Bell className="w-5 h-5 text-gray-600" />
-            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
-              4
-            </span>
+            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">4</span>
           </div>
 
           {showNotifications && (
@@ -148,16 +139,16 @@ const navigate = useNavigate()
                   </div>
                 </>
               )}
-              
-                <button
-                    onClick={() => {
-                      setShowNotifications(false); // closes the notification popup
-                      navigate('/notification');   // then navigates
-                    }}
-              className="w-full mt-4 bg-teal-600 text-white py-2 rounded-md text-sm font-medium hover:bg-teal-700"
-                    >
-                  View all
-                    </button>
+
+              <button
+                onClick={() => {
+                  setShowNotifications(false);
+                  navigate('/notification');
+                }}
+                className="w-full mt-4 bg-teal-600 text-white py-2 rounded-md text-sm font-medium hover:bg-teal-700"
+              >
+                View all
+              </button>
             </div>
           )}
         </div>
@@ -179,7 +170,12 @@ const navigate = useNavigate()
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">My Profile</div>
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Inbox</div>
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Settings</div>
-              <div className="px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-100 font-medium">Log Out</div>
+              <div
+                className="px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-100 font-medium"
+                onClick={handleLogout}
+              >
+                Log Out
+              </div>
             </div>
           )}
         </div>
@@ -227,7 +223,7 @@ function UnreadItem() {
         />
         <div className="flex-1 mx-3">
           <h4 className="font-medium text-sm">Alex</h4>
-           <p className="text-xs text-gray-500 truncate">Need,my timesheet</p>
+          <p className="text-xs text-gray-500 truncate">Need, my timesheet</p>
         </div>
       </div>
     </div>

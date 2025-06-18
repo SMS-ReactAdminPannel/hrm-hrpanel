@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FONTS } from "../../constants/uiConstants";
 
 interface TimeEntry {
   day: string;
@@ -38,7 +39,10 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
     <div className="py-5">
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse text-sm shadow-lg">
-          <thead className="bg-[#6f70ce] text-white">
+          <thead className="bg-[#6f70ce] text-white"
+          style={{fontSize:FONTS.paragraph.fontSize,
+            fontFamily:FONTS.paragraph.fontFamily
+          }}>
             <tr>
               <th className="p-3 text-left">
                 <input
