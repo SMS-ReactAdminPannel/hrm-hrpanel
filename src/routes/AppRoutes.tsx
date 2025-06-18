@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
 import Employee from "../pages/Employee Mangament/Employee";
-import Leave from "../pages/Leave Management/Leave";
 import OrganizationChart from "../pages/Organization Charts/OrganizationChart";
 import Payroll from "../pages/Payroll Management/Payroll";
 import Recuritment from "../pages/Recuritment/Recuritment";
@@ -10,7 +9,7 @@ import TimeSheet from "../pages/TimeSheet/TimeSheet";
 import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
-import LeaveTypes from "../pages/Leave Management/LeaveTypes";
+import LeaveTypes from "../pages/Leave Types/LeaveTypes";
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
@@ -19,8 +18,8 @@ import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
-import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
-import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
+import OnboardingTemplate from "../pages/OnBoarding/OnBoarding";
+
 
 import SignupPage from "../pages/auth/SignupPage";
 import LoginPage from "../pages/auth/LoginPage";
@@ -44,6 +43,7 @@ import CandidatesPage from "../pages/Recuritment/Candidates";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
+import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -65,7 +65,7 @@ const AppRoutes = () => {
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<Leave />} />
+          <Route path="leave-management" element={<LeaveTypes />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
@@ -82,7 +82,7 @@ const AppRoutes = () => {
           <Route path="asset-category" element={<Assetcategory />} />
           {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
-          <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
+          <Route path="offboarding" element={<AdvancedHRMOffboardings />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="grievance-management" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
