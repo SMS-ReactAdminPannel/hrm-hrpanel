@@ -21,6 +21,7 @@ import { BarChart2, Users, Briefcase, Sliders, Calendar, TrendingUp, Percent } f
 import RecruitmentPipeline from "./pipeline";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
+import { FONTS } from "../../constants/uiConstants";
 
 const COLORS = ["#D9D9D9", "#F8D147", "#00C49F", "#FF4D4F", "#B2F296"];
 
@@ -139,54 +140,51 @@ export default function RecruitmentDashboard() {
 
     <>
     
-    
-    <div className="p-2 bg-gradient-to-br from-[#e0f7f4] to-[#f4fbf9] min-h-screen">
-        <h1 className="text-3xl font-semibold text-[#10493e] mb-6">
+    <div className=" mx-auto max-w-screen-xl">
+        <h1 className=" mb-6" style={FONTS.header}>
           Recruitment Dashboard
         </h1>
 
         {/* Summary Cards */}
-        <div className="flex space-x-4 overflow-x-auto pb-4">
-          {[
-            {
-              title: "Total Vacancies",
-              value: 96,
-              icon: <Briefcase className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Ongoing Recruitments",
-              value: 18,
-              icon: <Sliders className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Hired Candidates",
-              value: 3,
-              icon: <Users className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Conversion Rate",
-              value: "16.7%",
-              icon: <BarChart2 className="text-[#3bb78f]" />,
-            },
-            {
-              title: "Offer Acceptance Rate",
-              value: "66.7%",
-              icon: <Percent className="text-[#3bb78f]" />,
-            },
-          ].map((stat, idx) => (
-            <Card key={idx} className="min-w-[230px] shadow-md flex-shrink-0">
-              <CardContent className="p-4 flex items-center justify-between">
-                <div>
-                  <p className="text-gray-500 text-sm">{stat.title}</p>
-                  <h2 className="text-2xl font-bold text-[#10493e]">
-                    {stat.value}
-                  </h2>
-                </div>
-                {stat.icon}
-              </CardContent>
-            </Card>
-          ))}
+        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+  {[
+    {
+      title: "Total Vacancies",
+      value: 96,
+      icon: <Briefcase className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Ongoing Recruitments",
+      value: 18,
+      icon: <Sliders className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Hired Candidates",
+      value: 3,
+      icon: <Users className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Conversion Rate",
+      value: "16.7%",
+      icon: <BarChart2 className="text-[#3bb78f]" />,
+    },
+    {
+      title: "Offer Acceptance Rate",
+      value: "66.7%",
+      icon: <Percent className="text-[#3bb78f]" />,
+    },
+  ].map((stat, idx) => (
+    <Card key={idx} className="shadow-md">
+      <CardContent className="p-4 flex items-center justify-between">
+        <div>
+          <p className="text-gray-500 text-sm">{stat.title}</p>
+          <h2 className="text-2xl font-bold text-[#10493e]">{stat.value}</h2>
         </div>
+        {stat.icon}
+      </CardContent>
+    </Card>
+  ))}
+</div>
 
         {/* Recent Applications & Upcoming Interviews */}
         <div className="grid gap-6 md:grid-cols-2 mt-6">
@@ -269,7 +267,7 @@ export default function RecruitmentDashboard() {
         <div className="p-4 space-y-6 ">
           <div className="grid grid-cols-3 gap-6 rounded">
             {/* Skill Zone Status */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-white p-4 rounded rounded-xl shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Skill Zone Status</h2>
               <ul className="space-y-2">
                 <li className="flex items-center justify-between">
@@ -290,7 +288,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Candidate Offer Letter Status */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-white p-4 rounded rounded-xl shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Candidate Offer Letter Status</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
@@ -304,7 +302,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Candidate Onboard */}
-            <div className="bg-white p-4 rounded shadow col-span-1">
+            <div className="bg-white p-4 rounded rounded-xl shadow col-span-1">
               <h2 className="text-lg font-semibold mb-4">Candidate on Onboard</h2>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
@@ -320,7 +318,7 @@ export default function RecruitmentDashboard() {
           {/* Joinings Per Month and Hiring Pipeline */}
           <div className="grid grid-cols-2 gap-4">
             {/* Joinings Per Month */}
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-white p-4 rounded rounded-xl shadow">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-semibold">Joinings Per Month</h2>
                 <select className="border rounded px-2 py-1 text-sm">
@@ -338,7 +336,7 @@ export default function RecruitmentDashboard() {
             </div>
 
             {/* Current Hiring Pipeline */}
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-white p-4 rounded rounded-xl shadow">
               <h2 className="text-lg font-semibold mb-2">Current Hiring Pipeline</h2>
               <table className="w-full text-sm">
                 <thead>
@@ -364,8 +362,7 @@ export default function RecruitmentDashboard() {
 
 
 
-
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <Card>
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
@@ -392,17 +389,12 @@ export default function RecruitmentDashboard() {
               </div>
             </CardContent>
           </Card>
-        </div>
-
-
-
-
-
+        </div> */}
 
 
 
         {/* Additional Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <Card className="shadow">
             <CardContent className="p-4">
               <h3 className="text-lg font-semibold text-[#10493e] mb-2">
@@ -434,7 +426,7 @@ export default function RecruitmentDashboard() {
           </Card>
 
         
-        </div>
+        </div> */}
 
         {/* Pipeline Component */}
         {/* <div className="mt-6">

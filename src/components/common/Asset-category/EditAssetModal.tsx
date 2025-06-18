@@ -2,6 +2,7 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { X, Calendar } from "lucide-react"
+import { FONTS } from "../../../constants/uiConstants"
 
 interface Asset {
   id: string
@@ -84,52 +85,63 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div ref={modalRef} className="bg-white rounded-lg shadow-xl w-full max-w-2xl">
+    <div className="fixed inset-0 bg-black/10   flex items-center justify-center z-50 
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+
+      <div ref={modalRef} className="bg-white rounded-md h-[99%] shadow-xl w-full max-w-2xl
+      backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100
+      border border-white ">
+
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Update Asset</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <h2 className="text-xl font-semibold text-white"
+            style={{ fontSize: FONTS.header.fontSize }} >Update Asset</h2>
+          <button onClick={onClose} className="text-white hover:text-gray-900 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6">
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-4 ">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="name" className="block text-sm font-medium text-white">
                 Asset Name
               </label>
               <input
+                required
                 type="text"
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300
+                 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="description" className="block text-sm font-medium text-white ">
                 Description
               </label>
               <textarea
+              
                 id="description"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 placeholder="Description"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="trackingId" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="trackingId" className="block text-sm font-medium text-white ">
                   Tracking Id
                 </label>
                 <input
+                required
                   type="text"
                   id="trackingId"
                   name="trackingId"
@@ -140,16 +152,18 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="category" className="block text-sm font-medium text-white ">
                   Category
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="category"
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                    focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
                   >
                     <option value="">Select category</option>
                     <option value="laptops">Laptops</option>
@@ -167,17 +181,19 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="purchaseDate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="purchaseDate" className="block text-sm font-medium text-white ">
                   Purchase Date
                 </label>
                 <div className="relative">
                   <input
+                  required
                     type="date"
                     id="purchaseDate"
                     name="purchaseDate"
                     value={formData.purchaseDate}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                    focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <Calendar className="w-4 h-4 text-gray-400" />
@@ -186,10 +202,11 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="cost" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cost" className="block text-sm font-medium text-white ">
                   Cost
                 </label>
                 <input
+                required
                   type="text"
                   id="cost"
                   name="cost"
@@ -202,16 +219,18 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="status" className="block text-sm font-medium text-white ">
                   Status
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="status"
                     name="status"
                     value={formData.status}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                    focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
                   >
                     <option value="Available">Available</option>
                     <option value="Not-Available">Not-Available</option>
@@ -225,16 +244,18 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="batchNo" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="batchNo" className="block text-sm font-medium text-white ">
                   Batch No
                 </label>
                 <div className="relative">
                   <select
+                  required
                     id="batchNo"
                     name="batchNo"
                     value={formData.batchNo}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md
+                     focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
                   >
                     <option value="LPB002">LPB002</option>
                     <option value="MOB001">MOB001</option>
@@ -249,17 +270,19 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
             </div>
 
             <div>
-              <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="expiryDate" className="block text-sm font-medium text-white ">
                 Expiry Date
               </label>
               <div className="relative">
                 <input
+                required
                   type="date"
                   id="expiryDate"
                   name="expiryDate"
                   value={formData.expiryDate}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                  focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                   <Calendar className="w-4 h-4 text-gray-400" />
@@ -274,7 +297,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
               onClick={onClose}
             >
-              Add Report
+              Close
             </button>
             <button
               type="submit"

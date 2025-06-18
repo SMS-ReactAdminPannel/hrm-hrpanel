@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import LeaveTypeCard from './LeaveCards';
+import { FONTS } from '../../constants/uiConstants';
 
 type Card = {
   id: number;
@@ -32,7 +33,7 @@ type NewCard = {
 
 const getRandomColor = () => {
   const colors = [
-    'bg-red-200', 'bg-blue-200', 'bg-green-200', 
+    'bg-red-200', 'bg-blue-200', 'bg-green-200',
     'bg-yellow-200', 'bg-purple-200', 'bg-pink-200',
     'bg-indigo-200', 'bg-teal-200', 'bg-orange-200',
     'bg-amber-200', 'bg-lime-200', 'bg-emerald-200',
@@ -119,7 +120,7 @@ export default function LeaveTypes() {
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  
+
   const modalRef = useRef<HTMLDivElement>(null);
   const detailsModalRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -136,12 +137,12 @@ export default function LeaveTypes() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDropdownId(null);
       }
-      
+
       // Close modal if clicked outside
       if (isModalOpen && modalRef.current && !modalRef.current.contains(event.target as Node)) {
         closeModal();
       }
-      
+
       // Close details modal if clicked outside
       if (isDetailsModalOpen && detailsModalRef.current && !detailsModalRef.current.contains(event.target as Node)) {
         closeDetailsModal();
@@ -154,7 +155,7 @@ export default function LeaveTypes() {
     };
   }, [isModalOpen, isDetailsModalOpen]);
 
-  const filteredCards = cards.filter(card => 
+  const filteredCards = cards.filter(card =>
     card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     card.isPaid.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -167,9 +168,9 @@ export default function LeaveTypes() {
     if (newCard.title && newCard.totalDays) {
       if (editingCard) {
         // Update existing card
-        const updatedCards = cards.map(card => 
-          card.id === editingCard.id ? { 
-            ...newCard, 
+        const updatedCards = cards.map(card =>
+          card.id === editingCard.id ? {
+            ...newCard,
             id: editingCard.id,
             totalDays: parseFloat(newCard.totalDays) || 0
           } : card
@@ -193,11 +194,11 @@ export default function LeaveTypes() {
           excludeHolidays: newCard.excludeHolidays,
           isEncashable: newCard.isEncashable
         };
-        
+
         setCards([...cards, cardToAdd]);
         setCardColors(prev => ({ ...prev, [newId]: getRandomColor() }));
       }
-      
+
       setNewCard({
         title: "",
         periodIn: "Day",
@@ -271,36 +272,54 @@ export default function LeaveTypes() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" >
+
       {/* Main content */}
-      <div className={`p-6 transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
+      <div className={` transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
         <div className="flex  md:flex-row justify-between mb-6 gap-4">
+          <div className=' font-bold ' style={FONTS.header} >
+            Leave Types
+          </div>
           <div className=" flex gap-5 ml-auto">
-            <input
-              type="text"
-              placeholder="Search leave types..."
-              className="w-52 p-3 ml-auto border border-gray-300  transition-all"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 pb-2 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search employees..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
 
-            <button 
-            className="bg-blue-600 ml-auto w-38 hover:bg-blue-700 text-white px-6 py-3 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
-            onClick={() => {
-              setEditingCard(null);
-              setIsModalOpen(true);
-            }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Add Leave Type
-          </button>
+
+            <button
+              className=" ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+              onClick={() => {
+                setEditingCard(null);
+                setIsModalOpen(true);
+              }}
+              style={{ backgroundColor: '#006666' }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Add Leave Type
+            </button>
 
           </div>
-          
-          
+
+
         </div>
 
         {/* Cards Grid */}
@@ -324,192 +343,101 @@ export default function LeaveTypes() {
 
       {/* Add/Edit Card Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div 
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div
             ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-clip-padding backdrop-filter border rounded-md  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl w-[400px]"
           >
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800">
+            <div className="p-4 px-6">
+              {/* Header */}
+              <div className="flex justify-between items-center border-b pb-4 mb-2">
+                <h3 className="text-xl font-semibold text-white">
                   {editingCard ? "Edit Leave Type" : "Create New Leave Type"}
                 </h3>
-                <button 
+                <button
                   onClick={closeModal}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-white rounded hover:text-gray-600 transition"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
-              
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Title */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Title*</label>
-                    <input
-                      type="text"
-                      className="w-full p-3 border border-gray-300 rounded-lg transition-all"
-                      value={newCard.title}
-                      onChange={(e) => setNewCard({...newCard, title: e.target.value})}
-                      placeholder="Enter leave type title"
-                      required
-                    />
-                  </div>
-                  
-                  {/* Period In */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Period In*</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.periodIn}
-                      onChange={(e) => setNewCard({...newCard, periodIn: e.target.value})}
-                    >
-                      <option value="Day">Day</option>
-                      <option value="Hour">Hour</option>
-                    </select>
-                  </div>
-                  
-                  {/* Total Days */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Total Days*</label>
-                    <input
-                      type="number"
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.totalDays}
-                      onChange={(e) => setNewCard({...newCard, totalDays: e.target.value})}
-                      placeholder="Enter total days"
-                      required
-                    />
-                  </div>
-                  
-                  {/* Reset */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Reset</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.reset}
-                      onChange={(e) => setNewCard({...newCard, reset: e.target.value})}
-                    >
-                      <option value="No">No</option>
-                      <option value="Monthly">Monthly</option>
-                      <option value="Yearly">Yearly</option>
-                    </select>
-                  </div>
-                  
-                  {/* Carryforward Type */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Carryforward Type</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.carryforwardType}
-                      onChange={(e) => setNewCard({...newCard, carryforwardType: e.target.value})}
-                    >
-                      <option value="No Carry Forward">No Carry Forward</option>
-                      <option value="Carry Forward">Carry Forward</option>
-                      <option value="Carry Forward with Limit">Carry Forward with Limit</option>
-                    </select>
-                  </div>
-                  
-                  {/* Is Paid */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Is Paid</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.isPaid}
-                      onChange={(e) => setNewCard({...newCard, isPaid: e.target.value})}
-                    >
-                      <option value="Paid">Paid</option>
-                      <option value="Unpaid">Unpaid</option>
-                      <option value="Partial">Partial</option>
-                    </select>
-                  </div>
-                  
-                  {/* Require Approval */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Require Approval</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.requireApproval}
-                      onChange={(e) => setNewCard({...newCard, requireApproval: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
-                  
-                  {/* Require Attachment */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Require Attachment</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.requireAttachment}
-                      onChange={(e) => setNewCard({...newCard, requireAttachment: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
-                  
-                  {/* Exclude Company Leaves */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Exclude Company Leaves</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.excludeCompanyLeaves}
-                      onChange={(e) => setNewCard({...newCard, excludeCompanyLeaves: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
-                  
-                  {/* Exclude Holidays */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Exclude Holidays</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.excludeHolidays}
-                      onChange={(e) => setNewCard({...newCard, excludeHolidays: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
-                  
-                  {/* Is Encashable */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Is Encashable</label>
-                    <select
-                      className="w-full p-3 border border-gray-300 rounded-lg  transition-all"
-                      value={newCard.isEncashable}
-                      onChange={(e) => setNewCard({...newCard, isEncashable: e.target.value})}
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
+
+              {/* Form Body */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                {/* Title */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-white">Title<span className="text-red-500">*</span></label>
+                  <input
+                    type="text"
+                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    value={newCard.title}
+                    onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
+                    placeholder="Enter leave type title"
+                    required
+                  />
                 </div>
-                
-                <div className="flex justify-end space-x-3 pt-4">
-                  <button 
-                    className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                    onClick={closeModal}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    className={`px-6 py-2.5 rounded-lg text-white transition-colors ${!newCard.title || !newCard.totalDays ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
-                    onClick={handleAddCard}
-                    type="button"
-                    disabled={!newCard.title || !newCard.totalDays}
-                  >
-                    {editingCard ? "Update" : "Create"}
-                  </button>
+
+                {/* Description */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-white">Description<span className="text-red-500">*</span></label>
+                  <input
+                    type="text"
+                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    placeholder="Description"
+                  />
                 </div>
+
+                {/* Total Days */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-white">Total Days<span className="text-red-500">*</span></label>
+                  <input
+                    type="number"
+                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    value={newCard.totalDays}
+                    onChange={(e) => setNewCard({ ...newCard, totalDays: e.target.value })}
+                    placeholder="Enter total days"
+                    required
+                  />
+                </div>
+
+                {/* Is Paid */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-white">Is Paid</label>
+                  <select
+                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
+                    value={newCard.isPaid}
+                    onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
+                  >
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Partial">Partial</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Footer Buttons */}
+              <div className="flex justify-end gap-3 mt-2">
+                <button
+                  className="px-5 border border-gray-300 text-white rounded-lg hover:bg-gray-100 transition"
+                  onClick={closeModal}
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  className={`px-5 py-1 rounded-lg text-white transition ${!newCard.title || !newCard.totalDays
+                      ? 'bg-[#006666] opacity-50 cursor-not-allowed'
+                      : 'bg-[#006666] hover:bg-[#004d4d]'
+                    }`}
+                  onClick={handleAddCard}
+                  type="button"
+                  disabled={!newCard.title || !newCard.totalDays}
+                >
+                  {editingCard ? "Update" : "Create"}
+                </button>
               </div>
             </div>
           </div>
@@ -519,9 +447,9 @@ export default function LeaveTypes() {
       {/* Card Details Modal */}
       {isDetailsModalOpen && selectedCard && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div 
+          <div
             ref={detailsModalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-gray-50 rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
@@ -531,32 +459,32 @@ export default function LeaveTypes() {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800">{selectedCard.title}</h3>
                 </div>
-                <button 
+                <button
                   onClick={closeDetailsModal}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-gray-500 px-4 py-2 rounded-md hover:text-gray-700 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <DetailItem label="Period In" value={selectedCard.periodIn} />
-                <DetailItem label="Total Days" value={selectedCard.totalDays.toString()} />
-                <DetailItem label="Reset" value={selectedCard.reset} />
-                <DetailItem label="Carryforward Type" value={selectedCard.carryforwardType} />
                 <DetailItem label="Is Paid" value={selectedCard.isPaid} />
-                <DetailItem label="Require Approval" value={selectedCard.requireApproval} />
+                <DetailItem label="Total Days" value={selectedCard.totalDays.toString()} />
+                <DetailItem label="Is Paid" value={selectedCard.isPaid} />
+
+                {/* <DetailItem label="Require Approval" value={selectedCard.requireApproval} />
                 <DetailItem label="Require Attachment" value={selectedCard.requireAttachment} />
                 <DetailItem label="Exclude Company Leaves" value={selectedCard.excludeCompanyLeaves} />
                 <DetailItem label="Exclude Holidays" value={selectedCard.excludeHolidays} />
-                <DetailItem label="Is Encashable" value={selectedCard.isEncashable} />
+                <DetailItem label="Is Encashable" value={selectedCard.isEncashable} /> */}
               </div>
-              
+
               <div className="flex justify-end mt-6">
-                <button 
-                  className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                <button
+                  className="px-4 py-1 bg-[#006666] text-white rounded-md hover:bg-blue-700 transition-colors"
                   onClick={closeDetailsModal}
                   type="button"
                 >

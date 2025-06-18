@@ -4,8 +4,8 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import AssetCategoryCard from "../../components/common/Asset-category/Assetcategorycard"
-import AssetCategoryHeader from "../../components/common/Asset-category/Assetcategoryheader"
+import AssetCategoryCard from "../../components/common/Asset-category/AssetCategoryCard"
+import AssetCategoryHeader from "../../components/common/Asset-category/AssetCategoryHeader"
 import CreateCategoryModal from "../../components/common/Asset-category/CreateCategoryModal"
 import DeleteConfirmModal from "../../components/common/Asset-category/DeleteConfirmModal"
 import EditAssetModal from "../../components/common/Asset-category/EditAssetModal"
@@ -483,8 +483,8 @@ const AssetCategory: React.FC = () => {
   })
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <div className="container mx-auto">
+    <div className=" min-h-screen ">
+      <div className="container ">
         <AssetCategoryHeader
           searchQuery={searchQuery}
           onSearch={handleSearch}
@@ -492,8 +492,8 @@ const AssetCategory: React.FC = () => {
           onCreate={handleCreateCategory}
         />
 
-        <div className="p-6">
-          <div className="max-w-7xl mx-auto">
+        <div className="">
+          <div className="max-w-full mx-auto">
             {filteredCategories.length === 0 ? (
               <div className="text-center py-12">
                 <div className="text-gray-500">

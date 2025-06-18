@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { Search,  Plus } from "lucide-react"
+import { FONTS } from "../../../constants/uiConstants"
 
 interface AssetCategoryHeaderProps {
   searchQuery: string
@@ -12,24 +13,27 @@ interface AssetCategoryHeaderProps {
 
 const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, onSearch, onCreate }) => {
   return (
-    <div className=" border-b border-gray-200 px-6 py-4">
+    <div className=" border-b border-gray-200">
     
       
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-4xl font-bold text-[#006666]">Asset Category</h1>
+      <div className="flex items-center justify-between mb-3">
+        <h1 className=" text-[black]" style={FONTS.header}>Asset Category</h1>
         
       </div>
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between  py-4 gap-4">
         <div className="flex items-center gap-3 flex-1 max-w-2xl">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 
+            text-gray-900 w-4 h-4 text-sm" />
             <input
+            
               type="text"
-              placeholder="Search by asset name or tracking ID..."
+              placeholder="Search assets here..."
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+              className=" pl-10 pr-3  py-2 bg-gray-200 rounded-md border-2  
+               placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             />
             {searchQuery && (
               <button
@@ -49,7 +53,8 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
           <button
             onClick={onCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005252] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
+             rounded-md  transition-colors"
           >
             <Plus className="w-4 h-4" />
             Create Category
@@ -59,7 +64,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
     
       {searchQuery && (
-        <div className="mt-4 text-sm text-gray-600">
+        <div className="mt-4 text-sm text-gray-600 bg-[#eff4f5]">
           Showing results for: <span className="font-medium text-[#006666]">"{searchQuery}"</span>
         </div>
       )}
