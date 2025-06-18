@@ -1,5 +1,10 @@
 import React, { useState } from "react"
-import { Search, Filter, MoreHorizontal, Eye, MessageSquare, Calendar, Download, Star, MapPin, Briefcase, GraduationCap } from "lucide-react"
+import {
+  Search, Filter, MoreHorizontal, Eye, MessageSquare, Calendar,
+  Star, MapPin, Briefcase, GraduationCap
+} from "lucide-react"
+import { useNavigate } from "react-router-dom"
+// import CandidateDetailPage from "./Candidatesdetailpage"
 
 // Simple utility components built with TailwindCSS
 const Card = ({ children }: { children: React.ReactNode }) => <div className="bg-white rounded-xl shadow-sm border p-4">{children}</div>
@@ -9,7 +14,9 @@ const CardTitle = ({ children }: { children: React.ReactNode }) => <h2 className
 const CardDescription = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <p className={`text-sm text-gray-500 ${className ?? ""}`}>{children}</p>
 )
-const Button = ({ children, className }: { children: React.ReactNode, className?: string }) => <button className={`px-4 py-2 text-sm rounded-md border ${className}`}>{children}</button>
+const Button = ({ children, className, onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) => (
+  <button className={`px-4 py-2 text-sm rounded-md border ${className}`} onClick={onClick}>{children}</button>
+)
 const Badge = ({ children, className }: { children: React.ReactNode, className?: string }) => <span className={`text-xs font-medium px-2 py-1 rounded ${className}`}>{children}</span>
 const Input = ({ value, onChange, placeholder }: { value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, placeholder: string }) => (
   <input
@@ -22,6 +29,10 @@ const Input = ({ value, onChange, placeholder }: { value: string, onChange: (e: 
 
 export default function CandidatesPage() {
   const [searchTerm, setSearchTerm] = useState("")
+  const navigate = useNavigate()
+  
+
+ 
 
   const candidates = [
     {
@@ -85,28 +96,39 @@ export default function CandidatesPage() {
     c.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
     c.location.toLowerCase().includes(searchTerm.toLowerCase())
   )
-
+  
   return (
-    <div className="p-8 space-y-6   bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100">
+    <div className="p-2 space-y-6 ">
       <div className="flex items-center gap-2">
         <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-          <Input placeholder="Search candidates..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <Input
+            placeholder="Search candidates..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-        <Button className="bg-white border-gray-200 flex items-center gap-2"><Filter className="h-4 w-4" /> Filter</Button>
+        <Button className="bg-white border-gray-200 flex items-center gap-2">
+          <Filter className="h-4 w-4" /> Filter
+        </Button>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-8 mx-2">
         {filtered.map((c) => (
           <Card key={c.id}>
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="flex items-start space-x-4">
-                  <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-700">{c.avatar}</div>
+                  <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-700">
+                    {c.avatar}
+                  </div>
                   <div>
                     <div className="flex items-center space-x-2">
                       <CardTitle>{c.name}</CardTitle>
-                      <div className="flex items-center text-yellow-500"><Star className="h-4 w-4 fill-yellow-400" /><span className="ml-1 text-sm">{c.rating}</span></div>
+                      <div className="flex items-center text-yellow-500">
+                        <Star className="h-4 w-4 fill-yellow-400" />
+                        <span className="ml-1 text-sm">{c.rating}</span>
+                      </div>
                     </div>
                     <CardDescription className="flex flex-wrap gap-4 mt-1">
                       <span className="flex items-center text-sm"><Briefcase className="h-4 w-4 mr-1" />{c.position}</span>
@@ -117,12 +139,14 @@ export default function CandidatesPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Badge className={getStatusColor(c.status)}>{c.status}</Badge>
-                  <Button className="bg-white border-0"><MoreHorizontal className="h-4 w-4" /></Button>
+                  <Button className="bg-white border-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-6 mb-4">
+              <div className="flex flex-wrap gap-6 mb-4 ">
                 <div><p className="text-sm font-medium">Experience</p><p className="text-sm text-gray-500">{c.experience}</p></div>
                 <div><p className="text-sm font-medium">Email</p><p className="text-sm text-gray-500">{c.email}</p></div>
                 <div><p className="text-sm font-medium">Phone</p><p className="text-sm text-gray-500">{c.phone}</p></div>
@@ -131,18 +155,28 @@ export default function CandidatesPage() {
               <div className="mb-4">
                 <p className="text-sm font-medium mb-2">Skills</p>
                 <div className="flex flex-wrap gap-2">
-                  {c.skills.map((s, i) => <Badge key={i} className="bg-gray-100 text-gray-700">{s}</Badge>)}
+                  {c.skills.map((s, i) => (
+                    <Badge key={i} className="bg-gray-100 text-gray-700">{s}</Badge>
+                  ))}
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button className="flex items-center gap-2"><Eye className="h-4 w-4" /> View</Button>
-                <Button className="flex items-center gap-2"><MessageSquare className="h-4 w-4" /> Message</Button>
-                <Button className="flex items-center gap-2 bg-blue-600 text-white border-0"><Calendar className="h-4 w-4" /> Interview</Button>
+                <Button onClick={() => navigate(`/candidates/${c.id}`)} className="flex items-center gap-2"> 
+                  <Eye className="h-4 w-4" /> View
+                </Button>
+                <Button className="flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" /> Message
+                </Button>
+                <Button className="flex items-center gap-2 bg-blue-600 text-white border-0">
+                  <Calendar className="h-4 w-4" /> Interview
+                </Button>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
-    </div>
+    </div>  
   )
 }
+
+
