@@ -444,33 +444,33 @@ const Leave = () => {
               ))}
             </div>
 
-            {/* Calendar Grid */}
-            <div className="grid grid-cols-7 gap-px bg-gray-50">
-              {days.map((day, idx) => (
+          {/* Calendar Grid */}
+          <div className="grid grid-cols-7 gap-px bg-gray-50">
+            {days.map((day, idx) => (
+              <div
+                key={idx}
+                className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
+              >
                 <div
-                  key={idx}
-                  className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
+                  className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
                 >
-                  <div
-                    className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
-                  >
-                    {day.date.getDate()}
-                  </div>
-                  <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
-                    {day.events.map((event) => (
-                      <div
-                        key={event.id}
-                        className={`${event.color} text-white text-xs p-1 rounded truncate`}
-                      >
-                        <div className="font-medium">{event.title}</div>
-                      </div>
-                    ))}
-                  </div>
+                  {day.date.getDate()}
                 </div>
-              ))}
-            </div>
+                <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
+                  {day.events.map((event) => (
+                    <div
+                      key={event.id}
+                      className={`${event.color} text-white text-xs p-1 rounded truncate`}
+                    >
+                      <div className="font-medium">{event.title}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
         {/* Holiday List */}
         <div className=" w-3/4 ml-auto p-5 rounded-lg shadow bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border">

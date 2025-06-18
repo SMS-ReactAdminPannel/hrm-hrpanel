@@ -437,7 +437,12 @@ export default function RecruitmentPipeline() {
                       stage
                     )}
                   </h2>
-                  <button className="bg-[#006666] px-2 py-0.5 rounded-md text-white">+</button>
+                  <div className="flex items-center gap-2">
+                    {/* <div className="w-6 h-6"> */}
+                      <h1>HR</h1>
+                    {/* </div> */}
+                    <Button>+</Button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-7 font-semibold text-sm border-b py-2">
