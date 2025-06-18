@@ -43,6 +43,7 @@ import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -87,11 +88,12 @@ const AppRoutes = () => {
           <Route path="notification" element={<Notification />} />
           {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
           <Route path="candidates" element={<CandidateDetailPage />} />
-          <Route path="candidatelists" element={<CandidatesPage />} />
+          <Route path="candidate" element={<CandidatesPage />} />
           <Route path="recruitment/jobs" element={<OpenRecruitments />} />
           <Route path="job/:id" element={<JobDetailsPage />} />
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
+          <Route path="visitor-management" element={<VisitorManagement />} />
         </Route>
       ) : (
         <Route path="/">

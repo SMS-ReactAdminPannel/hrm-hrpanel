@@ -1,6 +1,7 @@
 import type React from "react"
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee, EmploymentType } from "../../components/Employee/Employee"
+import { Link } from "react-router-dom"
 
 interface EmployeeTableProps {
   employees: Employee[]

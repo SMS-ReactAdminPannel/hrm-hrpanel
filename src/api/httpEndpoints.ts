@@ -53,7 +53,10 @@ export const API_END_POINTS = {
       update: "/api/job-postings",    
       delete: "/api/job-postings",    
     },
- 
+
+    visitors:{
+      getAll: "api/hr/visitors/getAll",
+    } ,
   
   department : {
     getAll:  "/api/department/all",

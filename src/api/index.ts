@@ -71,7 +71,11 @@ export default class Client {
       deleteasset: (assetId: string) =>
       httpClient.delete(API_END_POINTS.assetcategory.deleteasset(assetId))
 
+    },
 
+    visitors:{
+      getAllVisitors: () =>
+        httpClient.get(API_END_POINTS.visitors.getAll),
     }
 
   };
