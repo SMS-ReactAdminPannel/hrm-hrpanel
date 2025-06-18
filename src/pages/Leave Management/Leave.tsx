@@ -1,6 +1,5 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import DoughnutChart from '../../components/leave management/leaveChart';
 import { useState, useEffect } from 'react';
 import { FONTS } from '../../constants/uiConstants';
 import { MdSick } from "react-icons/md";
@@ -253,35 +252,7 @@ const Leave = () => {
       
       {/* Main grid layout */}
       <div className="space-y-3 w-5/4">
-        {/* Charts row */}
-        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
-          <DoughnutChart 
-            percentage={30} 
-            content='Annual Leave' 
-            filledColor="rgba(233, 30, 99, 0.7)"
-            emptyColor="rgba(200, 200, 200, 0.2)"
-            cutout="75%"
-            size="h-40 w-64" 
-          />
-          <DoughnutChart 
-            percentage={10} 
-            content='Sick Leave'
-            filledColor="rgba(21, 30, 99, 0.7)"
-            emptyColor="rgba(200, 200, 200, 0.2)"
-            cutout="75%"
-            size="h-40 w-64"
-          />
-          <DoughnutChart 
-            percentage={40} 
-            content='Public Leave'
-            filledColor="rgba(72, 10, 99, 0.7)"
-            emptyColor="rgba(200, 200, 200, 0.2)"
-            cutout="75%"
-            size="h-40 w-64"
-          />
-        </div>
-
-          {/* Calendar section */}
+         {/* Calendar section */}
           <div className="bg-white rounded-md shadow-md overflow-hidden">
             {/* Calendar Header */}
             <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">

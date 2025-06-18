@@ -2,6 +2,7 @@
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
+
 export default class Client {
   hr = {
     timesheet: {
@@ -71,4 +72,3 @@ export default class Client {
   };
 }
 
-export default Client;
