@@ -176,7 +176,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
 
 
   {/* Resigned Employees */}
-  <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+  <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 
+  shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
            <div className="flex items-center justify-between">
              <div>
               <p className="text-sm font-medium text-black mb-1"
@@ -193,7 +194,8 @@ const [newEmployee, setNewEmployee] = useState<Employee>({
          </div>
 
   {/* Work Mode Stats */}
-  <div className="bg-[#eff4f5] p-4 rounded shadow border">
+        <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 
+  shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
           <h3 className="text-lg font-semibold text-black mb-4"
             style={{ fontSize: FONTS.paragraph.fontSize }}>Work Mode Stats</h3>
     {workModeData.map((mode, index) => (
