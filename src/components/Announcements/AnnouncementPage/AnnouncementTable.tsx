@@ -1,21 +1,52 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { FONTS } from "../../../constants/uiConstants";
-import { data } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { AnnouncementGetAll } from "../../../features/announcement/services"
 
 type AnnouncementType = {
-  title: string;
-  startDate: string;
-  endDate: string;
+  title_name: string;
+  start_date: string;
+  end_date: string;
   description: string;
 };
 
 type AnnouncementTableProps = {
-  data: AnnouncementType[];
+  // data: AnnouncementType[];
   onEdit: (announcement: AnnouncementType, index: number) => void;
   onDelete: (index: number) => void;
 };
-console.log("hello",data)
-const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) => {
+
+const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
+
+  const [announcement, setannouncement] = useState<AnnouncementType>();
+
+  const fetchannouncement = async (data: AnnouncementType) => {
+    try {
+      const response: any = await AnnouncementGetAll(data);
+      console.log("API Respchonse:", response);
+      const announcementdata = response?.data ?? [];
+      setannouncement(announcementdata);
+    } catch (error) {
+      console.error("Error fetching grievances:", error);
+    }
+  };
+
+  useEffect(() =>{
+    fetchannouncement();  
+  },[])
+
+  const [data, setData] = useState<AnnouncementType[]>([]);
+  console.log("data commig",data)
+  useEffect(() => {
+    if (announcement) {
+      setData([announcement]); 
+    }
+  }, [announcement]);
+  
+
+
+
+
   return (
     <div className={`overflow-x-auto ${data.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
       <table className="min-w-full table-fixed border-collapse text-sm bg-white">
@@ -57,12 +88,12 @@ const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) =
                             fontSize: FONTS.paragraph.fontSize,
                             fontFamily: FONTS.header.fontFamily
                           }}>
-                  {item.title}
+                  {item.title || "no title"}
                 </td>
-                <td className="px-6 py-4 text-gray-600">{item.startDate}</td>
-                <td className="px-6 py-4 text-gray-600">{item.endDate}</td>
+                <td className="px-6 py-4 text-gray-600">{item.startDate || "no startdate"}</td>
+                <td className="px-6 py-4 text-gray-600">{item.endDate || "no enddate"}</td>
                 <td className="px-6 py-4 text-gray-600 break-words whitespace-normal">
-                  {item.description}
+                  {item.description || "no description"}
                 </td>
                 <td className="px-6 py-4 text-center">
                   <div className="flex justify-center gap-3">

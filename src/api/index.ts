@@ -53,6 +53,13 @@ export default class Client {
     announcement:{
       AnnouncementGetAll:(data:any) =>
         httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll,data),
+      AnnouncementGetOne:(data:any) =>
+        httpClient.get(API_END_POINTS.announcement.AnnouncementGetOne,data),
+      AnnouncementCreate:(data:any) =>
+        httpClient.post(API_END_POINTS.announcement.AnnouncementCreate,data),
+      AnnouncementDelete:(data:any) =>
+        httpClient.delete(API_END_POINTS.announcement.AnnouncementDelete,data),
+
     },
     getAllGrievances: () =>
         httpClient.get(API_END_POINTS.grievance.getallgrievance),
