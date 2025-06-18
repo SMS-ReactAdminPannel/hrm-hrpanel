@@ -480,7 +480,7 @@ const AssetsManagement: React.FC = () => {
         <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full ">
-              <thead className="bg-[#6f70ce] text-white">
+              <thead className="bg-[#5e59a9]/70 backdrop-blur-sm text-white">
                 <tr>
                   <th className="text-left px-6 py-4 font-md">Asset Details</th>
                   <th className="text-left px-6 py-4 font-md">Assigned To</th>

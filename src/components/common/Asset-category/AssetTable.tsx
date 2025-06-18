@@ -72,12 +72,12 @@ const AssetTable: React.FC<AssetTableProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className=" rounded-lg shadow-sm border border-gray-200">
 
   
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-[#006666] ">
+          <thead className="bg-[#5e59a9]/70 backdrop-blur-sm ">
             <tr>
               {tableHeaders.map((header) => (
                 <th 
@@ -90,12 +90,12 @@ const AssetTable: React.FC<AssetTableProps> = ({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
+          <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100 divide-y divide-gray-100">
             {assets.map((asset, index) => (
               <tr
                 key={asset.id}
-                className={`hover:bg-gray-50 transition-colors cursor-pointer ${
-                  index % 2 === 0 ? 'bg-white' : 'bg-gray-25'
+                className={`hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200 ${
+                  index % 2 === 0 ? '' : 'bg-gray-25'
                 }`}
                 onClick={() => onViewAsset(asset)}
               >

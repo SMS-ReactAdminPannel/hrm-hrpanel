@@ -254,11 +254,11 @@ const Payroll = () => {
         </div>
 
         {/* Employee Table */}
-        <div className="bg-[#eff4f5] shadow overflow-hidden sm:rounded-md">
+        <div className="shadow overflow-hidden sm:rounded-md">
           
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-[#006666] ">
+              <thead className="bg-[#5e59a9]/70 backdrop-blur-sm text-white ">
                 <tr>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">
                     Employee
@@ -283,11 +283,11 @@ const Payroll = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
+              <tbody className="bg-white/45 backdrop-blur  divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
                   <tr
                     key={employee.id}
-                    className="hover:bg-gray-100 cursor-pointer"
+                    className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
                     onClick={() => setSelectedEmployee(employee)}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">

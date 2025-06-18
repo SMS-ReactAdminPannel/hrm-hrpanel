@@ -27,9 +27,9 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
   }
 
   return (
-    <div className="bg-[#eff4f5] rounded shadow overflow-x-auto">
+    <div className=" rounded shadow overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-[#006666] text-md">
+        <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
           <tr>
             {["id", "name", "email", "department", "jobTitle", "employmentType"].map((key) => (
               <th
@@ -44,14 +44,16 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
             <th className="px-4 py-2 text-left text-md text-white">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
           {employees.map((emp) => (
-            <tr key={emp.id}>
-              <td className="px-4 py-5 text-sm">{emp.id}</td>
-              <td className="px-4 py-2 text-sm">{emp.name}</td>
-              <td className="px-4 py-2 text-sm">{emp.email}</td>
-              <td className="px-4 py-2 text-sm">{emp.department}</td>
-              <td className="px-4 py-2 text-sm">{emp.jobTitle}</td>
+            <tr key={emp.id}
+              className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
+            >
+              <td className="px-4 py-5 text-sm  whitespace-nowrap text-sm font-medium text-gray-900">{emp.id}</td>
+              <td className="px-4 py-2 text-sm  whitespace-nowrap text-sm font-medium text-gray-900">{emp.name}</td>
+              <td className="px-4 py-2 text-sm  whitespace-nowrap text-sm font-medium text-gray-900">{emp.email}</td>
+              <td className="px-4 py-2 text-sm  whitespace-nowrap text-sm font-medium text-gray-900">{emp.department}</td>
+              <td className="px-4 py-2 text-sm  whitespace-nowrap text-sm font-medium text-gray-900">{emp.jobTitle}</td>
               <td className="px-4 py-2">
                 <span className={`px-2 py-1 text-xs rounded-full ${getEmploymentTypeColor(emp.employmentType)}`}>
                   {emp.employmentType}

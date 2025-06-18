@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { Users, Clock, UserX } from "lucide-react"
-import type { Employee, Department, WorkModeData } from "../../components/Employee/Employee"
+import type { Employee, Department, WorkModeData,  } from "../../components/Employee/Employee"
 import { EmployeeStatsCard } from "../../components/Employee/EmployeeCards"
 import { WorkModeStats } from "../../components/Employee/WorkModeStats"
 import { SearchFilterBar } from "../../components/Employee/SearchFilter"
 import { EmployeeTable } from "../../components/Employee/EmployeeTable"
 import { AddEmployeeModal } from "../../components/Employee/EmployeeModel"
 import { Pagination } from "../../components/Employee/Pagination"
+import EmployeeEditForm from "../../components/Employee/EmployeeEditForm"
 
 const EmployeeManagement = () => {
   const initialEmployees: Employee[] = [
@@ -185,11 +186,13 @@ const EmployeeManagement = () => {
   const handleAddEmployee = (newEmployee: Employee) => {
     setEmployees([...employees, newEmployee])
   }
+  
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
 
   const handleEditEmployee = (employee: Employee) => {
-    console.log("Edit employee:", employee)
-    // Implement edit functionality
+    setEditingEmployee(employee);
   }
+  
 
   const handleDeleteEmployee = (employeeId: string) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
@@ -208,6 +211,7 @@ const EmployeeManagement = () => {
           + Add Employee
         </button>
       </div>
+      {}
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">

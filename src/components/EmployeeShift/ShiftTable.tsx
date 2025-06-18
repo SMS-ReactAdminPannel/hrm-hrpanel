@@ -61,7 +61,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
     <div className="flex-1 overflow-hidden mt-6">
       <div className="h-full overflow-auto rounded-md custom-scrollbar">
         <table className="w-full">
-          <thead className="bg-[#006666] border-b border-gray-200 sticky top-0">
+          <thead className="bg-[#5e59a9]/70 backdrop-blur-smsticky top-0">
             <tr>
               <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]">Employee</th>
               <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Title</th>
@@ -73,18 +73,18 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
               </th>
               <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Shift</th>
               <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Switch</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]">
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 ">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
+          <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-200">
             {Object.keys(groupedEmployees).length > 0 ? (
               Object.entries(groupedEmployees).map(([groupKey, groupEmployees]) => (
                 <React.Fragment key={groupKey}>
                   {groupBy && (
-                    <tr className="bg-gray-50">
+                    <tr className="hover:bg-white/70 hover:backdro">
                       <td colSpan={9} className="px-4 lg:px-6 py-3 font-medium text-gray-900">
                         {getGroupHeader(groupKey)}
                       </td>
@@ -92,7 +92,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                   )}
 
                   {groupEmployees.map((employee) => (
-                    <tr key={employee.id}>
+                    <tr key={employee.id} className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200">
                       <td className="px-4 lg:px-6 whitespace-nowrap">
                         <div className="flex items-center">
                           <div>
@@ -140,7 +140,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                         {employee.nextSwitch}
                       </td>
-                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 ">
                         <div className="flex items-center gap-2">
                           <button
                             className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"

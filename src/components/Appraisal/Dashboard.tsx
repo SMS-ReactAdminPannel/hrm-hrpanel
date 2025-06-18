@@ -178,10 +178,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Employee List with Search */}
-      <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
+      <div className=" rounded-md shadow-sm border border-gray-200">
         <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
           {/* Search Input */}
-          <div className="w-full md:max-w-md">
+          <div className="w-full md:max-w-md bg-[#eff4f5]">
             <SearchInput
               value={searchTerm}
               onChange={onSearchChange}
@@ -201,9 +201,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[#006666]">
+        <div className="overflow-x-auto ">
+          <table className="w-full ">
+            <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
               <tr>
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
@@ -213,9 +213,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
+            <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-200">
               {employees.map((employee) => (
-                <tr key={employee.id}>
+                <tr key={employee.id}
+                  className="hover:bg-white/70 hover:backdrop-blur-sm  cursor-pointer transition duration-200">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">{employee.Employee}</div>

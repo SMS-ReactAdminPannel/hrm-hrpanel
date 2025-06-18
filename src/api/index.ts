@@ -64,8 +64,10 @@ export default class Client {
 
       deleteasset: (assetId: string) =>
       httpClient.delete(API_END_POINTS.assetcategory.deleteasset(assetId))
-
-
+    },
+    announcement:{
+      AnnouncementGetAll:(data:any)=>
+        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll,data)
     }
 
   };

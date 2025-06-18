@@ -1,6 +1,7 @@
 
 
 
+
 export const API_END_POINTS = {
   timesheet: {
     postclockin: "/api/hr/timesheet/clock-in",
@@ -53,6 +54,10 @@ export const API_END_POINTS = {
       update: "/api/job-postings",    
       delete: "/api/job-postings",    
     },
+    announcement:{
+      AnnouncementGetAll:"/api/hr/announcement/getall",
+    }
+    
  
   
 };
