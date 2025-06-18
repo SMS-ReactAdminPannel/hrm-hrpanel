@@ -46,12 +46,12 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
   return (
     <div className="border-gray-200 py-2">
       <div className="flex items-center justify-between">
-        <h1 className="text-black" style={FONTS.header}>
+        <h1 className="!text-black" style={{...FONTS.header}}>
           Rotating Shift Assign
         </h1>
         <div className="flex items-center gap-3 md:gap-4">
           <div className="relative w-100 md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 !text-gray-400 w-4 h-4"style={{...FONTS.cardSubHeader}} />
             <input
               type="text"
               placeholder="Search by employee name"
@@ -63,7 +63,7 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
 
           <div className="relative" ref={groupDropdownRef} style={{ zIndex: 99 }}>
             <button
-              className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 text-sm md:text-base"
+              className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 text-sm md:text-base !text-black"style={{...FONTS.paragraph}}
               onClick={() => setIsGroupDropdownOpen(!isGroupDropdownOpen)}
             >
               <MoreVertical className="w-4 h-4" />
@@ -74,31 +74,31 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
             {isGroupDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect(null)}
                 >
                   None
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("rotatingShift")}
                 >
                   Rotating Shift
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("department")}
                 >
                   Department
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("jobRole")}
                 >
                   Job Role
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("reportingManager")}
                 >
                   Reporting Manager
@@ -107,15 +107,19 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
             )}
           </div>
 
-          <button
-            className="text-white px-4 md:px-6 py-2 rounded-lg font-medium text-sm md:text-base transition-colors duration-200"
-            style={{ backgroundColor: "#006666" }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#005353")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#006666")}
-            onClick={onAssignClick}
-          >
-            Assign
-          </button>
+         <button
+  className="!text-white px-4 md:px-6 py-2 rounded-lg font-medium text-sm md:text-base transition-colors duration-200"
+  style={{
+    ...FONTS.paragraph,
+    backgroundColor: "#006666",
+  }}
+  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#005353")}
+  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#006666")}
+  onClick={onAssignClick}
+>
+  Assign
+</button>
+
         </div>
       </div>
 

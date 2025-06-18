@@ -2,6 +2,7 @@ import type React from "react"
 import { X, ArrowLeft, Plus, Check } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import TextArea from "../../components/Appraisal/TextArea"
+import { FONTS } from "../../constants/uiConstants"
 
 interface Employee {
   id: string
@@ -71,7 +72,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-900">
+          <h3 className="text-xl font-semibold !text-gray-900"style={{...FONTS.cardheader}}>
             {modalMode === "select" && "Select Employee"}
             {modalMode === "view" && modalEmployee && `Appraisal for ${modalEmployee.name}`}
             {modalMode === "create" && "Create New Appraisal"}
@@ -84,7 +85,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
         <div className="p-6">
           {modalMode === "select" && (
             <div className="space-y-4">
-              <h4 className="font-medium text-gray-900">Select Employee</h4>
+              <h4 className="font-medium !text-gray-900"style={{...FONTS.cardSubHeader}}>Select Employee</h4>
               <div className="space-y-3">
                 {employees.map((employee) => (
                   <div
@@ -115,7 +116,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
               <div className="pt-4">
                 <button
                   onClick={onCreateMode}
-                  className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full justify-center"
+                  className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full justify-center"style={{...FONTS.cardheader}}
                 >
                   <Plus className="w-4 h-4" />
                   Create New Appraisal
@@ -211,12 +212,12 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
             <div className="space-y-6">
               <div className="space-y-4">
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Select Employee</label>
+                  <label className="block text-sm font-medium !text-gray-700 mb-2"style={{...FONTS.cardSubHeader}}>Select Employee</label>
                   <div className="relative">
                     <select
                       value={newAppraisalData.employeeId}
                       onChange={(e) => onEmployeeChange(e.target.value)}
-                      className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-[#006666] focus:border-[#006666]"
+                      className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-[#006666] focus:border-[#006666] !text-black"style={{...FONTS.cardSubHeader}}
                     >
                       <option value="">Select an employee</option>
                       {employees.map((employee) => (

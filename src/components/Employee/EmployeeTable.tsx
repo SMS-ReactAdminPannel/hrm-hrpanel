@@ -1,6 +1,7 @@
 import type React from "react"
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee, EmploymentType } from "../../components/Employee/Employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface EmployeeTableProps {
   employees: Employee[]
@@ -8,9 +9,17 @@ interface EmployeeTableProps {
   onSort: (key: keyof Employee) => void
   onEdit: (employee: Employee) => void
   onDelete: (employeeId: string) => void
+  onRowClick?: (employee: Employee) => void // ✅ NEW PROP
 }
 
-export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortConfig, onSort, onEdit, onDelete }) => {
+export const EmployeeTable: React.FC<EmployeeTableProps> = ({
+  employees,
+  sortConfig,
+  onSort,
+  onEdit,
+  onDelete,
+  onRowClick
+}) => {
   const getEmploymentTypeColor = (type: EmploymentType) => {
     switch (type) {
       case "Full-time":
@@ -27,9 +36,9 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
   }
 
   return (
-    <div className="bg-[#eff4f5] rounded shadow overflow-x-auto">
+    <div className="rounded shadow overflow-x-auto mt-29">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-[#006666] text-md">
+        <thead className="bg-[#5e59a9]/70 backdrop-blur-sm" style={{ ...FONTS.tableHeader }}>
           <tr>
             {["id", "name", "email", "department", "jobTitle", "employmentType"].map((key) => (
               <th
@@ -41,27 +50,44 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
                 {sortConfig?.key === key && (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
               </th>
             ))}
-            <th className="px-4 py-2 text-left text-md text-white">Actions</th>
+            <th className="px-4 py-2 text-left text-md !text-white" style={{ ...FONTS.tableHeader }}>
+              Actions
+            </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
           {employees.map((emp) => (
-            <tr key={emp.id}>
-              <td className="px-4 py-5 text-sm">{emp.id}</td>
-              <td className="px-4 py-2 text-sm">{emp.name}</td>
-              <td className="px-4 py-2 text-sm">{emp.email}</td>
-              <td className="px-4 py-2 text-sm">{emp.department}</td>
-              <td className="px-4 py-2 text-sm">{emp.jobTitle}</td>
+            <tr
+              key={emp.id}
+              className="hover:bg-white/70 hover:backdrop-blur-sm transition duration-200 cursor-pointer"
+              onClick={() => onRowClick?.(emp)}
+            >
+              <td className="px-4 py-5">{emp.id}</td>
+              <td className="px-4 py-2">{emp.name}</td>
+              <td className="px-4 py-2">{emp.email}</td>
+              <td className="px-4 py-2">
+                <div className="font-medium">{emp.department}</div>
+                {emp.subDepartment && (
+                  <div className="text-xs text-gray-500 mt-1">{emp.subDepartment}</div>
+                )}
+              </td>
+              <td className="px-4 py-2">{emp.jobTitle}</td>
               <td className="px-4 py-2">
                 <span className={`px-2 py-1 text-xs rounded-full ${getEmploymentTypeColor(emp.employmentType)}`}>
                   {emp.employmentType}
                 </span>
               </td>
-              <td className="px-4 py-2 space-x-2">
-                <button className="text-blue-600 hover:text-blue-800" onClick={() => onEdit(emp)}>
+              <td className="px-4 py-2 space-x-2" onClick={(e) => e.stopPropagation()}> {/* ✅ Prevent row click */}
+                <button
+                  className="text-blue-600 hover:text-blue-800"
+                  onClick={() => onEdit(emp)}
+                >
                   <Edit size={16} />
                 </button>
-                <button className="text-red-600 hover:text-red-800" onClick={() => onDelete(emp.id)}>
+                <button
+                  className="text-red-600 hover:text-red-800"
+                  onClick={() => onDelete(emp.id)}
+                >
                   <Trash2 size={16} />
                 </button>
               </td>
@@ -69,7 +95,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
           ))}
           {employees.length === 0 && (
             <tr>
-              <td colSpan={7} className="px-4 py-2 text-center text-gray-500">
+              <td colSpan={7} className="px-4 py-2 text-center !text-gray-500" style={{ ...FONTS.cardSubHeader }}>
                 No employees found
               </td>
             </tr>

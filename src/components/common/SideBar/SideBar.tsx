@@ -16,12 +16,12 @@ import {
   RiBriefcaseLine,
   RiUserFollowLine,
 } from "react-icons/ri";
-import { MdBusiness, MdEventAvailable, MdOutlineVisibility } from "react-icons/md";
+import { MdBusiness, MdCreateNewFolder, MdEventAvailable, MdOutlinePreview, MdOutlineVisibility } from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { GiLaptop } from "react-icons/gi";
-import { FaUserTimes } from "react-icons/fa";
+
 import { MdOutlineSick } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
@@ -89,6 +89,12 @@ const SideBar = ({
               <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
+           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+            <SidebarDropdown icon={< MdBusiness/>} label="Departments" isOpen={actualOpen}>
+              <SidebarLink to="/departments" icon={<MdOutlinePreview />} label="view" isOpen={actualOpen} onClick={handleLinkClick} />
+             
+            </SidebarDropdown>
+          </div>
 
           {/* Employee Group */}
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
@@ -99,7 +105,8 @@ const SideBar = ({
               <SidebarLink to="/reports" icon={<TbReportSearch />} label="Reports" isOpen={actualOpen} onClick={handleLinkClick} />
               </SidebarDropdown>
           </div>
-          <SidebarLink to="/departments" icon={<MdBusiness />} label="Departments" isOpen={actualOpen}onClick={handleLinkClick} />
+          
+          {/* <SidebarLink to="/departments" icon={<MdBusiness />} label="Departments" isOpen={actualOpen}onClick={handleLinkClick} /> */}
           <SidebarLink to="/payroll" icon={<RiMoneyDollarCircleLine />} label="Payroll" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />

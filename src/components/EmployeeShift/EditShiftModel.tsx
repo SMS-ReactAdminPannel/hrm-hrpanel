@@ -1,6 +1,7 @@
 import type React from "react"
 import { X } from "lucide-react"
 import type { Employee, FormData } from "../../components/EmployeeShift/employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface EditShiftModalProps {
   isOpen: boolean
@@ -33,7 +34,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg w-full max-w-2xl">
         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-900">Edit Rotating Shift</h2>
+          <h2 className="text-xl font-semibold !text-gray-900"style={{...FONTS.cardheader}}>Edit Rotating Shift</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
             <X className="w-5 h-5" />
           </button>
@@ -41,10 +42,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
         <form onSubmit={onSubmit} className="p-6">
           <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label htmlFor="employee" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="employee" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Employee
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.subParagraph}}>
                 <input
                   type="text"
                   name="employee"
@@ -58,10 +59,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Title
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.subParagraph}}>
                 <input
                   type="text"
                   name="title"
@@ -75,10 +76,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="basedOn" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="basedOn" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Based On
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.subParagraph}}>
                 <select
                   id="basedOn"
                   name="basedOn"
@@ -94,10 +95,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="rotate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="rotate" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Rotate
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.paragraph}}>
                 <input
                   type="text"
                   name="rotate"
@@ -112,10 +113,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="startDate" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Start Date
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.paragraph}}>
                 <input
                   type="date"
                   name="startDate"
@@ -129,10 +130,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="currentShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="currentShift" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Current Shift
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.cardSubHeader}}>
                 <select
                   id="currentShift"
                   name="currentShift"
@@ -151,10 +152,10 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="nextShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="nextShift" className="block text-sm font-medium !text-gray-700"style={{...FONTS.cardSubHeader}}>
                 Next Shift
               </label>
-              <div className="mt-1">
+              <div className="mt-1 !text-black"style={{...FONTS.paragraph}}>
                 <select
                   id="nextShift"
                   name="nextShift"
@@ -176,13 +177,13 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium !text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"style={{...FONTS.paragraph}}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"style={{...FONTS.paragraph}}
             >
               Save Changes
             </button>

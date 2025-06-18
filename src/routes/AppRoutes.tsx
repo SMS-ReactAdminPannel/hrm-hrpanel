@@ -40,9 +40,11 @@ import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 // import JobDetails from "../pages/Recuritment/JobDetails";
 // import JobDetailsModal from "../pages/Recuritment/JobDetails";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
-import DepartmentList from "../pages/Department/DepartmentList";
 import Employees from "../components/Department/Employees"
 import EmployeesPage from "../components/Department/Employees";
+import DepartmentList from "../pages/Department/DepartmentList";
+
+
 
 
 const AppRoutes = () => {
@@ -74,6 +76,7 @@ const AppRoutes = () => {
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
+          
           {/* <Route path="reports" element={<Reports />} /> */}
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
@@ -86,7 +89,7 @@ const AppRoutes = () => {
       <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
       <Route path="/job/:id" element={<JobDetailsPage />} />
       <Route path="/departments" element={<DepartmentList />} />
-      <Route path="/" element={<DepartmentList />} />
+      
       <Route path="/departments/:departmentId/employees" element={<EmployeesPage />} />
         </Route>
       ) : (

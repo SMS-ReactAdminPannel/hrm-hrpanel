@@ -7,6 +7,9 @@ import { SearchFilterBar } from "../../components/Employee/SearchFilter"
 import { EmployeeTable } from "../../components/Employee/EmployeeTable"
 import { AddEmployeeModal } from "../../components/Employee/EmployeeModel"
 import { Pagination } from "../../components/Employee/Pagination"
+import { FONTS } from "../../constants/uiConstants"
+import { SUB_DEPARTMENTS } from "../../components/Employee/Employee"
+import { useNavigate } from "react-router-dom"
 
 const EmployeeManagement = () => {
   const initialEmployees: Employee[] = [
@@ -16,6 +19,7 @@ const EmployeeManagement = () => {
       email: "sowmiya.doe@example.com",
       contactNumber: "7262768293",
       department: "Engineering",
+      subDepartment: "Frontend",
       jobTitle: "Developer",
       hireDate: "2020-05-15",
       employmentType: "Full-time",
@@ -26,6 +30,7 @@ const EmployeeManagement = () => {
       email: "suruthi.smith@example.com",
       contactNumber: "5552345678",
       department: "Marketing",
+      subDepartment: "Digital",
       jobTitle: "Manager",
       hireDate: "2019-08-22",
       employmentType: "Full-time",
@@ -36,6 +41,7 @@ const EmployeeManagement = () => {
       email: "wikki.j@example.com",
       contactNumber: "5553456789",
       department: "HR",
+      subDepartment: "Recruitment",
       jobTitle: "Specialist",
       hireDate: "2021-01-10",
       employmentType: "Part-time",
@@ -46,6 +52,7 @@ const EmployeeManagement = () => {
       email: "siva.d@example.com",
       contactNumber: "5554567890",
       department: "Finance",
+      subDepartment: "Accounting",
       jobTitle: "Analyst",
       hireDate: "2020-11-05",
       employmentType: "Full-time",
@@ -56,6 +63,7 @@ const EmployeeManagement = () => {
       email: "surya.b@example.com",
       contactNumber: "5555678901",
       department: "Operations",
+      subDepartment: "Logistics",
       jobTitle: "Manager",
       hireDate: "2018-03-18",
       employmentType: "Full-time",
@@ -66,6 +74,7 @@ const EmployeeManagement = () => {
       email: "rajesh.w@example.com",
       contactNumber: "5556789012",
       department: "Engineering",
+      subDepartment: "Backend",
       jobTitle: "Designer",
       hireDate: "2022-04-01",
       employmentType: "Contract",
@@ -76,6 +85,7 @@ const EmployeeManagement = () => {
       email: "muthu.l@example.com",
       contactNumber: "5557890123",
       department: "Finance",
+      subDepartment: "Tax",
       jobTitle: "Analyst",
       hireDate: "2017-12-12",
       employmentType: "Full-time",
@@ -86,6 +96,7 @@ const EmployeeManagement = () => {
       email: "vetri.t@example.com",
       contactNumber: "5558901234",
       department: "HR",
+      subDepartment: "Training",
       jobTitle: "Manager",
       hireDate: "2016-07-19",
       employmentType: "Full-time",
@@ -96,6 +107,7 @@ const EmployeeManagement = () => {
       email: "james.w@example.com",
       contactNumber: "5559012345",
       department: "Marketing",
+      subDepartment: "Content",
       jobTitle: "Designer",
       hireDate: "2023-01-10",
       employmentType: "Intern",
@@ -106,6 +118,7 @@ const EmployeeManagement = () => {
       email: "susan.h@example.com",
       contactNumber: "5550123456",
       department: "Engineering",
+      subDepartment: "DevOps",
       jobTitle: "Developer",
       hireDate: "2022-10-05",
       employmentType: "Full-time",
@@ -120,7 +133,9 @@ const EmployeeManagement = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [filterOpen, setFilterOpen] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState<Department | "">("")
+  const [selectedSubDepartment, setSelectedSubDepartment] = useState<string>("")
   const [showAddForm, setShowAddForm] = useState(false)
+  const navigate = useNavigate()
 
   const itemsPerPage = 5
 
@@ -144,18 +159,28 @@ const EmployeeManagement = () => {
         (value) => typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase()),
       )
       const matchesDepartment = selectedDepartment ? employee.department === selectedDepartment : true
-      return matchesSearch && matchesDepartment
+      const matchesSubDepartment = selectedSubDepartment ? employee.subDepartment === selectedSubDepartment : true
+      return matchesSearch && matchesDepartment && matchesSubDepartment
     })
 
-    if (sortConfig !== null) {
-      filtered.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === "ascending" ? -1 : 1
-        if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === "ascending" ? 1 : -1
-        return 0
-      })
-    }
+   if (sortConfig !== null) {
+  filtered.sort((a, b) => {
+    const aVal = a[sortConfig.key]
+    const bVal = b[sortConfig.key]
 
-    return filtered
+    if (aVal == null || bVal == null) return 0 
+
+    const aStr = String(aVal).toLowerCase()
+    const bStr = String(bVal).toLowerCase()
+
+    if (aStr < bStr) return sortConfig.direction === "ascending" ? -1 : 1
+    if (aStr > bStr) return sortConfig.direction === "ascending" ? 1 : -1
+    return 0
+  })
+}
+
+return filtered
+
   }
 
   const filteredEmployees = getSortedAndFilteredEmployees()
@@ -178,8 +203,14 @@ const EmployeeManagement = () => {
 
   const handleDepartmentChange = (department: Department | "") => {
     setSelectedDepartment(department)
+    setSelectedSubDepartment("") // Reset sub-department when department changes
     setCurrentPage(1)
     setFilterOpen(false)
+  }
+
+  const handleSubDepartmentChange = (subDept: string) => {
+    setSelectedSubDepartment(subDept)
+    setCurrentPage(1)
   }
 
   const handleAddEmployee = (newEmployee: Employee) => {
@@ -187,8 +218,7 @@ const EmployeeManagement = () => {
   }
 
   const handleEditEmployee = (employee: Employee) => {
-    console.log("Edit employee:", employee)
-    // Implement edit functionality
+    setEmployees(employees.map(emp => emp.id === employee.id ? employee : emp))
   }
 
   const handleDeleteEmployee = (employeeId: string) => {
@@ -197,13 +227,17 @@ const EmployeeManagement = () => {
     }
   }
 
+  const getSubDepartmentsForSelected = () => {
+    return selectedDepartment ? SUB_DEPARTMENTS[selectedDepartment] : []
+  }
+
   return (
     <div className="container mx-auto px-4 py-2">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-black">Employee Management</h1>
+        <h1 className="text-3xl font-bold !text-black" style={{...FONTS.header}}>Employee Management</h1>
         <button
           onClick={() => setShowAddForm(true)}
-          className="bg-[#006666] hover:bg-teal-700 text-white px-4 py-2 rounded-md shadow-md"
+          className="bg-[#006666] hover:bg-teal-700 !text-white px-4 py-2 rounded-md shadow-md" style={{...FONTS.paragraph}}
         >
           + Add Employee
         </button>
@@ -249,6 +283,8 @@ const EmployeeManagement = () => {
         onFilterToggle={() => setFilterOpen(!filterOpen)}
         selectedDepartment={selectedDepartment}
         onDepartmentChange={handleDepartmentChange}
+       
+        
       />
 
       {/* Employee Table */}
@@ -258,16 +294,21 @@ const EmployeeManagement = () => {
         onSort={requestSort}
         onEdit={handleEditEmployee}
         onDelete={handleDeleteEmployee}
+          onRowClick={() => navigate(`/profile`)}
       />
 
       {/* Pagination */}
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
 
       {/* Add Employee Modal */}
-      <AddEmployeeModal isOpen={showAddForm} onClose={() => setShowAddForm(false)} onAdd={handleAddEmployee} />
+      <AddEmployeeModal 
+        isOpen={showAddForm} 
+        onClose={() => setShowAddForm(false)} 
+        onAdd={handleAddEmployee} 
+        subDepartments={SUB_DEPARTMENTS}
+      />
     </div>
   )
 }
 
 export default EmployeeManagement
-

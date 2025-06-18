@@ -2,6 +2,7 @@ import type React from "react"
 import { User, Calendar, Star, TrendingUp, Plus, Eye } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
+import { FONTS } from "../../constants/uiConstants"
 
 interface Employee {
   _id: string
@@ -37,7 +38,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Total Employees</p>
+              <p className="text-sm font-medium !text-gray-600"style={{...FONTS.cardSubHeader}}>Total Employees</p>
               <p className="text-2xl font-bold text-gray-900">156</p>
             </div>
             <div className="lg:p-2 bg-blue-100 rounded-md">
@@ -49,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
+              <p className="text-sm font-medium !text-gray-600"style={{...FONTS.cardSubHeader}}>Pending Reviews</p>
               <p className="text-2xl font-bold text-gray-900">23</p>
             </div>
             <div className="lg:p-2 bg-red-100 rounded-lg">
@@ -61,7 +62,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+              <p className="text-sm font-medium !text-gray-600"style={{...FONTS.cardSubHeader}}>Avg Rating</p>
               <p className="text-2xl font-bold text-gray-900">4.3</p>
             </div>
             <div className="lg:p-2 bg-yellow-100 rounded-lg">
@@ -73,7 +74,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Completed</p>
+              <p className="text-sm font-medium !text-gray-600"style={{...FONTS.cardSubHeader}}>Completed</p>
               <p className="text-2xl font-bold text-gray-900">89%</p>
             </div>
             <div className="lg:p-2 bg-green-100 rounded-lg">
@@ -85,7 +86,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Employee List with Search */}
       <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
-        <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+        <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4 !text-black"style={{...FONTS.cardSubHeader}}>
           {/* Search Input */}
           <div className="w-full md:max-w-md">
             <SearchInput
@@ -99,7 +100,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="w-100 md:w-auto">
             <button
               onClick={onNewAppraisal}
-              className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
+              className="bg-[#006666] !text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"style={{...FONTS.paragraph}}
             >
               <Plus className="w-4 h-4" />
               New Appraisal
@@ -111,12 +112,12 @@ const Dashboard: React.FC<DashboardProps> = ({
           <table className="w-full">
             <thead className="bg-[#006666]">
               <tr>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Rating</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Status</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Project period</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Actions</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Employee</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Position</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Rating</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Status</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Project period</th>
+                <th className="px-6 py-3 text-left text-md font-medium !text-white"style={{...FONTS.tableHeader}}>Actions</th>
               </tr>
             </thead>
             <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
@@ -159,7 +160,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
           {appraisals.length === 0 && (
             <div className="text-center py-8">
-              <div className="text-gray-500">No employees found matching your search</div>
+              <div className="!text-gray-500"style={{...FONTS.paragraph}}>No employees found matching your search</div>
             </div>
           )}
         </div>

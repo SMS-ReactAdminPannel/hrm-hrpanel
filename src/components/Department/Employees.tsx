@@ -1,37 +1,38 @@
-import { useParams, useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { ArrowLeft, Briefcase, Plus, Trash2, Users } from "lucide-react"
-
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ArrowLeft, Briefcase, Edit, Plus, Trash2, Users } from "lucide-react";
 
 type Employee = {
-  id: string
-  name: string
-  role: string
-}
+  id: string;
+  name: string;
+  role: string;
+};
 
 type Department = {
-  requiredRoles: any
-  id: string
-  name: string
-  description: string
-  employees: Employee[]
-}
+  requiredRoles: any;
+  id: string;
+  name: string;
+  description: string;
+  employees: Employee[];
+};
 
 const EmployeesPage = () => {
-  const { departmentId } = useParams<{ departmentId: string }>()
-  const navigate = useNavigate()
+  const { departmentId } = useParams<{ departmentId: string }>();
+  const navigate = useNavigate();
 
-  const departments: Record<string, {
-    id: string
-    name: string
-    description: string
-    subDescription: string
-    image: string
-    employeeCount: number
-    requiredRoles: string[]
-    employees: { id: string, name: string, role: string }[]
-  }> = {
+  const departments: Record<
+    string,
+    {
+      id: string;
+      name: string;
+      description: string;
+      subDescription: string;
+      image: string;
+      employeeCount: number;
+      requiredRoles: string[];
+      employees: { id: string; name: string; role: string }[];
+    }
+  > = {
     hr: {
       id: "hr",
       name: "Human Resources",
@@ -57,7 +58,7 @@ const EmployeesPage = () => {
         "Backend Developer",
         "DevOps Engineer",
         "QA Engineer",
-        "UI/UX Designer"
+        "UI/UX Designer",
       ],
       employees: [
         { id: "1", name: "Charlie", role: "Frontend Developer" },
@@ -96,9 +97,7 @@ const EmployeesPage = () => {
       image: "/placeholder.svg?height=200&width=300",
       employeeCount: 1,
       requiredRoles: ["Finance Manager", "Accountant", "Payroll Specialist"],
-      employees: [
-        { id: "1", name: "Helen", role: "Finance Manager" },
-      ],
+      employees: [{ id: "1", name: "Helen", role: "Finance Manager" }],
     },
     "customer-support": {
       id: "customer-support",
@@ -113,16 +112,19 @@ const EmployeesPage = () => {
         { id: "2", name: "Jane", role: "Support Agent" },
         { id: "3", name: "Kevin", role: "Team Lead" },
       ],
-    }
-  }
+    },
+  };
 
   const [department, setDepartment] = useState<Department>(
     departments[departmentId || "hr"] || departments.hr
-  )
-  const [newEmployee, setNewEmployee] = useState({ name: "", role: "" })
+  );
+  const [newEmployee, setNewEmployee] = useState({ name: "", role: "" });
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
+  const [editFormData, setEditFormData] = useState({ name: "", role: "" });
 
-  const filledRoles = department.employees.map(emp => emp.role);
-const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRoles.includes(role)) || [];
+  const filledRoles = department.employees.map((emp) => emp.role);
+  const vacantRoles =
+    department.requiredRoles?.filter((role: string) => !filledRoles.includes(role)) || [];
 
   const handleAddEmployee = () => {
     if (newEmployee.name.trim() && newEmployee.role.trim()) {
@@ -130,21 +132,46 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
         id: Date.now().toString(),
         name: newEmployee.name.trim(),
         role: newEmployee.role.trim(),
-      }
+      };
       setDepartment((prev) => ({
         ...prev,
         employees: [...prev.employees, employee],
-      }))
-      setNewEmployee({ name: "", role: "" })
+      }));
+      setNewEmployee({ name: "", role: "" });
     }
-  }
+  };
 
   const handleDeleteEmployee = (employeeId: string) => {
     setDepartment((prev) => ({
       ...prev,
       employees: prev.employees.filter((emp) => emp.id !== employeeId),
-    }))
-  }
+    }));
+  };
+
+  const handleEditEmployee = (employee: Employee) => {
+    setEditingEmployee(employee);
+    setEditFormData({ name: employee.name, role: employee.role });
+  };
+
+  const handleUpdateEmployee = () => {
+    if (editingEmployee && editFormData.name.trim() && editFormData.role.trim()) {
+      setDepartment((prev) => ({
+        ...prev,
+        employees: prev.employees.map((emp) =>
+          emp.id === editingEmployee.id
+            ? { ...emp, name: editFormData.name.trim(), role: editFormData.role.trim() }
+            : emp
+        ),
+      }));
+      setEditingEmployee(null);
+      setEditFormData({ name: "", role: "" });
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingEmployee(null);
+    setEditFormData({ name: "", role: "" });
+  };
 
   return (
     <div className="min-h-screen p-6">
@@ -176,84 +203,125 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
           </div>
 
           <div className="p-6">
-<div className="mb-6 grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-3">
-  <div className="rounded-xl bg-blue-100 p-4 shadow">
-    <h4 className="text-xl font-medium text-blue-700">Total Employees</h4>
-    <p className="text-2xl font-bold text-blue-800">{department.employees.length}</p>
-  </div>
-  <div className="rounded-xl bg-indigo-100 p-4 shadow">
-    <h4 className="text-xl font-medium text-indigo-700">Active Roles</h4>
-    <p className="text-2xl font-bold text-indigo-800">{[...new Set(department.employees.map(e => e.role))].length}</p>
-  </div>
-  <div className="rounded-xl bg-indigo-200 border p-4 shadow-sm">
-    <div className="flex items-center gap-3">
-      {/* <Briefcase className="text-red-500" /> */}
-      <div>
-        <p className="text-xl text-indigo-600">Vacant Roles</p>
-        <p className="text-xl font-bold text-slate-800">{vacantRoles.length}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-            {/* <div className="flex justify-center">
-              <div className="mb-6 w-full max-w-md rounded-xl bg-slate-50 p-4 sm:p-6 shadow-md">
-                <h3 className="mb-4 text-lg font-semibold text-slate-800">Add New Employee</h3>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="text"
-                    placeholder="Employee Name"
-                    value={newEmployee.name}
-                    onChange={(e) =>
-                      setNewEmployee((prev) => ({ ...prev, name: e.target.value }))
-                    }
-                    className="flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-blue-500/20"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Role"
-                    value={newEmployee.role}
-                    onChange={(e) =>
-                      setNewEmployee((prev) => ({ ...prev, role: e.target.value }))
-                    }
-                    className="flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-blue-500/20"
-                  />
-                  <button
-  onClick={handleAddEmployee}
-  className="flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-6 py-2.5 text-white hover:bg-blue-700"
->
-  <Plus className="h-4 w-4" />
-  Add
-</button>
+            <div className="mb-6 grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-3">
+              <div className="rounded-xl bg-blue-100 p-4 shadow">
+                <h4 className="text-xl font-medium text-blue-700">Total Employees</h4>
+                <p className="text-2xl font-bold text-blue-800">{department.employees.length}</p>
+              </div>
+              <div className="rounded-xl bg-indigo-100 p-4 shadow">
+                <h4 className="text-xl font-medium text-indigo-700">Active Roles</h4>
+                <p className="text-2xl font-bold text-indigo-800">
+                  {[...new Set(department.employees.map((e) => e.role))].length}
+                </p>
+              </div>
+              <div className="rounded-xl bg-indigo-200 border p-4 shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div>
+                    <p className="text-xl text-indigo-600">Vacant Roles</p>
+                    <p className="text-xl font-bold text-slate-800">{vacantRoles.length}</p>
+                  </div>
                 </div>
               </div>
-            </div> */}
+            </div>
 
+           
+            {/* Edit Employee Modal */}
+            {editingEmployee && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
+                  <h3 className="mb-4 text-lg font-medium text-slate-800">Edit Employee</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="mb-1 block text-sm font-medium text-slate-700">Name</label>
+                      <input
+                        type="text"
+                        className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        value={editFormData.name}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, name: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-sm font-medium text-slate-700">Role</label>
+                      <select
+                        className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        value={editFormData.role}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, role: e.target.value })
+                        }
+                      >
+                        <option value="">Select a role</option>
+                        {department.requiredRoles.map((role: string) => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={handleCancelEdit}
+                        className="rounded-lg border border-slate-300 px-4 py-2 text-slate-700 hover:bg-slate-100"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleUpdateEmployee}
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Employees Table */}
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-100">
-                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">EMP ID</th>
-                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">EMPLOYEE</th>
-                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">ROLE</th>
-                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">ACTION</th>
+                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">
+                        EMP ID
+                      </th>
+                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">
+                        EMPLOYEE
+                      </th>
+                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">
+                        ROLE
+                      </th>
+                      <th className="px-4 py-4 text-left text-sm font-semibold text-slate-700 sm:px-6">
+                        ACTIONS
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
                     {department.employees.length > 0 ? (
                       department.employees.map((employee, index) => (
                         <tr key={employee.id} className="transition hover:bg-slate-50">
-                          <td className="px-4 py-4 text-sm font-medium text-slate-900">{index + 1}</td>
+                          <td className="px-4 py-4 text-sm font-medium text-slate-900">
+                            {index + 1}
+                          </td>
                           <td className="px-4 py-4 text-sm text-slate-700">{employee.name}</td>
                           <td className="px-4 py-4 text-sm text-slate-700">{employee.role}</td>
                           <td className="px-4 py-4">
-                            <button
-                              onClick={() => handleDeleteEmployee(employee.id)}
-                              className="h-8 w-8 flex items-center justify-center rounded-full bg-red-500 text-white hover:bg-red-600"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => handleEditEmployee(employee)}
+                                className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white hover:bg-blue-600"
+                              >
+                                <Edit className="h-4 w-4" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteEmployee(employee.id)}
+                                className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white hover:bg-red-600"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))
@@ -265,8 +333,12 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
                               <Users className="h-8 w-8 text-slate-400" />
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-slate-900">No employees added yet</p>
-                              <p className="text-sm text-slate-500">Use the form above to add employees</p>
+                              <p className="text-sm font-medium text-slate-900">
+                                No employees added yet
+                              </p>
+                              <p className="text-sm text-slate-500">
+                                Use the form above to add employees
+                              </p>
                             </div>
                           </div>
                         </td>
@@ -280,7 +352,7 @@ const vacantRoles = department.requiredRoles?.filter((role: string) => !filledRo
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default EmployeesPage;

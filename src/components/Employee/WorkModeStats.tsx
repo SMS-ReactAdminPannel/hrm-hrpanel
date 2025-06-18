@@ -1,5 +1,6 @@
 import type React from "react"
 import type { WorkModeData } from "../../components/Employee/Employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface WorkModeStatsProps {
   workModeData: WorkModeData[]
@@ -10,9 +11,9 @@ export const WorkModeStats: React.FC<WorkModeStatsProps> = ({ workModeData }) =>
 
   return (
     <div className="bg-[#eff4f5] p-4 rounded shadow border">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">Work Mode Stats</h3>
+      <h3 className="text-lg font-semibold !text-gray-800 mb-4"style={{...FONTS.cardSubHeader}}>Work Mode Stats</h3>
       {workModeData.map((mode, index) => (
-        <div key={mode.name} className="flex justify-between items-center mb-2">
+        <div key={mode.name} className="flex justify-between items-center mb-2 !text-black"style={{...FONTS.paragraph}}>
           <span className="text-sm">{mode.name}</span>
           <div className="w-24 bg-gray-200 rounded-full h-2 relative">
             <div

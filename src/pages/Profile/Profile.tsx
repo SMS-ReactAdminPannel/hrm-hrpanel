@@ -1,7 +1,22 @@
-
-
 import type React from "react"
-import {User,Phone,Mail,MapPin,Calendar,Users,GraduationCap,Briefcase,CreditCard,FileText} from "lucide-react"
+import { useState } from "react"
+import {
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  Users,
+  GraduationCap,
+  Briefcase,
+  CreditCard,
+  FileText,
+  Edit,
+  Trash2,
+  X,
+  Save,
+  Plus,
+} from "lucide-react"
 
 interface PersonalInfo {
   name: string
@@ -51,7 +66,6 @@ interface PassportInfo {
   expiryDate: string
 }
 
-
 interface ProfileData {
   personal: PersonalInfo
   emergency: EmergencyInfo
@@ -59,11 +73,10 @@ interface ProfileData {
   experience: string[]
   bank: BankInfo
   passport: PassportInfo
-  
 }
 
 const Profile: React.FC = () => {
-  const profileData: ProfileData = {
+  const [profileData, setProfileData] = useState<ProfileData>({
     personal: {
       name: "Vijay",
       position: "UI/UX Design Team - Web Designer",
@@ -124,6 +137,431 @@ const Profile: React.FC = () => {
       issueDate: "01 Jan 2010",
       expiryDate: "01 Jan 2025",
     },
+  })
+
+  const [editingSection, setEditingSection] = useState<string | null>(null)
+  const [editingIndex, setEditingIndex] = useState<number | null>(null)
+  const [tempData, setTempData] = useState<any>(null)
+
+  const handleEdit = (section: string, index?: number) => {
+    setEditingSection(section)
+    setEditingIndex(index ?? null)
+
+    if (section === "personal") {
+      setTempData({ ...profileData.personal })
+    } else if (section === "emergency-primary") {
+      setTempData({ ...profileData.emergency.primary })
+    } else if (section === "emergency-secondary") {
+      setTempData({ ...profileData.emergency.secondary })
+    } else if (section === "education" && index !== undefined) {
+      setTempData({ ...profileData.education[index] })
+    } else if (section === "experience" && index !== undefined) {
+      setTempData(profileData.experience[index])
+    } else if (section === "bank") {
+      setTempData({ ...profileData.bank })
+    } else if (section === "passport") {
+      setTempData({ ...profileData.passport })
+    }
+  }
+
+  const handleSave = () => {
+    if (!editingSection) return
+
+    const newData = { ...profileData }
+
+    if (editingSection === "personal") {
+      newData.personal = tempData
+    } else if (editingSection === "emergency-primary") {
+      newData.emergency.primary = tempData
+    } else if (editingSection === "emergency-secondary") {
+      newData.emergency.secondary = tempData
+    } else if (editingSection === "education" && editingIndex !== null) {
+      if (editingIndex >= newData.education.length) {
+        // Adding new education
+        newData.education.push(tempData)
+      } else {
+        // Editing existing education
+        newData.education[editingIndex] = tempData
+      }
+    } else if (editingSection === "experience" && editingIndex !== null) {
+      if (editingIndex >= newData.experience.length) {
+        // Adding new experience
+        newData.experience.push(tempData)
+      } else {
+        // Editing existing experience
+        newData.experience[editingIndex] = tempData
+      }
+    } else if (editingSection === "bank") {
+      newData.bank = tempData
+    } else if (editingSection === "passport") {
+      newData.passport = tempData
+    }
+
+    setProfileData(newData)
+    setEditingSection(null)
+    setEditingIndex(null)
+    setTempData(null)
+  }
+
+  const handleCancel = () => {
+    setEditingSection(null)
+    setEditingIndex(null)
+    setTempData(null)
+  }
+
+  const handleDelete = (section: string, index?: number) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      const newData = { ...profileData }
+
+      if (section === "education" && index !== undefined) {
+        newData.education.splice(index, 1)
+      } else if (section === "experience" && index !== undefined) {
+        newData.experience.splice(index, 1)
+      }
+
+      setProfileData(newData)
+    }
+  }
+
+  const handleAddNew = (section: string) => {
+    if (section === "education") {
+      setEditingSection("education")
+      setEditingIndex(profileData.education.length)
+      setTempData({
+        instituteName: "",
+        degree: "",
+        startDate: "",
+        endDate: "",
+      })
+    } else if (section === "experience") {
+      setEditingSection("experience")
+      setEditingIndex(profileData.experience.length)
+      setTempData("")
+    }
+  }
+
+  const renderEditModal = () => {
+    if (!editingSection || tempData === null) return null
+
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 border-b border-gray-200">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-[#006666]">
+                Edit {editingSection.charAt(0).toUpperCase() + editingSection.slice(1)}
+              </h3>
+              <button onClick={handleCancel} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+          </div>
+
+          <div className="p-6">
+            {editingSection === "personal" && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <input
+                      type="text"
+                      value={tempData.name}
+                      onChange={(e) => setTempData({ ...tempData, name: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Position</label>
+                    <input
+                      type="text"
+                      value={tempData.position}
+                      onChange={(e) => setTempData({ ...tempData, position: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                    <input
+                      type="text"
+                      value={tempData.phone}
+                      onChange={(e) => setTempData({ ...tempData, phone: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input
+                      type="email"
+                      value={tempData.email}
+                      onChange={(e) => setTempData({ ...tempData, email: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Birthday</label>
+                    <input
+                      type="text"
+                      value={tempData.birthday}
+                      onChange={(e) => setTempData({ ...tempData, birthday: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                    <select
+                      value={tempData.gender}
+                      onChange={(e) => setTempData({ ...tempData, gender: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    >
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                  <textarea
+                    value={tempData.address}
+                    onChange={(e) => setTempData({ ...tempData, address: e.target.value })}
+                    rows={3}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  />
+                </div>
+              </div>
+            )}
+
+            {(editingSection === "emergency-primary" || editingSection === "emergency-secondary") && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <input
+                      type="text"
+                      value={tempData.name}
+                      onChange={(e) => setTempData({ ...tempData, name: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Relationship</label>
+                    <input
+                      type="text"
+                      value={tempData.relationship}
+                      onChange={(e) => setTempData({ ...tempData, relationship: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                    <input
+                      type="text"
+                      value={tempData.phone}
+                      onChange={(e) => setTempData({ ...tempData, phone: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input
+                      type="email"
+                      value={tempData.email}
+                      onChange={(e) => setTempData({ ...tempData, email: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                  <textarea
+                    value={tempData.address}
+                    onChange={(e) => setTempData({ ...tempData, address: e.target.value })}
+                    rows={3}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  />
+                </div>
+              </div>
+            )}
+
+            {editingSection === "education" && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Institute Name</label>
+                  <input
+                    type="text"
+                    value={tempData.instituteName}
+                    onChange={(e) => setTempData({ ...tempData, instituteName: e.target.value })}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Degree</label>
+                  <input
+                    type="text"
+                    value={tempData.degree}
+                    onChange={(e) => setTempData({ ...tempData, degree: e.target.value })}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                    <input
+                      type="text"
+                      value={tempData.startDate}
+                      onChange={(e) => setTempData({ ...tempData, startDate: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                    <input
+                      type="text"
+                      value={tempData.endDate}
+                      onChange={(e) => setTempData({ ...tempData, endDate: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {editingSection === "experience" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
+                <textarea
+                  value={tempData}
+                  onChange={(e) => setTempData(e.target.value)}
+                  rows={4}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                />
+              </div>
+            )}
+
+            {editingSection === "bank" && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Account Holder</label>
+                    <input
+                      type="text"
+                      value={tempData.holderName}
+                      onChange={(e) => setTempData({ ...tempData, holderName: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Account Number</label>
+                    <input
+                      type="text"
+                      value={tempData.accountNumber}
+                      onChange={(e) => setTempData({ ...tempData, accountNumber: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Bank Name</label>
+                    <input
+                      type="text"
+                      value={tempData.bankName}
+                      onChange={(e) => setTempData({ ...tempData, bankName: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Branch Name</label>
+                    <input
+                      type="text"
+                      value={tempData.branchName}
+                      onChange={(e) => setTempData({ ...tempData, branchName: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">SWIFT Code</label>
+                  <input
+                    type="text"
+                    value={tempData.swiftCode}
+                    onChange={(e) => setTempData({ ...tempData, swiftCode: e.target.value })}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                  />
+                </div>
+              </div>
+            )}
+
+            {editingSection === "passport" && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Passport Number</label>
+                    <input
+                      type="text"
+                      value={tempData.number}
+                      onChange={(e) => setTempData({ ...tempData, number: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Nationality</label>
+                    <input
+                      type="text"
+                      value={tempData.nationality}
+                      onChange={(e) => setTempData({ ...tempData, nationality: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Issue Date</label>
+                    <input
+                      type="text"
+                      value={tempData.issueDate}
+                      onChange={(e) => setTempData({ ...tempData, issueDate: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                    <input
+                      type="text"
+                      value={tempData.expiryDate}
+                      onChange={(e) => setTempData({ ...tempData, expiryDate: e.target.value })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006666] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
+            <button
+              onClick={handleCancel}
+              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              className="px-6 py-2 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors flex items-center gap-2"
+            >
+              <Save size={16} />
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -137,7 +575,10 @@ const Profile: React.FC = () => {
 
         {/* Personal Information */}
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2  backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="lg:col-span-2 backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative  rounded-xl">
+          
+
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <User size={24} />
@@ -202,7 +643,7 @@ const Profile: React.FC = () => {
           </div>
 
           {/* Emergency Contacts */}
-          <div className=" backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative rounded-xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <Users size={24} />
@@ -210,7 +651,8 @@ const Profile: React.FC = () => {
               <h2 className="text-2xl font-bold text-[#006666]">Emergency Contact</h2>
             </div>
 
-            <div className="mb-6 p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200">
+            <div className="mb-6 p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200 relative">
+               
               <p className="font-bold text-[#006666] mb-3">Primary Contact</p>
               <div className="text-sm space-y-1">
                 <p>
@@ -230,7 +672,8 @@ const Profile: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200">
+            <div className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200 relative">
+              
               <p className="font-bold text-[#006666] mb-3">Secondary Contact</p>
               <div className="text-sm space-y-1">
                 <p>
@@ -255,7 +698,9 @@ const Profile: React.FC = () => {
 
         {/* Education and Experience */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          <div className=" backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative  rounded-xl">
+           
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <GraduationCap size={24} />
@@ -267,9 +712,10 @@ const Profile: React.FC = () => {
               {profileData.education.map((item: EducationItem, index: number) => (
                 <div
                   key={index}
-                  className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200"
+                  className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200 relative"
                 >
-                  <h4 className="font-semibold text-[#006666] mb-2">{item.instituteName}</h4>
+                  
+                  <h4 className="font-semibold text-[#006666] mb-2 pr-16">{item.instituteName}</h4>
                   <p className="text-sm font-medium text-slate-700 mb-1">{item.degree}</p>
                   <p className="text-xs text-slate-600">
                     {item.startDate} - {item.endDate}
@@ -279,7 +725,8 @@ const Profile: React.FC = () => {
             </div>
           </div>
 
-          <div className=" backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative  rounded-xl">
+           
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <Briefcase size={24} />
@@ -291,9 +738,10 @@ const Profile: React.FC = () => {
               {profileData.experience.map((item: string, index: number) => (
                 <div
                   key={index}
-                  className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200"
+                  className="p-4 bg-gradient-to-r from-[#006666]/10 to-[#008080]/10 rounded-xl border border-[#006666]/20 hover:shadow-md transition-shadow duration-200 relative"
                 >
-                  <p className="text-sm font-medium text-slate-700">{item}</p>
+                  
+                  <p className="text-sm font-medium text-slate-700 pr-16">{item}</p>
                 </div>
               ))}
             </div>
@@ -302,7 +750,9 @@ const Profile: React.FC = () => {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Bank Account */}
-          <div className=" backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative  rounded-xl">
+            
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <CreditCard size={24} />
@@ -329,7 +779,9 @@ const Profile: React.FC = () => {
           </div>
 
           {/* Passport Information */}
-          <div className=" backdrop-blur-lg p-8  shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+          <div className="backdrop-blur-lg p-8 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group relative  rounded-xl">
+             
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-[#006666] to-[#008080] rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
                 <FileText size={24} />
@@ -355,6 +807,8 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {renderEditModal()}
     </div>
   )
 }

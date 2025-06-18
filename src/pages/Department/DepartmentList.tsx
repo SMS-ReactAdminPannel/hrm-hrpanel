@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from "react"
 import { Plus, Users, Trash2, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
