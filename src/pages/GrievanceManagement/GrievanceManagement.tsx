@@ -15,7 +15,7 @@ export type Grievance = {
   department: string;
   role: string;
   date: string;
-};
+}; 
 
 const initialGrievances: Grievance[] = [
   {
