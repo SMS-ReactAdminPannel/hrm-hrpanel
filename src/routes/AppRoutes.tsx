@@ -87,13 +87,14 @@ const AppRoutes = () => {
           <Route path="grievance-management" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
           {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
-          <Route path="candidates" element={<CandidateDetailPage />} />
-          <Route path="candidate" element={<CandidatesPage />} />
-          <Route path="recruitment/jobs" element={<OpenRecruitments />} />
-          <Route path="job/:id" element={<JobDetailsPage />} />
+          <Route path="recruitment/candidatelists/candidatesPage" element={<CandidateDetailPage />} />
+          <Route path="recruitment/candidatelists" element={<CandidatesPage />} />
+          <Route path="/recruitment/job-postings" element={<OpenRecruitments />} />
+          <Route path="/recruitment/job-postings/job-details" element={<JobDetailsPage />} />
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
+          
         </Route>
       ) : (
         <Route path="/">
