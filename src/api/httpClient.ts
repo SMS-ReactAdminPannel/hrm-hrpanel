@@ -38,6 +38,14 @@ Axios.interceptors.response.use(
 );
 
 class HttpClient {
+  // put(arg0: string, payload: { title: string; description: string; roles: string[]; }) {
+  //   throw new Error("Method not implemented.");
+  // }
+  async put<T = any>(url: string, data: any, params?: any): Promise<T> {
+    const response = await Axios.put<T>(url, data, { params });
+    return response.data;
+  }
+
   async get<T = any>(url: string, params?: any): Promise<AxiosResponse<T>> {
     const response = await Axios.get<T>(url, {
       params,
