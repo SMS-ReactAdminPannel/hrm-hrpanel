@@ -122,7 +122,7 @@ const EmployeeManagement = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<Department | "">("")
   const [showAddForm, setShowAddForm] = useState(false)
 
-  const itemsPerPage = 5
+  const itemsPerPage = 10
 
   const workModeData: WorkModeData[] = [
     { name: "Remote", value: 4 },
@@ -210,7 +210,7 @@ const EmployeeManagement = () => {
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
         <EmployeeStatsCard
           title="Total Employees"
           value={employees.length}

@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
-import Employee from "../pages/Employee Mangament/Employee";
 import Leave from "../pages/Leave Management/Leave";
 import OrganizationChart from "../pages/Organization Charts/OrganizationChart";
 import Payroll from "../pages/Payroll Management/Payroll";
@@ -15,7 +14,6 @@ import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
-import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
@@ -42,14 +40,17 @@ import EmployeesPage from "../components/Department/Employees";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import EmployeeManagement from "../pages/Employee Mangament/Employee";
 
 // import EmployeesPage from "../components/Department/Employees";
 
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
+  
 
   return (
+    
     <Routes>
       {isAuthenticated ? (
         <Route path="/" element={<MainLayout />}>
@@ -60,7 +61,7 @@ const AppRoutes = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
-          <Route path="employee" element={<Employee />} />
+          <Route path="employee" element={<EmployeeManagement />} />
           <Route path="leave-management" element={<Leave />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
@@ -76,7 +77,7 @@ const AppRoutes = () => {
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
           <Route path="asset-category" element={<Assetcategory />} />
-          <Route path="home-intro" element={<HomePage />} />
+          {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />

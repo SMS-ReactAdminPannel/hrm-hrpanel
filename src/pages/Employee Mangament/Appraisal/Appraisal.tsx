@@ -1242,7 +1242,7 @@
 // };
 
 // export default HRMAppraisalSystem;
-"use client"
+
 
 import { useState, useCallback, useMemo, useEffect } from "react"
 import { FONTS } from "../../../constants/uiConstants"

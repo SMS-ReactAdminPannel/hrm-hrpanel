@@ -3,10 +3,10 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import Tabs from "../../components/ui/tabs";
-import TabsList from "../../components/ui/tabsList";
-import TabsTrigger from "../../components/ui/tabsTrigger";
+// import TabsList from "../../components/ui/tabsList";
+// import TabsTrigger from "../../components/ui/tabsTrigger";
 import ScrollArea from "../../components/ui/ScrollArea";
-import Avatar from "../../components/ui/Avatar";
+// import Avatar from "../../components/ui/Avatar";
 import { Star, X } from "lucide-react";
 import { Editor } from "@tinymce/tinymce-react";
 import Toggle from "../../components/ui/toggle";
@@ -42,7 +42,99 @@ const candidates = [
     rating: 3,
     stage: "Final Offer Released",
   },
+  {
+    name: "Ram",
+    email: "ramanan@gmail.com",
+    job: "SDET",
+    contact: "9876556765",
+    interviews: 0,
+    rating: 3,
+    stage: "Interview - Behavioural",
+  },
+  {
+    name: "Ravi",
+    email: "ravi@gmail.com",
+    job: "Senior Developer",
+    contact: "9878787876",
+    interviews: 0,
+    rating: 3,
+    stage: "Interview - Behavioural",
+  },
+  {
+    name: "Ramanam",
+    email: "ramanan@gmail.com",
+    job: "Junior developer",
+    contact: "9988776655",
+    interviews: 0,
+    rating: 3,
+    stage: "Interview - Tech",
+  },
+  {
+    name: "Ravikumar",
+    email: "ravi@gmail.com",
+    job: "Senior Developer",
+    contact: "9977668833",
+    interviews: 0,
+    rating: 5,
+    stage: "Interview - Tech",
+  },
+  {
+    name: "Smith",
+    email: "smithn@gmail.com",
+    job: " developer",
+    contact: "9988776655",
+    interviews: 0,
+    rating: 3,
+    stage: "Technical Test",
+  },
+  {
+    name: "James",
+    email: "james@gmail.com",
+    job: "Senior Developer",
+    contact: "9977668833",
+    interviews: 0,
+    rating: 5,
+    stage: "Technical Test",
+  },
+  {
+    name: "Smith",
+    email: "smithn@gmail.com",
+    job: " developer",
+    contact: "9988776655",
+    interviews: 0,
+    rating: 3,
+    stage: "Initial Screening",
+  },
+  {
+    name: "James",
+    email: "james@gmail.com",
+    job: "Senior Developer",
+    contact: "9977668833",
+    interviews: 0,
+    rating: 5,
+    stage: "Initial Screening",
+  },
+  {
+    name: "Smith",
+    email: "smithn@gmail.com",
+    job: " developer",
+    contact: "9988776655",
+    interviews: 0,
+    rating: 3,
+    stage: "Cancelled / Not Hired",
+  },
+  {
+    name: "James",
+    email: "james@gmail.com",
+    job: "Senior Developer",
+    contact: "9977668833",
+    interviews: 0,
+    rating: 5,
+    stage: "Cancelled / Not Hired",
+  },
+  
 ];
+
 
 // Dropdown component (NOT exported as default)
 function Dropdown({
@@ -470,7 +562,6 @@ export default function RecruitmentPipeline() {
                       className="grid grid-cols-7 py-2 border-b text-sm items-center"
                     >
                       <div className="flex items-center gap-2">
-                        {/* <span className="cursor-move">↕️</span> */}
                         {c.name}
                       </div>
                       <div>{c.email}</div>

@@ -4,7 +4,7 @@ import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
 
 interface Employee {
-  _id: string
+  id: string
   Employee: string
   Position: string
   Rating: number
@@ -12,6 +12,100 @@ interface Employee {
   department: string
   ProjectPeriod: string
 }
+const employees: Employee[] = [
+  {
+    id: '1',
+    Employee: 'Harry',
+    Position: 'Software Engineer',
+    Rating: 4.5,
+    Status: 'Active',
+    department: 'Engineering',
+    ProjectPeriod: 'Jan 2023 - Dec 2023',
+  },
+  {
+    id: '2',
+    Employee: 'james',
+    Position: 'Product Manager',
+    Rating: 2,
+    Status: 'On Leave',
+    department: 'Product',
+    ProjectPeriod: 'Mar 2023 - Mar 2024',
+  },
+  {
+    id: '3',
+    Employee: ' Smith',
+    Position: 'UI/UX Designer',
+    Rating: 3,
+    Status: 'Active',
+    department: 'Design',
+    ProjectPeriod: 'Feb 2024 - Jan 2025',
+  },
+  {
+    id: '4',
+    Employee: 'Michael',
+    Position: 'QA Engineer',
+    Rating: 4,
+    Status: 'Inactive',
+    department: 'Quality Assurance',
+    ProjectPeriod: 'Jul 2022 - Jun 2023',
+  },
+  {
+    id: '5',
+    Employee: 'John',
+    Position: 'DevOps Engineer',
+    Rating: 5,
+    Status: 'Active',
+    department: 'Infrastructure',
+    ProjectPeriod: 'Aug 2023 - Jul 2024',
+  },
+  {
+    id: '6',
+    Employee: 'Harry',
+    Position: 'Software Engineer',
+    Rating: 4.5,
+    Status: 'Active',
+    department: 'Engineering',
+    ProjectPeriod: 'Jan 2023 - Dec 2023',
+  },
+  {
+    id: '7',
+    Employee: 'james',
+    Position: 'Product Manager',
+    Rating: 2,
+    Status: 'On Leave',
+    department: 'Product',
+    ProjectPeriod: 'Mar 2023 - Mar 2024',
+  },
+  {
+    id: '8',
+    Employee: ' Smith',
+    Position: 'UI/UX Designer',
+    Rating: 3,
+    Status: 'Active',
+    department: 'Design',
+    ProjectPeriod: 'Feb 2024 - Jan 2025',
+  },
+  {
+    id: '9',
+    Employee: 'Michael',
+    Position: 'QA Engineer',
+    Rating: 4,
+    Status: 'Inactive',
+    department: 'Quality Assurance',
+    ProjectPeriod: 'Jul 2022 - Jun 2023',
+  },
+  {
+    id: '10',
+    Employee: 'John',
+    Position: 'DevOps Engineer',
+    Rating: 5,
+    Status: 'Active',
+    department: 'Infrastructure',
+    ProjectPeriod: 'Aug 2023 - Jul 2024',
+  },
+
+];
+
 
 interface DashboardProps {
   appraisals: Employee[]
@@ -120,8 +214,8 @@ const Dashboard: React.FC<DashboardProps> = ({
               </tr>
             </thead>
             <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
-              {appraisals.map((employee) => (
-                <tr key={employee._id}>
+              {employees.map((employee) => (
+                <tr key={employee.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">{employee.Employee}</div>

@@ -58,7 +58,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
   const groupedEmployees = groupEmployees()
 
   return (
-    <div className="flex-1 overflow-hidden mt-10">
+    <div className="flex-1 overflow-hidden mt-6">
       <div className="h-full overflow-auto rounded-md custom-scrollbar">
         <table className="w-full">
           <thead className="bg-[#006666] border-b border-gray-200 sticky top-0">
@@ -93,7 +93,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
 
                   {groupEmployees.map((employee) => (
                     <tr key={employee.id}>
-                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 whitespace-nowrap">
                         <div className="flex items-center">
                           <div>
                             <div className="text-sm font-medium text-gray-900">{employee.name}</div>
