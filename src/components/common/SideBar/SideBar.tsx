@@ -115,20 +115,20 @@ const SideBar = ({
               </SidebarDropdown>
           </div>
           {/* Recruitment Group */}
-          {/* <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
             <SidebarDropdown icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen}>
               <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/recruitment/candidatesPage" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/recruitment/job-postings" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
-          </div> */}
-          {/* <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+          </div>
+          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
             <SidebarDropdown icon={<RiUserSearchLine />} label="Boarding" isOpen={actualOpen}>
               <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
-          </div> */}
+          </div>
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
             <SidebarDropdown icon={<CgCalendarDates />} label="attendence timesheet" isOpen={actualOpen}>
               <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />

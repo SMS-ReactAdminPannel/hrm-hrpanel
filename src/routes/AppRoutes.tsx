@@ -30,7 +30,7 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
-import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
+// import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
 // import CandidatesPage from "../pages/Recuritment/Candidates/Candidateslistpage";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
@@ -83,7 +83,7 @@ const AppRoutes = () => {
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="grievance-management" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
-          <Route path="visitor-management" element={<VisitorManagementSystem />} />
+          {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
           <Route path="candidates" element={<CandidateDetailPage />} />
           <Route path="candidatelists" element={<CandidatesPage />} />
           <Route path="recruitment/jobs" element={<OpenRecruitments />} />

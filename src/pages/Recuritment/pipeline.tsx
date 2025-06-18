@@ -405,7 +405,7 @@ export default function RecruitmentPipeline() {
         <Input placeholder="Search" className="w-1/3" />
         <Button className=" text-gray-800 text-white hover:bg-gray-100">
           Filter
-        </Button> */}
+        </Button> 
         <div className="flex items-center gap-1">
           <button className="bg-[#006666] hover:bg-[#004C4C]  text-white px-5 py-2 rounded-xl font-medium transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
        onClick={() => setIsStageModalOpen(true)}> +stage </button>

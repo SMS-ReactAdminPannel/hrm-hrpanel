@@ -196,9 +196,9 @@ const Attendance: React.FC = () => {
   ]
 
   return (
-    <div className="space-y-6 min-h-screen w-full  p-6">
+    <div className="space-y-6 min-h-screen w-full  p-1">
       <div>
-        <h1 className="text-3xl font-bold text-[#006666] mt-2 leading-relaxed pb-1 font-family-poppins">
+        <h1 className="text-4xl font-bold text-white mt-2 leading-relaxed pb-1">
           Attendance Dashboard
         </h1>
       </div>
