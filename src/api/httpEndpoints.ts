@@ -62,7 +62,9 @@ export const API_END_POINTS = {
     },
 
     visitors:{
+    create: "api/hr/visitors/",
       getAll: "api/hr/visitors/getAll",
+      delete:"/api/hr/visitors/:id",
     } ,
   
   department : {
