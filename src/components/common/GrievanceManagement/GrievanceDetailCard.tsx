@@ -42,8 +42,8 @@ return (
     
       {/* Title */}
       <h2 
-        className="text-md font-semibold text-gray-700 mb-3"
-        style={{ fontSize: FONTS.header.fontSize }}
+        className="text-sm font-semibold text-gray-700 mb-3"
+        style={{ fontSize: FONTS.header3.fontSize }}
       >
         {grievance.title}
       </h2>
