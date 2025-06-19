@@ -33,13 +33,13 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
               style={{ ...FONTS.paragraph }}
-              className=" pl-10 pr-3  py-2 bg-gray-200 rounded-md border-2  
+              className=" pl-10 pr-3  py-2 bg-gray-200 rounded-md border-2  !text-black
                placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearch("")}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 !text-gray-400 hover:text-gray-900"
               >
                 ✕
               </button>

@@ -305,7 +305,7 @@ export default function LeaveTypes() {
 
 
             <button
-              style={{ ...FONTS.paragraph }}
+              style={{ ...FONTS.button}}
               className=" bg-[#006666] ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
               onClick={() => {
                 setEditingCard(null);
@@ -376,7 +376,7 @@ export default function LeaveTypes() {
                   <label className="text-sm font-medium text-white">Title<span className="text-red-500">*</span></label>
                   <input
                     type="text"
-                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    className="p-1 border border-gray-300 !text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
                     value={newCard.title}
                     onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
                     placeholder="Enter leave type title"
@@ -390,7 +390,7 @@ export default function LeaveTypes() {
                   <label className="text-sm font-medium text-white">Description<span className="text-red-500">*</span></label>
                   <input
                     type="text"
-                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    className="p-1 border border-gray-300 !text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
                     placeholder="Description"
                   />
                 </div>
@@ -401,7 +401,7 @@ export default function LeaveTypes() {
                   <label className="text-sm font-medium text-white">Total Days<span className="text-red-500">*</span></label>
                   <input
                     type="number"
-                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
+                    className="p-1 border border-gray-300 !text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
                     value={newCard.totalDays}
                     onChange={(e) => setNewCard({ ...newCard, totalDays: e.target.value })}
                     placeholder="Enter total days"
@@ -414,7 +414,7 @@ export default function LeaveTypes() {
                   style={{ ...FONTS.paragraph }}>
                   <label className="text-sm font-medium text-white">Is Paid</label>
                   <select
-                    className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
+                    className="p-1 border border-gray-300 !text-black  rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
                     value={newCard.isPaid}
                     onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
                   >
@@ -428,8 +428,8 @@ export default function LeaveTypes() {
               {/* Footer Buttons */}
               <div className="flex justify-end gap-3 mt-2">
                 <button
-                  style={{ ...FONTS.paragraph }}
-                  className="px-5 border border-gray-300 text-white rounded-lg hover:bg-gray-100 transition"
+                  style={{ ...FONTS.button }}
+                  className="px-5 border border-gray-300 text-white rounded-lg  transition"
                   onClick={closeModal}
                   type="button"
                 >
@@ -442,7 +442,7 @@ export default function LeaveTypes() {
                     }`}
                   onClick={handleAddCard}
                   type="button"
-                  style={{ ...FONTS.paragraph }}
+                  style={{ ...FONTS.button}}
                   disabled={!newCard.title || !newCard.totalDays}
                 >
                   {editingCard ? "Update" : "Create"}
@@ -466,8 +466,8 @@ export default function LeaveTypes() {
                   <div className={`w-12 h-12 rounded-full ${cardColors[selectedCard.id] || 'bg-blue-200'} flex items-center justify-center text-black text-xl font-bold mr-4`}>
                     {getInitials(selectedCard.title)}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800"
-                    style={{ ...FONTS.header }}>{selectedCard.title}</h3>
+                  <h3 className="text-2xl font-bold !text-gray-800"
+                    style={{ ...FONTS.header}}>{selectedCard.title}</h3>
                 </div>
                 <button
                   onClick={closeDetailsModal}
@@ -515,8 +515,9 @@ export default function LeaveTypes() {
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-b pb-3">
-      <span className="text-gray-500 text-sm">{label}:</span>
-      <span className="ml-2 font-medium text-gray-800">{value}</span>
+      <span className="!text-gray-500 text-sm">{label}:</span>
+      <span className="ml-2 font-medium !text-gray-800">{value}</span>
+    
     </div>
   );
 }

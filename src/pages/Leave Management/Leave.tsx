@@ -255,8 +255,8 @@ const Leave = () => {
       <div className="space-y-3 w-5/4"
       >
         {/* Charts row */}
-        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8"
-            style={{ ...FONTS.paragraph }}>
+        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white !text-black p-5 py-8"
+            style={{ ...FONTS.paragraph}}>
           <DoughnutChart 
             percentage={30} 
             content='Annual Leave' 
@@ -284,10 +284,10 @@ const Leave = () => {
         </div>
 
           {/* Calendar section */}
-          <div className="bg-white rounded-md shadow-md overflow-hidden"
+          <div className="bg-white !text-black rounded-md shadow-md overflow-hidden"
             style={{ ...FONTS.paragraph }}>
             {/* Calendar Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">
+            <div className="flex items-center !text-black justify-between px-6 py-4 bg-gray-50 border-b">
               <div className="flex items-start space-x-2">
                 <button
                   onClick={() => navigateMonth('prev')}
@@ -331,12 +331,14 @@ const Leave = () => {
                 <button
                   onClick={() => setCurrentMonth(new Date())}
                   className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+                  style={{...FONTS.button}}
                 >
                   Today
                 </button>
                 <button
                   onClick={() => setShowModal(true)}
-                  className="px-4 py-2 text-sm rounded-md bg-green-500 text-white hover:bg-green-600"
+                  className="px-4 py-2 text-sm rounded-md bg-green-500 text-black hover:bg-green-600"
+                  style={{ ...FONTS.button }}
                 >
                   Add Event
                 </button>
@@ -386,7 +388,7 @@ const Leave = () => {
         {/* Holiday List */}
         <div className=" w-3/4 ml-auto p-5 rounded-lg shadow bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border">
           <div className="flex items-center justify-between mb-4">
-            <h5 className="text-xl font-bold text-gray-900 ml-2" style={{ ...FONTS.header }}>Holidays List</h5>
+            <h5 className="font-semibold !text-gray-700 ml-2" style={{ ...FONTS.header }}>Holidays List</h5>
           </div>
           <div className="space-y-4">
             {holidays.length > 0 ? (
@@ -432,7 +434,7 @@ const Leave = () => {
                 );
               })
             ) : (
-              <p className="text-gray-500 text-center py-4">No holidays found</p>
+              <p className="!text-gray-900 text-center py-4">No holidays found</p>
             )}
           </div>
         </div>
@@ -442,39 +444,39 @@ const Leave = () => {
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-              <h3 className="text-xl font-semibold mb-4"
+              <h3 className="text-xl !text-gray-700  font-semibold mb-4"
                 style={{ ...FONTS.header2}}>Add New Holiday/Event</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1"
-                    style={{ ...FONTS.header3}}>Event Title</label>
+                  <label className="block text-sm font-medium !text-gray-700 mb-1"
+                    style={{ ...FONTS.paragraph}}>Event Title</label>
                   <input
                     type="text"
-                    className="w-full p-2 border rounded"
+                    className="w-full !text-gray-700  p-2 border rounded"
                     value={newEvent.title}
                     onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
                     placeholder="Enter event title"
-                    style={{ ...FONTS.paragraph }}
+                    style={{ ...FONTS.subParagraph }}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1"
-                    style={{ ...FONTS.header3}}>Date</label>
+                  <label className="block text-sm font-medium !text-gray-700 mb-1"
+                    style={{ ...FONTS.paragraph}}>Date</label>
                   <input
                     type="date"
-                    className="w-full p-2 border rounded"
+                    className="w-full p-2 border rounded !text-gray-700"
                     value={newEvent.date}
-                    style={{ ...FONTS.paragraph }}
+                    style={{ ...FONTS.subParagraph }}
                     onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1"
-                    style={{ ...FONTS.header3}}>Color</label>
+                  <label className="block text-sm font-medium !text-gray-700 mb-1"
+                    style={{ ...FONTS.paragraph}}>Color</label>
                   <select
-                    className="w-full p-2 border rounded"
+                    className="w-full p-2 border rounded !text-gray-700"
                     value={newEvent.color}
-                    style={{ ...FONTS.paragraph }}
+                    style={{ ...FONTS.subParagraph }}
                     onChange={(e) => setNewEvent({ ...newEvent, color: e.target.value })}
                   >
                     <option value="bg-blue-500">Blue</option>
@@ -488,14 +490,14 @@ const Leave = () => {
                   <button
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 text-sm rounded-md bg-gray-500 text-white hover:bg-gray-600"
-                    style={{ ...FONTS.paragraph }}
+                    style={{ ...FONTS.button }}
                   >
                     Cancel
                   </button>
                   <button
                     onClick={addEvent}
                     className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
-                    style={{ ...FONTS.paragraph }}
+                    style={{ ...FONTS.button }}
                   >
                     Add Event
                   </button>

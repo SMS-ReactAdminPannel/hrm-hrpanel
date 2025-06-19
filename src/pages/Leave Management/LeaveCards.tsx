@@ -41,9 +41,9 @@ export default function LeaveTypeCard({
               {getInitials(card.title)}
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-800"
+              <h3 className="text-lg font-semibold !text-gray-800"
               style={{ ...FONTS.header3}}>{card.title}</h3>
-              <p className="text-sm text-gray-500"
+              <p className="text-sm !text-gray-500"
                 style={{ ...FONTS.paragraph }}>{card.periodIn} • {card.totalDays} days</p>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function LeaveTypeCard({
             
             {showDropdown && (
               <div
-                style={{ ...FONTS.paragraph }} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                style={{ ...FONTS.paragraph }} className="absolute right-0 mt-2 w-48 bg-gray-300 rounded-md shadow-lg z-10 border border-gray-200">
                 <div className="py-1">
                   <button
                     onClick={() => {

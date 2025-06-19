@@ -360,7 +360,7 @@ const AssetsManagement: React.FC = () => {
             Asset 
           </h1>
 
-          <p  style={{...FONTS.paragraph}}>Manage and track your organization's assets</p>
+          <p  style={{...FONTS.cardSubHeader}}>Manage and track your organization's assets</p>
         </div>
 
         
@@ -383,8 +383,8 @@ const AssetsManagement: React.FC = () => {
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-[#eff4f5]  rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
-                style={{ ...FONTS.header3 }}
+                className="pl-10 pr-8 py-2 bg-[#eff4f5] !text-black rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                style={{ ...FONTS.button }}
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
@@ -406,9 +406,9 @@ const AssetsManagement: React.FC = () => {
                         setSelectedCategory(cat)
                         setShowCategoryDropdown(false)
                       }}
-                      className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
+                      className={`w-full px-4 py-3 text-left !text-black hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
-                         ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
+                         ? "bg-[#006666]/10 !text-[#006666] font-medium shadow-sm"
             : "text-slate-700 hover:text-[#006666]"
                       }`}
                     >
@@ -423,7 +423,7 @@ const AssetsManagement: React.FC = () => {
             <button
               onClick={() => setShowModal(true)}
               className="flex items-center gap-2 px-4 py-2 bg-[#6f70ce] text-white rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
-              style={{ ...FONTS.header3 }}
+              style={{ ...FONTS.button}}
            >
               <Plus className="w-5 h-5" />
               Add Asset
@@ -436,8 +436,8 @@ const AssetsManagement: React.FC = () => {
           <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm"
-                  style={{ ...FONTS.paragraph }}>Total Assets</p>
+                <p className="!text-slate-600 text-sm"
+                  style={{ ...FONTS.cardheader }}>Total Assets</p>
                 <p className="text-2xl font-bold text-slate-800">{assets.length}</p>
               </div>
               <Package className="w-8 h-8 text-blue-600" />
@@ -446,8 +446,8 @@ const AssetsManagement: React.FC = () => {
           <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm"
-                  style={{ ...FONTS.paragraph }}>Active</p>
+                <p className="!text-slate-600 text-sm"
+                  style={{ ...FONTS.cardheader }}>Active</p>
                 <p className="text-2xl font-bold text-emerald-600">
                   {assets.filter((a) => a.status === "active").length}
                 </p>
@@ -460,8 +460,8 @@ const AssetsManagement: React.FC = () => {
           <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm"
-                  style={{ ...FONTS.paragraph }}>Maintenance</p>
+                <p className="!text-slate-600 text-sm"
+                  style={{ ...FONTS.cardheader }}>Maintenance</p>
                 <p className="text-2xl font-bold text-amber-600">
                   {assets.filter((a) => a.status === "maintenance").length}
                 </p>
@@ -474,8 +474,8 @@ const AssetsManagement: React.FC = () => {
           <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg p-6 shadow border border-white/20 hover:shadow-xl transition-all duration-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm"
-                  style={{ ...FONTS.paragraph }}>Categories</p>
+                <p className="!text-slate-600 text-sm"
+                  style={{ ...FONTS.cardheader }}>Categories</p>
                 <p className="text-2xl font-bold text-slate-800">{new Set(assets.map((a) => a.category)).size}</p>
               </div>
               <Filter className="w-8 h-8 text-purple-600" />
@@ -486,7 +486,7 @@ const AssetsManagement: React.FC = () => {
         {/* Assets Table */}
         <div className="bg-[#eff4f5] backdrop-blur-sm rounded-lg shadow border border-white/20 overflow-hidden">
           <div className="overflow-x-auto"
-            style={{ ...FONTS.paragraph }}>
+            style={{ ...FONTS.paragraph}}>
             <table className="w-full ">
               <thead className="bg-[#5e59a9]/70 backdrop-blur-sm text-white">
                 <tr>
@@ -667,8 +667,8 @@ const AssetsManagement: React.FC = () => {
       ref={modalRef}
       className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
     >
-      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6"
-              style={{ ...FONTS.header3 }}>
+      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text !text-black text-transparent mb-6"
+              style={{ ...FONTS.header2 }}>
         {editingAsset ? "Edit Asset" : "Add New Asset"}
       </h2>
 
@@ -681,7 +681,7 @@ const AssetsManagement: React.FC = () => {
       >
         {/* Asset Name */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-slate-700 mb-2"
                   style={{ ...FONTS.paragraph }}>Asset Name</label>
           <input
             type="text"
@@ -690,13 +690,13 @@ const AssetsManagement: React.FC = () => {
             value={newAsset.name}
             onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
                   style={{ ...FONTS.paragraph }}
-            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+            className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
           />
         </div>
 
         {/* Assigned To */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-slate-700 mb-2"
                   style={{ ...FONTS.paragraph }}>Assigned To</label>
           <input
             type="text"
@@ -705,13 +705,13 @@ const AssetsManagement: React.FC = () => {
             value={newAsset.assignedTo}
             onChange={(e) => setNewAsset({ ...newAsset, assignedTo: e.target.value })}
                   style={{ ...FONTS.paragraph }}
-            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+            className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
           />
         </div>
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-slate-700 mb-2"
                   style={{ ...FONTS.paragraph }}>Category</label>
           <div className="relative" ref={modalCategoryDropdownRef}>
             <button
@@ -720,7 +720,7 @@ const AssetsManagement: React.FC = () => {
               className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl flex items-center justify-between focus:outline-none"
             >
               <span
-                      style={{ ...FONTS.paragraph }} className={newAsset.category ? "text-slate-800" : "text-slate-500"}>
+                      style={{ ...FONTS.paragraph }} className={newAsset.category ? "!text-slate-800" : "!text-slate-500"}>
                 {newAsset.category || "Select category"}
               </span>
               <svg
@@ -734,7 +734,7 @@ const AssetsManagement: React.FC = () => {
             </button>
 
             {showModalCategoryDropdown && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-md shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full left-0  right-0 mt-2 bg-white/95 backdrop-blur-sm border border-[#006666]/20 rounded-md shadow-xl z-50 overflow-hidden">
                 {["Laptop", "Monitor", "Accessory"].map((cat) => (
                   <button
                     key={cat}
@@ -743,7 +743,7 @@ const AssetsManagement: React.FC = () => {
                       setNewAsset({ ...newAsset, category: cat });
                       setShowModalCategoryDropdown(false);
                     }}
-                    className={`w-full px-4 py-3 text-left hover:bg-gradient-to-r hover:from-[#006666]/5 hover:to-[#006666]/10 transition-all duration-200 flex items-center gap-3 border-b border-gray-100 last:border-b-0 ${
+                    className={`w-full px-4 py-3 text-left !text-black hover:bg-gradient-to-r hover:from-[#006666]/5 hover:to-[#006666]/10 transition-all duration-200 flex items-center gap-3 border-b border-gray-100 last:border-b-0 ${
                       newAsset.category === cat
                         ? "bg-[#006666]/10 text-[#006666] font-medium shadow-sm"
                         : "text-slate-700 hover:text-[#006666]"
@@ -762,7 +762,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Serial Number */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-slate-700 mb-2"
                   style={{ ...FONTS.paragraph }}>Serial Number</label>
           <input
             type="text"
@@ -771,13 +771,14 @@ const AssetsManagement: React.FC = () => {
             value={newAsset.serialNumber}
             onChange={(e) => setNewAsset({ ...newAsset, serialNumber: e.target.value })}
                   style={{ ...FONTS.paragraph }}
-            className="w-full px-4 py-3 bg-white/70 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all font-mono"
+            className="w-full px-4 py-3 bg-white/70 border !text-black
+            border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all font-mono"
           />
         </div>
 
         {/* Status */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-slate-700 mb-2"
                   style={{ ...FONTS.paragraph }}>Status</label>
           <div className="relative" ref={modalStatusDropdownRef}>
             <button
@@ -841,14 +842,14 @@ const AssetsManagement: React.FC = () => {
             type="button"
             onClick={handleCloseModal}
                   style={{ ...FONTS.paragraph }}
-            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
+            className="flex-1 px-4 py-2 border border-slate-300 !text-slate-700 rounded-md hover:bg-slate-105 transition-all font-medium"
           >
             Cancel
           </button>
           <button
             type="submit"
                   style={{ ...FONTS.paragraph }}
-            className="flex-1 px-4 py-2 bg-[#6f70ce] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#6f70ce] text-black rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
           >
             {editingAsset ? "Update Asset" : "Add Asset"}
           </button>

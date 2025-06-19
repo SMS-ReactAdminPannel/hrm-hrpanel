@@ -91,50 +91,66 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
         </tbody>
       </table>
 
-          { isEditing && (
-        <form
-          className="p-4 border rounded mt-4 "
-        >
-          <div>
-            <button className='text-black bg-white border border-black'>close</button>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              className="border p-2 rounded"
-              placeholder="Name"
-            />
-            <input
-              type="email"
-              className="border p-2 rounded"
-              placeholder="Email"
-            />
-            <input type="text" className="border p-2 rounded" placeholder="Job Title"/>
-            <select className="border p-2 rounded">
-              <option value="Full-Time">Engineering</option>
-              <option value="Part-Time">Marketing</option>
-              <option value="Contract">Finance</option>
-            </select>
-            
-            <select className="border p-2 rounded">
-              <option value="Full-Time">Full-Time</option>
-              <option value="Part-Time">Part-Time</option>
-              <option value="Contract">Contract</option>
-            </select>
-          </div>
-          <div className="mt-4 flex gap-2">
-            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-              Save
-            </button>
-            <button
-              type="button"
-              className="bg-gray-400 text-white px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+      {isEditing && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+          <form className="p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl w-full max-w-2xl">
+            <div className="flex justify-end">
+              <button className="text-black bg-white/70 border border-black px-2 py-1 rounded">
+                Close
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              <input
+                type="text"
+                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                placeholder="Id"
+              />
+              <input
+                type="text"
+                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                placeholder="Name"
+              />
+              <input
+                type="email"
+                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                placeholder="Email"
+              />
+              <input
+                type="text"
+                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                placeholder="Job Title"
+              />
+              <select className="bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Contract">Contract</option>
+              </select>
+              <select className="bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
+                <option value="Engineering">Engineering</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+              </select>
+              
+            </div>
+            <div className="mt-6 flex gap-3">
+              <button
+                type="submit"
+                className="bg-blue-600/80 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="bg-gray-400/80 text-white px-5 py-2 rounded-lg hover:bg-gray-500 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       )}
+
+
      
     </div>
 

@@ -47,11 +47,11 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({ isOpen, onClose
               <AlertTriangle className="w-5 h-5 text-red-600" />
             </div>
             <h2 className="text-xl font-semibold text-white"
-            style={{ ...FONTS.header3 }}>Delete Category</h2>
+            style={{ ...FONTS.paragraph}}>Delete Category</h2>
           </div>
 
           <p className="text-white mb-6"
-          style={{ ...FONTS.paragraph }}>
+          style={{ ...FONTS.subParagraph }}>
             Are you sure you want to delete the category <span className="font-medium">"{categoryName}"</span>? This
             action cannot be undone and will remove all assets in this category.
           </p>
@@ -59,7 +59,7 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({ isOpen, onClose
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              style={{ ...FONTS.paragraph }}
+              style={{ ...FONTS.button}}
               className="flex-1 px-4 py-2 border border-gray-300 text-white
              rounded-lg hover:bg-gray-500 transition-colors"
             >
@@ -67,7 +67,7 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({ isOpen, onClose
             </button>
             <button
               onClick={onConfirm}
-              style={{ ...FONTS.paragraph }}
+              style={{ ...FONTS.button}}
               className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
             >
               Delete Category
