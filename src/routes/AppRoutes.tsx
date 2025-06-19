@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AssetsManagement from "../pages/Assets Management/AssetsManagement";
 import Attendance from "../pages/AttendanceManagement/Attendance";
 import Employee from "../pages/Employee Mangament/Employee";
@@ -23,26 +23,28 @@ import OnboardingTemplate from "../pages/OffBoarding/OnBoarding";
 import AdvancedHRMOffboarding from "../pages/OffBoarding/OffBoarding";
 
 import SignupPage from "../pages/auth/SignupPage";
-import LoginPage  from "../pages/auth/LoginPage";
+import LoginPage from "../pages/auth/LoginPage";
 import ForgotPassword from "../pages/auth/ForgetPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 
 import { useAuth } from "../pages/auth/AuthContext";
 import GrievanceManagement from "../pages/GrievanceManagement/GrievanceManagement";
 import Notification from "../pages/Notification/Notification";
-import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
+// import VisitorManagementSystem from "../pages/Visitor Management/VisitorManagement";
+// import CandidatesPage from "../pages/Recuritment/Candidates/Candidateslistpage";
 import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetailpage";
 import Chat from "../pages/ChatAPP/Chat";
-import OpenRecruitments from "../pages/Recuritment/openRecruitments";
-// import JobDetails from "../pages/Recuritment/JobDetails";
-// import JobDetailsModal from "../pages/Recuritment/JobDetails";
+// import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
+// import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
+import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
 import CandidatesPage from "../pages/Recuritment/Candidates";
+import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import HomeIntro from "../pages/HomePage/HomePage";
 
+// import EmployeesPage from "../components/Department/Employees";
 
 
 const AppRoutes = () => {
@@ -51,7 +53,11 @@ const AppRoutes = () => {
   return (
     <Routes>
       {isAuthenticated ? (
-        <Route path="/" element={<HomeIntro />}>
+        <Route path="/" element={<MainLayout />}>
+          {/* Redirect to dashboard on login */}
+          <Route index element={<Navigate to="dashboard" />} />
+
+          {/* Authenticated routes */}
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
@@ -60,7 +66,6 @@ const AppRoutes = () => {
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
-          {/* <Route path="candidates" element={<CandidatesList />} /> */}
           <Route path="pipeline" element={<RecruitmentPipeline />} />
           <Route path="time-sheet" element={<TimeSheet />} />
           <Route path="training-management" element={<TrainingManage />} />
@@ -74,33 +79,27 @@ const AppRoutes = () => {
           <Route path="asset-category" element={<Assetcategory />} />
           <Route path="home-intro" element={<HomePage />} />
           <Route path="appraisal" element={<Appraisal />} />
-          {/* <Route path="reports" element={<Reports />} /> */}
           <Route path="offboarding" element={<AdvancedHRMOffboarding />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
-          <Route path="profile" element={<Profile />} /> 
-          <Route path="grievance-management" element={<GrievanceManagement/>}/>
-          <Route path="notification" element={<Notification/>}/>
-          <Route path="visitor-management" element={<VisitorManagementSystem />}/>
-          <Route path="/" element={<CandidatesPage />} />
+          <Route path="grievance-management" element={<GrievanceManagement />} />
+          <Route path="notification" element={<Notification />} />
+          {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
           <Route path="candidates" element={<CandidateDetailPage />} />
-          <Route path="/candidatelists" element={<CandidatesPage />} />
-          <Route path="/recruitment/jobs" element={<OpenRecruitments />} />
-          <Route path="/job/:id" element={<JobDetailsPage />} />
-          <Route path="/departments" element={<DepartmentList />} />
-          <Route path="/" element={<DepartmentList />} />
-          <Route path="/employees" element={<EmployeesPage />} />
+          <Route path="candidatelists" element={<CandidatesPage />} />
+          <Route path="recruitment/jobs" element={<OpenRecruitments />} />
+          <Route path="job/:id" element={<JobDetailsPage />} />
+          <Route path="departments" element={<DepartmentList />} />
+          <Route path="employees" element={<EmployeesPage />} />
         </Route>
       ) : (
-        <>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          
-          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-        </>
+        <Route path="/">
+          <Route index element={<Navigate to="/login" />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password/:token" element={<ResetPassword />} />
+        </Route>
       )}
-          
     </Routes>
   );
 };

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { Plus, Users, Trash2, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios" // ✅ Ensure axios is imported
+import axios from "axios" 
 import EmployeesPage from "../../components/Department/Employees"
 import type { JSX } from "react/jsx-runtime"
 
@@ -134,14 +134,14 @@ const DepartmentList: React.FC = () => {
           </div>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-  {departments.map((dept) => (
-    <div
-      key={dept.id}
-      role="button"
-      tabIndex={0}
-      onClick={() => handleCardClick(dept)}
-      className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform hover:scale-[1.01] transition duration-200 cursor-pointer"
-    >
+        {departments.map((dept, index) => (
+  <div
+    key={dept.id ?? `${dept.name}-${index}`} // fallback key if id is missing
+    role="button"
+    tabIndex={0}
+    onClick={() => handleCardClick(dept)}
+    className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform hover:scale-[1.01] transition duration-200 cursor-pointer"
+  >
       <div className="relative bg-blue-100 p-6 flex justify-between items-start">
         <div className="bg-blue-500 text-white font-bold rounded-full w-12 h-12 flex items-center justify-center text-lg shadow">
           {getInitials(dept.name)}
