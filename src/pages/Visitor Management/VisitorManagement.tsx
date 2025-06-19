@@ -27,25 +27,15 @@ interface VisitorFormData {
   notes: string;
 }
 
-interface DashboardStats {
-  todayVisitors: number;
-  currentlyIn: number;
-  totalVisitors: number;
-  avgDuration: number;
-}
-
-type TabType = 'checkin' | 'visitors' | 'history' | 'dashboard';
-
 const VisitorManagementSystem: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('checkin');
   const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [visitHistory, setVisitHistory] = useState<Visitor[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [historySearch, setHistorySearch] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [alert, setAlert] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  
+  const [selectedVisitor, setSelectedVisitor] = useState<Visitor | null>(null);
+
   const [formData, setFormData] = useState<VisitorFormData>({
     name: '',
     phone: '',
@@ -57,7 +47,6 @@ const VisitorManagementSystem: React.FC = () => {
     notes: ''
   });
 
-  // Initialize sample data
   useEffect(() => {
     const sampleHistory: Visitor[] = [
       {
@@ -77,6 +66,7 @@ const VisitorManagementSystem: React.FC = () => {
         id: 2,
         name: "Maria Garcia",
         phone: "+1-555-0124",
+        email: "maria.garcia@email.com",
         company: "ABC Corp",
         host: "Mike Davis",
         department: "Sales",
@@ -89,46 +79,12 @@ const VisitorManagementSystem: React.FC = () => {
     setVisitHistory(sampleHistory);
   }, []);
 
-  // Auto-hide alerts
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => setAlert(null), 5000);
       return () => clearTimeout(timer);
     }
   }, [alert]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = () => {
-    if (!formData.name || !formData.phone || !formData.host || !formData.purpose) {
-      setAlert({ message: 'Please fill in all required fields', type: 'error' });
-      return;
-    }
-    
-    const newVisitor: Visitor = {
-      id: Date.now(),
-      ...formData,
-      checkIn: new Date()
-    };
-    
-    setVisitors(prev => [...prev, newVisitor]);
-    setAlert({ message: 'Visitor checked in successfully!', type: 'success' });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      company: '',
-      host: '',
-      department: '',
-      purpose: '',
-      notes: ''
-    });
-  };
 
   const checkOut = (visitorId: number) => {
     const visitor = visitors.find(v => v.id === visitorId);
@@ -140,75 +96,30 @@ const VisitorManagementSystem: React.FC = () => {
     }
   };
 
-  const getDashboardStats = (): DashboardStats => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const todayVisits = visitHistory.filter(visit => visit.checkIn >= today).length + visitors.length;
-    const currentlyIn = visitors.length;
-    const totalVisits = visitHistory.length + visitors.length;
-    
-    const completedVisits = visitHistory.filter(visit => visit.checkOut);
-    const avgDuration = completedVisits.length > 0 ? 
-      Math.round(completedVisits.reduce((sum, visit) => 
-        sum + ((visit.checkOut!.getTime() - visit.checkIn.getTime()) / (1000 * 60)), 0) / completedVisits.length) : 0;
-    
-    return { todayVisitors: todayVisits, currentlyIn, totalVisitors: totalVisits, avgDuration };
-  };
-
   const getFilteredHistory = (): Visitor[] => {
     let filtered = [...visitHistory];
-    
+
     if (dateFrom) {
       filtered = filtered.filter(visit => visit.checkIn >= new Date(dateFrom));
     }
-    
+
     if (dateTo) {
       const endDate = new Date(dateTo);
       endDate.setHours(23, 59, 59);
       filtered = filtered.filter(visit => visit.checkIn <= endDate);
     }
-    
+
     if (historySearch) {
       const search = historySearch.toLowerCase();
-      filtered = filtered.filter(visit => 
+      filtered = filtered.filter(visit =>
         visit.name.toLowerCase().includes(search) ||
         visit.company?.toLowerCase().includes(search) ||
         visit.host.toLowerCase().includes(search) ||
         visit.purpose.toLowerCase().includes(search)
       );
     }
-    
+
     return filtered.sort((a, b) => b.checkIn.getTime() - a.checkIn.getTime());
-  };
-
-  const getFilteredCurrentVisitors = (): Visitor[] => {
-    if (!searchTerm) return visitors;
-    
-    const search = searchTerm.toLowerCase();
-    return visitors.filter(visitor => 
-      visitor.name.toLowerCase().includes(search) ||
-      visitor.company?.toLowerCase().includes(search) ||
-      visitor.host.toLowerCase().includes(search) ||
-      visitor.purpose.toLowerCase().includes(search)
-    );
-  };
-
-  const getRecentActivity = (): Visitor[] => {
-    return [...visitHistory, ...visitors]
-      .sort((a, b) => b.checkIn.getTime() - a.checkIn.getTime())
-      .slice(0, 5);
-  };
-
-  const getTopHosts = (): Array<[string, number]> => {
-    const hostCounts: Record<string, number> = {};
-    [...visitHistory, ...visitors].forEach(visit => {
-      hostCounts[visit.host] = (hostCounts[visit.host] || 0) + 1;
-    });
-    
-    return Object.entries(hostCounts)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
   };
 
   const formatDuration = (checkIn: Date, checkOut?: Date): string => {
@@ -254,66 +165,62 @@ const VisitorManagementSystem: React.FC = () => {
           </div>
         )}
         {visitor.company && (
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 mb-2">
             <Building className="w-4 h-4" />
             <span>{visitor.company}</span>
           </div>
         )}
-        <div className="flex items-center gap-2 text-gray-600">
-          <User className="w-4 h-4" />
-          <span>Host: {visitor.host}</span>
-        </div>
-        {visitor.department && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <span>Dept: {visitor.department}</span>
+      </div>
+    );
+  };
+
+  const VisitorDetailsModal: React.FC<{ visitor: Visitor; onClose: () => void }> = ({ visitor, onClose }) => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-blackbg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+      <div className="bg-white rounded-lg w-full max-w-xl p-6 shadow-xl relative">
+        <button onClick={onClose} className="absolute top-2 right-4 hover:bg-[#e6fffa] px-2 rounded-md text-gray-400 hover:text-gray-700 text-xl">✕</button>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">{visitor.name}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-gray-700">
+          <div className="flex items-center gap-2">
+            <Phone className="w-4 h-4" />
+            <span>{visitor.phone}</span>
           </div>
-        )}
-        <div className="flex items-center gap-2 text-gray-600">
-          <span>Purpose: {visitor.purpose}</span>
+          {visitor.email && (
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              <span>{visitor.email}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4" />
+            <span>Host: {visitor.host}</span>
+          </div>
+          {visitor.department && (
+            <div className="flex items-center gap-2">
+              <span>Dept: {visitor.department}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <span>Purpose: {visitor.purpose}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4" />
+            <span>{visitor.checkIn.toLocaleString()}</span>
+          </div>
+          {visitor.checkOut && (
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              <span>Duration: {formatDuration(visitor.checkIn, visitor.checkOut)}</span>
+            </div>
+          )}
         </div>
-        <div className="flex items-center gap-2 text-gray-600">
-          <Calendar className="w-4 h-4" />
-          <span>{visitor.checkIn.toLocaleString()}</span>
-        </div>
-        {visitor.checkOut && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <Clock className="w-4 h-4" />
-            <span>Duration: {formatDuration(visitor.checkIn, visitor.checkOut)}</span>
+        {visitor.notes && (
+          <div className="border-t pt-4">
+            <p className="text-gray-600"><strong>Notes:</strong> {visitor.notes}</p>
           </div>
         )}
       </div>
-      
-      {visitor.notes && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <p className="text-gray-600"><strong>Notes:</strong> {visitor.notes}</p>
-        </div>
-      )}
-      
-      {showCheckOut && (
-        <div className="mt-4">
-          <button
-            onClick={() => checkOut(visitor.id)}
-            className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center gap-2"
-          >
-            <CheckCircle className="w-4 h-4" />
-            Check Out
-          </button>
-        </div>
-      )}
     </div>
   );
-
-  const StatCard: React.FC<{ title: string; value: string | number; icon: React.ReactNode }> = ({ title, value, icon }) => (
-    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-blue-500">{icon}</div>
-      </div>
-      <div className="text-3xl font-bold text-gray-800 mb-2">{value}</div>
-      <div className="text-gray-600 font-medium">{title}</div>
-    </div>
-  );
-
-  const stats = getDashboardStats();
 
   return (
     <div>
@@ -332,11 +239,10 @@ const VisitorManagementSystem: React.FC = () => {
 
         {/* Alert */}
         {alert && (
-          <div className={`mb-6 p-4 rounded-lg font-medium ${
-            alert.type === 'success' 
-              ? 'bg-green-100 text-green-800 border border-green-200' 
-              : 'bg-red-100 text-red-800 border border-red-200'
-          }`}>
+          <div className={`mb-6 p-4 rounded-lg font-medium ${alert.type === 'success'
+            ? 'bg-green-100 text-green-800 border border-green-200'
+            : 'bg-red-100 text-red-800 border border-red-200'
+            }`}>
             {alert.message}
           </div>
         )}
@@ -539,7 +445,7 @@ const VisitorManagementSystem: React.FC = () => {
                     type="date"
                     value={dateFrom}
                     onChange={(e) => setDateFrom(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
                   />
                 </div>
                 <div>
@@ -548,10 +454,9 @@ const VisitorManagementSystem: React.FC = () => {
                     type="date"
                     value={dateTo}
                     onChange={(e) => setDateTo(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
                   />
                 </div>
-               
               </div>
 
               <div className="space-y-6">
@@ -633,14 +538,16 @@ const VisitorManagementSystem: React.FC = () => {
             </div>
           )}
         </div>
+
+        {selectedVisitor && (
+          <VisitorDetailsModal
+            visitor={selectedVisitor}
+            onClose={() => setSelectedVisitor(null)}
+          />
+        )}
       </div>
-    </div>
     </div>
   );
 };
 
 export default VisitorManagementSystem;
-
-function preventDefault() {
-    throw new Error('Function not implemented.');
-}

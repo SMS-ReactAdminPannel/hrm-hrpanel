@@ -1,3 +1,4 @@
+// httpClient.ts
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 
 const backEndUrl = "http://localhost:3002";
@@ -10,7 +11,6 @@ const Axios = axios.create({
   },
 });
 
-// ✅ Attach auth token to requests
 Axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("authToken");
   if (token) {
@@ -19,7 +19,6 @@ Axios.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ Handle 401 Unauthorized (e.g. session expired)
 Axios.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -35,6 +34,7 @@ Axios.interceptors.response.use(
 );
 
 class HttpClient {
+  hr: any;
   async get<T = any>(url: string, params?: any): Promise<T> {
     const response = await Axios.get<T>(url, { params });
     return response.data;

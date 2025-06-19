@@ -1,4 +1,5 @@
 import {  Ticket, CheckCircle, Clock } from "lucide-react"
+import { FONTS } from "../../../constants/uiConstants"
 
 export default function SupportTracker() {
   const completionPercentage = 85
@@ -11,8 +12,10 @@ export default function SupportTracker() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h2 className="text-xl text-black font-semibold">Support Query</h2>
-          <p className="text-sm text-black mt-1">Last 7 Days</p>
+          <h2 className="text-xl text-black font-semibold"
+          style={{fontSize:FONTS.header2.fontSize}}>Support Query</h2>
+          <p className="text-sm text-black mt-4"
+          style={{fontSize:FONTS.paragraph.fontSize}}>Last 7 Days</p>
         </div>
         {/* <button className="text-gray-400 hover:text-gray-600 transition-colors">
           <MoreHorizontal className="w-5 h-5" />
@@ -25,7 +28,8 @@ export default function SupportTracker() {
         <div className="flex justify-between items-center">
           {/* Total Tickets */}
           <div className="flex flex-col items-center">
-            <div className="shadow-md bg-white w-32 h-32 rounded-xl flex flex-col items-center justify-center ml-20">
+            <div
+            style={{fontSize:FONTS.header3.fontSize}} className="shadow-md bg-gray-300 border border-gray-300 w-32 h-32 rounded-xl flex flex-col items-center justify-center ml-20">
               <div className="text-4xl  text-black font-semibold">164</div>
               <div className="text-sm text-black mt-1">Total Query</div>
             </div>
@@ -60,7 +64,7 @@ export default function SupportTracker() {
             </svg>
 
             {/* Center Text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center ">
               <div className="text-2xl  text-black font-semibold">{completionPercentage}%</div>
               <div className="text-xs text-black text-center leading-tight">Completed Task</div>
             </div>
@@ -70,8 +74,8 @@ export default function SupportTracker() {
         {/* Bottom Section - Metrics */}
         <div className="flex justify-between mt-4 gap-1">
           {/* New Queries */}
-          <div className="flex items-center gap-3 bg-white rounded-xl p-1 shadow-md">
-            <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+          <div className="flex items-center gap-3 bg-gray-300 border border-gray-300 rounded-xl p-1 shadow-md">
+            <div className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center">
               <Ticket className="w-4 h-4 text-purple-600" />
             </div>
             <div>
@@ -81,8 +85,8 @@ export default function SupportTracker() {
           </div>
 
           {/* Solved */}
-          <div className="flex items-center gap-3 bg-white rounded-xl shadow-md">
-            <div className="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center">
+          <div className="flex items-center gap-3 bg-gray-300 border border-gray-300 rounded-xl shadow-md">
+            <div className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center">
               <CheckCircle className="w-4 h-4 text-teal-600" />
             </div>
             <div>
@@ -92,12 +96,12 @@ export default function SupportTracker() {
           </div>
 
           {/* Unsolved */}
-          <div className="flex items-center gap-3 bg-white rounded-xl p-1 shadow-md">
-            <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-              <Clock className="w-4 h-4 text-orange-600" />
+          <div className="flex items-center gap-3 bg-gray-300 border border-gray-300 rounded-xl p-1 shadow-md">
+            <div className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center">
+              <Clock className="w-4 h-4 text-orange-600 " />
             </div>
             <div>
-              <div className="text-xs text-black">Unsolved Queries</div>
+              <div className="text-xs text-black bg-gray-300 border border-gray-300 ">Unsolved Queries</div>
               <div className=" text-black font-semibold">1 Day</div>
             </div>
           </div>

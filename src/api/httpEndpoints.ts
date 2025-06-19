@@ -1,4 +1,6 @@
 
+
+
 export const API_END_POINTS = {
   timesheet: {
     postclockin: "/api/hr/timesheet/clock-in",
@@ -14,6 +16,27 @@ export const API_END_POINTS = {
     patchgrievance:(id:string)=>`/api/hr/grievance/${id}/status`
   },
 
+  hrprofile:{
+    Postlogin:"/api/hr/auth/signin",
+    Postregister:"/api/hr/auth/",
+    postlogout:"/api/hr/auth/logout"
+  },
+
+  candidates:{
+    createcandidates:"/api/hr/candidates/create",
+    getallcandidates:"/api/hr/candidates/getall",
+    patchstatus:(id:string)=>`/api/hr/candidates/${id}/status`
+  },
+
+
+  assetcategory:{
+    createasset:"/api/hr/assetcategory/create",
+    getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
+    getallasset:"/api/hr/assetcategory/getall",
+    updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
+    deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+
+  },
   asset: {
     getAllAssets: "/api/assets",
     getAssetById: (id: string) => `/api/asset/${id}`,
@@ -30,7 +53,14 @@ export const API_END_POINTS = {
       update: "/api/job-postings",    
       delete: "/api/job-postings",    
     },
- 
+
+
+      department: {
+        getAll: "/api/hr/departments/getall",
+        create: "/api/hr/departments/create",
+        update: (id: string) => `/api/hr/departments/update/${id}`,
+        delete: (id: string) => `/api/hr/departments/delete/${id}`,
+}
   
 };
 
