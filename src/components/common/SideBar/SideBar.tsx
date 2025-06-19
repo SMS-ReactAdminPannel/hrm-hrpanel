@@ -99,10 +99,10 @@ const SideBar = ({
         <nav className="flex flex-col gap-2">
           {/* Dashboard Group */}
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}>
+            {/* <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}> */}
               <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
+              {/* <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+            {/* </SidebarDropdown> */}
           </div>
 
           {/* Employee Group */}
