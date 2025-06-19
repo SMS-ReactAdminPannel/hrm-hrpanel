@@ -39,7 +39,7 @@ import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
 import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 // import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
-import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
+// import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
 import CandidatesPage from "../pages/Recuritment/Candidates";
 import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
