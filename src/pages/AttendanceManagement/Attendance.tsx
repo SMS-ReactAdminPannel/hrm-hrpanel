@@ -214,7 +214,6 @@ const Attendance: React.FC = () => {
           <p className="text-xs text-gray-400 mt-5">all Employees Counting</p>
         </div>
             <IoIosPeople className="w-10 h-10 text-blue-600"/>
-        {/* <IoIosPeople className={`p-3 rounded-lg ${bgColor}`/> */}
       </div>
     </div>
 
