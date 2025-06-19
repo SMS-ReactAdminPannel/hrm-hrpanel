@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+
+import { FONTS } from '../../constants/uiConstants';
 
 type LeaveTypeCardProps = {
   card: {
@@ -34,12 +35,16 @@ export default function LeaveTypeCard({
       <div className="p-5">
         <div className="flex justify-between items-start">
           <div className="flex items-center">
-            <div className={`${color} w-12 h-12 rounded-full flex items-center justify-center text-black text-lg font-bold mr-4`}>
+            <div
+              style={{ ...FONTS.paragraph }}
+               className={`${color} w-12 h-12 rounded-full flex items-center justify-center text-black text-lg font-bold mr-4`}>
               {getInitials(card.title)}
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">{card.title}</h3>
-              <p className="text-sm text-gray-500">{card.periodIn} • {card.totalDays} days</p>
+              <h3 className="text-lg font-semibold text-gray-800"
+              style={{ ...FONTS.header3}}>{card.title}</h3>
+              <p className="text-sm text-gray-500"
+                style={{ ...FONTS.paragraph }}>{card.periodIn} • {card.totalDays} days</p>
             </div>
           </div>
           
@@ -54,7 +59,8 @@ export default function LeaveTypeCard({
             </button>
             
             {showDropdown && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+              <div
+                style={{ ...FONTS.paragraph }} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
                 <div className="py-1">
                   <button
                     onClick={() => {
@@ -86,7 +92,8 @@ export default function LeaveTypeCard({
           </div>
         </div>
         
-        <div className="mt-4 flex justify-between items-center">
+        <div className="mt-4 flex justify-between items-center"
+          style={{ ...FONTS.paragraph }}>
           <span className={`px-3 py-1 rounded-full text-xs font-medium ${
             card.isPaid === 'Paid' 
               ? 'bg-green-100 text-green-800' 

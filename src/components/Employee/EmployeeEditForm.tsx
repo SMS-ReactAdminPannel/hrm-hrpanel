@@ -1,122 +1,267 @@
-import React, { useState } from "react";
-import type { Employee, Department, JobTitle } from "../../components/Employee/Employee";
+// import React, { useState } from "react";
+// import type { Employee } from "./Employee"; // Update the path as needed
 
-type Props = {
-    employee: Employee;
-    onSave: (updated: Employee) => void;
-    onCancel: () => void;
-};
+// interface EditableEmployeeFormProps {
+//     employee: Employee;
+//     onSave: (updatedEmployee: Employee) => void;
+//     onCancel: () => void;
+// }
 
-const departments: Department[] = [
+// const EditableEmployeeForm: React.FC<EditableEmployeeFormProps> = ({
+//     employee,
+//     onSave,
+//     onCancel,
+// }) => {
+//     const [formState, setFormState] = useState<Employee>(employee);
 
-    { id: "1", title: "Engineering" },
-    { id: "2", title: "HR" },
-];
+//     const handleChange = (key: keyof Employee, value: string) => {
+//         setFormState((prev) => ({
+//             ...prev,
+//             [key]: value,
+//         }));
+//     };
 
-const jobTitles: JobTitle[] = [
-    { id: "1", department: "Manager" },
-    { id: "2", department: "Designer" },
-];
+//     const handleSubmit = (e: React.FormEvent) => {
+//         e.preventDefault();
+//         onSave(formState);
+//     };
 
-const EmployeeEditForm = ({ employee, onSave, onCancel }: Props) => {
-    const [formData, setFormData] = useState<Employee>(employee);
+//     return (
+//         <form
+//             onSubmit={handleSubmit}
+//             className="p-4 border rounded mt-4 bg-gray-50"
+//         >
+//             <div className="flex justify-end">
+//                 <button
+//                     type="button"
+//                     onClick={onCancel}
+//                     className="text-black bg-white border border-black px-2 py-1 rounded"
+//                 >
+//                     ✕
+//                 </button>
+//             </div>
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) => {
-        const { name, value } = e.target;
+//             <div className="grid grid-cols-2 gap-4 mt-2">
+//                 <input
+//                     type="text"
+//                     value={formState.name}
+//                     onChange={(e) => handleChange("name", e.target.value)}
+//                     className="border p-2 rounded"
+//                     placeholder="Name"
+//                 />
+//                 <input
+//                     type="email"
+//                     value={formState.email}
+//                     onChange={(e) => handleChange("email", e.target.value)}
+//                     className="border p-2 rounded"
+//                     placeholder="Email"
+//                 />
+//                 <input
+//                     type="text"
+//                     value={formState.department}
+//                     onChange={(e) => handleChange("department", e.target.value)}
+//                     className="border p-2 rounded"
+//                     placeholder="Department"
+//                 />
+//                 <input
+//                     type="text"
+//                     value={formState.jobTitle}
+//                     onChange={(e) => handleChange("jobTitle", e.target.value)}
+//                     className="border p-2 rounded"
+//                     placeholder="Job Title"
+//                 />
+//                 <select
+//                     value={formState.employmentType}
+//                     onChange={(e) =>
+//                         handleChange("employmentType", e.target.value as Employee["employmentType"])
+//                     }
+//                     className="border p-2 rounded"
+//                 >
+//                     <option value="Full-Time">Full-Time</option>
+//                     <option value="Part-Time">Part-Time</option>
+//                     <option value="Contract">Contract</option>
+//                 </select>
+//             </div>
 
-        if (name === "department") {
-            const dept = departments.find((d) => d.id === value);
-            if (dept) setFormData({ ...formData, department: dept });
-        } else if (name === "jobTitle") {
-            const job = jobTitles.find((j) => j.id === value);
-            if (job) setFormData({ ...formData, jobTitle: job });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
-    };
+//             <div className="mt-4 flex gap-2">
+//                 <button
+//                     type="submit"
+//                     className="bg-blue-600 text-white px-4 py-2 rounded"
+//                 >
+//                     Save
+//                 </button>
+//                 <button
+//                     type="button"
+//                     onClick={onCancel}
+//                     className="bg-gray-400 text-white px-4 py-2 rounded"
+//                 >
+//                     Cancel
+//                 </button>
+//             </div>
+//         </form>
+//     );
+// };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onSave(formData);
-    };
+// export default EditableEmployeeForm;
+import type React from "react"
+import { useState } from "react"
+import { X } from "lucide-react"
+import type { Employee, Department, JobTitle, EmploymentType } from "../../components/Employee/Employee"
 
-    return (
-        <form onSubmit={handleSubmit} className="max-w-md p-4 bg-white rounded shadow space-y-4">
-            <h2 className="text-xl font-semibold">Edit Employee</h2>
+interface AddEmployeeModalProps {
+  isOpen: boolean
+  onClose: () => void
+  onAdd: (employee: Employee) => void
+}
 
-            <input
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-                className="w-full border p-2 rounded"
-            />
+export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ isOpen, onClose, onAdd }) => {
+  const [newEmployee, setNewEmployee] = useState<Employee>({
+    id: "",
+    name: "",
+    email: "",
+    contactNumber: "",
+    department: "Engineering",
+    jobTitle: "Manager",
+    hireDate: "",
+    employmentType: "Full-time",
+  })
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
-            <input
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                type="email"
-                className="w-full border p-2 rounded"
-            />
+  const handleSubmit = () => {
+    const newErrors: Record<string, string> = {}
+    const requiredFields = [
+      "id",
+      "name",
+      "email",
+      "contactNumber",
+      "hireDate",
+      "department",
+      "jobTitle",
+      "employmentType",
+    ]
 
-            <select
-                name="department"
-                value={formData.department.id}
-                onChange={handleChange}
-                className="w-full border p-2 rounded"
-            >
-                {departments.map((d) => (
-                    <option key={d.id} value={d.id}>
-                        {d.name}
-                    </option>
-                ))}
-            </select>
+    requiredFields.forEach((field) => {
+      if (!(newEmployee as any)[field]?.trim?.()) {
+        newErrors[field] = `${field} is required`
+      }
+    })
 
-            <select
-                name="jobTitle"
-                value={formData.jobTitle.id}
-                onChange={handleChange}
-                className="w-full border p-2 rounded"
-            >
-                {jobTitles.map((j) => (
-                    <option key={j.id} value={j.id}>
-                        {j.title}
-                    </option>
-                ))}
-            </select>
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
 
-            <select
-                name="employmentType"
-                value={formData.employmentType}
-                onChange={handleChange}
-                className="w-full border p-2 rounded"
-            >
-                <option value="Full-time">Full-time</option>
-                <option value="Part-time">Part-time</option>
-                <option value="Contractor">Contractor</option>
-            </select>
+    onAdd(newEmployee)
+    setNewEmployee({
+      id: "",
+      name: "",
+      email: "",
+      contactNumber: "",
+      department: "Engineering",
+      jobTitle: "Manager",
+      hireDate: "",
+      employmentType: "Full-time",
+    })
+    setErrors({})
+    onClose()
+  }
 
-            <div className="flex justify-end gap-2">
-                <button
-                    type="button"
-                    onClick={onCancel}
-                    className="bg-gray-300 px-4 py-2 rounded"
-                >
-                    Cancel
-                </button>
-                <button
-                    type="submit"
-                    className="bg-indigo-600 text-white px-4 py-2 rounded"
-                >
-                    Save
-                </button>
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Add New Employee</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {["id", "name", "email", "contactNumber", "hireDate"].map((field) => (
+            <div key={field} className="flex flex-col">
+              <input
+                type={field === "hireDate" ? "date" : "text"}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={(newEmployee as any)[field]}
+                onChange={(e) => {
+                  setNewEmployee({ ...newEmployee, [field]: e.target.value })
+                  setErrors({ ...errors, [field]: "" })
+                }}
+                className={`border rounded p-2 ${errors[field] ? "border-red-500" : ""}`}
+              />
+              {errors[field] && <span className="text-sm text-red-500">{errors[field]}</span>}
             </div>
-        </form>
-    );
-};
+          ))}
 
-export default EmployeeEditForm ;
+          <div className="flex flex-col">
+            <select
+              value={newEmployee.department}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, department: e.target.value as Department })
+                setErrors({ ...errors, department: "" })
+              }}
+              className={`border rounded p-2 ${errors.department ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Department</option>
+              {["Engineering", "Marketing", "HR", "Finance", "Operations"].map((dept) => (
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
+              ))}
+            </select>
+            {errors.department && <span className="text-sm text-red-500">{errors.department}</span>}
+          </div>
+
+          <div className="flex flex-col">
+            <select
+              value={newEmployee.jobTitle}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, jobTitle: e.target.value as JobTitle })
+                setErrors({ ...errors, jobTitle: "" })
+              }}
+              className={`border rounded p-2 ${errors.jobTitle ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Job Title</option>
+              {["Manager", "Developer", "Designer", "Analyst", "Specialist"].map((job) => (
+                <option key={job} value={job}>
+                  {job}
+                </option>
+              ))}
+            </select>
+            {errors.jobTitle && <span className="text-sm text-red-500">{errors.jobTitle}</span>}
+          </div>
+
+          <div className="flex flex-col col-span-2">
+            <select
+              value={newEmployee.employmentType}
+              onChange={(e) => {
+                setNewEmployee({ ...newEmployee, employmentType: e.target.value as EmploymentType })
+                setErrors({ ...errors, employmentType: "" })
+              }}
+              className={`border rounded p-2 ${errors.employmentType ? "border-red-500" : ""}`}
+            >
+              <option value="">Select Employment Type</option>
+              {["Full-time", "Part-time", "Contract", "Intern"].map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+            {errors.employmentType && <span className="text-sm text-red-500">{errors.employmentType}</span>}
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-3 mt-6">
+          <button className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="bg-[#006666] text-white px-4 py-2 rounded hover:bg-teal-700" onClick={handleSubmit}>
+            Add Employee
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}

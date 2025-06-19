@@ -1,6 +1,7 @@
 import type React from "react"
 import { useState } from "react"
 import { X } from 'lucide-react'
+import { FONTS } from "../../../constants/uiConstants"
 
 interface CreateCategoryModalProps {
   isOpen: boolean
@@ -52,7 +53,8 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
 
       <div className="flex items-center justify-between p-6 border-b border-gray-200">
 
-        <h2 className="text-xl font-semibold text-white">
+        <h2 className="text-xl font-semibold text-white"
+        style={{ ...FONTS.header3}}>
           {editingCategory ? "Edit Category" : "Create New Category"}
         </h2>
         <button onClick={handleClose} className=" hover:text-gray-600 transition-colors">
@@ -63,7 +65,8 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
       <form onSubmit={handleSubmit} className="p-6">
         <div className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-white mb-1"
+            style={{ ...FONTS.paragraph }}>
               Category Name *
             </label>
             <input
@@ -72,6 +75,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              style={{ ...FONTS.paragraph }}
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent ${
                 errors.name ? "border-red-300" : "border-gray-300"
               }`}
@@ -81,7 +85,8 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-white mb-1">
+            <label htmlFor="description" className="block text-sm font-medium text-white mb-1"
+            style={{ ...FONTS.paragraph }}>
               Description *
             </label>
             <textarea
@@ -90,6 +95,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
               rows={3}
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              style={{ ...FONTS.paragraph }}
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent ${
                 errors.description ? "border-red-300" : "border-gray-300"
               }`}
@@ -103,12 +109,14 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
           <button
             type="button"
             onClick={handleClose}
+            style={{ ...FONTS.paragraph }}
             className="flex-1 px-4 py-2 border border-gray-300 text-white rounded-md hover:bg-gray-500 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
+            style={{ ...FONTS.paragraph }}
             className="flex-1 px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005252] transition-colors"
           >
             {editingCategory ? "Update" : "Create"} Category

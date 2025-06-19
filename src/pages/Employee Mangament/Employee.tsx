@@ -7,7 +7,7 @@ import { SearchFilterBar } from "../../components/Employee/SearchFilter"
 import { EmployeeTable } from "../../components/Employee/EmployeeTable"
 import { AddEmployeeModal } from "../../components/Employee/EmployeeModel"
 import { Pagination } from "../../components/Employee/Pagination"
-import EmployeeEditForm from "../../components/Employee/EmployeeEditForm"
+
 
 const EmployeeManagement = () => {
   const initialEmployees: Employee[] = [
@@ -122,6 +122,7 @@ const EmployeeManagement = () => {
   const [filterOpen, setFilterOpen] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState<Department | "">("")
   const [showAddForm, setShowAddForm] = useState(false)
+  
 
   const itemsPerPage = 10
 
@@ -187,11 +188,7 @@ const EmployeeManagement = () => {
     setEmployees([...employees, newEmployee])
   }
   
-  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
-
-  const handleEditEmployee = (employee: Employee) => {
-    setEditingEmployee(employee);
-  }
+  
   
 
   const handleDeleteEmployee = (employeeId: string) => {
@@ -199,6 +196,9 @@ const EmployeeManagement = () => {
       setEmployees(employees.filter((emp) => emp.id !== employeeId))
     }
   }
+
+  
+ 
 
   return (
     <div className="container mx-auto px-4 py-2">
@@ -260,7 +260,7 @@ const EmployeeManagement = () => {
         employees={paginatedEmployees}
         sortConfig={sortConfig}
         onSort={requestSort}
-        onEdit={handleEditEmployee}
+        onEdit={EmployeeTable}
         onDelete={handleDeleteEmployee}
       />
 
@@ -269,6 +269,9 @@ const EmployeeManagement = () => {
 
       {/* Add Employee Modal */}
       <AddEmployeeModal isOpen={showAddForm} onClose={() => setShowAddForm(false)} onAdd={handleAddEmployee} />
+
+      
+
     </div>
   )
 }

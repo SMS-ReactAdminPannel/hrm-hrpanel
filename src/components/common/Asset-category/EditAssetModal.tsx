@@ -94,7 +94,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
 
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-white"
-            style={{ fontSize: FONTS.header.fontSize }} >Update Asset</h2>
+           style={{ ...FONTS.header3}}>Update Asset</h2>
           <button onClick={onClose} className="text-white hover:text-gray-900 transition-colors">
             <X className="w-5 h-5" />
           </button>
@@ -103,7 +103,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
         <form onSubmit={handleSubmit} className="p-6">
           <div className="grid grid-cols-1 gap-4 ">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-white">
+              <label htmlFor="name" className="block text-sm font-medium text-white" style={{ ...FONTS.paragraph }}>
                 Asset Name
               </label>
               <input
@@ -113,13 +113,14 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                style={{ ...FONTS.paragraph }}
                 className="w-full px-3 py-2 border border-gray-300
                  rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-white ">
+              <label htmlFor="description" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                 Description
               </label>
               <textarea
@@ -129,13 +130,15 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
+                style={{ ...FONTS.paragraph }}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md 
                 focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 placeholder="Description"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4"
+            style={{ ...FONTS.paragraph }}>
               <div>
                 <label htmlFor="trackingId" className="block text-sm font-medium text-white ">
                   Tracking Id
@@ -152,10 +155,10 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-white ">
+                <label htmlFor="category" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                   Category
                 </label>
-                <div className="relative">
+                <div className="relative" style={{ ...FONTS.paragraph }}>
                   <select
                   required
                     id="category"
@@ -181,7 +184,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="purchaseDate" className="block text-sm font-medium text-white ">
+                <label htmlFor="purchaseDate" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                   Purchase Date
                 </label>
                 <div className="relative">
@@ -192,6 +195,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                     name="purchaseDate"
                     value={formData.purchaseDate}
                     onChange={handleChange}
+                    style={{ ...FONTS.paragraph }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md 
                     focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                   />
@@ -202,7 +206,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="cost" className="block text-sm font-medium text-white ">
+                <label htmlFor="cost" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                   Cost
                 </label>
                 <input
@@ -212,6 +216,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                   name="cost"
                   value={formData.cost}
                   onChange={handleChange}
+                  style={{ ...FONTS.paragraph }}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 />
               </div>
@@ -219,7 +224,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="status" className="block text-sm font-medium text-white ">
+                <label htmlFor="status" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                   Status
                 </label>
                 <div className="relative">
@@ -229,6 +234,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                     name="status"
                     value={formData.status}
                     onChange={handleChange}
+                    style={{ ...FONTS.paragraph }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md 
                     focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
                   >
@@ -244,7 +250,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               </div>
 
               <div>
-                <label htmlFor="batchNo" className="block text-sm font-medium text-white ">
+                <label htmlFor="batchNo" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                   Batch No
                 </label>
                 <div className="relative">
@@ -254,6 +260,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                     name="batchNo"
                     value={formData.batchNo}
                     onChange={handleChange}
+                    style={{ ...FONTS.paragraph }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md
                      focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent appearance-none"
                   >
@@ -270,7 +277,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
             </div>
 
             <div>
-              <label htmlFor="expiryDate" className="block text-sm font-medium text-white ">
+              <label htmlFor="expiryDate" className="block text-sm font-medium text-white " style={{ ...FONTS.paragraph }}>
                 Expiry Date
               </label>
               <div className="relative">
@@ -281,6 +288,7 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
                   name="expiryDate"
                   value={formData.expiryDate}
                   onChange={handleChange}
+                  style={{ ...FONTS.paragraph }}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md 
                   focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent"
                 />
@@ -296,12 +304,14 @@ const EditAssetModal: React.FC<EditAssetModalProps> = ({ isOpen, onClose, onSave
               type="button"
               className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
               onClick={onClose}
+              style={{ ...FONTS.paragraph }}
             >
               Close
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005252] transition-colors"
+              style={{ ...FONTS.paragraph }}
             >
               Save
             </button>

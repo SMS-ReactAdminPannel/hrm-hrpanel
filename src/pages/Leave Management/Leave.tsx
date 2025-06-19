@@ -247,14 +247,16 @@ const Leave = () => {
   return (
     <div >
       <div>
-        <h1 className=" font-bold" style={FONTS.header}>Leave</h1>
+        <h1 className=" font-bold" style={{...FONTS.header}}>Leave</h1>
       </div>
     <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
       
       {/* Main grid layout */}
-      <div className="space-y-3 w-5/4">
+      <div className="space-y-3 w-5/4"
+      >
         {/* Charts row */}
-        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8">
+        <div className="grid md:grid-cols-3 gap-4 rounded-lg bg-white p-5 py-8"
+            style={{ ...FONTS.paragraph }}>
           <DoughnutChart 
             percentage={30} 
             content='Annual Leave' 
@@ -282,7 +284,8 @@ const Leave = () => {
         </div>
 
           {/* Calendar section */}
-          <div className="bg-white rounded-md shadow-md overflow-hidden">
+          <div className="bg-white rounded-md shadow-md overflow-hidden"
+            style={{ ...FONTS.paragraph }}>
             {/* Calendar Header */}
             <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">
               <div className="flex items-start space-x-2">
@@ -383,7 +386,7 @@ const Leave = () => {
         {/* Holiday List */}
         <div className=" w-3/4 ml-auto p-5 rounded-lg shadow bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border">
           <div className="flex items-center justify-between mb-4">
-            <h5 className="text-xl font-bold text-gray-900 ml-2" style={{ fontFamily: FONTS.header2.fontFamily, fontSize: FONTS.header2.fontSize, fontWeight: FONTS.header2.fontWeight }}>Holidays List</h5>
+            <h5 className="text-xl font-bold text-gray-900 ml-2" style={{ ...FONTS.header }}>Holidays List</h5>
           </div>
           <div className="space-y-4">
             {holidays.length > 0 ? (
@@ -400,8 +403,11 @@ const Leave = () => {
                   >
                     <div className="flex items-center space-x-4">
                       <div>
-                        <p className="text-sm font-semibold text-gray-900">{holiday.holiday}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm font-semibold text-gray-900"
+                          style={{ ...FONTS.paragraph}}
+                        >{holiday.holiday}</p>
+                        <p className="text-sm text-gray-500"
+                          style={{ ...FONTS.paragraph }}>
                           {holidayDate.toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
@@ -436,32 +442,39 @@ const Leave = () => {
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-              <h3 className="text-xl font-semibold mb-4">Add New Holiday/Event</h3>
+              <h3 className="text-xl font-semibold mb-4"
+                style={{ ...FONTS.header2}}>Add New Holiday/Event</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Event Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{ ...FONTS.header3}}>Event Title</label>
                   <input
                     type="text"
                     className="w-full p-2 border rounded"
                     value={newEvent.title}
                     onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
                     placeholder="Enter event title"
+                    style={{ ...FONTS.paragraph }}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{ ...FONTS.header3}}>Date</label>
                   <input
                     type="date"
                     className="w-full p-2 border rounded"
                     value={newEvent.date}
+                    style={{ ...FONTS.paragraph }}
                     onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1"
+                    style={{ ...FONTS.header3}}>Color</label>
                   <select
                     className="w-full p-2 border rounded"
                     value={newEvent.color}
+                    style={{ ...FONTS.paragraph }}
                     onChange={(e) => setNewEvent({ ...newEvent, color: e.target.value })}
                   >
                     <option value="bg-blue-500">Blue</option>
@@ -475,12 +488,14 @@ const Leave = () => {
                   <button
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 text-sm rounded-md bg-gray-500 text-white hover:bg-gray-600"
+                    style={{ ...FONTS.paragraph }}
                   >
                     Cancel
                   </button>
                   <button
                     onClick={addEvent}
                     className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+                    style={{ ...FONTS.paragraph }}
                   >
                     Add Event
                   </button>

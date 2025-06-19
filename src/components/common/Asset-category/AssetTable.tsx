@@ -1,5 +1,6 @@
 import type React from "react"
 import { Edit, Trash2 } from "lucide-react"
+import { FONTS } from "../../../constants/uiConstants"
 
 interface Asset {
   id: string
@@ -82,6 +83,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
               {tableHeaders.map((header) => (
                 <th 
                   key={header.key}
+                  style={{ ...FONTS.paragraph}}
                   className={`text-left text-white text-sm
                      px-6 py-4  font-semibold text-gray-600 uppercase tracking-wider ${header.width}`}
                 >
@@ -103,11 +105,13 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 <td className="px-6 py-4 w-1/3">
                   <div className="flex items-center gap-3">
                     <div className="min-w-0 flex-1">
-                      <div className="text-sm font-semibold text-gray-900 truncate">
+                      <div className="text-sm font-semibold text-gray-900 truncate"
+                        style={{ ...FONTS.header3 }}>
                         {asset.name}
                       </div>
                       {asset.description && (
-                        <p className="text-xs text-gray-500 truncate mt-1">
+                        <p className="text-xs text-gray-500 truncate mt-1"
+                          style={{ ...FONTS.paragraph }}>
                           {asset.description}
                         </p>
                       )}
@@ -116,7 +120,8 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 </td>
 
                 
-                <td className="px-6 py-4 w-1/6 ">
+                <td className="px-6 py-4 w-1/6 "
+                  style={{ ...FONTS.paragraph }}>
                   <span
                     className={`inline-flex items-center px-1 py-1 text-sm  rounded-md border ${getStatusColor(asset.status)}`}
                   >
@@ -128,21 +133,24 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 </td>
 
               
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.paragraph }}>
                   <span className="text-sm text-gray-900 hover:text-[#004d4d] font-medium transition-colors">
                     {asset.trackingId}
                   </span>
                 </td>
 
           
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.paragraph }}>
                   <span className="text-sm text-gray-900 font-medium">
                     {asset.batchNo}
                   </span>
                 </td>
 
               
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.paragraph }}>
                   <div className="flex items-center gap-1">
                     <button
                       onClick={(e) => {
@@ -173,7 +181,8 @@ const AssetTable: React.FC<AssetTableProps> = ({
       </div>
 
     
-      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200"
+        style={{ ...FONTS.paragraph }}>
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>
             Showing {assets.length} of {assets.length} assets

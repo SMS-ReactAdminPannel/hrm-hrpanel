@@ -18,7 +18,7 @@ type AnnouncementTableProps = {
 
 const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
 
-  const [announcement, setannouncement] = useState<AnnouncementType>();
+  const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
 
   const fetchannouncement = async (data: AnnouncementType) => {
     try {
