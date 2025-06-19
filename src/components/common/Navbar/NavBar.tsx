@@ -2,13 +2,18 @@ import { useState, useRef, useEffect, type JSX } from 'react';
 import { Search, Star, Moon, Bell } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { postLogout } from '../../../features/auth/service';
+import { MdYoutubeSearchedFor } from 'react-icons/md';
+import { GoSearch } from 'react-icons/go';
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Navbar() {
   const [showBookmark, setShowBookmark] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [tab, setTab] = useState<'all' | 'Read' | 'Unread'>('all');
-
+  const [expanded, setExpanded] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const bookmarkRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -33,55 +38,77 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await postLogout();
+      // await postLogout();
+      localStorage.clear()
       navigate('/login');
+      window
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
 
+  const toggleSearch = () => {
+    setExpanded((prev) => !prev);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  };
+
+  // Click outside to collapse
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setExpanded(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div className="flex items-center justify-between px-6 py-4 border-b relative">
+    <div className="flex items-center justify-between px-4 py-3 h-14 bg-white/10 relative">
       <div>
-        <h2 className="text-xl font-semibold flex items-center gap-1">
+        {/* <h2 className="text-xl font-semibold flex items-center gap-1">
           Welcome HRM <span>👋</span>
         </h2>
-        <p className="text-gray-500 text-sm">Welcome you all guys.</p>
+        <p className="text-gray-500 text-sm">Welcome you all guys.</p> */}
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center bg-white border rounded-lg px-3 py-1 shadow-sm transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400 hover:scale-[1.02]">
-          <Search className="text-gray-400 w-4 h-4 mr-2" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="outline-none text-sm w-40 bg-transparent placeholder-gray-500"
-          />
-        </div>
+        <div ref={wrapperRef} className="relative flex items-center shadow-md rounded-full">
+      <motion.input
+        ref={inputRef}
+        type="text"
+        placeholder="Search..."
+        animate={{
+              width: expanded ? 200 : 0,
+              opacity: expanded ? 1 : 0,
+              paddingLeft: expanded ? 16 : 0,
+              paddingRight: expanded ? 32 : 0,
+            }}
+        className={`absolute right-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-sm text-white py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-white/20 h-9 placeholder-white/60 h-8
+          ${expanded ? "w-50 opacity-100 px-4 " : "w-0 px-0 opacity-0"}
+        `}
+      />
+      <button
+        onClick={toggleSearch}
+        className="z-10  text-white p-2 rounded-full transition"
+      >
+        <GoSearch className='text-xl text-white/70'/> 
+      </button>
+    </div>
 
-        <div className="relative" ref={bookmarkRef}>
-          <IconButton icon={<Star className="w-5 h-5 text-gray-600" />} onClick={() => setShowBookmark((prev) => !prev)} />
-          {showBookmark && (
-            <div className="absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-xl p-4 z-50">
-              <h3 className="font-semibold text-lg mb-3 text-center">Bookmark</h3>
-              <div className="flex justify-around mb-3">
-                <BookmarkItem label="Forms" />
-                <BookmarkItem label="Profile" />
-                <BookmarkItem label="Tables" />
-              </div>
-              <p className="text-center text-blue-600 font-medium cursor-pointer hover:underline">Add New Bookmark</p>
-            </div>
-          )}
-        </div>
-
-        <IconButton icon={<Moon className="w-5 h-5 text-gray-600" />} />
+        <IconButton icon={<Moon className="w-5 h-5 text-white/70" />} />
 
         <div className="relative" ref={notificationRef}>
           <div
             onClick={() => setShowNotifications((prev) => !prev)}
-            className="w-9 h-9 bg-white rounded-full shadow flex items-center justify-center cursor-pointer hover:scale-110 transition"
+            className="w-9 h-9 flex items-center rounded-full shadow-md justify-center cursor-pointer hover:scale-110 transition"
           >
-            <Bell className="w-5 h-5 text-gray-600" />
+            <Bell className="w-5 h-5 text-white/50" />
             <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">4</span>
           </div>
 
@@ -190,11 +217,12 @@ function IconButton({
 }: {
   icon: JSX.Element;
   onClick?: () => void;
-}) {
+})
+ {
   return (
     <div
       onClick={onClick}
-      className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow hover:bg-gray-100 cursor-pointer transform transition duration-300 hover:scale-110 active:scale-95"
+      className="w-8 h-8  rounded-full flex items-center  border-white/50 justify-center shadow-md  cursor-pointer transform transition duration-300 hover:scale-110 active:scale-95" 
     >
       {icon}
     </div>
