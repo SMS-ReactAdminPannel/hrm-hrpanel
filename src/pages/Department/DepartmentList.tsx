@@ -432,6 +432,7 @@ import {
   updateDepartment,
 } from "../../features/Department/service.ts";
 import Client from "../../api/index.ts";
+import { FONTS } from "../../constants/uiConstants.tsx";
 
 type Employee = {
   id: string;
@@ -548,7 +549,7 @@ const DepartmentList: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="relative mb-8">
           <div className="text-left">
-            <h1 className="text-4xl font-bold text-white">Departments</h1>
+            <h1 style={FONTS.header}  className="text-4xl font-bold text-white">Departments</h1>
             <p className="text-white/80">Manage your organization's departments</p>
           </div>
           <div className="absolute top-0 right-0">

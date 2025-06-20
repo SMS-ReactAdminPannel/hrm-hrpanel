@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, type JSX } from 'react';
 import { Search, Star, Moon, Bell } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { postLogout } from '../../../features/auth/service';
+import { FONTS } from '../../LeaveTypes/types';
 
 export default function Navbar() {
   const [showBookmark, setShowBookmark] = useState(false);
@@ -40,13 +41,22 @@ export default function Navbar() {
     }
   };
 
+  const user = JSON.parse(localStorage.getItem("user") ?? " ")
+
+  // console.log(user.first_name,"user data")
+
+
+
+
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b relative">
-      <div>
-        <h2 className="text-xl font-semibold flex items-center gap-1">
-          Welcome HRM <span>👋</span>
+      <div style={FONTS.header}>
+        <h2 className="text-xl font-semibold flex items-center gap-1 text-white">
+          Welcome <span  className="text-purple-800 font-semibold ml-2">
+          {user?.first_name || "User"}
+        </span>
         </h2>
-        <p className="text-gray-500 text-sm">Welcome you all guys.</p>
+        <p className="text-gray-500 text-sm"> Welcome Buddy </p>
       </div>
 
       <div className="flex items-center gap-4">

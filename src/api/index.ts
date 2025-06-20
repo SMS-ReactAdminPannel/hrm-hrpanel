@@ -23,13 +23,14 @@ export default class Client {
        createGrievance: (data: any) =>
     httpClient.post(API_END_POINTS.grievance.creategrievance, data),
 
-  getAllGrievances: () =>
+      getAllGrievances: () =>
     httpClient.get(API_END_POINTS.grievance.getallgrievance),
 
-  updateGrievanceStatus: (grievanceId: string, data: any) =>
-  httpClient.patch(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
+      updateGrievanceStatus: (grievanceId: string, data: any) =>
+  httpClient.update(API_END_POINTS.grievance.patchgrievance(grievanceId), data)
 
     },
+   
 
     hrprofile:{
        postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
@@ -48,22 +49,27 @@ export default class Client {
   httpClient.patch(API_END_POINTS.candidates.patchstatus(candidatesId), data)
 
     },
+  
+    announcement:{
+      AnnouncementGetAll:() =>
+        httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll),
+    },
 
-    assetcategory:{
+    asset:{
       createasset:(data:any)=>
-        httpClient.post(API_END_POINTS.assetcategory.createasset,data),
+        httpClient.post(API_END_POINTS.asset.createAsset,data),
 
-      getasset:(assetId: string,data:any)=>
-        httpClient.get(API_END_POINTS.assetcategory.getasset(assetId), data),
+      getasset:(assetId: string)=>
+        httpClient.get(API_END_POINTS.asset.getAssetById(assetId)),
 
       getallasset:()=>
-        httpClient.get(API_END_POINTS.assetcategory.getallasset),
+        httpClient.get(API_END_POINTS.asset.getAllAsset),
 
       updateasset: (assetId: string, data: any) =>
-       httpClient.put(API_END_POINTS.assetcategory.updateasset(assetId), data),
+       httpClient.update(API_END_POINTS.asset.updateAsset(assetId), data),
 
       deleteasset: (assetId: string) =>
-      httpClient.delete(API_END_POINTS.assetcategory.deleteasset(assetId))
+      httpClient.delete(API_END_POINTS.asset.deleteAsset(assetId))
 
 
     },
@@ -82,8 +88,35 @@ export default class Client {
         httpClient.delete(API_END_POINTS.department.delete(id)),
     },
     
+    assetcategory:{
+      createassetcategory:(data:any)=>
+        httpClient.post(API_END_POINTS.assetCategory.createCategory,data),
+
+      getassetcategory:(assetId: string)=>
+        httpClient.get(API_END_POINTS.assetCategory.getCategoryById(assetId)),
+
+      getallassetcategory:()=>
+        httpClient.get(API_END_POINTS.assetCategory.getAllCategory),
+
+      updateassetcategory: (assetId: string, data: any) =>
+       httpClient.update(API_END_POINTS.assetCategory.updateCategory(assetId), data),
+
+      deleteassetcategory: (assetId: string) =>
+      httpClient.delete(API_END_POINTS.assetCategory.deleteCategory(assetId))
+
+    },
+
+    visitors:{
+      getAllVisitors: () =>
+        httpClient.get(API_END_POINTS.visitors.getAll),
+    }
 
   };
     static hr: any;
 }
 
+
+      
+ 
+
+// export default new Client();

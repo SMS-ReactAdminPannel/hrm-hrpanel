@@ -99,10 +99,10 @@ const SideBar = ({
         <nav className="flex flex-col gap-2">
           {/* Dashboard Group */}
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}>
+            {/* <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}> */}
               <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
+              {/* <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+            {/* </SidebarDropdown> */}
           </div>
 
           {/* Employee Group */}
@@ -118,8 +118,8 @@ const SideBar = ({
           <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
             <SidebarDropdown icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen}>
               <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/recruitment/candidatesPage" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/recruitment/candidatelists" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
+              {/* <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} /> */}
               <SidebarLink to="/recruitment/job-postings" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
@@ -156,7 +156,7 @@ const SideBar = ({
           <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/training-management" icon={<MdHotelClass />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/candidatelists" icon={<FaListAlt />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/candidatelists" icon={<FaListAlt />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/chat" icon={<IoChatbox />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
           {/* <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           {/* <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} /> */}
@@ -220,7 +220,8 @@ const SidebarLink = ({
 }
 
 // SidebarDropdown Component
-const SidebarDropdown = ({
+const 
+SidebarDropdown = ({
   icon,
   label,
   children,
