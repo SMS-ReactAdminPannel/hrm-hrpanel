@@ -1,11 +1,11 @@
 import type React from "react"
 import { useState } from "react"
 import { ChevronDown, ChevronRight, Edit, Trash2, Plus } from "lucide-react"
-import AssetTable from "./Assettable"
+import AssetTable from "./AssetTable"
 
 interface Asset {
   id: string
-  name: string
+  asset_name: string
   status: "Available" | "Not-Available"
   trackingId: string
   batchNo: string
@@ -46,35 +46,35 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
   const [isExpanded, setIsExpanded] = useState(true)
 
   
-  const filteredAssets = assets.filter(
+  const filteredAssets = assets?.filter(
     (asset) =>
-      asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      asset.trackingId.toLowerCase().includes(searchQuery.toLowerCase()),
+      asset?.asset_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      asset?.trackingId?.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   
-  if (searchQuery && filteredAssets.length === 0) {
+  if (searchQuery && filteredAssets?.length === 0) {
     return null
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm mb-4">
+    <div className="bg-white rounded-lg border border-gray-200 shadow mb-4">
       <div className="flex items-center justify-between p-4">
         <div
-          className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors flex-1 -m-2 p-2 rounded"
+          className="flex items-center gap-3 cursor-pointer transition-colors flex-1 -m-2 p-2 rounded"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? (
-            <ChevronDown className="w-4 h-4 text-gray-600" />
+            <ChevronDown className="w-4 h-4 text-gray-900" />
           ) : (
-            <ChevronRight className="w-4 h-4 text-gray-600" />
+            <ChevronRight className="w-4 h-4 text-gray-900" />
           )}
 
           <div className="flex items-center gap-3">
             <span className="bg-[#006666] text-white text-xs font-medium px-2 py-1 rounded-full min-w-[24px] text-center">
-              {searchQuery ? filteredAssets.length : count}
+              {searchQuery ? filteredAssets?.length : count}
             </span>
-            <span className="font-medium text-gray-900 capitalize">{category}</span>
+            <span className="font-medium text-gray-900 text-sm capitalize">{category}</span>
           </div>
         </div>
 
@@ -84,21 +84,21 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
             className="p-1 text-gray-400 hover:text-[#006666] transition-colors"
             title="Add New Asset"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={() => onEditCategory(category)}
             className="p-1 text-gray-400 hover:text-[#006666] transition-colors"
             title="Edit Category"
           >
-            <Edit className="w-4 h-4" />
+            <Edit className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={() => onDeleteCategory(category)}
             className="p-1 text-gray-400 hover:text-red-600 transition-colors"
             title="Delete Category"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-4 h-4 text-gray-600" />
           </button>
         </div>
       </div>
