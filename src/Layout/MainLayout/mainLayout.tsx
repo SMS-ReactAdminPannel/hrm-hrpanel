@@ -2,31 +2,30 @@ import { Outlet } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar/SideBar';
 import NavBar from '../../components/common/Navbar/NavBar';
 import { useState } from 'react';
-import mainLayout2 from '../../assets/mainLayout4.jpg';
+import lightness from "../../assets/lightness.jpg"
 
-const SIDEBAR_WIDTH_OPEN = 240;
-const SIDEBAR_WIDTH_CLOSED = 96;
-
+const SIDEBAR_WIDTH_OPEN = 235;
+const SIDEBAR_WIDTH_CLOSED = 64
 export const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const marginLeft = isSidebarOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED;
 
   return (
     <div className="relative flex h-screen overflow-hidden">
-    
-      <div
-  className="absolute inset-0 bg-cover bg-no-repeat bg-center z-0"
-  style={{
-    backgroundImage: `url(${mainLayout2})`,
-    filter: 'blur(2px)', 
-  }}
-/>
 
-    
-      <div className="relative flex flex-1 z-10">
+      <div
+        className="absolute w-full overflow-auto inset-0 bg-cover bg-no-repeat bg-center z-0"
+        style={{
+          backgroundImage: `url(${lightness})`,
+
+        }}
+      />
+
+
+      <div className="relative w-full flex flex-1 z-10">
         <SideBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         <div
-          className="flex flex-col flex-1 transition-all duration-300"
+          className="flex flex-col overflow-auto flex-1 transition-all duration-300"
           style={{ marginLeft }}
         >
           <NavBar />

@@ -7,6 +7,8 @@ import WeeklyTimeSheet from "../../components/TimeSheets/WeeklyTimeSheet";
 import FilterTimeSheet from "../../components/TimeSheets/FilterTimeSheet";
 import ExportTimeSheet from "../../components/TimeSheets/ExportTimeSheet";
 import { FONTS } from "../../constants/uiConstants";
+import { getemployeeTimeSheet } from "../../features/timesheet/services";
+
 
 const TimeSheet = () => {
     const [timeSheetView, setTimeSheetView] = useState("weekly");
@@ -14,6 +16,8 @@ const TimeSheet = () => {
     const [isExportOpen, setIsExportOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [timesheet, setTimesheet] = useState<any>([]);
+
 
     const timeSheetOptions = [
         { label: "Weekly Timesheets", value: "weekly" },
@@ -35,13 +39,28 @@ const TimeSheet = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+
+    const fetchtimesheet = async () => {
+        try {
+            const response: any = await getemployeeTimeSheet("68468e814eacfb4787b749cd", {});
+            setTimesheet(response?.data?.data || []);
+            console.log(response?.data?.data, "Timesheet Data");
+        } catch (error) {
+            console.error("Error fetching in timesheet:", error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchtimesheet();
+    }, []);
+
     return (
         <div className="relative">
             <div className={`bg--200  rounded-lg transition duration-300 ${isExportOpen ? "blur-sm pointer-events-none select-none" : ""}`}>
                 <div className="flex justify-between items-center font-bold">
                     <h1
                         className="py-3 text-black" style={FONTS.header}
-                
                     >
                         Timesheets
                     </h1>
@@ -49,36 +68,37 @@ const TimeSheet = () => {
                 </div>
 
 
-                <div className="flex gap-4">
-                    {timeSheetView === "monthly" && (
-                        <button
-                            onClick={() => setShowLegend(true)}
-                            
-                            className=" bg-[#006666] text-white px-3 py-1 rounded flex items-center gap-2  transition"
-                        >
-                            <IoInformationCircleSharp /> Legend
-                        </button>
-                    )}
-                    <button
-                        onClick={() => setIsExportOpen(true)}
-                
-                        className="bg-[#006666] text-white px-3 py-2 rounded flex items-center gap-2 transition"
-                    >
-                        <MdOutlineFileDownload /> Export
-                    </button>
-                </div>
-
-
 
                 <div className="flex items-center justify-between flex-wrap gap-4">
 
-                    <FilterTimeSheet />
+                    <div className="flex items-center gap-5">
+                        <FilterTimeSheet />
+                        <div className="flex gap-4">
+                            {timeSheetView === "monthly" && (
+                                <button
+                                    onClick={() => setShowLegend(true)}
 
-                    <div className="relative w-60" ref={dropdownRef}>
+                                    className=" bg-[#eff4f5] text-black px-3 py-1 rounded flex items-center gap-2  transition"
+                                >
+                                    <IoInformationCircleSharp /> Legend
+                                </button>
+                            )}
+                            <button
+                                onClick={() => setIsExportOpen(true)}
+
+                                className="bg-[#eff4f5] text-black px-3 py-2 rounded flex items-center gap-2 transition"
+                            >
+                                <MdOutlineFileDownload /> Export
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div className="relative w-56" ref={dropdownRef}>
                         <button
                             type="button"
                             onClick={() => setIsDropdownOpen((prev) => !prev)}
-                            
+
                             className="w-full px-4 py-2 bg-[#eff4f5]  text-black rounded-md shadow-sm flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
                             title="Timesheet View"
                         >
@@ -88,8 +108,8 @@ const TimeSheet = () => {
 
                         {isDropdownOpen && (
                             <ul className="absolute z-50 mt-2 w-full bg-white text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
-            
-                                >
+
+                            >
                                 {timeSheetOptions.map((option) => (
                                     <li
                                         key={option.value}
@@ -111,9 +131,12 @@ const TimeSheet = () => {
                 {/* <hr className="border-[#006666] mb-6" /> */}
 
                 <div className="w-full">
-                    {timeSheetView === "weekly" && <WeeklyTimeSheet />}
-                    {timeSheetView === "daily" && <DailyTimeSheet />}
-                    {timeSheetView === "monthly" && <MonthlyTimeSheets />}
+                    <div className="w-full">
+                        {timeSheetView === "weekly" && <WeeklyTimeSheet timesheet={timesheet} />}
+                        {timeSheetView === "daily" && <DailyTimeSheet timesheet={timesheet} />}
+                        {timeSheetView === "monthly" && <MonthlyTimeSheets timesheet={timesheet} />}
+                    </div>
+
                 </div>
 
 

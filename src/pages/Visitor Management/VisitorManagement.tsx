@@ -1,646 +1,789 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Users, Clock, TrendingUp, CheckCircle, XCircle, User, Building, Phone, Mail, Calendar } from 'lucide-react';
+// import React, { useState, useEffect } from 'react';
+// import { Clock, CheckCircle, User, Building, Phone, Mail, Calendar } from 'lucide-react';
+// import { getVisitors } from '../../features/VisitorsManagement/service';
 
-// Types
-interface Visitor {
-  id: number;
-  name: string;
-  phone: string;
-  email?: string;
-  company?: string;
-  host: string;
-  department?: string;
-  purpose: string;
-  notes?: string;
-  checkIn: Date;
-  checkOut?: Date;
-}
+// // Types
+// // interface Visitor {
+// //   id: number;
+// //   name: string;
+// //   phone: string;
+// //   email?: string;
+// //   company?: string;
+// //   host: string;
+// //   department?: string;
+// //   purpose: string;
+// //   notes?: string;
+// //   checkIn: Date;
+// //   checkOut?: Date;
+// // }
 
-interface VisitorFormData {
-  name: string;
-  phone: string;
+// // interface VisitorFormData {
+// //   name: string;
+// //   phone: string;
+// //   email: string;
+// //   company: string;
+// //   host: string;
+// //   department: string;
+// //   purpose: string;
+// //   notes: string;
+// // }
+
+// const VisitorManagementSystem: React.FC = () => {
+//   const [visitors, setVisitors] = useState<Visitor[]>([]);
+//   const [visitHistory, setVisitHistory] = useState<Visitor[]>([]);
+//   const [historySearch, setHistorySearch] = useState('');
+//   const [dateFrom, setDateFrom] = useState('');
+//   const [dateTo, setDateTo] = useState('');
+//   const [alert, setAlert] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+//   const [selectedVisitor, setSelectedVisitor] = useState<Visitor | null>(null);
+//   const [showAddForm, setShowAddForm] = useState(false);
+
+//   console.log(visitors,"visitorsssssssssssssssssssssssss")
+
+//   const [formData, setFormData] = useState({
+//     name: '',
+//     phone: '',
+//     email: '',
+//     company: '',
+//     host: '',
+//     department: '',
+//     purpose: '',
+//     notes: '',
+//     attachment: null, // added for file
+//   });
+
+
+//   useEffect(() => {
+//     const sampleHistory: Visitor[] = [
+//       {
+//         id: 1,
+//         name: "John Smith",
+//         phone: "+1-555-0123",
+//         email: "john.smith@email.com",
+//         company: "Tech Solutions Inc",
+//         host: "Sarah Johnson",
+//         department: "HR",
+//         purpose: "Interview",
+//         checkIn: new Date(Date.now() - 86400000),
+//         checkOut: new Date(Date.now() - 82800000),
+//         notes: "Software developer interview"
+//       },
+//       {
+//         id: 2,
+//         name: "Maria Garcia",
+//         phone: "+1-555-0124",
+//         email: "maria.garcia@email.com",
+//         company: "ABC Corp",
+//         host: "Mike Davis",
+//         department: "Sales",
+//         purpose: "Meeting",
+//         checkIn: new Date(Date.now() - 7200000),
+//         checkOut: new Date(Date.now() - 3600000),
+//         notes: "Quarterly review meeting"
+//       }
+//     ];
+//     setVisitHistory(sampleHistory);
+//   }, []);
+
+//   useEffect(() => {
+//     if (alert) {
+//       const timer = setTimeout(() => setAlert(null), 3000);
+//       return () => clearTimeout(timer);
+//     }
+//   }, [alert]);
+
+//   const fetchVisitors = async () => {
+//     try {
+//       const response: any = await getVisitors({}); // Assuming getVisitors is defined in your service file
+//       console.log("API Response:", response.data);
+
+//       const visitors = response?.data ?? []; 
+//       setVisitors(visitors);
+//     } catch (error) {
+//       console.error("Error fetching grievances:", error);
+//     }
+//   };
+
+//     useEffect(() => {
+//      fetchVisitors();
+//    }, []);
+
+//   const handleFileChange = (e) => {
+//     const file = e.target.files[0];
+//     setFormData({ ...formData, attachment: file });
+//   };
+
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     setFormData(prev => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleAddVisitor = () => {
+//     const newVisitor: Visitor = {
+//       id: Date.now(),
+//       name: formData.name,
+//       phone: formData.phone,
+//       email: formData.email,
+//       company: formData.company,
+//       host: formData.host,
+//       department: formData.department,
+//       purpose: formData.purpose,
+//       notes: formData.notes,
+//       checkIn: new Date()
+//     };
+
+//     setVisitors(prev => [...prev, newVisitor]);
+//     setShowAddForm(false);
+//     setAlert({ message: 'Visitor added successfully!', type: 'success' });
+//     setFormData({
+//       name: '',
+//       phone: '',
+//       email: '',
+//       company: '',
+//       host: '',
+//       department: '',
+//       purpose: '',
+//       notes: '',
+//       attachment: null
+//     });
+//   };
+
+//   const checkOut = (visitorId: number) => {
+//     const visitor = visitors.find(v => v.id === visitorId);
+//     if (visitor) {
+//       const updatedVisitor = { ...visitor, checkOut: new Date() };
+//       setVisitHistory(prev => [...prev, updatedVisitor]);
+//       setVisitors(prev => prev.filter(v => v.id !== visitorId));
+//       setAlert({ message: 'Visitor checked out successfully!', type: 'success' });
+//     }
+//   };
+
+//   const getFilteredHistory = (): Visitor[] => {
+//     let filtered = [...visitHistory];
+
+//     if (dateFrom) {
+//       filtered = filtered.filter(visit => visit.checkIn >= new Date(dateFrom));
+//     }
+
+//     if (dateTo) {
+//       const endDate = new Date(dateTo);
+//       endDate.setHours(23, 59, 59);
+//       filtered = filtered.filter(visit => visit.checkIn <= endDate);
+//     }
+
+//     if (historySearch) {
+//       const search = historySearch.toLowerCase();
+//       filtered = filtered.filter(visit =>
+//         visit.name.toLowerCase().includes(search) ||
+//         visit.company?.toLowerCase().includes(search) ||
+//         visit.host.toLowerCase().includes(search) ||
+//         visit.purpose.toLowerCase().includes(search)
+//       );
+//     }
+
+//     return filtered.sort((a, b) => b.checkIn.getTime() - a.checkIn.getTime());
+//   };
+
+//   const formatDuration = (checkIn: Date, checkOut?: Date): string => {
+//     if (!checkOut) return 'In progress';
+//     const duration = Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60));
+//     return `${duration} minutes`;
+//   };
+
+//   const VisitorCard: React.FC<{ visitor: Visitor }> = ({ visitor }) => (
+//     <div
+//       onClick={() => setSelectedVisitor(visitor)}
+//       className="bg-white w-full rounded-md p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+//     >
+//       <div className="flex justify-between items-start mb-4">
+//         <h3 className="text-xl font-semibold text-gray-800">{visitor.name}</h3>
+//         <span className={`px-3 py-1 rounded-full text-sm font-medium ${visitor.checkOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+//           {visitor.checkOut ? 'Completed' : 'Checked In'}
+//         </span>
+//       </div>
+
+//       {visitor.company && (
+//         <div className="flex items-center gap-2 text-gray-600 mb-2">
+//           <Building className="w-4 h-4" />
+//           <span>{visitor.company}</span>
+//         </div>
+//       )}
+//     </div>
+//   );
+
+//   const VisitorDetailsModal: React.FC<{ visitor: Visitor; onClose: () => void }> = ({ visitor, onClose }) => {
+//     const [editMode, setEditMode] = useState(false);
+//     const [editableVisitor, setEditableVisitor] = useState({ ...visitor });
+
+//     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//       const { name, value } = e.target;
+//       setEditableVisitor(prev => ({ ...prev, [name]: value }));
+//     };
+
+//     const handleSave = () => {
+//       setVisitHistory(prev =>
+//         prev.map(v => (v.id === editableVisitor.id ? { ...editableVisitor, checkIn: new Date(editableVisitor.checkIn), checkOut: editableVisitor.checkOut ? new Date(editableVisitor.checkOut) : undefined } : v))
+//       );
+//       setAlert({ message: 'Visitor details updated successfully!', type: 'success' });
+//       setEditMode(false);
+//       onClose();
+//     };
+
+//     return (
+//       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur">
+//         <div className="bg-white pt-12 rounded-lg w-full max-w-xl p-6 shadow-xl relative">
+//           <button onClick={onClose} className="absolute top-2 right-4 hover:bg-[#e6fffa] px-2 rounded-md text-gray-400 hover:text-gray-700 text-xl">✕</button>
+//           <div className="flex justify-between items-center mb-4">
+//             <h2 className="text-3xl font-bold text-gray-800">{editableVisitor.name}</h2>
+//             <button onClick={() => setEditMode(prev => !prev)} className="px-6 py-1 rounded-md bg-[#006666] text-white ">
+//               {editMode ? 'Cancel' : 'Edit'}
+//             </button>
+//           </div>
+
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-gray-700">
+//             <div className="flex items-center gap-2">
+//               <Phone className="w-4 h-4" />
+//               {editMode ? (
+//                 <input
+//                   name="phone"
+//                   value={editableVisitor.phone}
+//                   onChange={handleChange}
+//                   className="border px-2 py-1 rounded w-full"
+//                 />
+//               ) : (
+//                 <span>{editableVisitor.phone}</span>
+//               )}
+//             </div>
+
+//             {editableVisitor.email && (
+//               <div className="flex items-center gap-2">
+//                 <Mail className="w-4 h-4" />
+//                 {editMode ? (
+//                   <input
+//                     name="email"
+//                     value={editableVisitor.email}
+//                     onChange={handleChange}
+//                     className="border px-2 py-1 rounded w-full"
+//                   />
+//                 ) : (
+//                   <span>{editableVisitor.email}</span>
+//                 )}
+//               </div>
+//             )}
+
+//             <div className="flex items-center gap-2">
+//               <User className="w-4 h-4" />
+//               {editMode ? (
+//                 <input
+//                   name="host"
+//                   value={editableVisitor.host}
+//                   onChange={handleChange}
+//                   className="border px-2 py-1 rounded w-full"
+//                 />
+//               ) : (
+//                 <span>Host: {editableVisitor.host}</span>
+//               )}
+//             </div>
+
+//             {editableVisitor.department && (
+//               <div className="flex items-center gap-2">
+//                 {editMode ? (
+//                   <input
+//                     name="department"
+//                     value={editableVisitor.department}
+//                     onChange={handleChange}
+//                     className="border px-2 py-1 rounded w-full"
+//                   />
+//                 ) : (
+//                   <span>Dept: {editableVisitor.department}</span>
+//                 )}
+//               </div>
+//             )}
+
+//             <div className="flex items-center gap-2">
+//               {editMode ? (
+//                 <input
+//                   name="purpose"
+//                   value={editableVisitor.purpose}
+//                   onChange={handleChange}
+//                   className="border px-2 py-1 rounded w-full"
+//                 />
+//               ) : (
+//                 <span>Purpose: {editableVisitor.purpose}</span>
+//               )}
+//             </div>
+
+//             <div className="flex items-center gap-2">
+//               <Calendar className="w-4 h-4" />
+//               <span>{new Date(editableVisitor.checkIn).toLocaleString()}</span>
+//             </div>
+
+//             {editableVisitor.checkOut && (
+//               <div className="flex items-center gap-2">
+//                 <Clock className="w-4 h-4" />
+//                 <span>Duration: {formatDuration(new Date(editableVisitor.checkIn), new Date(editableVisitor.checkOut))}</span>
+//               </div>
+//             )}
+//           </div>
+
+//           {editMode ? (
+//             <textarea
+//               name="notes"
+//               value={editableVisitor.notes || ''}
+//               onChange={handleChange}
+//               className="border px-3 py-2 rounded w-full mb-4"
+//               placeholder="Notes"
+//             />
+//           ) : (
+//             editableVisitor.notes && (
+//               <div className="border-t pt-4">
+//                 <p className="text-gray-600"><strong>Notes:</strong> {editableVisitor.notes}</p>
+//               </div>
+//             )
+//           )}
+
+//           {editMode && (
+//             <button
+//               onClick={handleSave}
+//               className="mt-4 bg-[#006666] text-white px-4 py-2 rounded float-right"
+//             >
+//               Save Changes
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     );
+//   };
+
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br to-blue-800">
+//       <div className="mx-auto">
+//         {alert && (
+//           <div className={`mb-6 p-4 rounded-lg font-medium ${alert.type === 'success'
+//             ? 'bg-green-100 text-green-800 border border-green-200'
+//             : 'bg-red-100 text-red-800 border border-red-200'
+//             }`}>
+//             {alert.message}
+//           </div>
+//         )}
+
+//         <div className="rounded-lg pb-10">
+//           <div className='grid py-4 px-6'>
+//             <h2 className="text-2xl font-bold text-gray-800 mb-6">Visit History</h2>
+
+//             <div className="flex items-center justify-between">
+//               <div className="grid md:grid-cols-3 gap-4 mb-6">
+//                 <div>
+//                   <label className="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
+//                   <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-full px-4 py-2 border-2 border-gray-200 rounded-md" />
+//                 </div>
+//                 <div>
+//                   <label className="block text-sm font-semibold text-gray-700 mb-2">To Date</label>
+//                   <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-full px-4 py-2 border-2 border-gray-200 rounded-md" />
+//                 </div>
+//               </div>
+
+//               <div className='flex item-center gap-3 ml-auto'>
+//                 <button onClick={() => setShowAddForm(true)} className='bg-[#006666] text-white px-4 rounded-md'>+ Add Visitor</button>
+//                 <div className="relative">
+//                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+//                     <svg className="h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//                     </svg>
+//                   </div>
+//                   <input
+//                     type="text"
+//                     placeholder="Search Here..."
+//                     value={historySearch}
+//                     onChange={(e) => setHistorySearch(e.target.value)}
+//                     className="p-2 pl-10 border border-gray-300 rounded-md bg-white"
+//                   />
+//                 </div>
+//               </div>
+//             </div>
+
+//             {showAddForm && (
+//               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+//                 <div className="bg-white rounded-lg w-full max-w-2xl p-6 shadow-xl relative">
+//                   <button onClick={() => setShowAddForm(false)} className="absolute top-2 right-4 text-xl text-gray-600 hover:text-black">✕</button>
+//                   <h2 className="text-2xl font-bold mb-4 text-gray-800">Add Visitor</h2>
+//                   <form className="grid grid-cols-2 gap-4" onSubmit={(e) => { e.preventDefault(); handleAddVisitor(); }}>
+//                     <input name="name" placeholder="Full Name" value={formData.name} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <input name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <input name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <input name="company" placeholder="Company" value={formData.company} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <input name="host" placeholder="Host" value={formData.host} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <input name="department" placeholder="Department" value={formData.department} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+//                     <select name="purpose" value={formData.purpose} onChange={handleInputChange} className="border px-3 py-2 rounded">
+//                       <option value="">Purpose of Visit</option>
+//                       <option value="Interview">Interview</option>
+//                       <option value="Meeting">Meeting</option>
+//                       <option value="Delivery">Delivery</option>
+//                       <option value="Maintenance">Maintenance</option>
+//                       <option value="Personal">Personal</option>
+//                       <option value="Other">Other</option>
+//                     </select>
+//                     <textarea name="notes" placeholder="Remarks" value={formData.notes} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+
+//                     {/* File input field */}
+//                     <div>
+//                     <label className="block text-sm font-semibold text-gray-700 mb-2">Submit Document</label>
+//                     <input
+//                       type="file"
+//                       name="attachment"
+//                       onChange={handleFileChange}
+//                       className="border px-3 py-2 rounded"
+//                     />
+//                     </div>
+
+//                     <button type="submit" className="bg-[#006666] text-white px-4 py-2 rounded col-span-2">Submit</button>
+//                   </form>
+//                 </div>
+//               </div>
+//             )}
+
+//             <div className="flex gap-4">
+//               {getFilteredHistory().length === 0 ? (
+//                 <div className="text-center py-12 m-auto bg-white w-1/2 rounded-md">
+//                   <Clock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+//                   <h3 className="text-xl font-semibold text-gray-500 mb-2">No visit history found</h3>
+//                   <p className="text-gray-400">Visit records will appear here</p>
+//                 </div>
+//               ) : (
+//                 getFilteredHistory().map(visitor => (
+// <VisitorCard key={visitor.id} visitor={visitor} />
+//                 ))
+//               )}
+//             </div>
+//           </div>
+//         </div>
+
+//         {selectedVisitor && (
+//           <VisitorDetailsModal
+//             visitor={selectedVisitor}
+//             onClose={() => setSelectedVisitor(null)}
+//           />
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VisitorManagementSystem;
+
+
+
+///////////////////Startted Building new
+
+
+import { useEffect, useState } from 'react'
+import { getVisitors } from '../../features/VisitorsManagement/service';
+import { Building } from 'lucide-react';
+
+const VisitorManagement = () => {
+
+  const [visitors, setVisitors] = useState([]);
+  const [selectedVisitor, setSelectedVisitor] = useState(null);
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  // Add formData state for the add visitor form
+const [formData, setFormData] = useState<{
+  fullName: string;
+  phoneNumber: string;
   email: string;
   company: string;
   host: string;
-  department: string;
-  purpose: string;
-  notes: string;
-}
+  purposeOfVisit: string;
+  remarks: string;
+  checkInTime: string;
+  checkOutTime: string;
+  attachment: File | null;
+}>({
+  fullName: '',
+  phoneNumber: '',
+  email: '',
+  company: '',
+  host: '',
+  purposeOfVisit: '',
+  remarks: '',
+  checkInTime: '',
+  checkOutTime: '',
+  attachment: null,
+});
 
-interface DashboardStats {
-  todayVisitors: number;
-  currentlyIn: number;
-  totalVisitors: number;
-  avgDuration: number;
-}
+  // Handle input changes for text, select, and textarea fields
+  const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({ ...prev, [name]: value }));
+};
 
-type TabType = 'checkin' | 'visitors' | 'history' | 'dashboard';
 
-const VisitorManagementSystem: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('checkin');
-  const [visitors, setVisitors] = useState<Visitor[]>([]);
-  const [visitHistory, setVisitHistory] = useState<Visitor[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [historySearch, setHistorySearch] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
-  const [alert, setAlert] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  // Handle file input change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    setFormData((prev) => ({
+      ...prev,
+      attachment: file || null,
+    }));
+  };
   
-  const [formData, setFormData] = useState<VisitorFormData>({
-    name: '',
-    phone: '',
-    email: '',
-    company: '',
-    host: '',
-    department: '',
-    purpose: '',
-    notes: ''
-  });
 
-  // Initialize sample data
+
+
+  const fetchVisitors = async () => {
+    try {
+      const response: any = await getVisitors({});
+      console.log("API Response:", response.data);
+
+      const visitors = response?.data ?? [];
+      setVisitors(visitors.data);
+    } catch (error) {
+      console.error("Error fetching grievances:", error);
+    }
+  };
+
   useEffect(() => {
-    const sampleHistory: Visitor[] = [
-      {
-        id: 1,
-        name: "John Smith",
-        phone: "+1-555-0123",
-        email: "john.smith@email.com",
-        company: "Tech Solutions Inc",
-        host: "Sarah Johnson",
-        department: "HR",
-        purpose: "Interview",
-        checkIn: new Date(Date.now() - 86400000),
-        checkOut: new Date(Date.now() - 82800000),
-        notes: "Software developer interview"
-      },
-      {
-        id: 2,
-        name: "Maria Garcia",
-        phone: "+1-555-0124",
-        company: "ABC Corp",
-        host: "Mike Davis",
-        department: "Sales",
-        purpose: "Meeting",
-        checkIn: new Date(Date.now() - 7200000),
-        checkOut: new Date(Date.now() - 3600000),
-        notes: "Quarterly review meeting"
-      }
-    ];
-    setVisitHistory(sampleHistory);
+    fetchVisitors();
   }, []);
 
-  // Auto-hide alerts
-  useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => setAlert(null), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
 
-  const handleSubmit = () => {
-    if (!formData.name || !formData.phone || !formData.host || !formData.purpose) {
-      setAlert({ message: 'Please fill in all required fields', type: 'error' });
-      return;
-    }
-    
-    const newVisitor: Visitor = {
-      id: Date.now(),
-      ...formData,
-      checkIn: new Date()
-    };
-    
-    setVisitors(prev => [...prev, newVisitor]);
-    setAlert({ message: 'Visitor checked in successfully!', type: 'success' });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      company: '',
-      host: '',
-      department: '',
-      purpose: '',
-      notes: ''
-    });
-  };
 
-  const checkOut = (visitorId: number) => {
-    const visitor = visitors.find(v => v.id === visitorId);
-    if (visitor) {
-      const updatedVisitor = { ...visitor, checkOut: new Date() };
-      setVisitHistory(prev => [...prev, updatedVisitor]);
-      setVisitors(prev => prev.filter(v => v.id !== visitorId));
-      setAlert({ message: 'Visitor checked out successfully!', type: 'success' });
-    }
-  };
+  const VisitorCard = ({ visitor }: { visitor: any }) => (
+    <div
+      className="bg-white w-full rounded-md p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+      onClick={() => setSelectedVisitor(visitor)}
+    >
+      <div className="flex justify-between items-start mb-4">
+        <h3 className="text-xl font-semibold text-gray-800">{visitor.fullName}</h3>
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${visitor.checkOutTime ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+          {visitor.checkOutTime ? 'Completed' : 'Checked In'}
+        </span>
+      </div>
 
-  const getDashboardStats = (): DashboardStats => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const todayVisits = visitHistory.filter(visit => visit.checkIn >= today).length + visitors.length;
-    const currentlyIn = visitors.length;
-    const totalVisits = visitHistory.length + visitors.length;
-    
-    const completedVisits = visitHistory.filter(visit => visit.checkOut);
-    const avgDuration = completedVisits.length > 0 ? 
-      Math.round(completedVisits.reduce((sum, visit) => 
-        sum + ((visit.checkOut!.getTime() - visit.checkIn.getTime()) / (1000 * 60)), 0) / completedVisits.length) : 0;
-    
-    return { todayVisitors: todayVisits, currentlyIn, totalVisitors: totalVisits, avgDuration };
-  };
+      {visitor.company && (
+        <div className="flex items-center gap-2 text-gray-600 mb-2">
+          <Building className="w-4 h-4" />
+          <span>{visitor.company}</span>
+        </div>
+      )}
+    </div>
+  );
 
-  const getFilteredHistory = (): Visitor[] => {
-    let filtered = [...visitHistory];
-    
-    if (dateFrom) {
-      filtered = filtered.filter(visit => visit.checkIn >= new Date(dateFrom));
-    }
-    
-    if (dateTo) {
-      const endDate = new Date(dateTo);
-      endDate.setHours(23, 59, 59);
-      filtered = filtered.filter(visit => visit.checkIn <= endDate);
-    }
-    
-    if (historySearch) {
-      const search = historySearch.toLowerCase();
-      filtered = filtered.filter(visit => 
-        visit.name.toLowerCase().includes(search) ||
-        visit.company?.toLowerCase().includes(search) ||
-        visit.host.toLowerCase().includes(search) ||
-        visit.purpose.toLowerCase().includes(search)
-      );
-    }
-    
-    return filtered.sort((a, b) => b.checkIn.getTime() - a.checkIn.getTime());
-  };
+  const VisitorDetailsModal = ({ visitor, onClose }: { visitor: any; onClose: () => void }) => {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur">
+        <div className="bg-white pt-12 rounded-lg w-full max-w-xl p-6 shadow-xl relative">
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-4 hover:bg-[#e6fffa] px-2 rounded-md text-gray-400 hover:text-gray-700 text-xl"
+          >
+            ✕
+          </button>
 
-  const getFilteredCurrentVisitors = (): Visitor[] => {
-    if (!searchTerm) return visitors;
-    
-    const search = searchTerm.toLowerCase();
-    return visitors.filter(visitor => 
-      visitor.name.toLowerCase().includes(search) ||
-      visitor.company?.toLowerCase().includes(search) ||
-      visitor.host.toLowerCase().includes(search) ||
-      visitor.purpose.toLowerCase().includes(search)
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-3xl font-bold text-gray-800">{visitor.fullName}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-gray-700">
+            <div className="flex items-center gap-2">
+              <span>Phone: {visitor.phoneNumber}</span>
+            </div>
+
+            {visitor.email && (
+              <div className="flex items-center gap-2">
+                <span>Email: {visitor.email}</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2">
+              <span>Purpose of Visit: {visitor.purposeOfVisit}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span>
+                Visited Date:{' '}
+                {new Date(visitor.visitDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span>Check In: {visitor.checkInTime}</span>
+            </div>
+
+            {visitor.checkOutTime && (
+              <div className="flex items-center gap-2">
+                <span>Check Out: {visitor.checkOutTime}</span>
+              </div>
+            )}
+          </div>
+
+          {visitor.remarks && (
+            <p className=" text-gray-600">
+              <strong>Remarks:</strong> {visitor.remarks}
+            </p>
+          )}
+
+          <div className="mt-6 border-t pt-4">
+            <h4 className="text-lg font-semibold text-gray-800 mb-2">Attachment</h4>
+            <div className="bg-gray-50 p-4 border rounded-md">
+              <a
+                href={visitor.attachment}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                View Attachment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   };
 
-  const getRecentActivity = (): Visitor[] => {
-    return [...visitHistory, ...visitors]
-      .sort((a, b) => b.checkIn.getTime() - a.checkIn.getTime())
-      .slice(0, 5);
-  };
-
-  const getTopHosts = (): Array<[string, number]> => {
-    const hostCounts: Record<string, number> = {};
-    [...visitHistory, ...visitors].forEach(visit => {
-      hostCounts[visit.host] = (hostCounts[visit.host] || 0) + 1;
-    });
-    
-    return Object.entries(hostCounts)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
-  };
-
-  const formatDuration = (checkIn: Date, checkOut?: Date): string => {
-    if (!checkOut) return 'In progress';
-    const duration = Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60));
-    return `${duration} minutes`;
-  };
-
-  const TabButton: React.FC<{ tab: TabType; icon: React.ReactNode; children: React.ReactNode }> = ({ tab, icon, children }) => (
-    <button
-      onClick={() => setActiveTab(tab)}
-      className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-        activeTab === tab
-          ? 'bg-white text-gray-800 shadow-lg transform scale-105'
-          : 'text-white hover:bg-white/20'
-      }`}
-    >
-      {icon}
-      {children}
-    </button>
-  );
-
-  const VisitorCard: React.FC<{ visitor: Visitor; showCheckOut?: boolean }> = ({ visitor, showCheckOut = false }) => (
-    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ">
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-semibold text-gray-800">{visitor.name}</h3>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-          visitor.checkOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
-        }`}>
-          {visitor.checkOut ? 'Completed' : 'Checked In'}
-        </span>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="flex items-center gap-2 text-gray-600">
-          <Phone className="w-4 h-4" />
-          <span>{visitor.phone}</span>
-        </div>
-        {visitor.email && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <Mail className="w-4 h-4" />
-            <span>{visitor.email}</span>
-          </div>
-        )}
-        {visitor.company && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <Building className="w-4 h-4" />
-            <span>{visitor.company}</span>
-          </div>
-        )}
-        <div className="flex items-center gap-2 text-gray-600">
-          <User className="w-4 h-4" />
-          <span>Host: {visitor.host}</span>
-        </div>
-        {visitor.department && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <span>Dept: {visitor.department}</span>
-          </div>
-        )}
-        <div className="flex items-center gap-2 text-gray-600">
-          <span>Purpose: {visitor.purpose}</span>
-        </div>
-        <div className="flex items-center gap-2 text-gray-600">
-          <Calendar className="w-4 h-4" />
-          <span>{visitor.checkIn.toLocaleString()}</span>
-        </div>
-        {visitor.checkOut && (
-          <div className="flex items-center gap-2 text-gray-600">
-            <Clock className="w-4 h-4" />
-            <span>Duration: {formatDuration(visitor.checkIn, visitor.checkOut)}</span>
-          </div>
-        )}
-      </div>
-      
-      {visitor.notes && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <p className="text-gray-600"><strong>Notes:</strong> {visitor.notes}</p>
-        </div>
-      )}
-      
-      {showCheckOut && (
-        <div className="mt-4">
-          <button
-            onClick={() => checkOut(visitor.id)}
-            className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center gap-2"
-          >
-            <CheckCircle className="w-4 h-4" />
-            Check Out
-          </button>
-        </div>
-      )}
-    </div>
-  );
-
-  const StatCard: React.FC<{ title: string; value: string | number; icon: React.ReactNode }> = ({ title, value, icon }) => (
-    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-blue-500">{icon}</div>
-      </div>
-      <div className="text-3xl font-bold text-gray-800 mb-2">{value}</div>
-      <div className="text-gray-600 font-medium">{title}</div>
-    </div>
-  );
-
-  const stats = getDashboardStats();
 
   return (
     <div>
-    
-    <div className="min-h-screen bg-gradient-to-br to-blue-800">
-      <div className=" mx-auto">
-        {/* Header */}
 
-        {/* Navigation */}
-        <div className="flex flex-wrap gap-2 bg-white/20 backdrop-blur-lg rounded-md p-2 mb-8">
-          <TabButton tab="checkin" icon={<User className="w-5 h-5" />}>Check In</TabButton>
-          <TabButton tab="visitors" icon={<Users className="w-5 h-5" />}>Current Visitors</TabButton>
-          <TabButton tab="history" icon={<Clock className="w-5 h-5" />}>History</TabButton>
-          <TabButton tab="dashboard" icon={<TrendingUp className="w-5 h-5" />}>Dashboard</TabButton>
-        </div>
+      <div className="rounded-lg pb-10">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Visit History</h2>
 
-        {/* Alert */}
-        {alert && (
-          <div className={`mb-6 p-4 rounded-lg font-medium ${
-            alert.type === 'success' 
-              ? 'bg-green-100 text-green-800 border border-green-200' 
-              : 'bg-red-100 text-red-800 border border-red-200'
-          }`}>
-            {alert.message}
+        <div className="flex items-center justify-between">
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
+              <input type="date" className="w-full px-4 py-2 border-2 border-gray-200 rounded-md" />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">To Date</label>
+              <input type="date" className="w-full px-4 py-2 border-2 border-gray-200 rounded-md" />
+            </div>
           </div>
-        )}
 
-        {/* Tab Content */}
-        <div className=" rounded-lg bg-white pb-10">
-          {/* Check In Tab */}
-          {activeTab === 'checkin' && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-8 py-4 pl-4">Visitor Registration & Check-In</h2>
-              
-              <div className="space-y-6 px-6">
-                <div className="grid grid-cols-2 gap-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Company/Organization</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Host Name *</label>
-                    <input
-                      type="text"
-                      name="host"
-                      value={formData.host}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Host Department</label>
-                    <select
-                      name="department"
-                      value={formData.department}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                    >
-                      <option value="">Select Department</option>
-                      <option value="HR">Human Resources</option>
-                      <option value="IT">Information Technology</option>
-                      <option value="Finance">Finance</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Operations">Operations</option>
-                      <option value="Sales">Sales</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Purpose of Visit *</label>
-                  <select
-                    name="purpose"
-                    value={formData.purpose}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                  >
-                    <option value="">Select Purpose</option>
-                    <option value="Interview">Job Interview</option>
-                    <option value="Meeting">Business Meeting</option>
-                    <option value="Delivery">Delivery/Pickup</option>
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="Training">Training/Workshop</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Additional Notes</label>
-                  <textarea
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleInputChange}
-                    rows={4}
-                    placeholder="Any additional information about the visit..."
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  onClick={handleSubmit}
-                  className="text-black rounded-md px-4 py-2 rounded-md font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
-                >
-                  <CheckCircle className="w-5 h-5" />
-                  Check In Visitor
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Current Visitors Tab */}
-          {activeTab === 'visitors' && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800  py-4 pl-4">Current Visitors</h2>
-              
-              <div className="mb-6 py-4 px-6">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Search visitors by name, company, or host..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-6 p-10">
-                {getFilteredCurrentVisitors().length === 0 ? (
-                  <div className="text-center ">
-                    <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-500 mb-2">No visitors currently checked in</h3>
-                    <p className="text-gray-400">Check-in visitors will appear here</p>
-                  </div>
-                ) : (
-                  getFilteredCurrentVisitors().map(visitor => (
-                    <VisitorCard key={visitor.id} visitor={visitor} showCheckOut />
-                  ))
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* History Tab */}
-          {activeTab === 'history' && (
-            <div className='grid py-4 px-6'>
-              <h2 className="text-2xl font-bold text-gray-800">Visit History</h2>
-              <div className='flex item-center ml-auto '>
-              <div className="relative">
-              <div className="absolute inset-y-0 pb-2 mt-2 left-0 pl-3 flex items-center pointer-events-none ">
-                <svg className="h-5  text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
+          <div className='flex item-center gap-3 ml-auto'>
+            <button onClick={() => setShowAddForm(true)} className='bg-[#006666] text-white px-4 rounded-md'>+ Add Visitor</button>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
               <input
                 type="text"
-                placeholder="Search History"
-                 value={historySearch}
-                 onChange={(e) => setHistorySearch(e.target.value)}
-                className="block pl-10 px-4 py-2 w-40 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Search Here..."
+                value={""}
+                className="p-2 pl-10 border border-gray-300 rounded-md bg-white"
               />
             </div>
-            </div>
-                 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
-                  <input
-                    type="date"
-                    value={dateFrom}
-                    onChange={(e) => setDateFrom(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">To Date</label>
-                  <input
-                    type="date"
-                    value={dateTo}
-                    onChange={(e) => setDateTo(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-blue-500 focus:outline-none transition-colors"
-                  />
-                </div>
-               
-              </div>
-
-              <div className="space-y-6">
-                {getFilteredHistory().length === 0 ? (
-                  <div className="text-center py-12">
-                    <Clock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-500 mb-2">No visit history found</h3>
-                    <p className="text-gray-400">Visit records will appear here</p>
-                  </div>
-                ) : (
-                  getFilteredHistory().map(visitor => (
-                    <VisitorCard key={visitor.id} visitor={visitor} />
-                  ))
-                )}
-              </div>
-            </div>
-         
-          )}
-          
-
-          {/* Dashboard Tab */}
-          {activeTab === 'dashboard' && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800 pb-8 py-4 pl-4">Dashboard & Analytics</h2>
-              
-              <div className="grid grid-cols-4 md:grid-cols-2 rounded-lg lg:grid-cols-4 gap-6 mb-8 py-4 px-6">
-                <StatCard
-                  title="Today's Visitors"
-                  value={stats.todayVisitors}
-                  icon={<Users className="w-8 h-8" />}
-                />
-                <StatCard
-                  title="Currently In"
-                  value={stats.currentlyIn}
-                  icon={<CheckCircle className="w-8 h-8" />}
-                />
-                <StatCard
-                  title="Total Visitors"
-                  value={stats.totalVisitors}
-                  icon={<TrendingUp className="w-8 h-8" />}
-                />
-                <StatCard
-                  title="Avg Duration"
-                  value={`${stats.avgDuration}m`}
-                  icon={<Clock className="w-8 h-8" />}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-6">Recent Activity</h3>
-                  <div className="space-y-4">
-                    {getRecentActivity().map((visit, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                        <div>
-                          <div className="font-semibold text-gray-800">{visit.name}</div>
-                          <div className="text-sm text-gray-600">{visit.purpose}</div>
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {visit.checkIn.toLocaleTimeString()}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-6">Top Hosts</h3>
-                  <div className="space-y-4">
-                    {getTopHosts().map(([host, count], index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                        <div className="font-semibold text-gray-800">{host}</div>
-                        <div className="text-sm font-semibold text-blue-600">{count} visits</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
+
+
+        <div className="grid grid-cols-2 gap-4">
+          {visitors.length === 0 ? (
+            <div className="text-center py-12 m-auto bg-white w-1/2 m-auto rounded-md" onClick={() => setSelectedVisitor(null)}>
+              <Building className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-500 mb-2">No visit history found</h3>
+              <p className="text-gray-400">Visit records will appear here</p>
+            </div>
+          ) : (
+            visitors?.map((visitor: any) => (
+              <VisitorCard key={visitor.id} visitor={visitor} />
+            ))
+          )}
+
+        </div>
+
+
+
+
       </div>
-    </div>
-    </div>
-  );
-};
 
-export default VisitorManagementSystem;
 
-function preventDefault() {
-    throw new Error('Function not implemented.');
+
+      {selectedVisitor && (
+        <VisitorDetailsModal
+          visitor={selectedVisitor}
+          onClose={() => setSelectedVisitor(null)}
+        />
+      )}
+
+
+      {showAddForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg w-full max-w-2xl p-6 shadow-xl relative">
+            <button onClick={() => setShowAddForm(false)} className="absolute top-2 right-4 text-xl text-gray-600 hover:text-black">✕</button>
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Add Visitor</h2>
+
+            <form className="grid grid-cols-2 gap-4">
+              <input name="name" placeholder="Full Name" value={formData.fullName} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+              <input name="phone" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+              <input name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+              <input name="company" placeholder="Company" value={formData.company} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+              <input name="host" placeholder="Host" value={formData.host} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+
+              <select name="purpose" value={formData.purposeOfVisit} onChange={handleInputChange} className="border px-3 py-2 rounded">
+                <option value="">Purpose of Visit</option>
+                <option value="Interview">Interview</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Delivery">Delivery</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Personal">Personal</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <textarea name="notes" placeholder="Remarks" value={formData.remarks} onChange={handleInputChange} className="border px-3 py-2 rounded col-span-2" />
+
+              {/* Check-in and Check-out time */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Check-In Time</label>
+                <input
+                  type="time"
+                  name="checkInTime"
+                  value={formData.checkInTime}
+                  onChange={handleInputChange}
+                  className="border px-3 py-2 rounded w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Check-Out Time</label>
+                <input
+                  type="time"
+                  name="checkOutTime"
+                  value={formData.checkOutTime}
+                  onChange={handleInputChange}
+                  className="border px-3 py-2 rounded w-full"
+                />
+              </div>
+
+              {/* File input */}
+              <div className="col-span-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Submit Document</label>
+                <input
+                  type="file"
+                  name="attachment"
+                  onChange={handleFileChange}
+                  className="border px-3 py-2 rounded w-full"
+                />
+              </div>
+
+              <button type="submit" className="bg-[#006666] text-white px-4 py-2 rounded col-span-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+    </div>
+  )
 }
+
+export default VisitorManagement

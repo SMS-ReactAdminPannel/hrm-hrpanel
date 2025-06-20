@@ -32,14 +32,15 @@ export default function EditCandidateModal({ candidate, onClose }: { candidate: 
   }
 
   return (
-    <Dialog open={true} onClose={onClose} className="fixed z-50 inset-0 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen px-4">
-        <Dialog.Panel className="bg-[#eff4f5]  rounded-md shadow w-full max-w-3xl p-6 relative">
+    <Dialog open={true} onClose={onClose} className="fixed z-50 inset-0 overflow-y-auto
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-70 ">
+      <div className="flex items-center justify-center min-h-screen px-4 border border-white">
+        <Dialog.Panel className="rounded-md shadow w-full max-w-3xl p-6 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            className="absolute top-4 right-4 text-gray-700  "
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 hover:text-white" />
           </button>
           <Dialog.Title className="text-xl font-semibold mb-6">Edit Candidate Details</Dialog.Title>
 
