@@ -1,8 +1,6 @@
-"use client"
-
 import type React from "react"
 import { useState, useEffect } from "react"
-import type { Employee, EmployeeFormData } from "./employee"
+import type { Employee, EmployeeFormData } from "./employe_interface"
 import { ChevronDown } from "lucide-react"
 
 interface EmployeeFormProps {
