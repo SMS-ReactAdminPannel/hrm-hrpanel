@@ -10,6 +10,8 @@ import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
 import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
 import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
 import Payrollstack from "../../components/DashBoard/payroll/payrollstack";
+import Attendances from "../../components/DashBoard/Attendances/attendances";
+import JobOpening from "../../components/DashBoard/JobOpenings/jobOpening";
 // import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 // import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 // import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
@@ -41,7 +43,7 @@ const Dashboard = () => {
 
       {/* content -2 */}
 
-      <div className="flex-1  flex-cols flex gap-3 rounded-xl">
+      <div className="flex-1 flex-cols flex gap-3 rounded-xl">
         <div className="flex-1 border  bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl ">
           <AttentDashboard/>
         </div>
@@ -52,7 +54,15 @@ const Dashboard = () => {
       </div>
       <div>
           <Payrollstack />
-        </div>
+      </div>
+      <div >
+        <div>
+        <Attendances />
+      </div>
+      <div className="mt-2">
+        <JobOpening />
+      </div>
+      </div>
     </div>
     
   );
