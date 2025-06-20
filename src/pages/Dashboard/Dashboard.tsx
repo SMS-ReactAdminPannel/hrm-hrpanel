@@ -4,6 +4,12 @@ import DashBoardSlideCard from "../../components/DashBoard/SlideCards/DashBoardS
 import Empolyeetotal from "../../components/DashBoard/EmpolyeeTotal/EmpolyeeTotal";
 import AttentDashboard from "../../components/DashBoard/AttentDashboard/AttentDashboard";
 import QuerystartDash from "../../components/DashBoard/Query/QuerystartDash";
+import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
+import { ChartCard } from "../../components/DashBoard/LineBar/EmpolyeeTotalLine";
+import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
+import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
+import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
+import Payrollstack from "../../components/DashBoard/payroll/payrollstack";
 // import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 // import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 // import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
@@ -42,44 +48,47 @@ const Dashboard = () => {
         <div className="flex-1 border bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
           <QuerystartDash/>
         </div>
+       
       </div>
+      <div>
+          <Payrollstack />
+        </div>
     </div>
+    
   );
 };
 
 export default Dashboard;
 
-// <div className="m-2 ">
+<div className="m-2 ">
 
-//       {/* 1st content */}
-//       <div className="m-3">
-//         <Dashboardcard />
-//       </div>
+      {/* 1st content */}
+      <div className="m-3">
+        <Dashboardcard />
+      </div>
 
-//       {/* 2nd content */}
-//       <div className="flex m-3 gap-3">
-//         <div className="flex-2 border bg-white rounded-xl p-4">
-//           <ChartCard
-//             dataPoints={{
-//               FinancialTeam: [10, 20, 25, 30, 15],
-//               ProjectManager: [5, 15, 10, 20, 25],
-//               MarketingTeam: [12, 18, 22, 17, 13],
-//               ProductDesignTeam: [8, 16, 14, 18, 21],
-//             }}
-//           />
-//         </div>
-//         <div className="flex-1 bg-white border rounded-xl">
-//           <VisterBar />
-//         </div>
-//       </div>
+      {/* 2nd content */}
+      <div className="flex m-3 gap-3">
+        <div className="flex-2 border bg-white rounded-xl p-4">
+          <ChartCard
+            dataPoints={[10, 20, 25, 30, 15]}
+            borderColor="#006666"
+            backgroundColor="rgba(0, 102, 102,0.8)"
+          />
+        </div>
+        <div className="flex-1 bg-white border rounded-xl">
+          <VisterBar />
+        </div>
+      </div>
 
-//       {/* 3rd content */}
-//       <div className="flex gap-3 m-3">
-//         <div className="flex-2  rounded-xl">
-//           <DailySchedule />
-//         </div>
-//         <div className="flex-4 bg-white rounded-xl">
-//           <ThingsDoList />
-//         </div>
-//       </div>
-//     </div>
+      {/* 3rd content */}
+      <div className="flex gap-3 m-3">
+        <div className="flex-2  rounded-xl">
+          <DailySchedule />
+        </div>
+        <div className="flex-4 bg-white rounded-xl">
+          <ThingsDoList />
+        </div>
+        
+      </div>
+    </div>
