@@ -17,6 +17,11 @@ const Attendance: React.FC = () => {
     CheckIn: string
     CheckOut: string
     Duration: string
+    TotalCompletedProject?: string
+    TotalWorkedDuration?: string
+    TotalBreakTime?: string
+    TotalLeaveDays?: string
+
   }
 
   // const [value, setValue] = useState("")
@@ -31,6 +36,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "D02",
@@ -40,6 +49,10 @@ const Attendance: React.FC = () => {
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "TL03",
@@ -49,6 +62,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "SD04",
@@ -58,6 +75,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "M05",
@@ -67,6 +88,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "SD06",
@@ -76,6 +101,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "JD07",
@@ -85,6 +114,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "M08",
@@ -94,6 +127,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
     {
       ID: "A09",
@@ -103,8 +140,16 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
-    { ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h" },
+    { ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h" , TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
+    },
     {
       ID: "A11",
       Name: "Kanna",
@@ -113,6 +158,10 @@ const Attendance: React.FC = () => {
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
+      TotalCompletedProject:"2",
+      TotalWorkedDuration:"215h 40m",
+      TotalBreakTime:"24h",
+      TotalLeaveDays:"5",
     },
   ]
   const [searchQuery, setSearchQuery] = useState("")
@@ -217,20 +266,16 @@ const Attendance: React.FC = () => {
       </div>
     </div>
 
-
-
-{/* Duarations */}
-   <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm !text-gray-500 mb-1" style={{...FONTS.paragraph}}>Total Duration</p>
-          <p className={`!text-4xl !font-semibold mt-3 !text-green-700`} style={{...FONTS.paragraph}}>9 <span className="text-2xl text-gray-500">hrs</span></p>
-          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>Duration of times</p>
+        {/* Duration Card */}
+        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+          <div>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
+            <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
+          </div>
+          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
+            <MdTimer className="w-10 h-10 text-[#5e59a9]/40" />
+          </div>
         </div>
-            <MdTimer className="w-10 h-10 !text-green-600" style={{...FONTS.cardSubHeader}}/>
-      </div>
-    </div>
-
 
         {/* Permission Card */}
 
