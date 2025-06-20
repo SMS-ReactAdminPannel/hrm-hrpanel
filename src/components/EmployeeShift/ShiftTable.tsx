@@ -1,6 +1,7 @@
 import React from "react"
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee } from "../../components/EmployeeShift/employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface EmployeeShiftTableProps {
   employees: Employee[]
@@ -61,19 +62,19 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
     <div className="flex-1 overflow-hidden mt-10">
       <div className="h-full overflow-auto rounded-md custom-scrollbar">
         <table className="w-full">
-          <thead className="bg-[#006666] border-b border-gray-200 sticky top-0">
+          <thead className="bg-[#006666] border-b border-gray-200 sticky top-0 " style={{...FONTS.tableHeader}}>
             <tr>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]">Employee</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Title</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[120px]">Based On</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[180px]">Rotate</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Start Date</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]" style={{...FONTS.tableHeader}}>Employee</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Title</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[120px]" style={{...FONTS.tableHeader}}>Based On</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[180px]" style={{...FONTS.tableHeader}}>Rotate</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Start Date</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>
                 Current Shift
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Shift</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Switch</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]">
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Next Shift</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Next Switch</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]" style={{...FONTS.tableHeader}}>
                 Actions
               </th>
             </tr>
@@ -96,18 +97,18 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                       <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div>
-                            <div className="text-sm font-medium text-gray-900">{employee.name}</div>
+                            <div className="text-sm font-medium text-gray-900" style={{...FONTS.tableBody}}>{employee.name}</div>
                             <div className="text-sm text-gray-500">{employee.employeeId}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.title}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.basedOn}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.rotate}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.startDate}
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
                             employee.currentShift === "None"
@@ -122,7 +123,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                           {employee.currentShift}
                         </span>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
                             employee.nextShift === "None"
@@ -137,7 +138,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                           {employee.nextShift}
                         </span>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.nextSwitch}
                       </td>
                       <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
