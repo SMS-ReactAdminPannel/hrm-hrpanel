@@ -1,3 +1,4 @@
+/* Calendar Container Styles */
 .fc-scroller {
   overflow: hidden !important;
 }
@@ -13,16 +14,64 @@
 .fc-view-harness {
   height: auto !important;
 }
+
+/* Day Cell Structure */
+.fc-daygrid-day-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 4px;
+  position: relative;
+}
+
+.fc-daygrid-day-top {
+  justify-content: center !important;
+  z-index: 2;
+  position: relative;
+}
+
+/* Status Indicators */
 .status-indicators {
   display: flex;
   justify-content: center;
   gap: 2px;
-  margin-top: 4px;
-}
-/* Year Dropdown Styles */
-.fc-toolbar-chunk {
+  margin: 4px 0;
+  z-index: 1;
   position: relative;
 }
+
+.attendance-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.attendance-status.present {
+  background: #10B981;
+}
+
+.attendance-status.absent {
+  background: #EF4444;
+}
+
+.attendance-status.leave {
+  background: #F59E0B;
+}
+
+.attendance-status.weekend {
+  background: #9CA3AF;
+}
+
+/* Header Styles */
 .dashboard-header {
   transition: all 0.3s ease;
 }
@@ -40,6 +89,10 @@
   transform: scale(1.1);
 }
 
+/* Year Dropdown Styles */
+.fc-toolbar-chunk {
+  position: relative;
+}
 
 .fc-yearDropdown-button {
   background: none;
@@ -67,24 +120,7 @@
   margin-left: 4px;
 }
 
-.attendance-status {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.attendance-status.present {
-  background: #10B981;
-}
-
-.attendance-status.absent {
-  background: #EF4444;
-}
-
-.attendance-status.leave {
-  background: #F59E0B;
-}
-.attendance-status.weekend {
-  background: #9CA3AF;
+/* Tooltip Styles */
+.fc-daygrid-day:hover .day-cell {
+  z-index: 10;
 }

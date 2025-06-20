@@ -5,12 +5,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { format } from 'date-fns';
 import { FaRegCalendarAlt, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 import '../AttendanceManagement/AttendanceCalendar.css';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
 
 const AttendanceCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  
   const [hoveredDate, setHoveredDate] = useState(null);
   const [showYearDropdown, setShowYearDropdown] = useState(false);
   const calendarRef = useRef(null);
+
   const [tooltipData, setTooltipData] = useState({
     date: '',
     isPresent: false,
@@ -56,24 +59,19 @@ const AttendanceCalendar = () => {
   };
 
   // Function to handle year change
-  const handleYearChange = (year) => {
-    if (calendarRef.current) {
-      const calendarApi = calendarRef.current.getApi();
-      const currentDate = calendarApi.getDate();
-      currentDate.setFullYear(year);
-      calendarApi.gotoDate(currentDate);
-      setShowYearDropdown(false);
-    }
-  };
+const handleYearChange = (year) => {
+  const newDate = new Date(currentDate);
+  newDate.setFullYear(year);
+  setCurrentDate(newDate);
+  setShowYearDropdown(false);
+};
 
   // Custom header toolbar with year dropdown
-  const renderHeaderToolbar = () => {
-    return {
-      left: 'prev',
-      center: 'title',
-      right: 'next yearDropdown'
-    };
-  };
+  const renderHeaderToolbar = () => ({
+    left: 'prev',
+    center: 'title',
+    right: 'next yearDropdown'
+  });
 
   // Custom button for year dropdown
   const customButtons = {
@@ -86,29 +84,36 @@ const AttendanceCalendar = () => {
   return (
     <div className="attendance-dashboard">
       {/* Header Section */}
-<div className="dashboard-header bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
-  <div className="flex items-center justify-between">
-    <div className="header-title flex items-center space-x-3">
-      <div className="p-3 bg-blue-50 rounded-lg">
-        <FaRegCalendarAlt className="header-icon text-blue-600 text-xl" />
+      <div className="dashboard-header bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+        <div className="flex items-center justify-between">
+          <div className="header-title flex items-center space-x-3">
+            <div className="p-3 bg-blue-50 rounded-lg">
+              <FaRegCalendarAlt className="header-icon text-blue-600 text-xl" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Employee Attendance</h1>
+              <p className="text-sm text-gray-500">Track and manage daily attendance records</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Employee Attendance</h1>
-        <p className="text-sm text-gray-500">Track and manage daily attendance records</p>
-      </div>
-    </div>
 
-  </div>
-</div>
-   {/* Calendar Container */}
+      {/* Calendar Container */}
       <div className="calendar-container relative">
         <FullCalendar
+          initialDate={currentDate} 
+          datesSet={(arg) => setCurrentDate(arg.start)} //  current date state
+
           ref={calendarRef}
-          plugins={[dayGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin, googleCalendarPlugin]}
           initialView="dayGridMonth"
           headerToolbar={renderHeaderToolbar()}
           customButtons={customButtons}
-          height="72vh"
+          height="82vh"
+          googleCalendarApiKey="AIzaSyB9Tt2fQkHCVQaO9Ky4dTFyOBydPihmRnU"
+          events={{
+            googleCalendarId: 'en.indian#holiday@group.v.calendar.google.com'
+          }}
           dayHeaderContent={(arg) => (
             <div className="day-header">
               {arg.text.substring(0, 3)}
@@ -128,16 +133,17 @@ const AttendanceCalendar = () => {
                 onMouseLeave={handleDateMouseLeave}
               >
                 <span className="day-number">{arg.dayNumberText.replace(',', '')}</span>
+                
                 <div className="status-indicators">
                   {isSunday ? (
-                    <span className="attendance-status weekend" title="Weekend"></span>
+                    <span className="attendance-status weekend"></span>
                   ) : (
                     <>
                       {isPresent && (
-                        <span className="attendance-status present" title="Present"></span>
+                        <span className="attendance-status present"></span>
                       )}
                       {isAbsent && (
-                        <span className="attendance-status absent" title="Absent"></span>
+                        <span className="attendance-status absent"></span>
                       )}
                     </>
                   )}
@@ -145,7 +151,7 @@ const AttendanceCalendar = () => {
 
                 {/* Custom Tooltip */}
                 {hoveredDate && hoveredDate.getDate() === dayNumber && !isSunday && (
-                  <div className="absolute z-1100 bg-white border border-gray-200 shadow-lg p-3 rounded-lg text-xs text-left w-48 top-full mt-2 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute z-10 bg-white border border-gray-200 shadow-lg p-3 rounded-lg text-xs text-left w-48 top-full mt-2 left-1/2 transform-translate-xl-2 -translate-x-1/2">
                     <div className="flex justify-between items-center mb-2 pb-1 border-b border-gray-100">
                       <p className="font-semibold">{format(arg.date, 'MMMM d, yyyy')}</p>
                       <span
@@ -208,7 +214,7 @@ const AttendanceCalendar = () => {
       </div>
 
       {/* Stats Cards */}
-  <div className="flex justify-end items-center gap-4 text-lg mt-6">
+      <div className="flex justify-end items-center gap-4 text-lg mt-6">
         {/* Present Card */}
         <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-l-4 border-emerald-500">
           <div className="p-2 bg-emerald-50 rounded-full">
