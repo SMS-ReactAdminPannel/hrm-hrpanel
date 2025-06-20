@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, data } from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
@@ -69,6 +69,8 @@ import { postLogin } from "../../features/auth/service"
 
     try {
       const User: any = await postLogin({ email, password })
+      const datas:any =JSON.stringify(User.data)
+      localStorage.setItem("user",datas)
       console.log("Backend response:", User)
       if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
         await login(email, password)

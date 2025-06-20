@@ -61,13 +61,17 @@ export const API_END_POINTS = {
       delete: "/api/job-postings",    
     },
 
+
+      department: {
+        getAll: "/api/hr/departments/getall",
+        create: "/api/hr/departments/create",
+        update: (id: string) => `/api/hr/departments/update/${id}`,
+        delete: (id: string) => `/api/hr/departments/delete/${id}`,
+},
     visitors:{
       getAll: "api/hr/visitors/getAll",
     } ,
   
-  department : {
-    getAll:  "/api/department/all",
-  },
   announcement:{
     AnnouncementCreate:"/api/hr/announcement/create",
     AnnouncementGetOne:"/api/hr/announcement/get/:id",
