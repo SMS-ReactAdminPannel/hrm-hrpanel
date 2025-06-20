@@ -146,7 +146,7 @@ const fetchGrievances = async (data:Grievance) => {
   return (
     <div className="min-h-screen bg-white mt-5">
       <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6" style={FONTS.header}>
+        <h1 className="!text-gray-700 mb-6" style={{...FONTS.header}}>
           Grievances
         </h1>
 
@@ -170,7 +170,7 @@ const fetchGrievances = async (data:Grievance) => {
           <div className="w-1/2">
             <div className="space-y-4">
               {filteredGrievances.length === 0 ? (
-                <p className="text-center text-gray-400 mt-12">No grievances to show.</p>
+                <p className="text-center text-gray-400 mt-12 " style={{...FONTS.paragraph}}>No grievances to show.</p>
               ) : (
                 filteredGrievances.map((grievance) => (
                   <div
@@ -200,7 +200,7 @@ const fetchGrievances = async (data:Grievance) => {
 
 />
             ) : (
-              <p className="text-center text-gray-400 mt-12">Select a grievance to view details.</p>
+              <p className="text-center text-gray-400 mt-12" style={{...FONTS.paragraph}}>Select a grievance to view details.</p>
             )}
           </div>
         </div>

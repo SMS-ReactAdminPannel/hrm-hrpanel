@@ -481,6 +481,7 @@
 import { useEffect, useState } from 'react'
 import { getVisitors } from '../../features/VisitorsManagement/service';
 import { Building } from 'lucide-react';
+import { FONTS } from "../../constants/uiConstants";
 
 const VisitorManagement = () => {
 
@@ -557,7 +558,7 @@ const [formData, setFormData] = useState<{
       onClick={() => setSelectedVisitor(visitor)}
     >
       <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-semibold text-gray-800">{visitor.fullName}</h3>
+        <h3 className="text-xl !font-semibold !text-gray-800" style={{...FONTS.cardheader}}>{visitor.fullName}</h3>
         <span className={`px-3 py-1 rounded-full text-sm font-medium ${visitor.checkOutTime ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
           {visitor.checkOutTime ? 'Completed' : 'Checked In'}
         </span>
@@ -702,8 +703,6 @@ const [formData, setFormData] = useState<{
         </div>
 
 
-
-
       </div>
 
 
@@ -723,13 +722,13 @@ const [formData, setFormData] = useState<{
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Add Visitor</h2>
 
             <form className="grid grid-cols-2 gap-4">
-              <input name="name" placeholder="Full Name" value={formData.fullName} onChange={handleInputChange} className="border px-3 py-2 rounded" />
-              <input name="phone" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleInputChange} className="border px-3 py-2 rounded" />
-              <input name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} className="border px-3 py-2 rounded" />
-              <input name="company" placeholder="Company" value={formData.company} onChange={handleInputChange} className="border px-3 py-2 rounded" />
-              <input name="host" placeholder="Host" value={formData.host} onChange={handleInputChange} className="border px-3 py-2 rounded" />
+              <input name="name" placeholder="Full Name" value={formData.fullName} onChange={handleInputChange} className="border px-3 py-2 rounded" style={{...FONTS.paragraph}} />
+              <input name="phone" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleInputChange} className="border px-3 py-2 rounded" style={{...FONTS.paragraph}} />
+              <input name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} className="border px-3 py-2 rounded" style={{...FONTS.paragraph}}   />
+              <input name="company" placeholder="Company" value={formData.company} onChange={handleInputChange} className="border px-3 py-2 rounded" style={{...FONTS.paragraph}} />
+              <input name="host" placeholder="Host" value={formData.host} onChange={handleInputChange} className="border px-3 py-2 rounded"  style={{...FONTS.paragraph}}/>
 
-              <select name="purpose" value={formData.purposeOfVisit} onChange={handleInputChange} className="border px-3 py-2 rounded">
+              <select name="purpose" value={formData.purposeOfVisit} onChange={handleInputChange} className="border px-3 py-2 rounded" style={{...FONTS.cardSubHeader}}>
                 <option value="">Purpose of Visit</option>
                 <option value="Interview">Interview</option>
                 <option value="Meeting">Meeting</option>
