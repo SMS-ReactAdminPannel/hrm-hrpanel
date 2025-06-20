@@ -52,9 +52,9 @@ const GrievanceManagement = () => {
   setSelectedGrievance(null);
 }, [filter]);
 
-const fetchGrievances = async (data:Grievance) => {
+const fetchGrievances = async () => {
   try {
-    const response: any = await getAllGrievances(data);
+    const response: any = await getAllGrievances();
     console.log("API Response:", response);
 
     const grievances = response?.data ?? []; 

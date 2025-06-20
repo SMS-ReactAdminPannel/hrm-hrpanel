@@ -18,14 +18,14 @@ type AnnouncementTableProps = {
 
 const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
 
-  const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
+  const [announcement, setannouncement] = useState();
 
-  const fetchannouncement = async (data: AnnouncementType) => {
+  const fetchannouncement = async (data?: AnnouncementType) => {
     try {
       const response: any = await AnnouncementGetAll(data);
       console.log("API Respchonse:", response);
-      const announcementdata = response?.data ?? [];
-      setannouncement(announcementdata);
+      // const announcementdata = response?.data ?? [];
+      setannouncement(response);
     } catch (error) {
       console.error("Error fetching grievances:", error);
     }
