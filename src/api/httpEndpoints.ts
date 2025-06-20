@@ -28,6 +28,13 @@ export const API_END_POINTS = {
     patchstatus:(id:string)=>`/api/hr/candidates/${id}/status`
   },
 
+   asset: {
+    createAsset: "/api/hr/assetproperty/create-assets",
+    getAllAsset: "/api/hr/assetproperty/getall-assets",
+    getAssetById: (id: string) => `/api/hr/assetproperty/get-assets/${id}`,
+    updateAsset: (id: string) => `/api/hr/assetproperty/update-assets/${id}`,
+    deleteAsset: (id: string) => `/api/hr/assetproperty/delete-assets/${id}`,
+  },
 
   assetcategory:{
     createasset:"/api/hr/assetcategory/create",
@@ -37,13 +44,13 @@ export const API_END_POINTS = {
     deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
 
   },
-  asset: {
-    getAllAssets: "/api/assets",
-    getAssetById: (id: string) => `/api/asset/${id}`,
-    createAsset: "/api/assets",
-    updateAsset: (id: string) => `/api/assets/${id}`,
-    deleteAsset: (id: string) => `/api/assets/${id}`,
-  },
+  // asset: {
+  //   getAllAssets: "/api/assets",
+  //   getAssetById: (id: string) => `/api/asset/${id}`,
+  //   createAsset: "/api/assets",
+  //   updateAsset: (id: string) => `/api/assets/${id}`,
+  //   deleteAsset: (id: string) => `/api/assets/${id}`,
+  // },
 
 
     jobPosting: {
@@ -53,8 +60,28 @@ export const API_END_POINTS = {
       update: "/api/job-postings",    
       delete: "/api/job-postings",    
     },
- 
+
+    visitors:{
+      getAll: "api/hr/visitors/getAll",
+    } ,
   
+  department : {
+    getAll:  "/api/department/all",
+  },
+  announcement:{
+    AnnouncementCreate:"/api/hr/announcement/create",
+    AnnouncementGetOne:"/api/hr/announcement/get/:id",
+    AnnouncementGetAll:"/api/hr/announcement/getall",
+    AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
+    AnnouncementDelete:"/api/hr/announcement/delete/:id"
+  },
+  assetCategory: {
+    createCategory: "/api/hr/assetproperty/asset-categories",
+    getAllCategory: "/api/hr/assetproperty/getallasset-categories",
+    getCategoryById: (id: string) => `/api/hr/assetproperty/getasset-categories/${id}`,
+    updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
+    deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
+  },
 };
 
 
