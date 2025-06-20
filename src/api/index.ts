@@ -13,7 +13,7 @@ export default class Client {
         httpClient.get(API_END_POINTS.timesheet.getsubmittimesheet, data),
 
       approveTimesheet: (timesheetId: string, data: any) =>
-        httpClient.update(API_END_POINTS.timesheet.patchapprovetimesheet(timesheetId), data),
+        httpClient.patch(API_END_POINTS.timesheet.patchapprovetimesheet(timesheetId), data),
 
       employeeTimesheet: (timesheetId: string, data: any) =>
         httpClient.get(API_END_POINTS.timesheet.getemployeetimesheet(timesheetId), data),
@@ -46,7 +46,7 @@ export default class Client {
     httpClient.get(API_END_POINTS.candidates.getallcandidates),
 
   updateStatus: (candidatesId: string, data: any) =>
-  httpClient.update(API_END_POINTS.candidates.patchstatus(candidatesId), data)
+  httpClient.patch(API_END_POINTS.candidates.patchstatus(candidatesId), data)
 
     },
   
@@ -74,6 +74,20 @@ export default class Client {
 
     },
 
+    departments: {
+      getAllDepartments: () =>
+        httpClient.get(API_END_POINTS.department.getAll),
+    
+      createDepartment: (data: any) =>
+        httpClient.post(API_END_POINTS.department.create, data),
+    
+      updateDepartment: (id: string, data: any) =>
+        httpClient.put(API_END_POINTS.department.update(id), data),
+    
+      deleteDepartment: (id: string) =>
+        httpClient.delete(API_END_POINTS.department.delete(id)),
+    },
+    
     assetcategory:{
       createassetcategory:(data:any)=>
         httpClient.post(API_END_POINTS.assetCategory.createCategory,data),
@@ -93,11 +107,16 @@ export default class Client {
     },
 
     visitors:{
+      createVisitor: (data: any) =>
+        httpClient.post(API_END_POINTS.visitors.create, data),
       getAllVisitors: () =>
         httpClient.get(API_END_POINTS.visitors.getAll),
+      deleteVisitor: (visitorId: string) =>
+        httpClient.delete(API_END_POINTS.visitors.delete.replace(':id', visitorId))
     }
 
   };
+    static hr: any;
 }
 
 

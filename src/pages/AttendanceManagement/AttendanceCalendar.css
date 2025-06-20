@@ -1,0 +1,126 @@
+/* Calendar Container Styles */
+.fc-scroller {
+  overflow: hidden !important;
+}
+
+.fc-daygrid-body {
+  width: 100% !important;
+}
+
+.calendar-container {
+  overflow: hidden;
+}
+
+.fc-view-harness {
+  height: auto !important;
+}
+
+/* Day Cell Structure */
+.fc-daygrid-day-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 4px;
+  position: relative;
+}
+
+.fc-daygrid-day-top {
+  justify-content: center !important;
+  z-index: 2;
+  position: relative;
+}
+
+/* Status Indicators */
+.status-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin: 4px 0;
+  z-index: 1;
+  position: relative;
+}
+
+.attendance-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.attendance-status.present {
+  background: #10B981;
+}
+
+.attendance-status.absent {
+  background: #EF4444;
+}
+
+.attendance-status.leave {
+  background: #F59E0B;
+}
+
+.attendance-status.weekend {
+  background: #9CA3AF;
+}
+
+/* Header Styles */
+.dashboard-header {
+  transition: all 0.3s ease;
+}
+
+.dashboard-header:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #e5e7eb;
+}
+
+.header-icon {
+  transition: transform 0.2s ease;
+}
+
+.header-title:hover .header-icon {
+  transform: scale(1.1);
+}
+
+/* Year Dropdown Styles */
+.fc-toolbar-chunk {
+  position: relative;
+}
+
+.fc-yearDropdown-button {
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fc-yearDropdown-button:hover {
+  background-color: #f8fafc;
+}
+
+.fc-yearDropdown-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #bfdbfe;
+}
+
+.fc-yearDropdown-button .fc-icon {
+  font-size: 0.8em;
+  margin-left: 4px;
+}
+
+/* Tooltip Styles */
+.fc-daygrid-day:hover .day-cell {
+  z-index: 10;
+}

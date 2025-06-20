@@ -17,7 +17,3 @@ export interface EmployeeFormData {
   phone: string
   managerId: string | null
 }
-
-export interface EmployeeNode extends Employee {
-  children: EmployeeNode[]
-}

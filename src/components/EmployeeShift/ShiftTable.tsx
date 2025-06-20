@@ -59,50 +59,52 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
   const groupedEmployees = groupEmployees()
 
   return (
-    <div className="flex-1 overflow-hidden mt-10">
-      <div className="h-full overflow-auto rounded-md custom-scrollbar">
+    <div className="flex-1 overflow-hidden">
+      <div className="h-full overflow-auto rounded-md -scrollbar">
         <table className="w-full">
-          <thead className="bg-[#006666] border-b border-gray-200 sticky top-0 " style={{...FONTS.tableHeader}}>
+          <thead className="bg-[#5e59a9] border-b border-gray-50 sticky top-0">
             <tr>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px]" style={{...FONTS.tableHeader}}>Employee</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Title</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[120px]" style={{...FONTS.tableHeader}}>Based On</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[180px]" style={{...FONTS.tableHeader}}>Rotate</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Start Date</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky top-0 left-0 bg-[#5e59a9]">Employee</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Shift</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Department</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[120px]">Based On</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[180px]">Rotate</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Start Date</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">
                 Current Shift
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Next Shift</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]" style={{...FONTS.tableHeader}}>Next Switch</th>
-              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[200px] sticky right-0 bg-[#006666]" style={{...FONTS.tableHeader}}>
-                Actions
-              </th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Shift</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px]">Next Switch</th>
+              <th className="px-4 lg:px-6 py-3 text-left text-md font-medium text-white min-w-[150px] sticky right-0 bg-[#5e59a9]">Actions</th>
             </tr>
           </thead>
 
-          <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
+          <tbody className="bg-gray-50 backdrop-blur divide-y divide-gray-100">
             {Object.keys(groupedEmployees).length > 0 ? (
               Object.entries(groupedEmployees).map(([groupKey, groupEmployees]) => (
                 <React.Fragment key={groupKey}>
                   {groupBy && (
-                    <tr className="bg-gray-50">
-                      <td colSpan={9} className="px-4 lg:px-6 py-3 font-medium text-gray-900">
-                        {getGroupHeader(groupKey)}
+                    <tr className="bg-gray-50 scrollbar-hide">
+                      <td colSpan={2} className="px-4 lg:px-6 py-3 font-medium text-gray-900  sticky left-0 ">
+                        {getGroupHeader(groupKey)} :
+                      </td>
+                      <td colSpan={8}>
                       </td>
                     </tr>
                   )}
 
                   {groupEmployees.map((employee) => (
                     <tr key={employee.id}>
-                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900" style={{...FONTS.tableBody}}>{employee.name}</div>
+                      <td className="px-4 lg:px-6 py-4 sticky left-0 whitespace-nowrap bg-gray-50 border-r border-gray-500">
+                        <div className="flex flex-col items-center">
+                            <div className="text-sm font-medium text-gray-900">{employee.name}</div>
                             <div className="text-sm text-gray-500">{employee.employeeId}</div>
-                          </div>
                         </div>
                       </td>
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.title}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
+                        {employee.department} <br/> ({employee.jobRole})
+                      </td>
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.basedOn}</td>
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.rotate}</td>
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
@@ -141,8 +143,8 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                       <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.nextSwitch}
                       </td>
-                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap sticky right-0 bg-[#eff4f5]">
-                        <div className="flex items-center gap-2">
+                      <td className="px-4 lg:px-6 py-4 whitespace-nowrap bg-gray-50 sticky right-0 border-l border-gray-50">
+                        <div className="flex items-center justify-center gap-6">
                           <button
                             className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
                             onClick={() => onEditEmployee(employee)}
@@ -163,7 +165,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
               ))
             ) : (
               <tr>
-                <td colSpan={9} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={10} className="px-6 py-4 text-center text-gray-500">
                   No employees found matching your search criteria
                 </td>
               </tr>
