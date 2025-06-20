@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, data } from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
@@ -15,46 +15,6 @@ import { postLogin } from "../../features/auth/service"
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login } = useAuth()
-  
-
-  type LoginData = {
-	email: string;
-	password: string;
-};
-
-//  const onSubmit = async (data: LoginData) => {
-//   try {
-//     const User: any = await postLogin(data);
-//     await login(data.email, data.password);
-//     console.log(User);
-
-//     navigate("/dashboard");
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };
-
-    const onSubmit = async (data: LoginData) => {
-      try {
-        const User: any = await postLogin(data);
-        console.log(User)
-
-        if (!User) {
-          console.log("Login failed: No user data received.");
-          return;
-        }
-
-        await login(data.email, data.password); // assuming this sets auth state
-        console.log("User:", User);
-        navigate("/");
-
-      } catch (error) {
-        console.log("ERRROR OUTPUT", error);
-      }
-    };
-
-
-
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -69,6 +29,8 @@ import { postLogin } from "../../features/auth/service"
 
     try {
       const User: any = await postLogin({ email, password })
+      const datas:any =JSON.stringify(User.data)
+      localStorage.setItem("user",datas)
       console.log("Backend response:", User)
       if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
         await login(email, password)
