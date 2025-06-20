@@ -107,8 +107,12 @@ export default class Client {
     },
 
     visitors:{
+      createVisitor: (data: any) =>
+        httpClient.post(API_END_POINTS.visitors.create, data),
       getAllVisitors: () =>
         httpClient.get(API_END_POINTS.visitors.getAll),
+      deleteVisitor: (visitorId: string) =>
+        httpClient.delete(API_END_POINTS.visitors.delete.replace(':id', visitorId))
     }
 
   };
