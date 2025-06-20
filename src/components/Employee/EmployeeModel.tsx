@@ -2,6 +2,7 @@ import type React from "react"
 import { useState } from "react"
 import { X } from "lucide-react"
 import type { Employee, Department, JobTitle, EmploymentType } from "../../components/Employee/Employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface AddEmployeeModalProps {
   isOpen: boolean
@@ -67,7 +68,7 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ isOpen, onCl
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Add New Employee</h2>
+          <h2 style={{...FONTS.cardheader}} className="!text-indigo-800">Add New Employee</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={24} />
           </button>

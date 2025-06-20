@@ -204,7 +204,7 @@ const EmployeeManagement = () => {
         <h1 className="text-3xl font-bold text-black" style={{...FONTS.header}}>Employee </h1>
         <button
           onClick={() => setShowAddForm(true)}
-          className="!bg-[#006666] hover:!bg-teal-700 text-white px-4 py-2 rounded-md shadow-md"
+          className="bg-[#4c469f] text-white px-4 py-2 rounded-md shadow-md transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
           style={{...FONTS.button}}
         >
           + Add Employee
