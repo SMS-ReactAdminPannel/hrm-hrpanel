@@ -38,8 +38,8 @@ import { MdHotelClass } from "react-icons/md";
 
 
 
-const SIDEBAR_WIDTH_OPEN = "18rem"
-const SIDEBAR_WIDTH_CLOSED = "5rem"
+const SIDEBAR_WIDTH_OPEN = "15rem"
+const SIDEBAR_WIDTH_CLOSED = "4rem"
 
 const SideBar = ({
   isOpen,
@@ -73,40 +73,41 @@ const SideBar = ({
         width: actualOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED,
         background: "rgba(255, 255, 255, 0.1)",
         backdropFilter: "blur(30px)",
+        ...FONTS.cardheader
       }}
     >
       {/* Header */}
-      <div className="flex flex-col scrollbar-hide h-16  ">
+      <div className="flex flex-col scrollbar-hide h-14 ">
         <div className="flex items-center justify-between p-4 h-16">
-          {actualOpen && <div className="text-white text-xl font-semibold"
+          {/* {actualOpen && <div className="text-white text-xl font-semibold"
             style={{
               fontSize: FONTS.header2.fontSize,
               fontFamily: FONTS.header.fontFamily
-            }}>HRM</div>}
+            }}></div>} */}
           <button
             onClick={handleToggle}
             className="p-2 rounded-md transition duration-200 hover:bg-white/10"
             title="Toggle Sidebar"
           >
-            <FiMenu size={20} color="white" />
+            <FiMenu size={20} className="text-gray-200" />
           </button>
          
         </div>
       </div>
-
+     <div className="border-b-2 border-b-gray-400  mr-6 ml-6"></div>
       {/* Navigation */}
-      <div className="flex-1 overflow-y-scroll scrollbar-hide px-4 pb-4">
-        <nav className="flex flex-col gap-2">
+      <div className="flex-1 overflow-y-scroll scrollbar-hide px-2 mt-3 pb-4">
+        <nav className="flex flex-col">
           {/* Dashboard Group */}
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}>
+          <div className="active-backdrop-blur-sm rounded-2xl">
+            {/* <SidebarDropdown icon={<MdOutlineDashboardCustomize />} label="Dashboard" isOpen={actualOpen}> */}
               <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} />
-            </SidebarDropdown>
+              {/* <SidebarLink to="/home-intro" icon={<FiHome />} label="Home Intro" isOpen={actualOpen} onClick={handleLinkClick} /> */}
+            {/* </SidebarDropdown> */}
           </div>
 
           {/* Employee Group */}
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+          <div className="bg-white/6 rounded-2xl ">
               <SidebarDropdown icon={<FiUsers />} label="Employee" isOpen={actualOpen}>
               <SidebarLink to="/employee" icon={<FiUsers />} label="Employee" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/shift" icon={<RiTimeLine />} label="Shifts" isOpen={actualOpen} onClick={handleLinkClick} />
@@ -115,34 +116,34 @@ const SideBar = ({
               </SidebarDropdown>
           </div>
           {/* Recruitment Group */}
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+          <div className="bg-white/6  rounded-2xl ">
             <SidebarDropdown icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen}>
               <SidebarLink to="/recruitment" icon={<RiBriefcaseLine />} label="Recruitment" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/recruitment/candidatesPage" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
-              <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/recruitment/candidatelists" icon={<RiUserFollowLine />} label="Candidates" isOpen={actualOpen} onClick={handleLinkClick} />
+              {/* <SidebarLink to="/pipeline" icon={<RiUserSearchLine />} label="Pipeline" isOpen={actualOpen} onClick={handleLinkClick} /> */}
               <SidebarLink to="/recruitment/job-postings" icon={<RiBriefcaseLine />} label="Job Postings" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
+          <div className="bg-white/6 rounded-2xl">
             <SidebarDropdown icon={<RiUserSearchLine />} label="Boarding" isOpen={actualOpen}>
               <SidebarLink to="/onboarding" icon={<AiOutlineIssuesClose />} label="OnBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/offboarding" icon={<AiOutlineIssuesClose />} label="OffBoarding" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<CgCalendarDates />} label="attendence timesheet" isOpen={actualOpen}>
+          <div className="bg-white/6 rounded-2xl">
+            <SidebarDropdown icon={<CgCalendarDates />} label="Attendance" isOpen={actualOpen}>
               <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<LuPackagePlus />} label="assets" isOpen={actualOpen}>
+          <div className="bg-white/6 rounded-2xl">
+            <SidebarDropdown icon={<LuPackagePlus />} label="Assets" isOpen={actualOpen}>
               <SidebarLink to="/asset" icon={<GiLaptop />} label="Assets" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/asset-category" icon={<RiArchiveDrawerLine />} label="Asset Category" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
-          <div className="bg-white/6 backdrop-blur-sm rounded-2xl p-3 mb-2">
-            <SidebarDropdown icon={<RiUserSearchLine />} label="leave " isOpen={actualOpen}>
+          <div className="bg-white/3 rounded-2xl">
+            <SidebarDropdown icon={<RiUserSearchLine />} label="Leave " isOpen={actualOpen}>
               <SidebarLink to="/leave-management" icon={<MdEventAvailable />} label="Leave Management" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/leave-types" icon={<MdOutlineSick />} label="Leave Types" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
@@ -156,7 +157,7 @@ const SideBar = ({
           <SidebarLink to="/announcement" icon={<GrAnnounce />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance" isOpen={actualOpen} onClick={handleLinkClick} />
           <SidebarLink to="/training-management" icon={<MdHotelClass />} label="Training" isOpen={actualOpen} onClick={handleLinkClick} />
-          <SidebarLink to="/candidatelists" icon={<FaListAlt />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} />
+          {/* <SidebarLink to="/candidatelists" icon={<FaListAlt />} label="CandidateLists" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/chat" icon={<IoChatbox />} label="Chat" isOpen={actualOpen} onClick={handleLinkClick} />
           {/* <SidebarLink to="/attendance" icon={<MdEventAvailable />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           {/* <SidebarLink to="/deduction" icon={<MdEventAvailable />} label="Deduction" isOpen={actualOpen} onClick={handleLinkClick} /> */}

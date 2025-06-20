@@ -4,7 +4,7 @@ import { FONTS } from "../../../constants/uiConstants"
 
 interface Asset {
   id: string
-  name: string
+  asset_name: string
   status: "Available" | "Not-Available"
   trackingId: string
   batchNo: string
@@ -46,7 +46,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
     { key: 'actions', label: 'Actions', width: 'w-1/6' }
   ]
 
-  if (assets.length === 0) {
+  if (assets?.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
   
@@ -80,14 +80,14 @@ const AssetTable: React.FC<AssetTableProps> = ({
         <table className="w-full">
           <thead className="bg-[#5e59a9]/70 backdrop-blur-sm ">
             <tr>
-              {tableHeaders.map((header) => (
+              {tableHeaders?.map((header,index) => (
                 <th 
                   key={header.key}
                   style={{ ...FONTS.tableHeader}}
                   className={`text-left text-white text-sm
                      px-6 py-4  font-semibold text-gray-600 uppercase tracking-wider ${header.width}`}
                 >
-                  {header.label}
+                  {header?.label}
                 </th>
               ))}
             </tr>
@@ -128,10 +128,10 @@ const AssetTable: React.FC<AssetTableProps> = ({
                     style={{ ...FONTS.tableBody }}
                     className={`inline-flex items-center px-1 py-1 text-sm  rounded-md border ${getStatusColor(asset.status)}`}
                   >
-                    <span className={`w-1.5 h-1.5   rounded-full mr-1.5 ${
-                      asset.status === "Available" ? "bg-green-400 " : "bg-red-400"
+                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                      asset?.status === "Available" ? "bg-green-400" : "bg-red-400"
                     }`}></span>
-                    {asset.status === "Not-Available" ? "Unavailable" : asset.status}
+                    {asset?.status === "Not-Available" ? "Unavailable" : asset?.status}
                   </span>
                 </td>
 
@@ -188,7 +188,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
         style={{ ...FONTS.tableBody }}>
         <div className="flex items-center justify-between text-sm text-gray-900">
           <span>
-            Showing {assets.length} of {assets.length} assets
+            Showing {assets?.length} of {assets?.length} assets
           </span>
           <span>
             {category && `Category: ${category}`}

@@ -103,7 +103,6 @@ export default function CandidatesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     (async () => {
       try {
@@ -143,6 +142,8 @@ export default function CandidatesPage() {
         f.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+
 
   return (
     <div className="p-2 space-y-6">
@@ -266,7 +267,7 @@ export default function CandidatesPage() {
             
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => navigate(`/candidates/${cand._id}`)}
+                      onClick={() => navigate(`/recruitment/candidatelists/candidatesPage`)}
                       className="flex items-center gap-2"
                     >
                       <Eye className="h-4 w-4" /> View

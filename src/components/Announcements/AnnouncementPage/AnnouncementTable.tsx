@@ -18,32 +18,24 @@ type AnnouncementTableProps = {
 
 const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
 
-  const [announcement, setannouncement] = useState();
-
-  const fetchannouncement = async (data?: AnnouncementType) => {
-    try {
-      const response: any = await AnnouncementGetAll(data);
-      console.log("API Respchonse:", response);
-      // const announcementdata = response?.data ?? [];
-      setannouncement(response);
-    } catch (error) {
-      console.error("Error fetching grievances:", error);
-    }
-  };
-
-  useEffect(() =>{
-    fetchannouncement();  
-  },[])
-
-  const [data, setData] = useState<AnnouncementType[]>([]);
-  console.log("data commig",data)
-  useEffect(() => {
-    if (announcement) {
-      setData([announcement]); 
-    }
-  }, [announcement]);
+  const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
   
 
+    const fetchannouncement = async () => {
+      try {
+        const response: any = await AnnouncementGetAll();
+        console.log("API Response:", response.data);
+  
+        const visitors = response?.data ?? [];
+        setannouncement(visitors.data);
+      } catch (error) {
+        console.error("Error fetching Announcement:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchannouncement();
+    }, []);
 
 
 
@@ -119,25 +111,25 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
     //     </tbody>
     //   </table>
     // </div>
-    <div className={`overflow-x-auto ${data.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
-      <table className="min-w-full table-fixed border-collapse text-sm bg-white">
+    <div className={`overflow-x-auto ${announcement.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
+      <table className="min-w-full text-center table-fixed border-collapse text-sm bg-white">
         <thead
-          className="bg-[#5e59a9]/70 backdrop-blur-sm text-white"
+          className="bg-[#5e59a9]/70  backdrop-blur-sm text-white"
           style={{
             fontSize: FONTS.paragraph.fontSize,
             fontFamily: FONTS.header.fontFamily,
           }}
         >
           <tr>
-            <th className="w-40 px-6 py-3 text-left">Title</th>
-            <th className="w-36 px-6 py-3 text-left">Start Date</th>
-            <th className="w-36 px-6 py-3 text-left">End Date</th>
-            <th className="w-[30rem] px-6 py-3 text-left">Description</th>
-            <th className="w-28 px-6 py-3 text-center">Action</th>
+            <th className="w-40 px-6 py-3 ">Title</th>
+            <th className="w-36 px-6 py-3 ">Start Date</th>
+            <th className="w-36 px-6 py-3 ">End Date</th>
+            <th className="w-[30rem] px-6 py-3 ">Description</th>
+            <th className="w-28 px-6 py-3 ">Action</th>
           </tr>
         </thead>
         <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
-          {data.length === 0 ? (
+          {announcement.length === 0 ? (
             <tr>
               <td
                 colSpan={5}
@@ -147,7 +139,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
               </td>
             </tr>
           ) : (
-            data.map((item, index) => (
+            announcement.map((item, index) => (
               <tr
                 key={index}
                 className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
@@ -170,7 +162,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
                 <td className="px-6 py-4 text-gray-600">
                   {item.end_date || "no enddate"}
                 </td>
-                <td className="px-6 py-4 text-gray-600 break-words whitespace-normal">
+                <td className="px-6 py-4 text-gray-600 break-words text-center whitespace-normal">
                   {item.description || "no description"}
                 </td>
                 <td className="px-6 py-4 text-center">

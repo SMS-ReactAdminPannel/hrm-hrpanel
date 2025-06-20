@@ -377,17 +377,17 @@ const AssetsManagement: React.FC = () => {
             />
           </div>
 
-          <div className="flex gap-3 ml-auto">
-            <div className="relative" ref={categoryDropdownRef}>
-              <Filter className="absolute !text-white left-3 top-1/2 transform -translate-y-1/2 !text-slate-400 w-5  z-10" />
+          <div className="flex gap-3 ml-auto ">
+            <div className="relative text-gray-900 bg-[#eff4f5]" ref={categoryDropdownRef}>
+              <Filter className="absolute  !text-black left-3 top-1/2 transform -translate-y-1/2 !text-slate-400 w-5  z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-[#5e59a9]/70 !text-white rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2  !text-black rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
                 style={{ ...FONTS.button }}
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
-                  className={`w-4 text-white transition-transform duration-200 ${showCategoryDropdown ? "rotate-180" : ""}`}
+                  className={`w-4 text-black transition-transform duration-200 ${showCategoryDropdown ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -665,9 +665,9 @@ const AssetsManagement: React.FC = () => {
   <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div
       ref={modalRef}
-      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
+      className="  rounded-md p-8 w-[40%]  border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
     >
-      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text !text-black text-transparent mb-6"
+      <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text !text-white text-transparent mb-6"
               style={{ ...FONTS.header2 }}>
         {editingAsset ? "Edit Asset" : "Add New Asset"}
       </h2>
@@ -681,7 +681,7 @@ const AssetsManagement: React.FC = () => {
       >
         {/* Asset Name */}
         <div>
-          <label className="block text-sm font-medium !text-slate-700 mb-2"
+          <label className="block text-sm font-medium !text-white mb-2"
                   style={{ ...FONTS.paragraph }}>Asset Name</label>
           <input
             type="text"
@@ -690,13 +690,13 @@ const AssetsManagement: React.FC = () => {
             value={newAsset.name}
             onChange={(e) => setNewAsset({ ...newAsset, name: e.target.value })}
                   style={{ ...FONTS.paragraph }}
-            className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+                  className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
           />
         </div>
 
         {/* Assigned To */}
         <div>
-          <label className="block text-sm font-medium !text-slate-700 mb-2"
+                <label className="block text-sm font-medium !text-white mb-2"
                   style={{ ...FONTS.paragraph }}>Assigned To</label>
           <input
             type="text"
@@ -705,13 +705,13 @@ const AssetsManagement: React.FC = () => {
             value={newAsset.assignedTo}
             onChange={(e) => setNewAsset({ ...newAsset, assignedTo: e.target.value })}
                   style={{ ...FONTS.paragraph }}
-            className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
+                  className="w-full px-4 py-3 bg-white/70 border !text-black border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
           />
         </div>
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium !text-slate-700 mb-2"
+                <label className="block text-sm font-medium !text-white mb-2"
                   style={{ ...FONTS.paragraph }}>Category</label>
           <div className="relative" ref={modalCategoryDropdownRef}>
             <button
@@ -762,7 +762,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Serial Number */}
         <div>
-          <label className="block text-sm font-medium !text-slate-700 mb-2"
+                <label className="block text-sm font-medium !text-white mb-2"
                   style={{ ...FONTS.paragraph }}>Serial Number</label>
           <input
             type="text"
@@ -778,7 +778,7 @@ const AssetsManagement: React.FC = () => {
 
         {/* Status */}
         <div>
-          <label className="block text-sm font-medium !text-slate-700 mb-2"
+                <label className="block text-sm font-medium !text-white mb-2"
                   style={{ ...FONTS.paragraph }}>Status</label>
           <div className="relative" ref={modalStatusDropdownRef}>
             <button
@@ -842,14 +842,14 @@ const AssetsManagement: React.FC = () => {
             type="button"
             onClick={handleCloseModal}
                   style={{ ...FONTS.paragraph }}
-            className="flex-1 px-4 py-2 border border-slate-300 !text-slate-700 rounded-md hover:bg-slate-105 transition-all font-medium"
+                  className="flex-1 px-4 py-2 border border-slate-300 !text-white rounded-md hover:bg-gray-500 hover:scale-102 transition-all font-medium"
           >
             Cancel
           </button>
           <button
             type="submit"
                   style={{ ...FONTS.paragraph }}
-            className="flex-1 px-4 py-2 bg-[#6f70ce] text-black rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#6f70ce] text-black rounded-md hover:shadow-lg hover:scale-102 transition-all font-medium"
           >
             {editingAsset ? "Update Asset" : "Add Asset"}
           </button>

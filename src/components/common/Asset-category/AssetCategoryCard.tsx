@@ -5,7 +5,7 @@ import AssetTable from "./AssetTable"
 
 interface Asset {
   id: string
-  name: string
+  asset_name: string
   status: "Available" | "Not-Available"
   trackingId: string
   batchNo: string
@@ -46,14 +46,14 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
   const [isExpanded, setIsExpanded] = useState(true)
 
   
-  const filteredAssets = assets.filter(
+  const filteredAssets = assets?.filter(
     (asset) =>
-      asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      asset.trackingId.toLowerCase().includes(searchQuery.toLowerCase()),
+      asset?.asset_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      asset?.trackingId?.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   
-  if (searchQuery && filteredAssets.length === 0) {
+  if (searchQuery && filteredAssets?.length === 0) {
     return null
   }
 
@@ -72,7 +72,7 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
 
           <div className="flex items-center gap-3">
             <span className="bg-[#006666] text-white text-xs font-medium px-2 py-1 rounded-full min-w-[24px] text-center">
-              {searchQuery ? filteredAssets.length : count}
+              {searchQuery ? filteredAssets?.length : count}
             </span>
             <span className="font-medium text-gray-900 text-sm capitalize">{category}</span>
           </div>

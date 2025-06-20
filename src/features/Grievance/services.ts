@@ -1,5 +1,6 @@
 import Client from "../../api";
 
+// Get all grievances
 
 export const getAllGrievances = async () => {
   try {

@@ -44,36 +44,32 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
               <th
                 key={key}
                 className="px-4 py-3 text-left text-md font-medium text-white cursor-pointer"
+                style={{...FONTS.tableHeader}}
                 onClick={() => onSort(key as keyof Employee)}
               >
                 {key.charAt(0).toUpperCase() + key.slice(1)}
                 {sortConfig?.key === key && (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
               </th>
             ))}
-            <th className="px-4 py-2 text-left text-md text-white">Actions</th>
+            <th className="px-4 py-2 text-left text-md text-white" style={{...FONTS.tableHeader}}>Actions</th>
           </tr>
         </thead>
-        <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
+        <tbody className="divide-y divide-gray-200" >
           {employees.map((emp) => (
-            <tr
-              key={emp.id}
-              className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
-            >
-              <td className="px-4 py-5 text-sm whitespace-nowrap font-medium text-gray-900">{emp.id}</td>
-              <td className="px-4 py-2 text-sm whitespace-nowrap font-medium text-gray-900">{emp.name}</td>
-              <td className="px-4 py-2 text-sm whitespace-nowrap font-medium text-gray-900">{emp.email}</td>
-              <td className="px-4 py-2 text-sm whitespace-nowrap font-medium text-gray-900">{emp.department}</td>
-              <td className="px-4 py-2 text-sm whitespace-nowrap font-medium text-gray-900">{emp.jobTitle}</td>
+            <tr key={emp.id} style={{...FONTS.tableBody}} className='text-white ' >
+              <td className="px-4 py-5 text-sm" style={{...FONTS.tableBody}}>{emp.id}</td>
+              <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.name}</td>
+              <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.email}</td>
+              <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.department}</td>
+              <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.jobTitle}</td>
               <td className="px-4 py-2">
-                <span className={`px-2 py-1 text-xs rounded-full ${getEmploymentTypeColor(emp.employmentType)}`}>
+                <span className={`px-2 py-1 text-xs rounded-full ${getEmploymentTypeColor(emp.employmentType)}`} style={{...FONTS.tableBody}}>
                   {emp.employmentType}
                 </span>
               </td>
-              <td className="px-4 py-2 space-x-2">
-                <button className="text-blue-600 hover:text-blue-800" onClick={() => {
-                  // onEdit (emp)
-                  setIsEditing(true)
-                  } }>
+              <td className="px-4 py-2 space-x-2" style={{...FONTS.tableBody}}>
+                <button className="text-blue-600 hover:text-blue-800" onClick={() => 
+                  setIsEditing(true)}>
                   <Edit size={16} />
                 </button>
                 <button className="text-red-600 hover:text-red-800" onClick={() => onDelete(emp.id)}>
