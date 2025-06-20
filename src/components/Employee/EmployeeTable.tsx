@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee, EmploymentType } from "../../components/Employee/Employee"
+import { FONTS } from '../../constants/uiConstants';
+import { X } from "lucide-react"
 
 
 interface EmployeeTableProps {
@@ -92,62 +94,92 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
       </table>
 
       {isEditing && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <form className="p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl w-full max-w-2xl">
+        <div className="fixed h-[100%] inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+          <form className="relative h-[65%] p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl w-full max-w-2xl">
             <div className="flex justify-end">
-              <button className="text-black bg-white/70 border border-black px-2 py-1 rounded">
-                Close
+              <button className="text-black  px-2 py-1 rounded">
+                <X size={24} />
               </button>
             </div>
+
+            <p style={{ ...FONTS.header3 }}>Employee Management Edit</p>
+
             <div className="grid grid-cols-2 gap-4 mt-4">
-              <input
-                type="text"
-                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
-                placeholder="Id"
-              />
-              <input
-                type="text"
-                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
-                placeholder="Name"
-              />
-              <input
-                type="email"
-                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
-                placeholder="Email"
-              />
-              <input
-                type="text"
-                className="bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
-                placeholder="Job Title"
-              />
-              <select className="bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Contract">Contract</option>
-              </select>
-              <select className="bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
-                <option value="Engineering">Engineering</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Finance">Finance</option>
-              </select>
-              
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Id</p>
+                <input
+                  type="text"
+                  className="w-full bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                  placeholder="Id"
+                />
+              </div>
+
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Name</p>
+                <input
+                  type="text"
+                  className="w-full bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                  placeholder="Name"
+                />
+              </div>
+
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Email</p>
+                <input
+                  type="email"
+                  className="w-full bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Title</p>
+                <input
+                  type="text"
+                  className="w-full bg-white/30 placeholder-black/70 border border-white/40 p-2 rounded-lg backdrop-blur-sm"
+                  placeholder="Job Title"
+                />
+              </div>
+
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Status</p>
+                <select className="w-full bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
+                  <option value="Full-Time">Full-Time</option>
+                  <option value="Part-Time">Part-Time</option>
+                  <option value="Contract">Contract</option>
+                </select>
+              </div>
+
+              <div>
+                <p style={{ ...FONTS.paragraph }}>Department</p>
+                <select className="w-full bg-white/30 border border-white/40 p-2 rounded-lg backdrop-blur-sm text-black">
+                  <option value="Engineering">Engineering</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Finance">Finance</option>
+                </select>
+              </div>
             </div>
-            <div className="mt-6 flex gap-3">
+
+            {/* Buttons fixed to bottom right */}
+            <div className="absolute bottom-3 right-6 flex gap-3">
               <button
                 type="submit"
                 className="bg-blue-600/80 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+                style={{ ...FONTS.button}}
               >
                 Save
               </button>
               <button
                 type="button"
                 className="bg-gray-400/80 text-white px-5 py-2 rounded-lg hover:bg-gray-500 transition"
+                style={{ ...FONTS.button }}
               >
                 Cancel
               </button>
             </div>
           </form>
         </div>
+      
       )}
 
 

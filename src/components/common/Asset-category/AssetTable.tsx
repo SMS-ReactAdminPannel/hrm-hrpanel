@@ -105,8 +105,11 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 <td className="px-6 py-4 w-1/3">
                   <div className="flex items-center gap-3">
                     <div className="min-w-0 flex-1">
-                      <div className="text-sm font-semibold !text-gray-900 truncate"
-                        style={{ ...FONTS.tableBody}}>
+                      <div className="text-sm font-semibold !text-gray-900 "
+                      style={{fontSize:FONTS.tableBody.fontSize,
+                        fontFamily:FONTS.tableBody.fontFamily,
+                      }}
+                        >
                         {asset.name}
                       </div>
                       {asset.description && (

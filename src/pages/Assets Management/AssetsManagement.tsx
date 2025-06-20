@@ -6,7 +6,6 @@ import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "l
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { FONTS } from "../../constants/uiConstants"
-import axios from "axios"
 import httpClient from "../../api/httpClient";
 import { API_END_POINTS } from "../../api/httpEndpoints";
 
