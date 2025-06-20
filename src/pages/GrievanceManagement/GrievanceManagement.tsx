@@ -6,7 +6,7 @@ import { FONTS } from "../../constants/uiConstants";
 import { getAllGrievances, updateGrievanceStatus } from "../../features/Grievance/services";
 
 export type Grievance = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   status: "solved" | "unsolved";
@@ -16,7 +16,7 @@ export type Grievance = {
   department: string;
   role: string;
   date: string;
-};
+}; 
 
 const GrievanceManagement = () => {
   const [grievances, setGrievances] = useState<Grievance[]>([]);
