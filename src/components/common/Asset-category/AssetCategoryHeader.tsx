@@ -55,7 +55,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
           <button
             onClick={onCreate}
             style={{ ...FONTS.paragraph }}
-            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
+            className="flex items-center gap-2 px-4 py-2 bg-[#5e59a9]/70 text-white text-sm
              rounded-md  transition-colors"
           >
             <Plus className="w-4 h-4" />

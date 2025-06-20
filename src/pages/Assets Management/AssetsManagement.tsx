@@ -379,15 +379,15 @@ const AssetsManagement: React.FC = () => {
 
           <div className="flex gap-3 ml-auto">
             <div className="relative" ref={categoryDropdownRef}>
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
+              <Filter className="absolute !text-white left-3 top-1/2 transform -translate-y-1/2 !text-slate-400 w-5  z-10" />
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="pl-10 pr-8 py-2 bg-[#eff4f5] !text-black rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
+                className="pl-10 pr-8 py-2 bg-[#5e59a9]/70 !text-white rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500/50 cursor-pointer transition-all duration-200 flex items-center justify-between min-w-[180px]"
                 style={{ ...FONTS.button }}
               >
                 <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${showCategoryDropdown ? "rotate-180" : ""}`}
+                  className={`w-4 text-white transition-transform duration-200 ${showCategoryDropdown ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -397,7 +397,8 @@ const AssetsManagement: React.FC = () => {
               </button>
 
               {showCategoryDropdown && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-[#eff4f5] backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-[#eff4f5]  backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                  {/* bg-[#eff4f5] */}
                   {categories.map((cat) => (
                     <button
                       key={cat}
@@ -407,7 +408,7 @@ const AssetsManagement: React.FC = () => {
                       }}
                       className={`w-full px-4 py-3 text-left !text-black hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 transition-all duration-200 flex items-center gap-3 ${
                         selectedCategory === cat
-                         ? "bg-[#006666]/10 !text-[#006666] font-medium shadow-sm"
+                        ? "bg-[#5e59a9]/70 !text-[#006666] font-medium shadow-sm"
             : "text-slate-700 hover:text-[#006666]"
                       }`}
                     >
@@ -421,10 +422,10 @@ const AssetsManagement: React.FC = () => {
 
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#6f70ce] text-white rounded-md shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-medium"
+              className="flex items-center gap-2 px-3 py-2 bg-[#5e59a9]/70 text-white rounded-md shadow-lg hover:shadow-xl hover:scale-102 transition-all duration-200 "
               style={{ ...FONTS.button}}
            >
-              <Plus className="w-5 h-5" />
+              <Plus className=" " />
               Add Asset
             </button>
           </div>

@@ -306,7 +306,7 @@ export default function LeaveTypes() {
 
             <button
               style={{ ...FONTS.button}}
-              className=" bg-[#006666] ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+              className=" bg-[#5e59a9]/70 ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
               onClick={() => {
                 setEditingCard(null);
                 setIsModalOpen(true);
