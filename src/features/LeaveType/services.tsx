@@ -2,7 +2,7 @@
 import Client from "../../api"
 
 
-export const leavetypeapi = async (data:any) => {
+export const leavetypeapi = async () => {
   try {
     const response = await new Client().hr.leavetype.getall({});
     console.log("what is happening",response)

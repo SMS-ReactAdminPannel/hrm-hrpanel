@@ -1,11 +1,11 @@
 export type Card = {
-  id: number;
-  title: string;
+  _id: number;//id:number
+  holiday_name: string;//title: string;
+  holiday_type: string; //isPaid: string
+  holiday_date: string; //totalDays: number
+  is_active: string; // reset: string;
   periodIn: string;
-  totalDays: number;
-  reset: string;
   carryforwardType: string;
-  isPaid: string;
   requireApproval: string;
   requireAttachment: string;
   excludeCompanyLeaves: string;
@@ -14,12 +14,18 @@ export type Card = {
 };
 
 export type NewCard = {
-  title: string;
+  // title: string;
+  // isPaid: string;
+  // totalDays: string;
+  // reset: string;
+
+  _id: number;
+  holiday_name: string;
+  holiday_type: string; 
+  holiday_date: string; 
+  is_active: string;
   periodIn: string;
-  totalDays: string;
-  reset: string;
   carryforwardType: string;
-  isPaid: string;
   requireApproval: string;
   requireAttachment: string;
   excludeCompanyLeaves: string;

@@ -143,26 +143,22 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
               <tr
                 key={index}
                 className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
-                style={{
-                  fontFamily: FONTS.header.fontFamily,
-                }}
+               style={{...FONTS.tableBody}}
+                
               >
                 <td
-                  className="px-6 py-4 font-medium text-gray-700 break-words whitespace-normal"
-                  style={{
-                    fontSize: FONTS.paragraph.fontSize,
-                    fontFamily: FONTS.header.fontFamily,
-                  }}
+                  className="px-6 py-4 font-bold text-black  "
+                 style={{...FONTS.tableBody}}
                 >
                   {item.title_name || "no title"}
                 </td>
-                <td className="px-6 py-4 text-gray-600">
+                <td className="px-6 py-4 text-gray-900" style={{ ...FONTS.tableBody }}>
                   {item.start_date || "no startdate"}
                 </td>
-                <td className="px-6 py-4 text-gray-600">
+                <td className="px-6 py-4 text-gray-900" style={{ ...FONTS.tableBody }}>
                   {item.end_date || "no enddate"}
                 </td>
-                <td className="px-6 py-4 text-gray-600 break-words text-center whitespace-normal">
+                <td className="px-6 py-4 text-gray-900  text-center " style={{ ...FONTS.tableBody }}>
                   {item.description || "no description"}
                 </td>
                 <td className="px-6 py-4 text-center">

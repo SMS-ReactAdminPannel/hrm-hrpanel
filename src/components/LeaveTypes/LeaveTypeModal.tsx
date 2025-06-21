@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import {  useRef } from 'react';
 import type { Card, NewCard } from './types';
 import { FONTS } from '../../constants/uiConstants';
 
@@ -21,20 +21,20 @@ export default function LeaveTypeModal({
 }: LeaveTypeModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  //       onClose();
+  //     }
+  //   }
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
+  //   if (isOpen) {
+  //     document.addEventListener('mousedown', handleClickOutside);
+  //   }
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, [isOpen, onClose]);
 
   
   
@@ -68,8 +68,8 @@ export default function LeaveTypeModal({
               <input
                 type="text"
                 className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
-                value={newCard.title}
-                onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
+                value={newCard.holiday_name}
+                onChange={(e) => setNewCard({ ...newCard, holiday_name: e.target.value })}
                 placeholder="Enter leave type title"
                 required
               />
@@ -89,8 +89,8 @@ export default function LeaveTypeModal({
               <input
                 type="number"
                 className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
-                value={newCard.totalDays}
-                onChange={(e) => setNewCard({ ...newCard, totalDays: e.target.value })}
+                value={newCard.holiday_date}
+                onChange={(e) => setNewCard({ ...newCard, holiday_date: e.target.value })}
                 placeholder="Enter total days"
                 required
               />
