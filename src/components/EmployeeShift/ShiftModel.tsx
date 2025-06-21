@@ -29,9 +29,9 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-md w-full max-w-2xl">
+      <div className="bg-gray-400 rounded-md w-full max-w-2xl">
         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-900">Assign Rotating Shift</h2>
+          <h2 className="text-xl font-semibold text-white-900">Assign Rotating Shift</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
             <X className="w-5 h-5" />
           </button>
@@ -174,7 +174,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-3 py-2 md:px-4 md:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Cancel
             </button>

@@ -11,20 +11,20 @@ const status = [
   { label: "Internship", count: 21, percent: 30, color: "bg-orange-400", department: "UX" },
 ];
 
-const departments = [ "Departmentwise", "HR", "UI", "UX"];
+const departments = [ "All", "HR", "UI", "UX"];
 
 const TotalEmploye: React.FC = () => {
   const [selectedDept, setSelectedDept] = useState("All");
 
   const filteredStatus =
-    selectedDept === "Departmentwise"
+    selectedDept === "All"
       ? status
       : status.filter((item) => item.department === selectedDept);
 
   return (
     <div className="p-6 rounded shadow bg-white border w-full  mx-auto">
       <div className="flex justify-between items-center mb-4 border-b">
-        <h2 className="text-xl font-semibold  pb-2">Employee Status</h2>
+        <h2 className="text-xl font-bold  pb-2">Employee Status</h2>
         <select
           value={selectedDept}
           onChange={(e) => setSelectedDept(e.target.value)}

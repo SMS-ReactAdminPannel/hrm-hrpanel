@@ -17,33 +17,33 @@ export function EmployeeModal({ isOpen, employee, onClose, onViewDocs }: Employe
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg max-h-[90vh] w-full max-w-2xl overflow-hidden">
         <div className="flex items-center justify-between border-b p-4">
-          <h3 className="text-lg font-semibold">{employee.name}'s Onboarding Details</h3>
+          <h3 className="text-lg  font-semibold">{employee.name}'s Onboarding Details</h3>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-4 ">
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-gray-500">Role</p>
-              <p className="font-medium">{employee.role}</p>
+            <div >
+              <p className="text-sm text-gray-800">Role</p>
+              <p className="font-medium border">{employee.role}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Email</p>
-              <p className="font-medium">{employee.email}</p>
+              <p className="text-sm text-gray-800">Email</p>
+              <p className="font-medium border">{employee.email}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Phone</p>
-              <p className="font-medium">{employee.phone}</p>
+              <p className="text-sm text-gray-800">Phone</p>
+              <p className="font-medium border">{employee.phone}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Hire Date</p>
-              <p className="font-medium">{employee.hireDate}</p>
+              <p className="text-sm text-gray-800">Hire Date</p>
+              <p className="font-medium border">{employee.hireDate}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Onboarding Status</p>
+              <p className="text-sm text-gray-800">Onboarding Status</p>
               <p
-                className={`font-medium ${
+                className={`font-medium border ${
                   employee.onboardingStatus === "Completed"
                     ? "text-green-600"
                     : employee.onboardingStatus === "In Progress"
