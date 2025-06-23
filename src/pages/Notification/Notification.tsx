@@ -16,6 +16,7 @@ const NotificationsPage = () => {
   
   useEffect(() => {
     const socket = io(SOCKET_SERVER_URL);
+    
 
     const dummyUserId = "123"; // Replace with actual logged-in user ID
     socket.emit('join-user-room', dummyUserId); // Join room
