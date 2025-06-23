@@ -9,7 +9,7 @@ interface PaginationProps {
 
 export const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
   return (
-    <div className="flex justify-center items-center mt-4 space-x-2">
+    <div className="flex justify-end items-center mt-4 space-x-2">
       <button
         onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
         disabled={currentPage === 1}
@@ -19,7 +19,7 @@ export const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages,
         Previous
       </button>
 
-      <span className="px-4 py-2 text-sm text-gray-600">
+      <span className="px-4 py-2 text-sm text-gray-800">
         Page {currentPage} of {totalPages}
       </span>
 

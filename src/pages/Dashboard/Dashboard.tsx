@@ -10,6 +10,7 @@ import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
 import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
 import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
 import Payrollstack from "../../components/DashBoard/payroll/payrollstack";
+import TotalEmploye from "../../components/DashBoard/Empolyetotals/Empolyetotalcard";
 // import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 // import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 // import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
@@ -52,6 +53,9 @@ const Dashboard = () => {
       </div>
       <div>
           <Payrollstack />
+        </div>
+        <div>
+          <TotalEmploye/>
         </div>
     </div>
     
