@@ -6,7 +6,7 @@ import {
   CardTitle,
   CardDescription,
 } from "../../components/ui/card";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 
 import {
   PieChart,
@@ -149,7 +149,7 @@ export default function RecruitmentDashboard() {
         </h1>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 " style={{...FONTS.cardSubHeader}}>
   {[
     {
       title: "Total Vacancies",
