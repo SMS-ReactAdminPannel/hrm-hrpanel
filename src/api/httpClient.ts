@@ -1,5 +1,5 @@
 // httpClient.ts
-import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
+import axios, { type AxiosRequestConfig, type AxiosResponse } from"axios";
 
 const backEndUrl = "http://localhost:3002";
 
