@@ -22,7 +22,7 @@ const TotalEmploye: React.FC = () => {
       : status.filter((item) => item.department === selectedDept);
 
   return (
-    <div className="p-6 rounded shadow bg-white border w-full  mx-auto">
+    <div className="p-6 rounded shadow  border w-full  mx-auto">
       <div className="flex justify-between items-center mb-4 border-b">
         <h2 className="text-xl font-bold  pb-2">Employee Status</h2>
         <select

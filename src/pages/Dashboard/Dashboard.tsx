@@ -1,14 +1,14 @@
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../pages/auth/AuthContext"; // Make sure the path is correct
-import DashBoardSlideCard from "../../components/DashBoard/SlideCards/DashBoardSlideCard";
-import Empolyeetotal from "../../components/DashBoard/EmpolyeeTotal/EmpolyeeTotal";
-import AttentDashboard from "../../components/DashBoard/AttentDashboard/AttentDashboard";
+// import DashBoardSlideCard from "../../components/DashBoard/SlideCards/DashBoardSlideCard";
+// import Empolyeetotal from "../../components/DashBoard/EmpolyeeTotal/EmpolyeeTotal";
+// import AttentDashboard from "../../components/DashBoard/AttentDashboard/AttentDashboard";
 import QuerystartDash from "../../components/DashBoard/Query/QuerystartDash";
-import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
-import { ChartCard } from "../../components/DashBoard/LineBar/EmpolyeeTotalLine";
-import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
-import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
-import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
+// import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
+// import { ChartCard } from "../../components/DashBoard/LineBar/EmpolyeeTotalLine";
+// import ThingsDoList from "../../components/DashBoard/ThingsDoList/ThingsDoList";
+// import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
+// import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
 import Payrollstack from "../../components/DashBoard/payroll/payrollstack";
 import TotalEmploye from "../../components/DashBoard/Empolyetotals/Empolyetotalcard";
 // import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
@@ -54,7 +54,7 @@ const Dashboard = () => {
       <div className="bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
           <Payrollstack />
         </div>
-        <div>
+        <div className="bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
           <TotalEmploye/>
         </div>
     </div>

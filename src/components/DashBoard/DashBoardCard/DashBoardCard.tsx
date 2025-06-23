@@ -4,7 +4,7 @@ import { FaSuitcase } from "react-icons/fa";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { MdPersonRemove } from "react-icons/md";
 import DashBoardCardBar from "../DashBoardCardBar/DashBoardCardBar";
-import PayrollStack from "../payroll/payrollstack";
+// import PayrollStack from "../payroll/payrollstack";
 
 const Dashboardcard = () => {
   return (
