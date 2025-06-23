@@ -22,13 +22,13 @@ const TotalEmploye: React.FC = () => {
       : status.filter((item) => item.department === selectedDept);
 
   return (
-    <div className="p-6 rounded shadow  border w-full  mx-auto">
+    <div className="p-2  w-full  mx-auto">
       <div className="flex justify-between items-center mb-4 border-b">
-        <h2 className="text-xl font-bold  pb-2">Employee Status</h2>
+        <h2 className="text-xl font-semibold  pb-2">Employee Status</h2>
         <select
           value={selectedDept}
           onChange={(e) => setSelectedDept(e.target.value)}
-          className="text-sm px-3 py-1 border rounded"
+          className="text-sm px-3 py-1 border rounded  bg-gray-100 text-gray-700"
         >
           {departments.map((dept) => (
             <option key={dept} value={dept}>
@@ -38,8 +38,8 @@ const TotalEmploye: React.FC = () => {
         </select>
       </div>
 
-      <div className="mb-6">
-        <p className="text-lg font-bold mb-2">Total Employees: {total}</p>
+      <div className="mb-2">
+        <p className="text-lg font-semibold mb-2">Total Employees: {total}</p>
 
         <div className="flex h-4 rounded overflow-hidden shadow-sm border mb-4">
           {filteredStatus.map((s, i) => (
@@ -53,7 +53,7 @@ const TotalEmploye: React.FC = () => {
               <div className={`w-2 h-2 ${s.color} rounded-full mt-1`} />
               <div className="flex flex-col">
                 <span>{s.label} ({s.percent}%)</span>
-                <span className="font-bold text-2xl">{s.count}</span>
+                <span className="font-bold text-xl">{s.count}</span>
               </div>
             </div>
           ))}
@@ -76,9 +76,11 @@ const TotalEmploye: React.FC = () => {
         </div>
       </div> */}
 
-      <button className="mt-4 w-full bg-orange-200 text-black px-4 py-2 rounded hover:bg-gray-400">
+      <div className="bg-gray-200 rounded-lg mt-2">
+        <button className="p-1 w-full text-center text-base font-medium text-gray-700 hover:underline cursor-pointer">
         View All
       </button>
+      </div>
     </div>
   );
 };

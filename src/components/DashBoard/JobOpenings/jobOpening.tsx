@@ -23,6 +23,14 @@ const applicants: Applicant[] = [
     badgeColor: "bg-teal-700",
   },
   {
+    name: "Brian Villalobos",
+    experience: "5+ Years",
+    location: "USA",
+    role: "UI/UX Designer",
+    badgeColor: "bg-teal-700",
+  },
+
+  {
     name: "Anthony Lewis",
     experience: "4+ Years",
     location: "USA",
@@ -37,11 +45,25 @@ const applicants: Applicant[] = [
     badgeColor: "bg-pink-600",
   },
   {
+    name: "Brian Villalobos",
+    experience: "5+ Years",
+    location: "USA",
+    role: "UI/UX Designer",
+    badgeColor: "bg-teal-700",
+  },
+  {
     name: "Doglas Martini",
     experience: "2+ Years",
     location: "USA",
     role: "React Developer",
     badgeColor: "bg-purple-600",
+  },
+  {
+    name: "Brian Villalobos",
+    experience: "5+ Years",
+    location: "USA",
+    role: "UI/UX Designer",
+    badgeColor: "bg-teal-700",
   },
 ];
 
@@ -63,17 +85,21 @@ const jobs: Job[] = [
   },
 ];
 
-const JobOpening:React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"openings" | "applicants">("applicants");
+const JobOpening: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<"openings" | "applicants">(
+    "applicants"
+  );
 
   return (
-    <div className="bg-white shadow rounded p-4 w-full max-w-md rounded-2xl">
+    <div className=" w-full max-w-md p-2">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Jobs Portal</h2>
-        <button className="text-sm text-gray-500 hover:text-blue-600">View All</button>
+        <h2 className="text-xl font-semibold">Jobs Portal</h2>
+        <button className="text-sm text-white hover:text-blue-200">
+          View All
+        </button>
       </div>
 
-      <div className="flex mb-4">
+      <div className="flex mb-2">
         <button
           onClick={() => setActiveTab("openings")}
           className={`w-1/2 text-center py-2 font-medium rounded-l ${
@@ -96,13 +122,13 @@ const JobOpening:React.FC = () => {
         </button>
       </div>
 
-      <div className="space-y-4 min-h-[200px]">
+      <div className="space-y-2  overflow-y-scroll max-h-[260px]  scrollbar-hide">
         {activeTab === "applicants" &&
           applicants.map((applicant, index) => (
-            <div key={index} className="flex justify-between items-center">
-              <div>
+            <div key={index} className="flex justify-between bg-[#FAF3EB] rounded-xl p-1 items-center ">
+              <div className="">
                 <p className="font-semibold">{applicant.name}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-700">
                   Exp: {applicant.experience} · {applicant.location}
                 </p>
               </div>
@@ -116,7 +142,7 @@ const JobOpening:React.FC = () => {
 
         {activeTab === "openings" &&
           jobs.map((job, index) => (
-            <div key={index} className="flex justify-between items-center">
+            <div key={index} className="flex justify-between bg-[#FAF3EB] rounded-xl p-1 items-center">
               <div>
                 <p className="font-semibold">{job.title}</p>
                 <p className="text-sm text-gray-500">

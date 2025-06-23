@@ -4,7 +4,7 @@ import { FONTS } from "../../../constants/uiConstants";
 
 export default function SupportQueryBlock() {
   const [selectedMonth, setSelectedMonth] = useState("January");
-  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  // const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [percentage, setPercentage] = useState(0);
 
   const completionPercentage = 85;
@@ -28,7 +28,7 @@ export default function SupportQueryBlock() {
   }, []);
   
   return (
-    <div className="rounded-2xl p-6 shadow-sm h-full bg-transparent">
+    <div className="rounded-xl p-2 shadow-sm bg-transparent">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="grid-col-2">
@@ -54,7 +54,7 @@ export default function SupportQueryBlock() {
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(e.target.value)}
           style={FONTS.subParagraph}
-          className="px-2 py-1 h-6 w-24 text-xs rounded bg-blue-200 !text-black focus:outline-none text-right"
+          className=" h-6 text-xs rounded  !text-black focus:outline-none text-right"
         >
           {[
             "January", "February", "March", "April", "May", "June",
@@ -69,10 +69,10 @@ export default function SupportQueryBlock() {
       
 
       {/* Main content */}
-      <div className="flex flex-col h-full gap-6">
+      <div className="flex flex-col  gap-6">
           {/* Bottom Metrics */}
-        <div className="flex justify-between mt-4 gap-2">
-          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-2 shadow-md">
+        <div className="flex justify-between mt-5 gap-2">
+          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center">
               <Ticket className="w-4 h-4 text-purple-600" />
             </div>
@@ -82,7 +82,7 @@ export default function SupportQueryBlock() {
             </div>
           </div>
 
-          <div className="flex  bg-yellow-100 items-center gap-3 bg-gray-200 border rounded-xl p-2 shadow-md">
+          <div className="flex  bg-yellow-100 items-center gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center">
               <CheckCircle className="w-4 h-4 text-teal-600" />
             </div>
@@ -92,7 +92,7 @@ export default function SupportQueryBlock() {
             </div>
           </div>
 
-          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-2 shadow-md">
+          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center">
               <Clock className="w-4 h-4 text-orange-600" />
             </div>
@@ -104,17 +104,17 @@ export default function SupportQueryBlock() {
         </div>
 
         {/* Top Stats */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-around  items-center mt-8">
           {/* Total */}
           <div className="flex flex-col items-center">
-            <div className="shadow-md bg-blue-200 border w-32 h-28 rounded-xl flex flex-col items-center justify-center ml-20">
+            <div className="shadow-md bg-blue-200 border w-28 h-28 rounded-xl flex flex-col items-center justify-center ">
               <div className="text-4xl text-black  font-semibold">164</div>
               <div className="text-sm font-bold text-gray-800 mt-1">Total Queries</div>
             </div>
           </div>
 
           {/* Circular Progress */}
-          <div className="relative w-40 h-40">
+          <div className="relative w-32 h-32 ">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
               <circle
                 cx="50"

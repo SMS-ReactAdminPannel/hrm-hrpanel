@@ -11,10 +11,12 @@ const Attendances: React.FC = () => {
     datasets: [
       {
         label: "Attendance",
-        data: [53, 16, 7, 6],
+        data: [59, 16, 7, 6],
         backgroundColor: ["#22c55e", "#0f172a", "#facc15", "#dc2626"],
-        borderWidth: 4,
-        borderRadius: 8,
+        borderWidth: 0,
+        spacing:6,
+        borderRadius: 10,
+      
       },
     ],
   };
@@ -34,63 +36,84 @@ const Attendances: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-12 gap-2 mt-1 w-full">
-      <div className="col-span-6 bg-white rounded-xl border border-white shadow-sm p-4 backdrop-blur bg-opacity-10 backdrop-saturate-100">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Attendance Overview
-        </h2>
-        <select
-          className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-md border border-gray-300"
-          defaultValue="Today"
-        >
-          <option>Today</option>
-          <option>Week</option>
-          <option>Month</option>
-        </select>
-      </div>
-
-      <div className="relative flex justify-center items-center ">
-        <div className="w-[300px] h-[300px]">
-          <Doughnut data={chartData} options={chartOptions}/>
-        </div> 
-        <div className="absolute text-center p-4 mt-14">
-          <p className="text-gray-500 text-sm">Total Attendance</p>
-          <p className="text-xl font-bold text-gray-900">120</p>
+    <div className="relative gap-2  w-full  ">
+      <div className="col-span-6 p-3">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Attendance Overview
+          </h2>
+          <select
+            className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-md border border-gray-300 focus:outline-none"
+            defaultValue="Today"
+          >
+            <option>Today</option>
+            <option>Week</option>
+            <option>Month</option>
+          </select>
         </div>
-      </div>
 
-      <div className="mb-2">
-        <h3 className="text-base font-bold text-gray-700 mb-1">Status</h3>
-        <div className="space-y-2 text-base">
-          {[
-            { label: "Present", color: "bg-green-500", percent: "59%" },
-            { label: "Late", color: "bg-slate-600", percent: "21%" },
-            { label: "Permission", color: "bg-yellow-400", percent: "2%" },
-            { label: "Absent", color: "bg-red-600", percent: "15%" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="flex justify-between items-center"
-            >
-              <div className="flex items-center space-x-2">
-                <span className={`w-3 h-3 rounded-full ${item.color}`} />
-                <span>{item.label}</span>
+        <div className="relative flex justify-center items-center ">
+          <div className="w-[200px] h-[200px] -mb-10 -mt-10 ">
+            {/**/}
+            <Doughnut data={chartData} options={chartOptions} />
+          </div>
+          <div className="absolute text-center p-4 mt-24 ">
+            <p className="text-gray-700 text-xs">Total Attendance</p>
+            <p className="text-xl font-bold text-gray-900">120</p>
+          </div>
+        </div>
+
+        <div className="mb-1">
+          <h3 className="text-base font-bold text-gray-700 ">Status</h3>
+          <div className="space-y-1 text-base">
+            {[
+              {
+                label: "Present",
+                color: "bg-green-500",
+                percent: "59%",
+                textcolor: "text-green-500",
+              },
+              {
+                label: "Late",
+                color: "bg-slate-600",
+                percent: "21%",
+                textcolor: "text-slate-600",
+              },
+              {
+                label: "Permission",
+                color: "bg-yellow-400",
+                percent: "2%",
+                textcolor: "text-yellow-400",
+              },
+              {
+                label: "Absent",
+                color: "bg-red-600",
+                percent: "15%",
+                textcolor: "text-red-600",
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex justify-between items-center"
+              >
+                <div className="flex items-center space-x-1">
+                  <span className={`w-3 h-3 rounded-full ${item.color}`} />
+                  <span className="text-xs">{item.label}</span>
+                </div>
+                <span className={` text-xs font-medium ${item.textcolor}`}>
+                  {item.percent}
+                </span>
               </div>
-              <span className="font-medium text-gray-700">
-                {item.percent}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gray-200 rounded-lg mt-2">
+          <p className="p-1 text-center text-base font-medium text-gray-700 hover:underline cursor-pointer">
+            View Details
+          </p>
         </div>
       </div>
-
-      <div className="bg-gray-200 rounded-lg">
-        <p className="p-2 text-center text-base font-medium text-gray-700 hover:underline cursor-pointer">
-          View Details
-        </p>
-      </div>
-    </div>
     </div>
   );
 };
