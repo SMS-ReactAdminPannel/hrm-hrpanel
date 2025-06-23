@@ -44,7 +44,7 @@ export function DeductionCard({ card, color, onEdit, onDelete, onShowDetails }: 
 
         <button
           onClick={() => onShowDetails(card)}
-          className="mt-4 w-full py-2 !bg-gray-200 hover:bg-gray-200 !text-black rounded-md transition-colors text-sm font-medium"
+          className="mt-4 w-full py-2 !bg-gray-200 !bg-[#bf70cc] hover:bg-gray-200 !text-black rounded-md transition-colors text-sm font-medium"
           style={{...FONTS.button}}
         >
           View Details

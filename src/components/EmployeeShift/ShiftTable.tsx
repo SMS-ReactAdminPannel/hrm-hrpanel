@@ -1,6 +1,7 @@
 import React from "react"
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee } from "../../components/EmployeeShift/employee"
+import { FONTS } from "../../constants/uiConstants"
 
 interface EmployeeShiftTableProps {
   employees: Employee[]
@@ -100,16 +101,16 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                             <div className="text-sm text-gray-500">{employee.employeeId}</div>
                         </div>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.title}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.title}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.department} <br/> ({employee.jobRole})
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.basedOn}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{employee.rotate}</td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.basedOn}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>{employee.rotate}</td>
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.startDate}
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
                             employee.currentShift === "None"
@@ -124,7 +125,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                           {employee.currentShift}
                         </span>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
                             employee.nextShift === "None"
@@ -139,7 +140,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
                           {employee.nextShift}
                         </span>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-4 lg:px-6 py-4 text-sm text-gray-900 whitespace-nowrap" style={{...FONTS.tableBody}}>
                         {employee.nextSwitch}
                       </td>
                       <td className="px-4 lg:px-6 py-4 whitespace-nowrap bg-gray-50 sticky right-0 border-l border-gray-50">

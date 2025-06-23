@@ -20,13 +20,13 @@ export default function SupportQueryBlock() {
         <div>
           <h2
             className="text-xl font-semibold text-gray-900"
-            style={{ fontSize: FONTS.header2.fontSize }}
+            style={{...FONTS.header}}
           >
             Query Insights
           </h2>
           <p
             className="text-sm mt-2 text-gray-600"
-            style={{ fontSize: FONTS.paragraph.fontSize }}
+            style={{...FONTS.subParagraph}}
           >
             Summary of last 7 Days
           </p>

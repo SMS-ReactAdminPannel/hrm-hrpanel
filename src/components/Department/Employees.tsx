@@ -2,6 +2,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, type Key } from "react";
 import { ArrowLeft, Plus, Trash2, Users } from "lucide-react";
 import axios from "axios";
+import { FONTS } from "../../constants/uiConstants";
 
 type Employee = {
   id: string;
