@@ -34,7 +34,8 @@ const Attendances: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-4">
+    <div className="grid grid-cols-12 gap-2 mt-1 w-full">
+      <div className="col-span-6 bg-white rounded-xl border border-white shadow-sm p-4 backdrop-blur bg-opacity-10 backdrop-saturate-100">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-800">
           Attendance Overview
@@ -89,6 +90,7 @@ const Attendances: React.FC = () => {
           View Details
         </p>
       </div>
+    </div>
     </div>
   );
 };

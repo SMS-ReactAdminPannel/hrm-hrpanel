@@ -112,9 +112,9 @@ const DashBoardSlideCard = () => {
           </div>
 
           {/* Image */}
-          <div className="flex-1 flex justify-center">
+          {/* <div className="flex-1 flex justify-center">
             <img src={current.imageUrl} alt="card" className="w-28" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
