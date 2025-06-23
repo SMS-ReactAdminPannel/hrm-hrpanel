@@ -10,7 +10,8 @@ import QuerystartDash from "../../components/DashBoard/Query/QuerystartDash";
 // import DailySchedule from "../../components/DashBoard/TimeSchedule/TimeScheule";
 // import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
 import Payrollstack from "../../components/DashBoard/payroll/payrollstack";
-import TotalEmploye from "../../components/DashBoard/Empolyetotals/Empolyetotalcard";
+import Attendances from "../../components/DashBoard/Attendances/attendances";
+import JobOpening from "../../components/DashBoard/JobOpenings/jobOpening";
 // import Dashboardcard from "../../components/DashBoard/DashBoardCard/DashBoardCard";
 // import { ChartCard } from "../../components/DashBoard/Attendance/DashBoardLineBar";
 // import VisterBar from "../../components/DashBoard/VisiterBar/VisterBar";
@@ -42,7 +43,7 @@ const Dashboard = () => {
 
       {/* content -2 */}
 
-      <div className="flex-1  flex-cols flex gap-3 rounded-xl">
+      <div className="flex-1 flex-cols flex gap-3 rounded-xl">
         <div className="flex-1 border  bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl ">
           {/* <AttentDashboard/> */}
         </div>
@@ -53,10 +54,16 @@ const Dashboard = () => {
       </div>
       <div className="bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
           <Payrollstack />
-        </div>
-        <div className="bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl">
-          <TotalEmploye/>
-        </div>
+      </div>
+
+      <div>
+          < Attendances />
+      </div>
+
+      <div>
+          < JobOpening />
+      </div>
+      
     </div>
     
   );
@@ -85,14 +92,16 @@ export default Dashboard;
       //   </div>
       // </div>
 
-      // {/* 3rd content */}
-      // <div className="flex gap-3 m-3">
-      //   <div className="flex-2  rounded-xl">
-      //     <DailySchedule />
-      //   </div>
-      //   <div className="flex-4 bg-white rounded-xl">
-      //     <ThingsDoList />
-      //   </div>
+      {/* 3rd content */}
+      <div className="flex gap-3 m-3">
+        <div className="flex-2  rounded-xl">
+          <DailySchedule />
+        </div>
+        <div className="flex-4 bg-white rounded-xl">
+          <ThingsDoList />
+        </div>
+
+        
         
       // </div>
     // </div> */}

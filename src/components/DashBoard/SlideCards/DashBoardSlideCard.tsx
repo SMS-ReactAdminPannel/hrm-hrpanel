@@ -6,8 +6,8 @@ const cardItems = [
   {
     title: "Admin Department",
     subtitle: "Efficiency Rate Improved by 28.25%",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-2.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-2.png",
     stats: [
       { label: "Leave Requests", value: "120" },
       { label: "Attendance Rate", value: "92%" },
@@ -18,8 +18,8 @@ const cardItems = [
   {
     title: "Digital Marketing",
     subtitle: "15% Increase in Engagement",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-1.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-1.png",
     stats: [
       { label: "Ad Clicks", value: "3.2K" },
       { label: "Campaigns", value: "5 " },
@@ -30,8 +30,8 @@ const cardItems = [
   {
     title: "Development",
     subtitle: "New Feature Release Successful",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-3.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-3.png",
     stats: [
       { label: "Tickets Closed", value: "96" },
       { label: "Code Coverage", value: "89%" },
@@ -112,11 +112,9 @@ const DashBoardSlideCard = () => {
           </div>
 
           {/* Image */}
-          <div className="flex-1 flex justify-center">
-            <img src={current.imageUrl} alt="card" 
-            className={`w-28 transition-transform duration-700 ease-in-out transform ${animate ? "scale-90 opacity-0" : "scale-100 opacity-300"}`} 
-            />
-          </div>
+          {/* <div className="flex-1 flex justify-center">
+            <img src={current.imageUrl} alt="card" className="w-28" />
+          </div> */}
         </div>
       </div>
     </div>
