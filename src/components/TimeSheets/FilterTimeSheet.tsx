@@ -6,7 +6,7 @@ const FilterTimeSheet = () => {
     const hourOptions = Array.from({ length: 10 }, (_, i) => `${i}-${i + 1} hr`);
     const dropdownData = [
         { title: "Payroll Hours", options: hourOptions },
-        { title: "Groups", options: ["No Data found"] },
+        { title: "Departments", options: ["No Data found"] },
         // { title: "Members", options: ["Work", "Intern"] },
         // { title: "Member Codes", options: ["Code - 1", "Code - 2"] },
     ];
@@ -54,7 +54,7 @@ const FilterTimeSheet = () => {
             {dropdownData.map((dropdown, index) => (
                 <div
                     key={dropdown.title}
-                    className="relative w-48"
+                    className="relative w-35"
                     ref={(el) => {
                         dropdownRefs.current[index] = el;
                     }}

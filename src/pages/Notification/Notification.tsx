@@ -4,7 +4,9 @@ import NotificationsHeader from "../../components/Notification/NotificationsHead
 import NotificationItem from "../../components/Notification/NotificationItem"
 import NotificationDetails from "../../components/Notification/NotificationDetails"
 import EmptyState from "../../components/Notification/NotificationEmptyState"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft } from
+
+ "lucide-react"
 import type { Notification } from "../../types/Notification"
 import {useNavigate } from "react-router-dom"
 import { io } from "socket.io-client";

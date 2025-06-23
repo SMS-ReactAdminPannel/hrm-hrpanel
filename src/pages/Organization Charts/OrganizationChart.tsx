@@ -1,10 +1,11 @@
-import { useState } from "react"
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import type { Employee, EmployeeFormData } from "../../components/OrganizationChart/employee"
 import { OrgChart } from "../../components/OrganizationChart/org-chart"
 import { EmployeeForm } from "../../components/OrganizationChart/employee-form"
 import { Modal } from "../../components/OrganizationChart/modal"
-import { Plus, Users } from "lucide-react"
-import { FONTS } from "../../constants/uiConstants"
+import { Plus } from "lucide-react"
 
 const initialEmployees: Employee[] = [
   {
@@ -94,6 +95,8 @@ export default function OrganizationChart() {
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null)
   const [isFormOpen, setIsFormOpen] = useState(false)
 
+  const chartContainerRef = useRef<HTMLDivElement>(null)
+
   const handleAddEmployee = (employeeData: EmployeeFormData) => {
     const newEmployee: Employee = {
       ...employeeData,
@@ -121,9 +124,7 @@ export default function OrganizationChart() {
 
     const updatedEmployees = employees
       .filter((emp) => emp.id !== employeeId)
-      .map((emp) =>
-        emp.managerId === employeeId ? { ...emp, managerId: employeeToDelete.managerId } : emp
-      )
+      .map((emp) => (emp.managerId === employeeId ? { ...emp, managerId: employeeToDelete.managerId } : emp))
 
     setEmployees(updatedEmployees)
   }
@@ -156,23 +157,81 @@ export default function OrganizationChart() {
           if (level > 10) break
         }
         return level
-      })
+      }),
     ) + 1
+
+  // Zooming with Ctrl + Scroll
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (e.ctrlKey && chartContainerRef.current) {
+        e.preventDefault()
+        const chart = chartContainerRef.current.firstElementChild as HTMLElement
+        const scale = parseFloat(chart.dataset.scale || "1")
+        const newScale = Math.min(Math.max(scale * (e.deltaY < 0 ? 1.1 : 0.9), 0.2), 3)
+        chart.style.transform = `scale(${newScale})`
+        chart.dataset.scale = newScale.toString()
+      }
+    }
+
+    const container = chartContainerRef.current
+    if (container) container.addEventListener("wheel", handleWheel, { passive: false })
+    return () => container?.removeEventListener("wheel", handleWheel)
+  }, [])
+
+  // Drag to pan
+  useEffect(() => {
+    const container = chartContainerRef.current
+    if (!container) return
+
+    let isPanning = false
+    let startX = 0
+    let startY = 0
+    let scrollLeft = 0
+    let scrollTop = 0
+
+    const mouseDownHandler = (e: MouseEvent) => {
+      isPanning = true
+      container.style.cursor = "grabbing"
+      startX = e.pageX - container.offsetLeft
+      startY = e.pageY - container.offsetTop
+      scrollLeft = container.scrollLeft
+      scrollTop = container.scrollTop
+    }
+
+    const mouseMoveHandler = (e: MouseEvent) => {
+      if (!isPanning) return
+      const x = e.pageX - container.offsetLeft
+      const y = e.pageY - container.offsetTop
+      container.scrollLeft = scrollLeft - (x - startX)
+      container.scrollTop = scrollTop - (y - startY)
+    }
+
+    const stopPan = () => {
+      isPanning = false
+      container.style.cursor = "grab"
+    }
+
+    container.addEventListener("mousedown", mouseDownHandler)
+    container.addEventListener("mousemove", mouseMoveHandler)
+    container.addEventListener("mouseup", stopPan)
+    container.addEventListener("mouseleave", stopPan)
+
+    return () => {
+      container.removeEventListener("mousedown", mouseDownHandler)
+      container.removeEventListener("mousemove", mouseMoveHandler)
+      container.removeEventListener("mouseup", stopPan)
+      container.removeEventListener("mouseleave", stopPan)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-
-        {/* Header: Title + Add Button */}
+      <div className="container mx-auto py-8 max-w-7xl">
+        {/* Header */}
         <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            {/* <div className="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
-              <Users className="w-8 h-8" />
-            </div> */}
-            <div>
-              <h1 className=" mb-1" style={FONTS.header}>Organization Chart</h1>
-              <p className="" style={FONTS.paragraph}>Manage your company structure</p>
-            </div>
+          <div>
+            <h1 className="mb-1 text-3xl font-bold">Organization Chart</h1>
+            <p className="text-gray-600">Manage your company structure</p>
           </div>
           <button
             onClick={openAddForm}
@@ -183,8 +242,8 @@ export default function OrganizationChart() {
           </button>
         </div>
 
-        {/* Stats Section */}
-        <div className="mb-2 rounded-2xl shadow-2xl  backdrop-blur-md p-8">
+        {/* Stats */}
+        <div className="mb-2 rounded-2xl shadow-2xl backdrop-blur-md p-8 bg-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-12">
               <div className="text-center">
@@ -213,10 +272,7 @@ export default function OrganizationChart() {
                     "bg-amber-100 text-amber-800",
                   ]
                   return (
-                    <span
-                      key={dept}
-                      className={`px-4 py-2 ${colors[index]} rounded-full text-sm font-bold`}
-                    >
+                    <span key={dept} className={`px-4 py-2 ${colors[index]} rounded-full text-sm font-bold`}>
                       {dept}
                     </span>
                   )
@@ -225,23 +281,25 @@ export default function OrganizationChart() {
           </div>
         </div>
 
-        {/* Org Chart */}
-        <div className="rounded-2xl shadow-2xl border-0  backdrop-blur-lg overflow-hidden">
-          <div className="p-12">
-            <OrgChart
-              employees={employees}
-              onEdit={openEditForm}
-              onDelete={handleDeleteEmployee}
-            />
+        {/* Org Chart Zoomable Container */}
+        <div className="rounded-2xl shadow-2xl border-0 backdrop-blur-lg overflow-hidden bg-white">
+          <div
+            ref={chartContainerRef}
+            className="p-2 overflow-auto"
+            style={{ width: "100%", height: "600px", cursor: "grab" }}
+          >
+            <div style={{ transformOrigin: "top left" }} data-scale="1">
+              <OrgChart
+                employees={employees}
+                onEdit={openEditForm}
+                onDelete={handleDeleteEmployee}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Modal */}
-        <Modal
-          isOpen={isFormOpen}
-          onClose={closeForm}
-          title={editingEmployee ? "Edit Employee" : "Add New Employee"}
-        >
+        {/* Modal Form */}
+        <Modal isOpen={isFormOpen} onClose={closeForm} title={editingEmployee ? "Edit Employee" : "Add New Employee"}>
           <EmployeeForm
             employee={editingEmployee}
             employees={employees}

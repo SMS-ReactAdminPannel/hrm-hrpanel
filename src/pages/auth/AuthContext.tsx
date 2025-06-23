@@ -8,6 +8,7 @@ import {
 
 type User = {
   email: string;
+  name: string;
 };
 
 type AuthContextType = {
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("userName");
 
     if (token && email) {
       setUser({ email });
@@ -41,6 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (email && password) {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
+      
       setUser({ email });
       setIsAuthenticated(true);
     } else {
@@ -60,8 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userEmail");
+    localStorage.clear();
     setUser(null);
     setIsAuthenticated(false);
   };

@@ -12,6 +12,7 @@ import EditAssetModal from "../../components/common/Asset-category/EditAssetModa
 import DeleteAssetModal from "../../components/common/Asset-category/DeleteConfirmModal"
 import AssetDetailsCard from "../../components/common/Asset-category/AssetDetailsCard"
 import AddAssetModal from "../../components/common/Asset-category/AddAssetModal"
+import { getAllAssetcategory } from "../../features/assetcategory/service"
 
 
 interface Asset {
@@ -57,178 +58,27 @@ const AssetCategory: React.FC = () => {
   const deleteAssetModalRef = useRef<HTMLDivElement>(null)
   const assetDetailsCardRef = useRef<HTMLDivElement>(null)
   const addAssetModalRef = useRef<HTMLDivElement>(null)
-
+  
   const [assetCategories, setAssetCategories] = useState<AssetCategory[]>([
-    {
-      category: "laptops",
-      count: 8,
-      description: "Portable computing devices",
-      assets: [
-        {
-          id: "1",
-          name: "Google Pixelbook Go",
-          status: "Available" as const,
-          trackingId: "LPT0039",
-          batchNo: "LPB002",
-          avatar: "GG",
-          avatarBg: "bg-yellow-500",
-          description: "Lightweight Chromebook with 12-hour battery life",
-          category: "laptops",
-          purchaseDate: "2023-05-15",
-          cost: "649.00",
-          expiryDate: "2026-05-15",
-        },
-        {
-          id: "2",
-          name: "Microsoft Surface Laptop 4",
-          status: "Not-Available" as const,
-          trackingId: "LPT0038",
-          batchNo: "LPB002",
-          avatar: "M4",
-          avatarBg: "bg-orange-500",
-          description: "13.5-inch touchscreen laptop with AMD Ryzen processor",
-          category: "laptops",
-          purchaseDate: "2023-06-20",
-          cost: "999.99",
-          expiryDate: "2026-06-20",
-        },
-        {
-          id: "3",
-          name: "Panasonic Toughbook 55",
-          status: "Available" as const,
-          trackingId: "LPT0037",
-          batchNo: "LPB002",
-          avatar: "P5",
-          avatarBg: "bg-cyan-500",
-          description: "Rugged laptop for field operations",
-          category: "laptops",
-          purchaseDate: "2023-04-10",
-          cost: "1899.00",
-          expiryDate: "2026-04-10",
-        },
-        {
-          id: "4",
-          name: "Gigabyte AERO 15 OLED",
-          status: "Not-Available" as const,
-          trackingId: "LPT0036",
-          batchNo: "LPB002",
-          avatar: "GO",
-          avatarBg: "bg-blue-600",
-          description: "Gaming laptop with OLED display",
-          category: "laptops",
-          purchaseDate: "2023-07-05",
-          cost: "1799.00",
-          expiryDate: "2026-07-05",
-        },
-        {
-          id: "5",
-          name: "Alienware m15 R4",
-          status: "Available" as const,
-          trackingId: "LPT0035",
-          batchNo: "LPB002",
-          avatar: "AR",
-          avatarBg: "bg-gray-600",
-          description: "High-performance gaming laptop",
-          category: "laptops",
-          purchaseDate: "2023-03-22",
-          cost: "2199.00",
-          expiryDate: "2026-03-22",
-        },
-        {
-          id: "6",
-          name: "Fujitsu Lifebook U9311",
-          status: "Available" as const,
-          trackingId: "LPT0034",
-          batchNo: "LPB002",
-          avatar: "FU",
-          avatarBg: "bg-blue-500",
-          description: "Ultra-lightweight business laptop",
-          category: "laptops",
-          purchaseDate: "2023-02-18",
-          cost: "1599.00",
-          expiryDate: "2026-02-18",
-        },
-        {
-          id: "7",
-          name: "Sony Vaio S13",
-          status: "Available" as const,
-          trackingId: "LPT0033",
-          batchNo: "LPB002",
-          avatar: "SS",
-          avatarBg: "bg-yellow-600",
-          description: "13-inch business laptop",
-          category: "laptops",
-          purchaseDate: "2023-01-30",
-          cost: "1299.00",
-          expiryDate: "2026-01-30",
-        },
-        {
-          id: "8",
-          name: "Toshiba Portege X30T",
-          status: "Available" as const,
-          trackingId: "LPT0032",
-          batchNo: "LPB002",
-          avatar: "TX",
-          avatarBg: "bg-yellow-500",
-          description: "Detachable 2-in-1 business laptop",
-          category: "laptops",
-          purchaseDate: "2023-08-12",
-          cost: "1499.00",
-          expiryDate: "2026-08-12",
-        },
-      ],
-    },
-    {
-      category: "monitors",
-      count: 3,
-      description: "Display devices and screens",
-      assets: [
-        {
-          id: "9",
-          name: "Dell UltraSharp 27",
-          status: "Available" as const,
-          trackingId: "MON0015",
-          batchNo: "MOB001",
-          avatar: "DU",
-          avatarBg: "bg-blue-500",
-          description: "27-inch 4K monitor with USB-C",
-          category: "monitors",
-          purchaseDate: "2023-05-20",
-          cost: "499.99",
-          expiryDate: "2028-05-20",
-        },
-        {
-          id: "10",
-          name: "LG 4K Monitor 32",
-          status: "Available" as const,
-          trackingId: "MON0014",
-          batchNo: "MOB001",
-          avatar: "LG",
-          avatarBg: "bg-red-500",
-          description: "32-inch UHD display with HDR",
-          category: "monitors",
-          purchaseDate: "2023-06-15",
-          cost: "599.99",
-          expiryDate: "2028-06-15",
-        },
-        {
-          id: "11",
-          name: "Samsung Curved 34",
-          status: "Not-Available" as const,
-          trackingId: "MON0013",
-          batchNo: "MOB001",
-          avatar: "SC",
-          avatarBg: "bg-purple-500",
-          description: "34-inch ultrawide curved monitor",
-          category: "monitors",
-          purchaseDate: "2023-04-05",
-          cost: "699.99",
-          expiryDate: "2028-04-05",
-        },
-      ],
-    },
+   
   ])
+  
+  const fetchAllAssestcategory= async () => {
+     try{
+const response:any= await getAllAssetcategory() 
+console.log(response.data.data, 'response data')
+        if(response){
+             setAssetCategories(response?.data?.data)
+        }
+}
+catch (error) {
+    console.error("Error fetching assetcategory:", error);
+  }
+  };
 
+  useEffect(() => {
+    fetchAllAssestcategory();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -466,24 +316,27 @@ const AssetCategory: React.FC = () => {
   }
 
   
-  const filteredCategories = assetCategories.filter((category) => {
+  const filteredCategories = assetCategories?.filter((category) => {
     if (!searchQuery) return true
 
 
-    if (category.category.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (category?.category_name?.toLowerCase().includes(searchQuery.toLowerCase())) {
       return true
     }
 
     
-    return category.assets.some(
+    return category?.assets.some(
       (asset) =>
-        asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        asset.trackingId.toLowerCase().includes(searchQuery.toLowerCase()),
+        asset?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        asset?.trackingId.toLowerCase().includes(searchQuery.toLowerCase()),
     )
   })
 
+
+
+
   return (
-    <div className=" min-h-screen px-5 py-5">
+    <div className=" min-h-screen ">
       <div className="container ">
         <AssetCategoryHeader
           searchQuery={searchQuery}
@@ -492,7 +345,7 @@ const AssetCategory: React.FC = () => {
           onCreate={handleCreateCategory}
         />
 
-        <div className="p-6">
+        <div className="">
           <div className="max-w-full mx-auto">
             {filteredCategories.length === 0 ? (
               <div className="text-center py-12">
@@ -511,12 +364,12 @@ const AssetCategory: React.FC = () => {
                 </div>
               </div>
             ) : (
-              filteredCategories.map((category, index) => (
+              filteredCategories?.map((category, index) => (
                 <AssetCategoryCard
                   key={index}
-                  category={category.category}
-                  count={category.count}
-                  assets={category.assets}
+                  category={category?.category_name}
+                  count={category?.count}
+                  assets={category?.asset}
                   searchQuery={searchQuery}
                   onEditCategory={handleEditCategory}
                   onDeleteCategory={handleDeleteCategory}

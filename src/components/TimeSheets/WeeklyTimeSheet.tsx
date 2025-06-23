@@ -39,10 +39,7 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
     <div className="py-5">
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse text-sm shadow-lg">
-          <thead className="bg-[#006666] text-white"
-          style={{fontSize:FONTS.paragraph.fontSize,
-            fontFamily:FONTS.paragraph.fontFamily
-          }}>
+          <thead className="bg-[#006666] text-white">
             <tr>
               <th className="p-3 text-left">
                 <input

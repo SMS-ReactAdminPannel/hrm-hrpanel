@@ -1,4 +1,5 @@
 import React from "react";
+import { FONTS } from "../../../constants/uiConstants";
 
 type AnnouncementType = {
   title: string;
@@ -25,7 +26,11 @@ const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, on
 
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-white mb-1">Title</label>
+        <label className="block text-sm font-medium text-white mb-1"
+         style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                  }}>Title</label>
         <input
           title="Announcement Title"
           type="text"
@@ -38,7 +43,11 @@ const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, on
 
       <div className="flex gap-4">
         <div className="flex-1">
-          <label className="block text-sm font-medium text-white mb-1">Start Date</label>
+          <label className="block text-sm font-medium text-white mb-1"
+           style={{
+                      fontSize: FONTS.paragraph.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                    }}>Start Date</label>
           <input
             title="Announcement Start Date"
             type="date"
@@ -49,7 +58,11 @@ const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, on
           />
         </div>
         <div className="flex-1">
-          <label className="block text-sm font-medium text-white mb-1">End Date</label>
+          <label className="block text-sm font-medium text-white mb-1"
+           style={{
+                      fontSize: FONTS.paragraph.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                    }}>End Date</label>
           <input
             title="Announcement End Date"
             type="date"
@@ -62,7 +75,11 @@ const AnnouncementForm: React.FC<Props> = ({ formData, setFormData, onSubmit, on
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white mb-1">Description</label>
+        <label className="block text-sm font-medium text-white mb-1"
+         style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                  }}>Description</label>
         <textarea
           title="Announcement Description"
           required

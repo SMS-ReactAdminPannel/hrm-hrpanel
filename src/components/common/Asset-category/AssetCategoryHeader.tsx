@@ -21,7 +21,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
         
       </div>
 
-      <div className="flex items-center justify-between px-6 py-4 gap-4">
+      <div className="flex items-center justify-between  py-4 gap-4">
         <div className="flex items-center gap-3 flex-1 max-w-2xl">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 
