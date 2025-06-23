@@ -36,7 +36,9 @@ Axios.interceptors.response.use(
 class HttpClient {
   hr: any;
   async get<T = any>(url: string, params?: any): Promise<T> {
-    const response = await Axios.get<T>(url, { params });
+    const response = await Axios.get<T>(url,{
+      params,
+    } );
     return response.data;
   }
 

@@ -88,6 +88,11 @@ export const API_END_POINTS = {
     updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
     deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
   },
+
+  attendance: {
+    getDailyAttendance: "/api/hr/timesheet/attendance/daily",
+  }
+
 };
 
 
