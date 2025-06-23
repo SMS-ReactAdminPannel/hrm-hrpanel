@@ -11,7 +11,11 @@ export const API_END_POINTS = {
     getemployeetimesheet:(id: string) =>`/api/hr/timesheet/${id}`
   },
   leavetype:{
-    getall: "api/hr/leave/getall"
+    getall: "api/hr/leave/getall",
+    getbyid: (id: string) => `api/hr/leave/get/${id}`,
+    create: "api/hr/leave/create",
+    update: (id: string) => `api/hr/leave/update/${id}`,
+    delete: (id: string) => `api/hr/leave/delete/${id}`,
   },
 
   grievance:{

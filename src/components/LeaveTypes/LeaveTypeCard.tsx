@@ -4,7 +4,7 @@ import type { Card } from './types';
 
 interface LeaveTypeCardProps {
   card: Card;
-  // color: string;
+  color: string;
   onEdit: (card: Card) => void;
   onDelete: (id: number) => void;
   onShowDetails: (card: Card) => void;
@@ -26,11 +26,11 @@ export default function LeaveTypeCard({
   getInitials
 }: LeaveTypeCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-lg h-[100%] shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
       <div className="p-4">
         <div className="flex justify-between items-start">
           <div className="flex items-center">
-            <div className={`w-10 h-10 bg-green-600 rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
+            <div className={`w-10 h-10  rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
               {getInitials(card.holiday_name)}
             </div>
             <div>
@@ -64,7 +64,7 @@ export default function LeaveTypeCard({
                   </button>
                   <button
                     onClick={() => onShowDetails(card)}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                   >
                     View Details
                   </button>
@@ -75,7 +75,7 @@ export default function LeaveTypeCard({
         </div>
         <div className="mt-4 flex justify-between items-center">
           <span className="text-lg !text-gray-500 font-semibold" style={{ ...FONTS.subParagraph }}>{card.holiday_date} days</span>
-          <span className="text-sm !text-gray-500">{card.is_active}</span>
+          <span className="text-sm !text-gray-500">{card.is_active==card.holiday_type}</span>
         </div>
       </div>
     </div>

@@ -100,12 +100,13 @@ export default function LeaveTypeModal({
               <label className="text-sm font-medium text-white" style={{ ...FONTS.paragraph }}>Is Paid</label>
               <select
                 className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
-                value={newCard.isPaid}
-                onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
+                value={newCard.holiday_type}
+                onChange={(e) => setNewCard({ ...newCard, holiday_type: e.target.value })}
               >
                 <option value="Paid">Paid</option>
                 <option value="Unpaid">Unpaid</option>
                 <option value="Partial">Partial</option>
+                
               </select>
             </div>
           </div>
@@ -120,13 +121,13 @@ export default function LeaveTypeModal({
               Cancel
             </button>
             <button
-              className={`px-5 py-1 rounded-lg text-white transition ${!newCard.title || !newCard.totalDays
+              className={`px-5 py-1 rounded-lg text-white transition ${!newCard.holiday_name || !newCard.holiday_date
                 ? 'bg-[#006666] opacity-50 cursor-not-allowed'
                 : 'bg-[#006666] hover:bg-[#004d4d]'
                 }`}
               onClick={onSubmit}
               type="button"
-              disabled={!newCard.title || !newCard.totalDays}
+              disabled={!newCard.holiday_name || !newCard.holiday_date}
               style={{ ...FONTS.button }}
             >
               {editingCard ? "Update" : "Create"}

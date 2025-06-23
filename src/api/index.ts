@@ -21,6 +21,14 @@ export default class Client {
     leavetype:{
       getall:(data:any)=>
         httpClient.get(API_END_POINTS.leavetype.getall,data),
+      getbyid: (leaveTypeId: string) =>
+        httpClient.get(API_END_POINTS.leavetype.getbyid(leaveTypeId)),  
+      create: (data: any) =>
+        httpClient.post(API_END_POINTS.leavetype.create, data),
+      update: (leaveTypeId: string, data: any) =>
+        httpClient.update(API_END_POINTS.leavetype.update(leaveTypeId), data),
+      delete: (leaveTypeId: string) =>
+        httpClient.delete(API_END_POINTS.leavetype.delete(leaveTypeId))
     },
     
     grievance:{

@@ -1,5 +1,4 @@
 
-
 import { useState, useRef, useEffect } from 'react';
 import LeaveTypeCard from './LeaveTypeCard';
 import LeaveTypeModal from './LeaveTypeModal';
@@ -52,28 +51,19 @@ export default function LeaveTypesComponent() {
   const handleAddCard = () => {
     if (newCard.holiday_name && newCard.holiday_date) {
       if (editingCard) {
-        const updatedCards = cards.map((cards) =>
-          cards._id === editingCard._id ? {
+        const updatedCards = cards.map((card) =>
+          card._id === editingCard._id ? {
             ...newCard,
-            id: editingCard._id,
-            totalDays: parseFloat(newCard.holiday_date) || 0
-          } : cards
+            _id: editingCard._id,
+            color: editingCard.color || getRandomColor()
+          } : card
         );
         setCards(updatedCards);
         setEditingCard(null);
       } else {
         const cardToAdd: Card = {
-          _id: newCard._id,
-          holiday_name: newCard.holiday_name,
-          periodIn: newCard.periodIn,
-          is_active: newCard.is_active,
-          carryforwardType: newCard.carryforwardType,
-          holiday_type: newCard.holiday_type,
-          requireApproval: newCard.requireApproval,
-          requireAttachment: newCard.requireAttachment,
-          excludeCompanyLeaves: newCard.excludeCompanyLeaves,
-          excludeHolidays: newCard.excludeHolidays,
-          isEncashable: newCard.isEncashable
+          ...newCard,
+          color: getRandomColor()
         };
         setCards([...cards, cardToAdd]);
       }
@@ -84,8 +74,8 @@ export default function LeaveTypesComponent() {
         periodIn: "Day",
         holiday_type: "",
         is_active: "No",
-        carryforwardType: "No Carry Forward",
         holiday_date: "",
+        carryforwardType: "No Carry Forward",
         requireApproval: "Yes",
         requireAttachment: "No",
         excludeCompanyLeaves: "No",
@@ -127,12 +117,13 @@ export default function LeaveTypesComponent() {
   const closeModal = () => {
     setEditingCard(null);
     setNewCard({
-      title: "",
+      _id: "",
+      holiday_type: "",
+      holiday_name: "",
       periodIn: "Day",
-      totalDays: "",
-      reset: "No",
+      holiday_date: "",
+      is_active: "No",
       carryforwardType: "No Carry Forward",
-      isPaid: "",
       requireApproval: "Yes",
       requireAttachment: "No",
       excludeCompanyLeaves: "No",
@@ -160,8 +151,15 @@ export default function LeaveTypesComponent() {
     try {
       const response: any = await leavetypeapi();
       const visitors = response?.data ?? [];
-      setleavetypegetting(visitors.data);
-      setFilteredCards(visitors.data);
+
+      // different card with different colors
+      const coloredCards = visitors.data.map((card: Card) => ({
+        ...card,
+        color: getRandomColor()
+      }));
+
+      setleavetypegetting(coloredCards);
+      setFilteredCards(coloredCards);
     } catch (error) {
       console.error("Error fetching leave types:", error);
     }
@@ -227,9 +225,10 @@ export default function LeaveTypesComponent() {
               onDelete={handleDeleteCard}
               onShowDetails={showCardDetails}
               dropdownRef={dropdownRef}
-              showDropdown={showDropdownId === card.id}
-              toggleDropdown={() => toggleDropdown(card.id)}
+              showDropdown={showDropdownId === card._id}
+              toggleDropdown={() => toggleDropdown(card._id)}
               getInitials={getInitials}
+              color={card.color} 
             />
           ))}
         </div>

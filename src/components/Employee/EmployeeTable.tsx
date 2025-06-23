@@ -9,7 +9,7 @@ interface EmployeeTableProps {
   employees: Employee[]
   sortConfig: { key: keyof Employee; direction: "ascending" | "descending" } | null
   onSort: (key: keyof Employee) => void
-  onEdit: (employee: Employee) =>  void
+  // onEdit: (employee: Employee) =>  void
   onDelete: (employeeId: string) => void
 }
 
@@ -31,9 +31,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
   
 
   const [isEditing, setIsEditing] = useState(false);
-
-  
-  
+ 
   return (
 
     <div className="rounded shadow overflow-x-auto">
@@ -56,7 +54,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
         </thead>
         <tbody className="divide-y divide-gray-200" >
           {employees.map((emp) => (
-            <tr key={emp.id} style={{...FONTS.tableBody}} className='text-white ' >
+            <tr key={emp.id} style={{...FONTS.tableBody}} className='text-black ' >
               <td className="px-4 py-5 text-sm" style={{...FONTS.tableBody}}>{emp.id}</td>
               <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.name}</td>
               <td className="px-4 py-2 text-sm" style={{...FONTS.tableBody}}>{emp.email}</td>
@@ -93,7 +91,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
         <div className="fixed h-[100%] inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <form className="relative h-[65%] p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl w-full max-w-2xl">
             <div className="flex justify-end">
-              <button className="text-black  px-2 py-1 rounded">
+              <button className="text-black  px-2 py-1 rounded" onClick={() => setIsEditing(false)}>
                 <X size={24} />
               </button>
             </div>
