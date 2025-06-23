@@ -1615,7 +1615,7 @@ const HRMAppraisalSystem = () => {
               )}
               {activeTab !== "reports" && (
                 <button
-                  className="text-white bg-[#006666] px-3 py-1 rounded-md"
+                  className="text-white bg-[#3a357f] px-3 py-1 rounded-md"
                   onClick={() => setActiveTab("reports")}
                 >
                   Reports

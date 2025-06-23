@@ -1,5 +1,3 @@
-
-
 import type React from "react"
 import { Search,  Plus } from "lucide-react"
 import { FONTS } from "../../../constants/uiConstants"
@@ -53,10 +51,10 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
           <button
             onClick={onCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
+            className="flex items-center gap-2 px-4 py-2 bg-[#3a357f]  text-white text-sm
              rounded-md  transition-colors"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4"/>
             Create Category
           </button>
         </div>

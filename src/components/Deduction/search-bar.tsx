@@ -38,7 +38,7 @@ export function SearchBar({ searchTerm, onSearchChange, onAddClick }: SearchBarP
         <button
           className="rounded-md w-38 h-9 text-white px-4 py-2 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
           onClick={onAddClick}
-          style={{...FONTS.button, backgroundColor: '#006666', color: '#FFFFFF'}}
+          style={{...FONTS.button, backgroundColor: '#4c469f', color: '#FFFFFF'}}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path

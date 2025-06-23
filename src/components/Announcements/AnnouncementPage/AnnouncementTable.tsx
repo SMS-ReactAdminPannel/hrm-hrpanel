@@ -14,12 +14,13 @@ type AnnouncementTableProps = {
   onEdit: (announcement: AnnouncementType, index: number) => void;
   onDelete: (index: number) => void;
 };
+
 console.log("hello",data)
 const AnnouncementTable = ({ data, onEdit, onDelete }: AnnouncementTableProps) => {
   return (
     <div className={`overflow-x-auto ${data.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
       <table className="min-w-full table-fixed border-collapse text-sm bg-white">
-        <thead className="bg-[#006666] text-white"
+        <thead className="bg-[#3e3a85] text-white"
          style={{
                             fontSize: FONTS.paragraph.fontSize
                             , fontFamily: FONTS.header.fontFamily

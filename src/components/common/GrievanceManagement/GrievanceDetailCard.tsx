@@ -17,7 +17,7 @@ export const GrievanceDetailCard: React.FC<Props> = ({
 
 return (
   <div className="relative flex p-2 rounded-lg mb-4">
-    {/* Close Button */}
+    
     <button
       onClick={onClose}
       className="absolute -left-4 top-3 flex items-center justify-center w-8 h-10 bg-blue-800 text-white rounded-l-full rounded-r-none"
