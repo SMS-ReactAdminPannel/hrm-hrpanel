@@ -1,6 +1,7 @@
 import type React from "react"
 import { Award } from "lucide-react"
 import type { TrainingProgram } from "../../components/TraningManagement/Traning"
+import {FONTS} from "../../constants/uiConstants"
 
 interface ProgramCardProps {
   program: TrainingProgram
@@ -14,8 +15,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
   >
     <div className="flex justify-between items-start mb-4">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900">{program.title}</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="text-lg font-semibold !text-gray-900" style={{...FONTS.cardheader}}>{program.title}</h3>
+        <p className="text-sm !text-gray-600" style={{...FONTS.paragraph}}>
           {program.category} • {program.duration}
         </p>
       </div>
@@ -34,18 +35,18 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
 
     <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-600">Participants</span>
+        <span className="text-sm !text-gray-600" style={{...FONTS.statusCardHeader}}>Participants</span>
         <span className="text-sm font-medium text-[#006666]">{program.enrolled} enrolled</span>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-600">Progress</span>
+        <span className="text-sm  !text-gray-600" style={{...FONTS.statusCardHeader}}>Progress</span>
         <span className="text-sm font-medium">
           {program.completed}/{program.enrolled} completed
         </span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2">
         <div
-          className="bg-[#006666] h-2 rounded-full transition-all duration-300"
+          className="bg-[#006666] h-2 rounded-full transition-all duration-300 !text-gray-600" style={{...FONTS.statusCardHeader}}
           style={{ width: `${program.enrolled > 0 ? (program.completed / program.enrolled) * 100 : 0}%` }}
         ></div>
       </div>
@@ -55,7 +56,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
           <Award className="w-4 h-4 text-yellow-500" />
           <span className="text-sm font-medium">{program.rating}</span>
         </div>
-        <p className="text-sm text-gray-600">by {program.instructor}</p>
+        <p className="text-sm !text-gray-600" style={{...FONTS.paragraph}}>by {program.instructor}</p>
       </div>
     </div>
 

@@ -4,6 +4,7 @@ import { Building } from "lucide-react";
 import VisitorDetailsModal from "./VisitorDetailsModel";
 import VisitorCard from "./VisitorCard";
 import AddVisitorForm from "./VisitorAddForm";
+import {FONTS} from "../../constants/uiConstants"
 
 type Visitor = {
   _id: string;
@@ -73,28 +74,28 @@ const VisitorManagement = () => {
 
   return (
     <div className="rounded-lg pb-10">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Visit History</h2>
+      <h2 className="text-2xl font-bold !text-gray-800 mb-6" style={{...FONTS.header}}>Visit History</h2>
 
       <div className="flex items-center justify-between">
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
+            <label className="block text-sm font-semibold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>From Date</label>
             <input
               title="fromDate"
               type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-md"
+              className="w-full px-4 py-2 border-2 border-gray-200 rounded-md !text-gray-700" style={{...FONTS.paragraph}}
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">To Date</label>
+            <label className="block text-sm font-semibold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>To Date</label>
             <input
               title="toDate"
               type="date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
-              className="w-full px-4 py-2 border-2 border-gray-200 rounded-md"
+              className="w-full px-4 py-2 border-2 border-gray-200 rounded-md !text-gray-700"  style={{...FONTS.paragraph}}
             />
           </div>
         </div>
@@ -102,7 +103,7 @@ const VisitorManagement = () => {
         <div className="flex items-center gap-3 ml-auto">
           <button
             onClick={() => setShowAddForm(true)}
-            className="bg-[#006666] text-white px-4 py-2 rounded-md">+ Add Visitor</button>
+            className="bg-[#006666] text-white px-4 py-2 rounded-md" style={{...FONTS.button}}>+ Add Visitor</button>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,7 +115,7 @@ const VisitorManagement = () => {
               placeholder="Search Here..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="p-2 pl-10 border border-gray-300 rounded-md bg-white"
+              className="p-2 pl-10 border border-gray-300 rounded-md bg-white !text-gray-700" style={{...FONTS.paragraph}}
             />
           </div>
         </div>
@@ -124,8 +125,8 @@ const VisitorManagement = () => {
         {filteredVisitors.length === 0 ? (
           <div className="text-center py-12 m-auto bg-white w-1/2 m-auto rounded-md">
             <Building className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-500 mb-2">No visit history found</h3>
-            <p className="text-gray-400">Visit records will appear here</p>
+            <h3 className="text-xl font-semibold !text-gray-500 mb-2" style={{...FONTS.header3}} >No visit history found</h3>
+            <p className="!text-gray-400" style={{...FONTS.header3}}  >Visit records will appear here</p>
           </div>
         ) : (
           filteredVisitors.map((visitor: any) => (

@@ -98,11 +98,8 @@ const TrainingDashboard: React.FC = () => {
             <div className="flex items-center space-x-4">
               <h1
                 className="font-bold"
-                style={{
-                  fontFamily: FONTS.header.fontFamily,
-                  fontSize: FONTS.header.fontSize,
-                  fontWeight: FONTS.header.fontWeight,
-                }}
+                style={{...FONTS.header}}
+
               >
                 Training Management
               </h1>
