@@ -160,14 +160,14 @@ export function FormModal({ isOpen, editingCard, newCard, onClose, onSubmit, onC
 
             <div className="flex justify-end space-x-3 pt-4">
               <button
-                className="px-4 py-2 border border-gray-300 rounded-md text-white hover:text-black hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-gray-300 rounded-md text-white hover:text-black bg-[#bf70cc] hover:bg-gray-50 transition-colors"
                 onClick={onClose}
                 type="button"
               >
                 Cancel
               </button>
               <button
-                className="px-6 py-1 rounded-md text-white transition-colors bg-[#006666] hover:bg-green-700"
+                className="px-6 py-1 rounded-md text-white transition-colors bg-[#bf70cc] hover:bg-green-700"
                 onClick={onSubmit}
                 type="button"
                 disabled={!newCard.title}
