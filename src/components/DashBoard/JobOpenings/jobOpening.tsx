@@ -91,7 +91,7 @@ const JobOpening: React.FC = () => {
   );
 
   return (
-    <div className=" w-full max-w-md p-2">
+    <div className=" w-full h-full p-2 ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Jobs Portal</h2>
         <button className="text-sm text-white hover:text-blue-200">

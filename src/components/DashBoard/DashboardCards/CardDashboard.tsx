@@ -60,7 +60,7 @@ const cards = [
 
 const CardDashboard = () => {
   return (
-    <div className="w-full h-full  ">
+    <div className="w-full h-full">
       <div className="grid grid-cols-4 md:grid-cols-2 gap-4">
         {cards.map((card, index) => (
           <div

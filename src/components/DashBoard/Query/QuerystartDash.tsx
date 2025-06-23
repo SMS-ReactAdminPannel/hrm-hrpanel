@@ -28,7 +28,7 @@ export default function SupportQueryBlock() {
   }, []);
   
   return (
-    <div className="rounded-xl p-2 shadow-sm bg-transparent">
+    <div className="rounded-xl p-2 shadow-sm bg-transparent w-full h-full">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="grid-col-2">
