@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react"
 import type { NewCard, Card } from "./types"
 import { CustomSelect } from "./custom-select"
+import { FONTS } from "../../constants/uiConstants"
 
 interface FormModalProps {
   isOpen: boolean
@@ -38,7 +39,7 @@ export function FormModal({ isOpen, editingCard, newCard, onClose, onSubmit, onC
         className="rounded-xl w-[800px] border bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
       >
         <div className="flex bg-[] border-b bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 justify-between items-center p-6 sticky top-0 z-50">
-          <h3 className="text-2xl text-white">{editingCard ? "Edit Deduction" : "Create New Deduction"}</h3>
+          <h3 className="text-2xl text-white" style={{...FONTS.cardheader}}>{editingCard ? "Edit Deduction" : "Create New Deduction"}</h3>
           <button onClick={onClose} className="text-black rounded-md hover:text-white transition-colors">
             <svg
               xmlns="http://www.w3.org/2000/svg"

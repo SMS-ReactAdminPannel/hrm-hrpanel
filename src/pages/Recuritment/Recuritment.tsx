@@ -144,7 +144,7 @@ export default function RecruitmentDashboard() {
     <>
     
     <div className=" mx-auto max-w-screen-xl">
-        <h1 className=" mb-6" style={FONTS.header}>
+        <h1 className=" mb-6" style={{...FONTS.header}}>
           Recruitment Dashboard
         </h1>
 
@@ -178,10 +178,10 @@ export default function RecruitmentDashboard() {
     },
   ].map((stat, idx) => (
     <Card key={idx} className="shadow-md">
-      <CardContent className="p-4 flex items-center justify-between">
+      <CardContent className="p-2 flex items-center justify-between">
         <div>
-          <p className="text-gray-500 text-sm">{stat.title}</p>
-          <h2 className="text-2xl font-bold text-[#10493e]">{stat.value}</h2>
+          <p className="!text-gray-500 text-sm" style={{...FONTS.description}}>{stat.title}</p>
+          <h2 className="!text-2xl font-bold !text-[#10493e]" style={{...FONTS.header2}}>{stat.value}</h2>
         </div>
         {stat.icon}
       </CardContent>
@@ -194,7 +194,7 @@ export default function RecruitmentDashboard() {
           {/* Recent Applications */}
           <Card>
             <CardHeader>
-              <CardTitle>Recent Applications</CardTitle>
+              <CardTitle >Recent Applications</CardTitle>
               <CardDescription>Latest job applications received</CardDescription>
             </CardHeader>
             <CardContent>

@@ -31,17 +31,17 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-2xl">
+      <div className=" rounded-lg w-full max-w-2xl border">
         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-900">Edit Rotating Shift</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+          <h2 className="text-xl font-semibold text-white">Edit Rotating Shift</h2>
+          <button onClick={onClose} className="text-white hover:text-gray-500">
             <X className="w-5 h-5" />
           </button>
         </div>
-        <form onSubmit={onSubmit} className="p-6">
-          <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+        <form onSubmit={onSubmit} className="p-6 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label htmlFor="employee" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="employee" className="block text-sm font-medium text-white">
                 Employee
               </label>
               <div className="mt-1">
@@ -58,7 +58,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-sm font-medium text-white">
                 Title
               </label>
               <div className="mt-1">
@@ -75,7 +75,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="basedOn" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="basedOn" className="block text-sm font-medium text-white">
                 Based On
               </label>
               <div className="mt-1">
@@ -94,7 +94,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="rotate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="rotate" className="block text-sm font-medium text-white">
                 Rotate
               </label>
               <div className="mt-1">
@@ -112,7 +112,26 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="depaetment" className="block text-sm font-medium text-white">
+                Department
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="depaetment"
+                  id="depaetment"
+                  value={formData.department}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                  placeholder="Department"
+                  required
+                />
+              </div>
+            </div>
+
+
+            <div>
+              <label htmlFor="startDate" className="block text-sm font-medium text-white">
                 Start Date
               </label>
               <div className="mt-1">
@@ -129,7 +148,25 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="currentShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="Category" className="block text-sm font-medium text-white">
+                Category
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="Category"
+                  id="Category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                  placeholder="Category"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="currentShift" className="block text-sm font-medium text-white">
                 Current Shift
               </label>
               <div className="mt-1">
@@ -151,7 +188,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="nextShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="nextShift" className="block text-sm font-medium text-white">
                 Next Shift
               </label>
               <div className="mt-1">
@@ -182,7 +219,7 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#5e59a9] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Save Changes
             </button>
