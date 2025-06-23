@@ -25,9 +25,9 @@ export const Empolyeetotal: React.FC<DashboardCardProps> = ({
        <div className="flex-1 flex-cols ">
         <div className="flex flex-col justify-center  grow flex-2 ">
           <h3 className="text-xl font-semibold mb-2"
-            style={{fontSize:FONTS.header2.fontSize}}> {title}</h3>
-          <p className="text-sm text-black">{desc}</p>
-          <span className="text-sm font-semibold " style={{ color: perColor }}>
+            style={{...FONTS.header}}> {title}</h3>
+          <p className="text-sm text-black" style={{...FONTS.paragraph}}>{desc}</p>
+          <span className="text-sm font-semibold " style={{...FONTS.header3 }}>
             {value}
           </span>   
           

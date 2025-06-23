@@ -35,7 +35,7 @@ const cardItems = [
     stats: [
       { label: "Tickets Closed", value: "96" },
       { label: "Code Coverage", value: "89%" },
-      { label: "Deployments", value: "12 " },
+      { label: "Deployments", value: "12" },
       { label: "Bugs Fixed", value: "34" },
     ],
   },
@@ -63,9 +63,9 @@ const DashBoardSlideCard = () => {
         <div className="flex justify-between items-center mb-2">
           <div>
             <p className=" text-xl font-semibold mb-3"
-              style={{ fontSize: FONTS.header2.fontSize }}>{current.title}</p>
+              style={{...FONTS.header }}>{current.title}</p>
             <p className="text-sm text-black "
-            style={{fontSize:FONTS.paragraph.fontSize }}>{current.subtitle}</p>
+            style={{...FONTS.paragraph}}>{current.subtitle}</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -89,14 +89,14 @@ const DashBoardSlideCard = () => {
           {/* Stats */}
           <div className="flex-1">
             <h2 className=" text-md mb-2"
-            style={{fontSize:FONTS.header3.fontSize}}>Spending</h2>
+            style={{...FONTS.header3}}>Spending</h2>
             <div className="grid grid-cols-2 gap-3">
               {current.stats.map((stat, i) => (
                 <div key={i} className="flex gap-2">
                   <p className="bg-blue-100 rounded-lg font-bold p-1 text-sm w-16 h-8 flex justify-center items-center">
                     {stat.value}
                   </p>
-                  <p className="text-black text-sm mt-1">{stat.label}</p>
+                  <p className="text-black text-sm mt-1" style={{...FONTS.paragraph}}>{stat.label}</p>
                 </div>
               ))}
             </div>

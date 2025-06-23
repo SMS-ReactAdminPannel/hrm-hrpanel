@@ -22,13 +22,13 @@ const AttentDashboard = () => {
             <div className="mb-14">
               <h1
                 className="text-xl text-black font-semibold mb-3"
-                style={{ fontSize: FONTS.header2.fontSize }}
+                style={{...FONTS.header }}
               >
                 Attendance
               </h1>
               <p
                 className="text-sm"
-                style={{ fontSize: FONTS.header3.fontSize }}
+                style={{...FONTS.paragraph}}
               >
                 Weekly Attendance Overview
               </p>
@@ -36,11 +36,11 @@ const AttentDashboard = () => {
             <div>
               <p
                 className="text-md text-black"
-                style={{ fontSize: FONTS.paragraph.fontSize }}
+                style={{...FONTS.subParagraph}}
               >
                 Total Employees
               </p>
-              <p className="text-lg font-semibold">234k</p>
+              <p className="text-lg font-semibold" style={{...FONTS.header3}}>234k</p>
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { FONTS } from "../../../constants/uiConstants";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -74,14 +75,14 @@ const PayrollStack: React.FC = () => {
     <div className="grid grid-cols-9 gap-2 mt-1 w-full">
       {/* Transaction History Table */}
       <div className="col-span-6 bg-white rounded-xl border border-white shadow-sm p-4 backdrop-blur bg-opacity-10 backdrop-saturate-100">
-        <h2 className="text-lg font-semibold mb-4">Transaction History</h2>
+        <h2 className="text-lg font-semibold mb-4" style={{...FONTS.header}}>Transaction History</h2>
 
         {/* Table Headers */}
         <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 border-b pb-2 mb-2">
-          <div>Name</div>
-          <div>Date - Time</div>
-          <div>Amount</div>
-          <div >Action</div>
+          <div style={{...FONTS.paragraph}}>Name</div>
+          <div style={{...FONTS.paragraph}}>Date - Time</div>
+          <div style={{...FONTS.paragraph}}>Amount</div>
+          <div style={{...FONTS.paragraph}}>Action</div>
         </div>
 
         {/* Rows */}
@@ -98,20 +99,20 @@ const PayrollStack: React.FC = () => {
                 className="w-8 h-8 rounded-full object-cover"
               />
               <div>
-                <p className="font-medium">{txn.name}</p>
-                <p className="text-xs text-gray-700">{txn.company}</p>
+                <p className="font-medium" style={{...FONTS.paragraph}}>{txn.name}</p>
+                <p className="text-xs text-gray-700" style={{...FONTS.subParagraph}}>{txn.company}</p>
               </div>
             </div>
 
             {/* Date-Time */}
             <div>
-              <p>{txn.date}</p>
-              <p className="text-xs text-gray-600">{txn.time}</p>
+              <p style={{...FONTS.paragraph}}>{txn.date}</p>
+              <p className="text-xs text-gray-600" style={{...FONTS.subParagraph}}>{txn.time}</p>
             </div>
 
             {/* Amount */}
             <div>
-              <p className="font-semibold">{txn.amount}</p>
+              <p className="font-semibold" style={{...FONTS.paragraph}}>{txn.amount}</p>
             </div>
 
             {/* Action */}
@@ -127,8 +128,8 @@ const PayrollStack: React.FC = () => {
       <div className=" col-span-3 bg-white border border-white rounded-xl shadow-lg p-6 backdrop-blur bg-opacity-10 backdrop-saturate-100 flex flex-col justify-between">
   {/* Title and View Button */}
   <div className="flex justify-between items-center mb-6">
-    <h2 className="text-xl font-extrabold text-gray-800 tracking-wide">Payroll Summary</h2>
-    <button className="text-sm text-purple-600 hover:underline">View Report</button>
+    <h2 className="text-xl font-extrabold text-gray-800 tracking-wide" style={{...FONTS.header}}>Payroll Summary</h2>
+    <button className="text-sm text-purple-600 hover:underline" style={{...FONTS.button}}>View Report</button>
   </div>
 
   {/* Bold Stat Blocks */}
