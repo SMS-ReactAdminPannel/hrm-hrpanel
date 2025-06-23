@@ -35,7 +35,6 @@ import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetai
 import Chat from "../pages/ChatAPP/Chat";
 // import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
-import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 // import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
 // import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
@@ -44,7 +43,7 @@ import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
-import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
+import DepartmentList from "../pages/Department/DepartmentList";
 
 // import EmployeesPage from "../components/Department/Employees";
 

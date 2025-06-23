@@ -3,11 +3,13 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./pages/auth/AuthContext";
 import AppRoutes from "./routes/AppRoutes";
 import { ToastContainer } from "react-toastify";
+import { PrimeReactProvider } from 'primereact/api';
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <PrimeReactProvider>
         <AuthProvider>
           <AppRoutes />
           <ToastContainer
@@ -23,6 +25,7 @@ function App() {
             theme="colored"
           />
         </AuthProvider>
+      </PrimeReactProvider>
       </BrowserRouter>
     </>
   );
