@@ -421,7 +421,7 @@
 
 
 
-
+// Imports
 import React, { useState, useEffect } from "react";
 import { Plus, Trash2, Users, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -429,11 +429,10 @@ import {
   deleteDepartment,
   getAllDepartments,
   createDepartment,
-  updateDepartment,
 } from "../../features/Department/service.ts";
-import Client from "../../api/index.ts";
 import { FONTS } from "../../constants/uiConstants.tsx";
 
+// Types
 type Employee = {
   id: string;
   name: string;
@@ -451,6 +450,7 @@ type Department = {
   employees: Employee[];
 };
 
+// Component
 const DepartmentList: React.FC = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [newDeptName, setNewDeptName] = useState("");
@@ -477,30 +477,27 @@ const DepartmentList: React.FC = () => {
   const handleCreateDepartment = async () => {
     const name = newDeptName.trim();
     const description = newDeptDescription.trim();
-  
+
     if (!name || !description) {
       alert("Both name and description are required.");
       return;
     }
-  
-    const id = name.toLowerCase().replace(/\s+/g, "-");
-  
+
     const payload = {
-      name: name,
-      description: newDeptDescription.trim(),
-      subDescription: newDeptSubDescription,
+      name,
+      description,
+      subDescription: newDeptSubDescription.trim(),
       total_employee: 0,
     };
-  
+
     try {
       const res = await createDepartment(payload);
       const newDept: Department = {
         ...res.data,
-        // subDescription: newDeptSubDescription,
         employees: [],
         employeeCount: 0,
       };
-  
+
       setDepartments((prev) => [...prev, newDept]);
       setNewDeptName("");
       setNewDeptDescription("");
@@ -511,45 +508,50 @@ const DepartmentList: React.FC = () => {
       alert("Failed to create department.");
     }
   };
-  
 
-  // ✅ Fixed Delete department
+  // Delete department
   const handleDeleteDepartment = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      //  await new Client().hr.departments.deleteDepartment(id)
-      const res = await deleteDepartment(id);
-      
-      // setDepartments(departments.filter((dept) => dept.id !== id));
+      await deleteDepartment(id);
+      setDepartments((prev) => prev.filter((dept) => dept._id !== id));
     } catch (error: any) {
       console.error("Failed to delete department:", error?.response || error?.message || error);
       alert("Failed to delete department.");
     }
   };
-  
 
-  // Navigate to department's employee list
+  // Navigate to employees
   const handleCardClick = (dept: Department) => {
     navigate("/employees", { state: { department: dept } });
   };
 
   // Get name initials
   const getInitials = (name?: string) =>
-    name
-      ? name
-          .trim()
-          .split(" ")
-          .map((n) => n[0])
-          .join("")
-          .toUpperCase()
-      : "";
- 
+    name ? name.trim().split(" ").map((n) => n[0]).join("").toUpperCase() : "";
+
   return (
     <div className="min-h-screen">
+      <style>{`
+        @keyframes slideUp {
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        .animate-slide-up {
+          animation: slideUp 0.3s ease-out;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto">
         <div className="relative mb-8">
           <div className="text-left">
-            <h1 style={FONTS.header}  className="text-4xl font-bold text-white">Departments</h1>
+            <h1 style={FONTS.header} className="text-4xl font-bold text-white">Departments</h1>
             <p className="text-white/80">Manage your organization's departments</p>
           </div>
           <div className="absolute top-0 right-0">
@@ -576,44 +578,36 @@ const DepartmentList: React.FC = () => {
                 <div className="bg-blue-500 text-white font-bold rounded-full w-12 h-12 mt-4 flex items-center justify-center text-lg shadow">
                   {getInitials(dept.name)}
                 </div>
-                <h3 className="text-xl font-bold text-slate-800   pt-2 m-1 px-8 mb-2  ">
-    {dept.name}
-  </h3>
+                <h3 className="text-xl font-bold text-slate-800 pt-2 m-1 px-8 mb-2">
+                  {dept.name}
+                </h3>
                 <button
-                  onClick={(e) => handleDeleteDepartment(dept._id, e)}
-                  aria-label="Delete Department"
+                  onClick={(e) => handleDeleteDepartment(dept._id!, e)}
                   className="bg-red-400 hover:bg-red-300 text-white rounded-full p-2 shadow"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
               <div className="p-6">
-  {/* Heading: Department Name */}
-  
-
-  {/* Description block with blue background */}
-  <div className="bg-blue-50 p-3 rounded-md mb-3">
-    <p className="text-slate-700 text-sm line-clamp-2">{dept.description}</p>
-    {dept.subDescription && (
-      <p className="text-slate-500 text-xs mt-1 line-clamp-1">{dept.subDescription}</p>
-    )}
-  </div>
-
-  {/* Footer: Employee count + CTA */}
-  <div className="flex justify-between items-center border-t pt-3">
-    <div className="flex items-center gap-2 text-blue-600">
-      <Users className="h-4 w-4" />
-      <span className="text-sm">
-        {dept.employeeCount ?? dept.employees?.length ?? 0} Employee
-        {(dept.employeeCount ?? dept.employees?.length ?? 0) !== 1 ? "s" : ""}
-      </span>
-    </div>
-    <div className="text-xs bg-blue-100 text-blue-700 rounded-full px-3 py-1 font-medium">
-      Click to view
-    </div>
-  </div>
-</div>
-
+                <div className="bg-blue-50 p-3 rounded-md mb-3">
+                  <p className="text-slate-700 text-sm line-clamp-2">{dept.description}</p>
+                  {dept.subDescription && (
+                    <p className="text-slate-500 text-xs mt-1 line-clamp-1">{dept.subDescription}</p>
+                  )}
+                </div>
+                <div className="flex justify-between items-center border-t pt-3">
+                  <div className="flex items-center gap-2 text-blue-600">
+                    <Users className="h-4 w-4" />
+                    <span className="text-sm">
+                      {dept.employeeCount ?? dept.employees?.length ?? 0} Employee
+                      {(dept.employeeCount ?? dept.employees?.length ?? 0) !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                  <div className="text-xs bg-blue-100 text-blue-700 rounded-full px-3 py-1 font-medium">
+                    Click to view
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -628,14 +622,14 @@ const DepartmentList: React.FC = () => {
       {/* Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border border-white">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative animate-slide-up">
             <button
               onClick={() => setIsCreateModalOpen(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
             >
               <X className="h-5 w-5" />
             </button>
-            <h2 className="text-lg font-bold mb-4">Create Department</h2>
+            <h2 className="text-lg font-bold border-b mb-4">Create Department</h2>
             <div className="space-y-4">
               <input
                 type="text"
@@ -668,7 +662,7 @@ const DepartmentList: React.FC = () => {
               </button>
               <button
                 onClick={handleCreateDepartment}
-                className="px-4 py-2 text-sm bg-indigo-600 text-white rounded"
+                className="px-4 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700"
               >
                 Create
               </button>
@@ -681,4 +675,5 @@ const DepartmentList: React.FC = () => {
 };
 
 export default DepartmentList;
+
 

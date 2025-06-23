@@ -3,6 +3,17 @@ import { useState } from "react"
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee, EmploymentType } from "../../components/Employee/Employee"
 import { FONTS } from "../../constants/uiConstants"
+import { X } from "lucide-react"
+
+const modalAnimationStyle = `
+  @keyframes slideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .animate-slideUp {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+`
 
 interface EmployeeTableProps {
   employees: Employee[]
@@ -93,12 +104,18 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
           )}
         </tbody>
       </table>
-
+       <style>{modalAnimationStyle}</style> 
       {editingEmployee && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white  p-6 rounded shadow-lg w-full max-w-md mx-auto">
+          <button
+                     onClick={() => setEditingEmployee(null)}
+                      className="absolute top-[88px] left-[400px] text-gray-700 hover:text-red-600  rounded bg-blue-700"
+                    >
+                      <X size={28} />
+                    </button>
+          <div className="bg-white  p-10 rounded shadow-lg w-full max-w-2xl h-[550px] mx-auto animate-slideUp">
             <h3 className="text-lg text-black font-bold mb-4 text-center">Edit Employee</h3>
-            <div className="grid gap-2">
+            <div className="grid gap-6">
               <input name="name" value={editingEmployee.id} onChange={handleEditChange} className="border p-2 rounded" />
               <input name="name" value={editingEmployee.name} onChange={handleEditChange} className="border p-2 rounded" />
               <input name="email" value={editingEmployee.email} onChange={handleEditChange} className="border p-2 rounded" />
@@ -113,6 +130,6 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
           </div>
         </div>
       )}
-    </div>
+     </div>
   )
 }

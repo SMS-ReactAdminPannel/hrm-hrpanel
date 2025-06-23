@@ -27,8 +27,13 @@ export default {
       fontFamily: {
         cabin: ['"Cabin"', "sans-serif"],
       },
+      slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       animation: {
         shake: "shake 0.4s ease-in-out",
+        slideUp: 'slideUp 0.4s ease-out forwards',
       },
     },
   },
