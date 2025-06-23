@@ -14,8 +14,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
   >
     <div className="flex justify-between items-start mb-4">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900">{program.title}</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="text-lg font-bold text-gray-900">{program.title}</h3>
+        <p className="text-base font-semibold text-gray-600">
           {program.category} • {program.duration}
         </p>
       </div>
@@ -34,12 +34,12 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
 
     <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-600">Participants</span>
-        <span className="text-sm font-medium text-[#006666]">{program.enrolled} enrolled</span>
+        <span className="text-base text-gray-600">Participants</span>
+        <span className="text-sm font-semibold text-[#006666]">{program.enrolled} enrolled</span>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-600">Progress</span>
-        <span className="text-sm font-medium">
+        <span className="text-base text-gray-600">Progress</span>
+        <span className="text-sm font-semibold">
           {program.completed}/{program.enrolled} completed
         </span>
       </div>
@@ -55,12 +55,12 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onClick }) =>
           <Award className="w-4 h-4 text-yellow-500" />
           <span className="text-sm font-medium">{program.rating}</span>
         </div>
-        <p className="text-sm text-gray-600">by {program.instructor}</p>
+        <p className="text-base font-semibold text-gray-600">by {program.instructor}</p>
       </div>
     </div>
 
     <div className="mt-4 pt-3 border-t border-gray-100">
-      <p className="text-xs text-blue-600 font-medium">Click to view participants →</p>
+      <p className="text-s text-blue-600 font-medium">Click to view participants →</p>
     </div>
   </div>
 )

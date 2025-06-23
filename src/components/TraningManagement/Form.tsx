@@ -59,7 +59,7 @@ export const NewProgramForm = memo<NewProgramFormProps>(({ onClose, onSubmit, ca
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1" style={FONTS.paragraph}>
+            <label htmlFor="title" className="block text-base font-semibold text-gray-700 mb-1" style={FONTS.paragraph}>
               Program Title *
             </label>
             <input
@@ -74,7 +74,7 @@ export const NewProgramForm = memo<NewProgramFormProps>(({ onClose, onSubmit, ca
           </div>
 
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1" style={FONTS.paragraph}>
+            <label htmlFor="category" className="block text-base font-semibold text-gray-700 mb-1" style={FONTS.paragraph}>
               Category
             </label>
             <select
@@ -95,7 +95,7 @@ export const NewProgramForm = memo<NewProgramFormProps>(({ onClose, onSubmit, ca
           </div>
 
           <div>
-            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1" style={FONTS.paragraph}>
+            <label htmlFor="duration" className="block text-base font-semibold text-gray-700 mb-1" style={FONTS.paragraph}>
               Duration *
             </label>
             <input
@@ -112,7 +112,7 @@ export const NewProgramForm = memo<NewProgramFormProps>(({ onClose, onSubmit, ca
           <div>
             <label
               htmlFor="instructor"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-base font-semibold text-gray-700 mb-1"
               style={FONTS.paragraph}
             >
               Instructor *
@@ -129,7 +129,7 @@ export const NewProgramForm = memo<NewProgramFormProps>(({ onClose, onSubmit, ca
           </div>
 
           <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1" style={FONTS.paragraph}>
+            <label htmlFor="startDate" className="block text-base font-semibold text-gray-700 mb-1" style={FONTS.paragraph}>
               Start Date
             </label>
             <input
