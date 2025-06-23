@@ -108,7 +108,7 @@ export default function OnboardingTemplate() {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-h-[90vh] w-full max-w-4xl overflow-hidden">
           <div className="flex items-center justify-between border-b p-4">
-            <h3 className="text-lg font-semibold">{fileName}</h3>
+            {/* <h3 className="text-lg font-semibold">{fileName}</h3> */}
             <button 
               onClick={closeFileViewer} 
               className="p-1 hover:bg-gray-100 rounded-full transition-colors"

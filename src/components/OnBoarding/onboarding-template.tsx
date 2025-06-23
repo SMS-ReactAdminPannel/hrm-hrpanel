@@ -6,7 +6,8 @@ import { TasksSection } from "./tasks-section"
 import { FileViewerModal } from "./file-viewer-modal"
 import { EmployeeModal } from "./employee-modal"
 import { useOnboardingState } from "./use-onboarding-state"
-
+// import { FONT } from "../LeaveTypes/types"
+import {FONTS} from "../../constants/uiConstants"
 export default function OnboardingTemplates() {
   const {
     activeTab,
@@ -29,7 +30,8 @@ export default function OnboardingTemplates() {
   return (
     <div className="mx-auto space-y-6 min-h-screen pb-12">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1">On Boarding</h1>
+               <h1 className="text-3xl !font-semibold !text-white mt-2 leading-relaxed pb-1"
+                   style={{...FONTS.subHeader}}>On Boarding </h1>
       </div>
 
       <div className="rounded-lg shadow-sm bg-white border pb-10 border-gray-200">

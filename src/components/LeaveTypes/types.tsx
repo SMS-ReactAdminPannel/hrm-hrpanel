@@ -27,7 +27,7 @@ export type NewCard = {
   isEncashable: string;
 };
 
-export const FONTS = {
+export const FONT = {
   header: {
     fontSize: "24px",
     fontWeight: 700,

@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import LeaveTypeCard from './LeaveTypeCard';
 import LeaveTypeModal from './LeaveTypeModal';
 import LeaveTypeDetailsModal from './LeaveTypeDetailsModal';
-import { type Card, type NewCard, FONTS } from './types';
+import { type Card, type NewCard } from './types';
+import { FONTS } from '../TraningManagement/Fonts';
 
 const getRandomColor = () => {
   const colors = [
@@ -221,7 +222,7 @@ export default function LeaveTypesComponent() {
     <div className="relative">
       <div className={`transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         <div className="flex md:flex-row justify-between mb-6 gap-4">
-          <div className='font-bold' style={FONTS.header}>
+          <div className='font-bold' style={{...FONTS.header}}>
             Leave Types
           </div>
           <div className="flex gap-5 ml-auto">

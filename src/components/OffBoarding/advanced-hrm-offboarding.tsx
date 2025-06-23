@@ -11,7 +11,7 @@ import { ExitReasonsAnalysis } from "./exit-reasons-analysis"
 // import { SearchFilter } from "./search-filter"
 import { FileViewer } from "./file-viewer"
 import { EmployeeDetails } from "./employee-details"
-
+import {FONTS} from "../../constants/uiConstants"
 const AdvancedHRMOffboardings = () => {
   const [activeTab, setActiveTab] = useState<"dashboard" | "requests" | "analytics">("dashboard")
   const [selectedEmployee, setSelectedEmployee] = useState<OffboardingRequest | null>(null)
@@ -140,18 +140,18 @@ const AdvancedHRMOffboardings = () => {
     <div className="bg-white rounded-lg border shadow-sm">
       <div className="p-6 border-b">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold">All Exit Requests</h3>
-          <div className="text-sm text-gray-500">
+          <h3 className="text-lg !text-gray-700 !font-semibold" style={{...FONTS.cardheader}}>All Exit Requests</h3>
+          <div className="text-sm !text-gray-500" style={{...FONTS.paragraph}} >
             Showing {filteredRequests.length} of {offboardingRequests.length} requests
           </div>
         </div>
       </div>
       <div className="p-6">
         {filteredRequests.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="!text-center py-12">
             <Search className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h4 className="text-lg font-medium text-gray-600">No matching requests found</h4>
-            <p className="text-gray-500 mt-1">Try adjusting your search or filter criteria</p>
+            <h4 className="text-lg font-medium !text-gray-600" style={{...FONTS.header3}}>No matching requests found</h4>
+            <p className="text-gray-500 mt-1" style={{...FONTS.paragraph}}>Try adjusting your search or filter criteria</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -163,26 +163,27 @@ const AdvancedHRMOffboardings = () => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <div className="text-3xl">{req.employee.avatar}</div>
+                    <div className="text-3xl" style={{...FONTS.header}}>{req.employee.avatar}</div>
                     <div>
-                      <h4 className="font-medium text-lg">{req.employee.name}</h4>
-                      <p className="text-gray-500">
+                      <h4 className="font-medium !text-lg !text-gray-900 " style={{...FONTS.cardheader}}>{req.employee.name}</h4>
+                      <p className="!text-gray-500" style={{...FONTS.paragraph}}>
                         {req.employee.department} • {req.employee.position}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm !text-gray-400" style={{...FONTS.paragraph}}>
                         Exit Type: {req.exitDetails.type} | Last Day: {req.exitDetails.lastWorkingDay}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
                     <span
-                      className={`px-3 py-1 rounded-full text-sm ${
+                      className={`px-3 py-1 rounded-full text-sm  ${
                         req.exitDetails.status === "Completed"
-                          ? "bg-green-100 text-green-800"
+                          ? "bg-green-100 !text-green-800"
                           : req.exitDetails.status === "In Progress"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-yellow-100 text-yellow-800"
+                            ? "!bg-blue-100 !text-blue-800"
+                            : "!bg-yellow-100 !text-yellow-800"
                       }`}
+                      style={{...FONTS.paragraph}}
                     >
                       {req.exitDetails.status}
                     </span>
@@ -193,7 +194,7 @@ const AdvancedHRMOffboardings = () => {
                           style={{ width: `${req.progress.percentage}%` }}
                         ></div>
                       </div>
-                      <span className="text-sm text-gray-600">{req.progress.percentage}%</span>
+                      <span className="text-sm !text-gray-600" style={{...FONTS.paragraph}}>{req.progress.percentage}%</span>
                     </div>
                   </div>
                 </div>
@@ -207,7 +208,11 @@ const AdvancedHRMOffboardings = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-black py-4 pb-8">HRM Offboarding System</h1>
+      <h1 
+      // className="!text-2xl !font-bold !text-black py-4 pb-8" 
+        className="text-3xl !font-semibold !text-white mt-2 leading-relaxed pb-1"
+
+      style={{...FONTS.subHeader}}>HRM Offboarding System</h1>
     <div className="min-h-screen rounded-lg "> 
       {/* Header */}
       {/* Navigation Tabs */}
@@ -224,7 +229,7 @@ const AdvancedHRMOffboardings = () => {
               }`}
             >
               <tab.icon className="w-4 h-4" />
-              <span>{tab.label}</span>
+              <span className="!text-gray-900" style={{...FONTS.paragraph}}>{tab.label}</span>
             </button>
           ))}
         </div>
