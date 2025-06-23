@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { Pencil, ArrowRight, ArrowLeft, Star } from "lucide-react"
 import EditCandidateModal from "./EditCandidateModal"
+import { FONTS } from "../../../constants/uiConstants"
 
 const tabs = [
   "About", "Resume", "Survey", "History",
@@ -42,16 +43,19 @@ const [resumeURL, setResumeURL] = useState<string | null>(null)
 
 
   return (
-    <div className="p-10 bg-white min-h-screen">
+    <div className="p-10 bg-[#eff4f5]  min-h-screen
+     backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
       {/* Header */}
       <div className="flex justify-between items-center border-b pb-4 mb-4">
-        <div className="flex items-center gap-4">
-          <div className="h-16 w-16 rounded bg-red-600 text-white text-2xl font-bold flex items-center justify-center">
+        <div className="flex items-center gap-4 ">
+          {/* <div className="h-16 w-16 rounded bg-red-600 text-white text-2xl font-bold flex items-center justify-center">
             {candidate.avatar}
-          </div>
+          </div> */}
           <div>
-            <h1 className="text-xl font-semibold">{candidate.name}</h1>
-            <p className="text-gray-500 text-sm">{candidate.job}</p>
+            <h1 className="text-xl font-semibold"
+            style={{fontSize:FONTS.header2.fontSize}}>{candidate.name}</h1>
+            <p className="text-gray-500 text-sm"
+              style={{ fontSize: FONTS.paragraph.fontSize }}>{candidate.job}</p>
             <div className="flex gap-4 text-sm mt-1 text-gray-600">
               <span>{candidate.email}</span>
               <span>{candidate.phone}</span>
@@ -88,7 +92,8 @@ const [resumeURL, setResumeURL] = useState<string | null>(null)
           {/* Personal Information */}
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
           <div className="border rounded p-4">
-            <h2 className="font-semibold text-lg mb-3">Personal Information</h2>
+            <h2 className="font-semibold text-lg mb-3"
+                style={{ fontSize: FONTS.header3.fontSize }}>Personal Information</h2>
             <div className="space-y-10 text-sm text-gray-700">
               <div><strong>Date of Birth:</strong> {candidate.dob}</div>
               <div><strong>Gender:</strong> {candidate.gender}</div>
@@ -101,7 +106,8 @@ const [resumeURL, setResumeURL] = useState<string | null>(null)
 
           {/* Recruitment Information */}
           <div className="border rounded p-4">
-            <h2 className="font-semibold text-lg mb-3">Recruitment Information</h2>
+            <h2 className="font-semibold text-lg mb-3"
+                style={{ fontSize: FONTS.header3.fontSize }}>Recruitment Information</h2>
             <div className="space-y-10 text-sm text-gray-700">
               <div><strong>Recruitment ID:</strong> {candidate.recruitmentId}</div>
               <div><strong>Department:</strong> {candidate.department}</div>

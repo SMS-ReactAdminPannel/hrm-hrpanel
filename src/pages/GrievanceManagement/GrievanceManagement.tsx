@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react"
 import { GrievanceCard } from "../../components/common/GrievanceManagement/GrievanceCard";
 import { GrievanceDetailCard } from "../../components/common/GrievanceManagement/GrievanceDetailCard";
+import { FONTS } from "../../constants/uiConstants";
+import { getAllGrievances, updateGrievanceStatus } from "../../features/Grievance/services";
 
 export type Grievance = {
   id: number;
@@ -13,7 +15,7 @@ export type Grievance = {
   department: string;
   role: string;
   date: string;
-};
+}; 
 
 const initialGrievances: Grievance[] = [
   {
@@ -91,7 +93,8 @@ const initialGrievances: Grievance[] = [
 ];
 
 const GrievanceManagement = () => {
-  const [grievances, setGrievances] = useState(initialGrievances);
+  const [grievances, setGrievances] = useState<Grievance[]>([]);
+
   const [filter, setFilter] = useState<"all" | "solved" | "unsolved">("all");
   const [selectedGrievance, setSelectedGrievance] = useState<Grievance | null>(null);
 
@@ -99,21 +102,51 @@ const GrievanceManagement = () => {
     filter === "all" ? true : g.status === filter
   );
 
-  const markAsSolved = (id: number) => {
+  const markAsSolved = async (id: string) => {
+  if (!id) {
+    console.warn("markAsSolved called with invalid ID:",id);
+    return;
+  }
+
+  try {
+    const updatedStatus: { status: "solved" } = { status: "solved" };
+    await updateGrievanceStatus(id.toString(), updatedStatus);
+
     setGrievances((prev) =>
       prev.map((g) => (g.id === id ? { ...g, status: "solved" } : g))
     );
+
     setSelectedGrievance(null);
-  };
+  } catch (error) {
+    console.error("Failed to update grievance status", error);
+  }
+};
 
    useEffect(() => {
   setSelectedGrievance(null);
 }, [filter]);
 
+const fetchGrievances = async (data:Grievance) => {
+  try {
+    const response: any = await getAllGrievances(data);
+    console.log("API Response:", response);
+
+    const grievances = response?.data ?? []; 
+    setGrievances(grievances);
+  } catch (error) {
+    console.error("Error fetching grievances:", error);
+  }
+};
+
+  useEffect(() => {
+   fetchGrievances();
+ }, []);
+
+
   return (
-    <div className="min-h-screen  p-2">
+    <div className="min-h-screen bg-white mt-5">
       <div className="max-w-full ">
-        <h1 className="text-3xl font-bold text-[#006666] mb-6">
+        <h1 className=" text-[black] mb-6" style={FONTS.header}>
           Grievances
         </h1>
 
@@ -155,16 +188,24 @@ const GrievanceManagement = () => {
           <div className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6">
             {selectedGrievance ? (
               <GrievanceDetailCard
-                grievance={selectedGrievance}
-                onClose={() => setSelectedGrievance(null)}
-                onMarkSolved={() => markAsSolved(selectedGrievance.id)}
-              />
+  grievance={selectedGrievance}
+  onClose={() => setSelectedGrievance(null)}
+ onMarkSolved={() => {
+  if (selectedGrievance?.id) {
+    markAsSolved(selectedGrievance.id);
+  } else {
+    console.error("No valid grievance ID to mark as solved");
+  }
+}}
+
+/>
             ) : (
               <p className="text-center text-gray-400 mt-12">Select a grievance to view details.</p>
             )}
           </div>
         </div>
       </div>
+
     </div>
   );
 };

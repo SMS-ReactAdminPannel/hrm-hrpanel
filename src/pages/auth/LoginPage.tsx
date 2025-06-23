@@ -1,12 +1,13 @@
-"use client"
-
 import { useState, type FormEvent } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, data } from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
+import { postLogin } from "../../features/auth/service"
 
-export const LoginPage = () => {
+
+
+  const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -27,17 +28,38 @@ export const LoginPage = () => {
     }
 
     try {
-      await login(email, password)
-      navigate("/")
+      const User: any = await postLogin({ email, password })
+      const datas:any =JSON.stringify(User.data)
+      localStorage.setItem("user",datas)
+      console.log("Backend response:", User)
+      if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
+        await login(email, password)
+        console.log("Login successful:", User)
+        navigate("/")
+      } else {
+        const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
+        setError(errorMessage)
+      }
     } catch (err: any) {
-      setError("Login failed. Please try again.")
+      console.log("Login error:", err)
+      
+  
+      if (err.message?.includes("EmailId is not valid") || err.message?.includes("not registered")) {
+        setError("This email is not registered. Please sign up first.")
+      } else if (err.message?.includes("Password is incorrect")) {
+        setError("Incorrect password. Please try again.")
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message)
+      } else {
+        setError("Login failed. Please try again.")
+      }
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen ">
       {/* Left side: Video or iframe */}
       <div className="w-1/2 hidden lg:flex items-center justify-center bg-black">
         <iframe
@@ -122,3 +144,4 @@ export const LoginPage = () => {
     </div>
   )
 }
+export default LoginPage;

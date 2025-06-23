@@ -8,6 +8,7 @@ import {
 
 type User = {
   email: string;
+  name: string;
 };
 
 type AuthContextType = {
@@ -23,26 +24,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true); // <- Add loading state
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("userName");
 
     if (token && email) {
       setUser({ email });
       setIsAuthenticated(true);
     }
-    setLoading(false); // <- Set loading false once checked
+    setLoading(false); 
   }, []);
 
   const login = async (email: string, password: string) => {
     if (email && password) {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
+      
       setUser({ email });
-      setIsAuthenticated(false);
+      setIsAuthenticated(true);
     } else {
       throw new Error("Invalid login credentials");
     }
@@ -60,8 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userEmail");
+    localStorage.clear();
     setUser(null);
     setIsAuthenticated(false);
   };

@@ -70,11 +70,13 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
   const timeFormatOptions = ["24hr", "12hr"];
 
   return (
-    <div className="fixed top-0 right-0 h-full w-full max-w-2xl z-50 bg-white shadow-xl rounded-lg p-6"
-      style={{ fontFamily: FONTS.paragraph.fontFamily }}
+    <div className="fixed top-0 right-0 h-full w-full max-w-2xl z-50 bg-black shadow-xl rounded-lg p-6
+    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
     >
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-bold text-[#006666]"
+      <div className="flex justify-between items-center mb-6
+      ">
+        <h2 className="text-lg font-bold text-white"
+        style={{fontSize:FONTS.header.fontSize}}
         >Export Timesheet</h2>
         <button
           onClick={onClose}
@@ -86,7 +88,7 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
       </div>
 
       <div className="mb-4 relative" ref={formatRef}>
-        <label className="block font-semibold text-[#006666] mb-1 cursor-pointer"
+        <label className="block font-semibold text-white mb-1 cursor-pointer"
         >
           File Format
         </label>
@@ -120,7 +122,7 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
         <div className="flex-1">
           <label
             htmlFor="fromDate"
-            className="block font-semibold text-[#006666] mb-1 cursor-pointer"
+            className="block font-semibold text-white mb-1 cursor-pointer"
           >
             From Date
           </label>
@@ -136,7 +138,7 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
         <div className="flex-1">
           <label
             htmlFor="toDate"
-            className="block font-semibold text-[#006666] mb-1 cursor-pointer"
+            className="block font-semibold text-white mb-1 cursor-pointer"
           >
             To Date
           </label>
@@ -152,7 +154,7 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
       </div>
 
       <div className="mb-6 relative" ref={timeFormatRef}>
-        <label className="block font-semibold text-[#006666] mb-1 cursor-pointer">
+        <label className="block font-semibold text-white mb-1 cursor-pointer">
           Time Format
         </label>
         <button

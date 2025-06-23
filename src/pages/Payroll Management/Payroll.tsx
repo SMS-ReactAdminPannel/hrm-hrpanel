@@ -1,11 +1,15 @@
-import { useState } from "react"
-import PayslipView from "../../components/common/PaySlip/PaySlip" // Adjust path if needed
-import { FONTS } from "../../constants/uiConstants"
-
+import { useState } from "react";
+import PayslipView from "../../components/common/Payroll/PaySlip";
+import { FONTS } from "../../constants/uiConstants";
+import ProcessPayrollModal from "../../components/common/Payroll/ProcessPayrollModal";
 
 const Payroll = () => {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedEmployee, setSelectedEmployee] = useState<any>(null)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOption, setModalOption] = useState("all");
+  const [modalDepartment, setModalDepartment] = useState("");
 
   const employees = [
     {
@@ -68,83 +72,64 @@ const Payroll = () => {
       lastPayment: "2024-01-15",
       hoursWorked: 159,
     },
-  ]
-
-  const filteredEmployees = employees.filter(
-    (employee) =>
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.department.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  ];
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Paid":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            Paid
-          </span>
-        )
+        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-100 text-green-800">Paid</span>;
       case "Pending":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-            Pending
-          </span>
-        )
+        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-100 text-red-800">Pending</span>;
       case "Processing":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-            Processing
-          </span>
-        )
+        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800">Processing</span>;
       default:
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            {status}
-          </span>
-        )
+        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-800">{status}</span>;
     }
-  }
+  };
+
+const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.department)));
+
+
+  const departmentOptionsMain = ["All", ...uniqueDepartments];
+
+  
+  const departmentOptionsModal = [...uniqueDepartments];
+
+  const filteredEmployees = employees.filter((employee) => {
+    const matchesSearch =
+      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.department.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesDepartment = selectedDepartment === "All" || employee.department === selectedDepartment;
+
+    return matchesSearch && matchesDepartment;
+  });
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
       <div className="flex flex-col gap-6 p-6">
-        {/* Header with Search */}
+        {/* Header */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900" >Payroll Management</h1>
-            <p className="text-gray-600">Manage employee payroll and compensation</p>
+            <h1 className="text-black" style={FONTS.header}>Payroll</h1>
+            <p className="text-black" style={FONTS.paragraph}>Manage employee payroll and compensation</p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search employees..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button
+              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#006666]"
+              onClick={() => setIsModalOpen(true)}
+            >
               Process Payroll
             </button>
           </div>
         </div>
 
+
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Total Employees Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -171,7 +156,7 @@ const Payroll = () => {
           </div>
 
           {/* Monthly Payroll Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -198,7 +183,7 @@ const Payroll = () => {
           </div>
 
           {/* Pending Payments Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -225,7 +210,7 @@ const Payroll = () => {
           </div>
 
           {/* Average Salary Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -252,39 +237,54 @@ const Payroll = () => {
           </div>
         </div>
 
-        {/* Employee Table */}
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Employee Payroll</h3>
+        {/* Filters */}
+        <div className="flex items-center justify-between w-full gap-4">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Search employees..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-[#eff4f5] placeholder-gray-500 focus:outline-none focus:ring-1"
+            />
           </div>
+
+          <div>
+            <select
+              value={selectedDepartment}
+              onChange={(e) => setSelectedDepartment(e.target.value)}
+              className="md:w-52 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-1"
+            >
+              {departmentOptionsMain.map((dept) => (
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Employee Table */}
+        <div className="bg-[#eff4f5] shadow overflow-hidden sm:rounded-md">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-[#006666]">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Employee
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Position
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Department
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Salary
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Hours
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Last Payment
-                  </th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Department</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Salary</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Hours</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Status</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Last Payment</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
                   <tr
                     key={employee.id}
@@ -303,22 +303,34 @@ const Payroll = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.hoursWorked}h</td>
                     <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(employee.status)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.lastPayment}</td>
-
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            {/* Payslip Modal */}
             {selectedEmployee && (
               <PayslipView
                 employee={selectedEmployee}
                 onClose={() => setSelectedEmployee(null)}
               />
             )}
+
+            {/* Process Payroll Modal */}
+            <ProcessPayrollModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              selectedOption={modalOption}
+              setSelectedOption={setModalOption}
+              departmentOptions={departmentOptionsModal} // Only unique depts
+              selectedDepartment={modalDepartment}
+              setSelectedDepartment={setModalDepartment}
+            />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Payroll
+export default Payroll;
