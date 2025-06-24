@@ -109,7 +109,7 @@ export default function CandidatesPage() {
         const res: any = await getAllcandidates(); 
         console.log("getAllcandidates raw →", res);
         // controller sends { success: true, data: [...] }
-        setCandidates(res?.data?.data ?? []);
+        setCandidates(res?.data ?? []);
       } catch (err) {
         console.error("getAllcandidates failed:", err);
       }

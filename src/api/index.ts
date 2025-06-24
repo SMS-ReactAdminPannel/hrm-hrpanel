@@ -104,7 +104,7 @@ export default class Client {
         httpClient.get(API_END_POINTS.assetCategory.getAllCategory),
 
       updateassetcategory: (assetId: string, data: any) =>
-       httpClient.update(API_END_POINTS.assetCategory.updateCategory(assetId), data),
+       httpClient.put(API_END_POINTS.assetCategory.updateCategory(assetId), data),
 
       deleteassetcategory: (assetId: string) =>
       httpClient.delete(API_END_POINTS.assetCategory.deleteCategory(assetId))
