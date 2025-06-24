@@ -1615,8 +1615,7 @@ const HRMAppraisalSystem = () => {
               )}
               {activeTab !== "reports" && (
                 <button
-                   style={FONTS.button}
-                   className="bg-[#4c469f] text-white px-3 py-1 rounded-md  transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg  gap-2  md:justify-start"
+                  className="text-white bg-[#3a357f] px-3 py-1 rounded-md"
                   onClick={() => setActiveTab("reports")}
                 >
                   Reports

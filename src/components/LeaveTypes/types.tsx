@@ -36,7 +36,7 @@ export type NewCard = {
 
 
 
-export const FONT = {
+export const FONTS = {
   header: {
     fontSize: "24px",
     fontWeight: 700,

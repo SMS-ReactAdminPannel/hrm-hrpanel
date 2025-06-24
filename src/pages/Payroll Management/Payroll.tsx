@@ -117,7 +117,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
           </div>
           <div className="flex items-center gap-4">
             <button
-              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#006666]"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-[#3a357f] "
               onClick={() => setIsModalOpen(true)}
             >
               Process Payroll
@@ -274,7 +274,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
           
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-[#5e59a9]/70 backdrop-blur-sm text-white ">
+              <thead className="bg-[#3a357f] ">
                 <tr>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>

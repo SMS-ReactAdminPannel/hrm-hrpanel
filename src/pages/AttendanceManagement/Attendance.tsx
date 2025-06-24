@@ -310,6 +310,17 @@ console.log(dailyAttendance,"sdfghjk")
           </div>
         </div>
 
+           <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm  !text-gray-500 mb-1" style={{...FONTS.paragraph}}>No of Employees</p>
+          <p className={`!text-4xl !font-semibold mt-3 !text-blue-800`} style={{...FONTS.paragraph}}>{details.length}</p>
+          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>all Employees Counting</p>
+        </div>
+            <IoIosPeople className="w-10 h-10 !text-blue-600" style={{...FONTS.cardSubHeader}}/>
+      </div>
+    </div>
+
         {/* Duration Card */}
         <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>

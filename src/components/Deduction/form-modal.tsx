@@ -75,7 +75,7 @@ export function FormModal({ isOpen, editingCard, newCard, onClose, onSubmit, onC
                 options={["Yes", "No"]}
                 onChange={(value) => onCardChange({ ...newCard, isPretax: value })}
               />
-
+              
               <CustomSelect
                 label="Is Recurring"
                 value={newCard.isRecurring}
