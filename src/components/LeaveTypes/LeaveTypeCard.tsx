@@ -11,7 +11,7 @@ interface LeaveTypeCardProps {
   dropdownRef: React.RefObject<HTMLDivElement | null>;
   showDropdown: boolean;
   toggleDropdown: () => void;
-  getInitials: (title: string) => string;
+  // getInitials: (title: string) => string;
 }
 
 export default function LeaveTypeCard({
@@ -23,7 +23,7 @@ export default function LeaveTypeCard({
   dropdownRef,
   showDropdown,
   toggleDropdown,
-  getInitials
+  // getInitials
 }: LeaveTypeCardProps) {
   return (
     <div className="bg-white rounded-lg h-[100%] shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
@@ -31,7 +31,7 @@ export default function LeaveTypeCard({
         <div className="flex justify-between items-start">
           <div className="flex items-center">
             <div className={`w-10 h-10  rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
-              {getInitials(card.holiday_name)}
+              {/* {getInitials(card.holiday_name)} */}
             </div>
             <div>
               <h3 className="font-medium !text-gray-800" style={{...FONTS.cardheader}}>{card.holiday_name}</h3>

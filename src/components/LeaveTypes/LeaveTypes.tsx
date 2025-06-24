@@ -151,6 +151,7 @@ export default function LeaveTypesComponent() {
     try {
       const response: any = await leavetypeapi();
       const visitors = response?.data ?? [];
+      console.log("Fetched leave types:", visitors);
 
       // different card with different colors
       const coloredCards = visitors.data.map((card: Card) => ({
@@ -227,7 +228,7 @@ export default function LeaveTypesComponent() {
               dropdownRef={dropdownRef}
               showDropdown={showDropdownId === card._id}
               toggleDropdown={() => toggleDropdown(card._id)}
-              getInitials={getInitials}
+              // getInitials={getInitials}
               color={card.color} 
             />
           ))}
