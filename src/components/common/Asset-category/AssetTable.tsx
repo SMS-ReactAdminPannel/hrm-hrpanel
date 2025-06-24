@@ -1,5 +1,6 @@
 import type React from "react"
 import { Edit, Trash2 } from "lucide-react"
+import { FONTS } from "../../../constants/uiConstants"
 
 interface Asset {
   id: string
@@ -72,29 +73,31 @@ const AssetTable: React.FC<AssetTableProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className=" rounded-lg shadow-sm border border-gray-200">
 
   
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-[#006666] ">
+          <thead className="bg-[#5e59a9]/70 backdrop-blur-sm ">
             <tr>
               {tableHeaders?.map((header,index) => (
                 <th 
-                  key={header?.key || index}
-                  className={`text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${header?.width}`}
+                  key={header.key}
+                  style={{ ...FONTS.tableHeader}}
+                  className={`text-left text-white text-sm
+                     px-6 py-4  font-semibold text-gray-600 uppercase tracking-wider ${header.width}`}
                 >
                   {header?.label}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {assets?.map((asset, index) => (
+          <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100 divide-y divide-gray-100">
+            {assets.map((asset, index) => (
               <tr
-                key={asset.id|| index}
-                className={`hover:bg-gray-50 transition-colors cursor-pointer ${
-                  index % 2 === 0 ? 'bg-white' : 'bg-gray-25'
+                key={asset.id}
+                className={`hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200 ${
+                  index % 2 === 0 ? '' : 'bg-gray-25'
                 }`}
                 onClick={() => onViewAsset(asset)}
               >
@@ -102,12 +105,17 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 <td className="px-6 py-4 w-1/3">
                   <div className="flex items-center gap-3">
                     <div className="min-w-0 flex-1">
-                      <div className="text-sm font-semibold text-gray-900 truncate">
-                        {asset?.asset_name}
+                      <div className="text-sm font-semibold !text-gray-900 "
+                      style={{fontSize:FONTS.tableBody.fontSize,
+                        fontFamily:FONTS.tableBody.fontFamily,
+                      }}
+                        >
+                        {asset.name}
                       </div>
-                      {asset?.description && (
-                        <p className="text-xs text-gray-500 truncate mt-1">
-                          {asset?.description}
+                      {asset.description && (
+                        <p className="text-xs !text-gray-900 truncate mt-1"
+                          style={{ ...FONTS.tableBody }}>
+                          {asset.description}
                         </p>
                       )}
                     </div>
@@ -117,7 +125,8 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 
                 <td className="px-6 py-4 w-1/6 ">
                   <span
-                    className={`inline-flex items-center px-1 py-1 text-xs font-medium rounded-md border ${getStatusColor(asset?.status)}`}
+                    style={{ ...FONTS.tableBody }}
+                    className={`inline-flex items-center px-1 py-1 text-sm  rounded-md border ${getStatusColor(asset.status)}`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
                       asset?.status === "Available" ? "bg-green-400" : "bg-red-400"
@@ -127,21 +136,24 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 </td>
 
               
-                <td className="px-6 py-4 w-1/6">
-                  <span className="text-sm text-[#006666] hover:text-[#004d4d] font-medium transition-colors">
-                    {asset?.trackingId}
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.tableBody }}>
+                  <span className="text-sm !text-gray-700 hover:text-[#004d4d] font-medium transition-colors">
+                    {asset.trackingId}
                   </span>
                 </td>
 
           
-                <td className="px-6 py-4 w-1/6">
-                  <span className="text-sm text-gray-900 font-medium">
-                    {asset?.batchNo}
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.tableBody }}>
+                  <span className="text-sm !text-gray-900 font-medium">
+                    {asset.batchNo}
                   </span>
                 </td>
 
               
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6"
+                  style={{ ...FONTS.tableBody }}>
                   <div className="flex items-center gap-1">
                     <button
                       onClick={(e) => {
@@ -172,8 +184,9 @@ const AssetTable: React.FC<AssetTableProps> = ({
       </div>
 
     
-      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-        <div className="flex items-center justify-between text-sm text-gray-500">
+      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200"
+        style={{ ...FONTS.tableBody }}>
+        <div className="flex items-center justify-between text-sm text-gray-900">
           <span>
             Showing {assets?.length} of {assets?.length} assets
           </span>

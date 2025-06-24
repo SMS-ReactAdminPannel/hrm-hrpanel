@@ -7,7 +7,7 @@ import { postLogin } from "../../features/auth/service"
 
 
 
-  const LoginPage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -42,8 +42,8 @@ import { postLogin } from "../../features/auth/service"
       }
     } catch (err: any) {
       console.log("Login error:", err)
-      
-  
+
+
       if (err.message?.includes("EmailId is not valid") || err.message?.includes("not registered")) {
         setError("This email is not registered. Please sign up first.")
       } else if (err.message?.includes("Password is incorrect")) {
@@ -59,7 +59,7 @@ import { postLogin } from "../../features/auth/service"
   }
 
   return (
-    <div className="flex min-h-screen ">
+    <div className="flex min-h-screen">
       {/* Left side: Video or iframe */}
       <div className="w-1/2 hidden lg:flex items-center justify-center bg-black">
         <iframe

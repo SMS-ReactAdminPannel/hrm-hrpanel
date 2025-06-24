@@ -17,7 +17,7 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
     
       
       <div className="flex items-center justify-between mb-3">
-        <h1 className=" text-[black]" style={FONTS.header}>Asset Category</h1>
+        <h1 className=" text-[black]" style={{...FONTS.header}}>Asset Category</h1>
         
       </div>
 
@@ -32,13 +32,14 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
               placeholder="Search assets here..."
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
-              className=" pl-10 pr-3  py-2 bg-gray-200 rounded-md border-2  
+              style={{ ...FONTS.paragraph }}
+              className=" pl-10 pr-3  py-2 bg-gray-200 rounded-md border-2  !text-black
                placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearch("")}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 !text-gray-400 hover:text-gray-900"
               >
                 ✕
               </button>
@@ -53,7 +54,8 @@ const AssetCategoryHeader: React.FC<AssetCategoryHeaderProps> = ({ searchQuery, 
 
           <button
             onClick={onCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-[#006666] text-white text-sm
+            style={{ ...FONTS.paragraph }}
+            className="flex items-center gap-2 px-4 py-2 bg-[#5e59a9]/70 text-white text-sm
              rounded-md  transition-colors"
           >
             <Plus className="w-4 h-4" />

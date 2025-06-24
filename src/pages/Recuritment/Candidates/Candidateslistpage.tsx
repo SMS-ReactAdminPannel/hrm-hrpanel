@@ -3,7 +3,7 @@ import {
   Search, Filter, MoreHorizontal, Eye, MessageSquare, Calendar,
   Star, MapPin, Briefcase, GraduationCap
 } from "lucide-react"
-import { Outlet, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
 // import CandidateDetailPage from "./Candidatesdetailpage"
 
 // Simple utility components built with TailwindCSS
@@ -108,7 +108,7 @@ const CandidatesPage = () => {
           />
         </div>
         <Button className="bg-white border-gray-200 flex items-center gap-2">
-          <Filter className="h-4 w-4" /> Filter
+          <Filter className="h-4 w-4 bg-white" /> Filter
         </Button>
       </div>
 

@@ -10,11 +10,12 @@ import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
 import LeaveTypes from "../pages/Leave Types/LeaveTypes";
+import LeaveManagement from "../pages/Leave Management/Leave"
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
-import HomePage from "../pages/HomePage/HomePage";
+// import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
@@ -50,10 +51,10 @@ import DepartmentList from "../pages/Department/DepartmentList";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
-  
+
 
   return (
-    
+
     <Routes>
       {isAuthenticated ? (
         <Route path="/" element={<MainLayout />}>
@@ -65,7 +66,7 @@ const AppRoutes = () => {
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<LeaveTypes />} />
+          <Route path="leave-management" element={<LeaveManagement />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
@@ -94,7 +95,7 @@ const AppRoutes = () => {
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
-          
+
         </Route>
       ) : (
         <Route path="/">

@@ -4,7 +4,7 @@ import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
 
 interface Employee {
-  _id: string
+  id: string
   Employee: string
   Position: string
   Rating: number
@@ -12,6 +12,100 @@ interface Employee {
   department: string
   ProjectPeriod: string
 }
+const employees: Employee[] = [
+  {
+    id: '1',
+    Employee: 'Harry',
+    Position: 'Software Engineer',
+    Rating: 4.5,
+    Status: 'Active',
+    department: 'Engineering',
+    ProjectPeriod: 'Jan 2023 - Dec 2023',
+  },
+  {
+    id: '2',
+    Employee: 'james',
+    Position: 'Product Manager',
+    Rating: 2,
+    Status: 'On Leave',
+    department: 'Product',
+    ProjectPeriod: 'Mar 2023 - Mar 2024',
+  },
+  {
+    id: '3',
+    Employee: ' Smith',
+    Position: 'UI/UX Designer',
+    Rating: 3,
+    Status: 'Active',
+    department: 'Design',
+    ProjectPeriod: 'Feb 2024 - Jan 2025',
+  },
+  {
+    id: '4',
+    Employee: 'Michael',
+    Position: 'QA Engineer',
+    Rating: 4,
+    Status: 'Inactive',
+    department: 'Quality Assurance',
+    ProjectPeriod: 'Jul 2022 - Jun 2023',
+  },
+  {
+    id: '5',
+    Employee: 'John',
+    Position: 'DevOps Engineer',
+    Rating: 5,
+    Status: 'Active',
+    department: 'Infrastructure',
+    ProjectPeriod: 'Aug 2023 - Jul 2024',
+  },
+  {
+    id: '6',
+    Employee: 'Harry',
+    Position: 'Software Engineer',
+    Rating: 4.5,
+    Status: 'Active',
+    department: 'Engineering',
+    ProjectPeriod: 'Jan 2023 - Dec 2023',
+  },
+  {
+    id: '7',
+    Employee: 'james',
+    Position: 'Product Manager',
+    Rating: 2,
+    Status: 'On Leave',
+    department: 'Product',
+    ProjectPeriod: 'Mar 2023 - Mar 2024',
+  },
+  {
+    id: '8',
+    Employee: ' Smith',
+    Position: 'UI/UX Designer',
+    Rating: 3,
+    Status: 'Active',
+    department: 'Design',
+    ProjectPeriod: 'Feb 2024 - Jan 2025',
+  },
+  {
+    id: '9',
+    Employee: 'Michael',
+    Position: 'QA Engineer',
+    Rating: 4,
+    Status: 'Inactive',
+    department: 'Quality Assurance',
+    ProjectPeriod: 'Jul 2022 - Jun 2023',
+  },
+  {
+    id: '10',
+    Employee: 'John',
+    Position: 'DevOps Engineer',
+    Rating: 5,
+    Status: 'Active',
+    department: 'Infrastructure',
+    ProjectPeriod: 'Aug 2023 - Jul 2024',
+  },
+
+];
+
 
 interface DashboardProps {
   appraisals: Employee[]
@@ -84,10 +178,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Employee List with Search */}
-      <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
+      <div className=" rounded-md shadow-sm border border-gray-200">
         <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
           {/* Search Input */}
-          <div className="w-full md:max-w-md">
+          <div className="w-full md:max-w-md bg-[#eff4f5]">
             <SearchInput
               value={searchTerm}
               onChange={onSearchChange}
@@ -107,9 +201,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[#006666]">
+        <div className="overflow-x-auto ">
+          <table className="w-full ">
+            <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
               <tr>
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
@@ -119,9 +213,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <th className="px-6 py-3 text-left text-md font-medium text-white">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
-              {appraisals.map((employee) => (
-                <tr key={employee._id}>
+            <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-200">
+              {employees.map((employee) => (
+                <tr key={employee.id}
+                  className="hover:bg-white/70 hover:backdrop-blur-sm  cursor-pointer transition duration-200">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">{employee.Employee}</div>

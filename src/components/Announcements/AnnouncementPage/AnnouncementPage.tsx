@@ -6,7 +6,7 @@ import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { FONTS } from "../../../constants/uiConstants";
 import { Search } from "lucide-react";
-import {AnnouncementGetAll} from "../../../features/announcement/services"
+
 
 type AnnouncementType = {
   title: string;
@@ -70,27 +70,24 @@ const Announcement = () => {
     }
   };
 
-  const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEntriesPerPage(Number(e.target.value));
-    setCurrentPage(1);
-  };
+  // const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setEntriesPerPage(Number(e.target.value));
+  //   setCurrentPage(1);
+  // };
 
-  const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
+  // const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
 
-  const fetchannouncement = async () => {
-    try {
-      const response: any = await AnnouncementGetAll();
-      console.log("API Respchonse:", response);
-      const announcementdata = response?.data ?? [];
-      setannouncement(announcementdata);
-    } catch (error) {
-      console.error("Error fetching grievances:", error);
-    }
-  };
+  // const fetchannouncement = async () => {
+  //   try {
+  //     const response: any = await AnnouncementGetAll();
+  //     console.log("API Respchonse:", response);
+  //     const announcementdata = response?.data ?? [];
+  //     setannouncement(announcementdata);
+  //   } catch (error) {
+  //     console.error("Error fetching grievances:", error);
+  //   }
+  // };
   
-    useEffect(() => {
-      fetchannouncement();
-   }, []);
 
   return (
     <div
@@ -194,7 +191,7 @@ const Announcement = () => {
           />
         )}
         <AnnouncementTable
-          data={announcement}
+          // data={data}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />

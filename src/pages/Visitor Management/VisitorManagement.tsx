@@ -33,11 +33,7 @@ const VisitorManagement = () => {
       const response: any = await getVisitors();
       const visitors = response?.data ?? [];
       setVisitors(visitors);
-<<<<<<< HEAD
-      console.log("Visitors fetched:", visitors.data);
-=======
       console.log("Visitors fetched:", visitors);
->>>>>>> 885486306bc117ee96c8aaeb9d8967087fe3ac0b
     } catch (error) {
       console.error("Error fetching visitors:", error);
     }

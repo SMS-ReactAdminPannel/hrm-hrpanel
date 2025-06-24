@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FONTS } from '../../constants/uiConstants';
 
 interface AddEventModalProps {
   onClose: () => void;
@@ -24,10 +25,11 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose, onAddEvent }) =>
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h3 className="text-xl font-semibold mb-4">Add New Holiday/Event</h3>
+        <h3 className="text-xl font-semibold mb-4 !text-gray-900"
+        style={{...FONTS.header3 }}>Add New Holiday/Event</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Event Title</label>
+            <label className="block text-sm font-medium !text-gray-900 mb-1" style={{ ...FONTS.paragraph }}>Event Title</label>
             <input
               type="text"
               className="w-full p-2 border rounded"
@@ -37,7 +39,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose, onAddEvent }) =>
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-sm font-medium !text-gray-700 mb-1" style={{ ...FONTS.paragraph }}>Date</label>
             <input
               type="date"
               className="w-full p-2 border rounded"
@@ -46,7 +48,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose, onAddEvent }) =>
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+            <label className="block text-sm font-medium !text-gray-700 mb-1" style={{ ...FONTS.paragraph }}>Color</label>
             <select
               className="w-full p-2 border rounded"
               value={newEvent.color}
@@ -63,12 +65,14 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose, onAddEvent }) =>
             <button
               onClick={onClose}
               className="px-4 py-2 text-sm rounded-md bg-gray-500 text-white hover:bg-gray-600"
+              style={{ ...FONTS.button}}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
               className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+              style={{ ...FONTS.button }}
             >
               Add Event
             </button>

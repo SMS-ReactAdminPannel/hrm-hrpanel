@@ -41,27 +41,32 @@ const GrievanceManagement = () => {
         prev.map((g) => (g.id === id ? { ...g, status: "solved" } : g))
       );
 
-      setSelectedGrievance(null);
-    } catch (error) {
-      console.error("Failed to update grievance status", error);
-    }
-  };
+    setSelectedGrievance(null);
+  } catch (error) {
+    console.error("Failed to update grievance status", error);
+  }
+};
+
+   useEffect(() => {
+  setSelectedGrievance(null);
+}, [filter]);
+
+const fetchGrievances = async () => {
+  try {
+    const response: any = await getAllGrievances();
+    console.log("API Response:", response);
+
+    const grievances = response?.data ?? []; 
+    setGrievances(grievances);
+  } catch (error) {
+    console.error("Error fetching grievances:", error);
+  }
+};
 
   useEffect(() => {
     setSelectedGrievance(null);
   }, [filter]);
 
-  const fetchGrievances = async () => {
-    try {
-      const response: any = await getAllGrievances();
-      console.log("API Response:", response);
-
-      const grievances = response?.data ?? []; 
-      setGrievances(grievances);
-    } catch (error) {
-      console.error("Error fetching grievances:", error);
-    }
-  };
 
   useEffect(() => {
     fetchGrievances();

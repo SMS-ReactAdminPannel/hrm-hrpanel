@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import DoughnutChart from './leaveChart';
+// import DoughnutChart from './leaveChart';
 import { useState, useEffect } from 'react';
 import { FONTS } from '../../constants/uiConstants';
 import Calendar from './Calendar';

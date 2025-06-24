@@ -1,5 +1,6 @@
+import { FONTS } from '../../constants/uiConstants';
 import type { Card } from './types';
-import { useState, useRef } from 'react';
+
 
 interface LeaveTypeCardProps {
   card: Card;
@@ -25,16 +26,16 @@ export default function LeaveTypeCard({
   getInitials
 }: LeaveTypeCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-lg h-[100%] shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
       <div className="p-4">
         <div className="flex justify-between items-start">
           <div className="flex items-center">
-            <div className={`w-10 h-10 rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
-              {getInitials(card.title)}
+            <div className={`w-10 h-10  rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
+              {getInitials(card.holiday_name)}
             </div>
             <div>
-              <h3 className="font-medium text-gray-800">{card.title}</h3>
-              <p className="text-sm text-gray-500">{card.isPaid}</p>
+              <h3 className="font-medium !text-gray-800" style={{...FONTS.cardheader}}>{card.holiday_name}</h3>
+              <p className="text-sm !text-gray-500" style={{ ...FONTS.cardSubHeader}}>{card.holiday_type}</p>
             </div>
           </div>
           <div className="relative" ref={dropdownRef}>
@@ -56,14 +57,14 @@ export default function LeaveTypeCard({
                     Edit
                   </button>
                   <button
-                    onClick={() => onDelete(card.id)}
+                    onClick={() => onDelete(card._id)}
                     className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
                   >
                     Delete
                   </button>
                   <button
                     onClick={() => onShowDetails(card)}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                   >
                     View Details
                   </button>
@@ -73,8 +74,8 @@ export default function LeaveTypeCard({
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
-          <span className="text-lg font-semibold">{card.totalDays} days</span>
-          <span className="text-sm text-gray-500">{card.reset}</span>
+          <span className="text-lg !text-gray-500 font-semibold" style={{ ...FONTS.subParagraph }}>{card.holiday_date} days</span>
+          <span className="text-sm !text-gray-500">{card.is_active==card.holiday_type}</span>
         </div>
       </div>
     </div>

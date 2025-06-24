@@ -19,12 +19,9 @@ const HolidayList: React.FC<HolidayListProps> = ({
     <div className="w-3/4 ml-auto p-5 rounded-lg shadow bg-white">
       <div className="flex items-center justify-between mb-4">
         <h5 
-          className="text-xl font-bold text-gray-900 ml-2" 
-          style={{
-            fontFamily: FONTS.header2.fontFamily, 
-            fontSize: FONTS.header2.fontSize, 
-            fontWeight: FONTS.header2.fontWeight
-          }}
+          className="text-xl font-bold !text-gray-900 ml-2" 
+          
+          style={{...FONTS.header3}}
         >
           Holidays List
         </h5>

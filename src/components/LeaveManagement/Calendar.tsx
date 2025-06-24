@@ -1,5 +1,6 @@
 import React from 'react';
 import type { DayData } from './types';
+import { FONTS } from '../../constants/uiConstants';
 
 interface CalendarProps {
   currentMonth: Date;
@@ -26,7 +27,7 @@ const Calendar: React.FC<CalendarProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       {/* Calendar Header */}
-      <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b">
+      <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b" style={{...FONTS.cardheader}}>
         <div>
           <h2 className="text-xl font-semibold text-gray-800">
             {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
@@ -53,6 +54,7 @@ const Calendar: React.FC<CalendarProps> = ({
           <button
             onClick={() => onSetCurrentMonth(new Date())}
             className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600"
+            style={{ ...FONTS.paragraph}}
           >
             Today
           </button>
@@ -76,6 +78,7 @@ const Calendar: React.FC<CalendarProps> = ({
           <button
             onClick={onShowModal}
             className="px-4 py-2 text-sm rounded-md bg-green-500 text-white hover:bg-green-600"
+            style={{ ...FONTS.paragraph }}
           >
             Add Event
           </button>
@@ -87,7 +90,8 @@ const Calendar: React.FC<CalendarProps> = ({
         {dayNames.map((day) => (
           <div
             key={day}
-            className="py-2 text-center text-xs font-medium text-gray-500 uppercase"
+            className="py-2 text-center text-xs font-medium !text-gray-500 uppercase"
+            style={{ ...FONTS.paragraph }}
           >
             {day}
           </div>
@@ -102,7 +106,7 @@ const Calendar: React.FC<CalendarProps> = ({
             className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
           >
             <div
-              className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
+              className={`text-center p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
             >
               {day.date.getDate()}
             </div>
