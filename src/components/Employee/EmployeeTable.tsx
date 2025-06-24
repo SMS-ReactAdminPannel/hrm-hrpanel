@@ -36,8 +36,8 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
 
     <div className="rounded shadow overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
-          <tr>
+         <thead style={{...FONTS.tableHeader}} className="bg-[#5e59a9]/100 backdrop-blur-sm">
+          <tr  >
             {["id", "name", "email", "department", "jobTitle", "employmentType"].map((key) => (
               <th
                 key={key}

@@ -67,7 +67,7 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
               placeholder="Search by employee name"
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 bg-[#eff4f5] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 bg-[#eff4f5] rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -75,7 +75,8 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
 
           <div className="relative" ref={groupDropdownRef} style={{ zIndex: 50 }}>
             <button
-              className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 text-sm md:text-base"
+              style={{...FONTS.button}}
+              className="flex items-center gap-2 px-3 md:px-4 py-2 border border-gray-300 rounded-md  text-sm md:text-base"
               onClick={() => setIsGroupDropdownOpen(!isGroupDropdownOpen)}
             >
               {/* <MoreVertical className="w-4 h-4" /> */}
@@ -86,7 +87,8 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
             {isGroupDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  style={{...FONTS.paragraph}}
+                  className="block w-full text-left  px-4 py-2 !text-gray hover:bg-gray-100"
                   onClick={() => handleGroupBySelect(null)}
                 >
                   None
