@@ -25,9 +25,9 @@ return (
       <X size={18} className="ml-1" />
     </button>
 
-    {/* Card Content */}
+  
     <div className="px-6 py-4 flex flex-col w-full bg-[#fff8f7] rounded-md shadow-sm">
-      {/* Status Badge */}
+      
       <div className="flex justify-end w-full mb-3">
         <span
           className={`text-xs font-medium px-2.5 py-1 rounded-md ${
@@ -40,7 +40,7 @@ return (
         </span>
       </div>
     
-      {/* Title */}
+
       <h2 
         className="text-sm font-semibold text-gray-700 mb-3"
         style={{ fontSize: FONTS.header3.fontSize }}
@@ -48,7 +48,7 @@ return (
         {grievance.title}
       </h2>
 
-      {/* Description */}
+      
       <div className="mb-4">
         <p className="text-xs font-medium text-gray-500 mb-1">DESCRIPTION</p>
         <p 
@@ -59,7 +59,7 @@ return (
         </p>
       </div>
 
-      {/* Employee Details */}
+
       <div className="grid grid-cols-2 gap-2 text-sm mb-4">
         <p><span className="font-medium">Employee:</span> {grievance.employee}</p>
         <p><span className="font-medium">ID:</span> {grievance.empid}</p>
@@ -69,7 +69,7 @@ return (
         <p><span className="font-medium">Date:</span> {grievance.date}</p>
       </div>
 
-      {/* Action Button */}
+      
       {grievance.status === "unsolved" && (
         <button
           onClick={onMarkSolved}

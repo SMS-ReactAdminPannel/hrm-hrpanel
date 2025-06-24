@@ -48,7 +48,7 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
     <button
       onClick={onNewProgram}
-      className="flex items-center space-x-2 bg-[#006666] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
+      className="flex items-center space-x-2 bg-[#5e59a9] text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:bg-[#005555] transition-colors"
       style={FONTS.paragraph}
     >
       <Plus className="w-4 h-4" />
