@@ -44,6 +44,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
 import DepartmentList from "../pages/Department/DepartmentList";
+import ProfilePage from "../pages/ProfileCard/ProfilePage";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -94,6 +95,8 @@ const AppRoutes = () => {
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
+
+          {<Route path="/ProfilePage" element={<ProfilePage />}/>}
           
         </Route>
       ) : (
