@@ -6,6 +6,7 @@ import { IoIosPeople } from "react-icons/io"
 import { MdManageHistory, MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
 import { FONTS } from "../../constants/uiConstants"
+import { getDailyAttendance } from "../../features/Attendance/service"
 
 
 const Attendance: React.FC = () => {
@@ -25,7 +26,7 @@ const Attendance: React.FC = () => {
   }
 
   // const [value, setValue] = useState("")
-  const [selectedDate, setSelectedDate] = useState("")
+  const [selectedDate, setSelectedDate] = useState("2025-06-11")
 
   const details = [
     {
@@ -36,10 +37,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "D02",
@@ -49,10 +50,10 @@ const Attendance: React.FC = () => {
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "TL03",
@@ -62,10 +63,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "SD04",
@@ -75,10 +76,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "M05",
@@ -88,10 +89,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "SD06",
@@ -101,10 +102,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "JD07",
@@ -114,10 +115,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "M08",
@@ -127,10 +128,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "A09",
@@ -140,15 +141,16 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
-    { ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h" , TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+    {
+      ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h", TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "A11",
@@ -158,10 +160,10 @@ const Attendance: React.FC = () => {
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
-      TotalCompletedProject:"2",
-      TotalWorkedDuration:"215h 40m",
-      TotalBreakTime:"24h",
-      TotalLeaveDays:"5",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
   ]
   const [searchQuery, setSearchQuery] = useState("")
@@ -175,7 +177,7 @@ const Attendance: React.FC = () => {
     { name: "Absent", value: absentCount },
   ]
   const COLORS = ['#7e79c2', 'rgba(94, 89, 169, 0.45)'];
- 
+
 
   // Designation filter
   const [designationFilter, setDesignationFilter] = useState("")
@@ -217,7 +219,7 @@ const Attendance: React.FC = () => {
   // Employee component
   // const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
 
-  const handleClick = (employee: EmployeeDetail) => {
+  const handleClick = (employee: DailyAttendanceItem) => {
     navigate("/attendance-id", { state: { employee } })
   }
 
@@ -244,72 +246,108 @@ const Attendance: React.FC = () => {
     },
   ]
 
+
+
+  
+  
+// Define a type for daily attendance items (adjust fields as needed)
+type DailyAttendanceItem = {
+  ID: string;
+  employee_id: {
+    first_name: string;
+    role: string;
+  };
+  status: string;
+  Status?: string;
+  clockIn: string;
+  clockOut: string;
+  totalHours: string;
+};
+
+const [dailyAttendance, setdailyAttendance] = useState<DailyAttendanceItem[]>([]);
+const fetchDailyAttendance = async () => {
+  try {
+    const response: any = await getDailyAttendance({ date: selectedDate });
+
+    const attendanceData = response?.Data ?? [];
+
+    setdailyAttendance(attendanceData);
+
+    console.log("Daily Attendance fetched:", attendanceData); // ✅ this is correct
+  } catch (error) {
+    console.error("Error fetching AttendanceData:", error);
+  }
+};
+
+    
+      useEffect(() => {
+        fetchDailyAttendance();
+      }, [selectedDate]);
+
+
+console.log(dailyAttendance,"sdfghjk")
+
+
   return (
     <div className="space-y-6 min-h-screen w-full  p-1">
       <div>
-        <h1 className="text-4xl !font-semibold !text-white mt-2 leading-relaxed pb-1" style={{...FONTS. subHeader}}>
+        <h1 className="text-4xl font-bold text-white mt-2 leading-relaxed pb-1">
           Attendance Dashboard
         </h1>
       </div>
 
       {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* Employees Card */}
+        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
 
-           <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm  !text-gray-500 mb-1" style={{...FONTS.paragraph}}>No of Employees</p>
-          <p className={`!text-4xl !font-semibold mt-3 !text-blue-800`} style={{...FONTS.paragraph}}>{details.length}</p>
-          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>all Employees Counting</p>
+          <div>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">No. of Employees</p>
+            <p className="text-2xl font-semibold text-gray-900">{details.length}</p>
+          </div>
+          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
+            <IoIosPeople className="w-10 h-10 text-[#5e59a9]/40" />
+          </div>
         </div>
-            <IoIosPeople className="w-10 h-10 !text-blue-600" style={{...FONTS.cardSubHeader}}/>
-      </div>
-    </div>
 
-
-
-{/* Duarations */}
-   <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm !text-gray-500 mb-1" style={{...FONTS.paragraph}}>Total Duration</p>
-          <p className={`!text-4xl !font-semibold mt-3 !text-green-700`} style={{...FONTS.paragraph}}>9 <span className="text-2xl text-gray-500">hrs</span></p>
-          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>Duration of times</p>
+        {/* Duration Card */}
+        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+          <div>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
+            <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
+          </div>
+          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
+            <MdTimer className="w-10 h-10 text-[#5e59a9]/40" />
+          </div>
         </div>
-            <MdTimer className="w-10 h-10 !text-green-600" style={{...FONTS.cardSubHeader}}/>
-      </div>
-    </div>
-
 
         {/* Permission Card */}
-
-
-   <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium !text-gray-500 mb-1" style={{...FONTS.paragraph}}>Permission</p>
-          <p className={`!text-4xl !font-semibold mt-3 !text-orange-600`} style={{...FONTS.paragraph}}>{dummyData.length}</p>
-          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>Permisions of members</p>
+        <div
+          className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
+          onClick={() => setIsOpen(true)}
+        >
+          <div>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Permission</p>
+            <p className="text-2xl font-semibold text-gray-900">{dummyData.length}</p>
+          </div>
+          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
+            <MdManageHistory className="w-10 h-10 text-[#5e59a9]/40" />
+          </div>
         </div>
-            <MdManageHistory className="w-10 h-10 text-orange-600" />
-      </div>
-    </div>
-
 
         {/* Attendance Chart Card */}
-         <div className="bg-[#eff4f5]   backdrop-blur-sm p-6 h-40 border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
-        
+        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
-            <p className="!text-gray-500 font-medium pb-10 font-family-poppins">Attendance</p>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Attendance</p>
             <div className="flex items-center gap-2">
-              <div className="w-3  h-3 rounded-full bg-[#5e59a9]/90"></div>
-              <p className="text-sm !text-gray-900" style={{...FONTS.description}}>Present: {presentCount}</p>
+              <div className="w-3 h-3 rounded-full bg-[#5e59a9]/90"></div>
+              <p className="text-sm">Present: {presentCount}</p>
             </div>
             <div className="flex items-center gap-2 mt-1">
-              <div className="w-3  h-3  rounded-full  bg-[#5e59a9]/50"></div>
-              <p className="text-sm !text-gray-900" style={{...FONTS.description}}>Absent: {absentCount}</p>
+              <div className="w-3 h-3 rounded-full bg-[#5e59a9]/50"></div>
+              <p className="text-sm">Absent: {absentCount}</p>
             </div>
-          </div> 
+          </div>
 
           <PieChart width={120} height={120}>
             <Pie data={chartData} cx="50%" cy="50%" innerRadius={30} outerRadius={50} paddingAngle={3} dataKey="value">
@@ -322,14 +360,22 @@ const Attendance: React.FC = () => {
         </div>
       </div>
 
+      {/* Filters Section */}
+      <div className="flex flex-row md:flex-row justify-between gap-4 mt-8">
+        {/* Date Picker */}
+        <div className="relative">
+          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
+          <input
+            type="date"
+            className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 font-family-poppins focus:border-transparent transition-all duration-200"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
 
-
-     {/* Filters Section */}
-      <div className="flex flex-row md:flex-row justify-between gap-4 mt-8 !text-gray-800"style={{...FONTS.paragraph}}>
-      
         {/* Search */}
-        <div className="relative flex-grow max-w-md mt-3">
-          <label className="block text-sm font-medium !text-gray-700 mb-1"></label>
+        <div className="relative flex-grow max-w-md">
+          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
               <CiSearch size={20} />
@@ -344,28 +390,16 @@ const Attendance: React.FC = () => {
           </div>
         </div>
 
-  {/* Date Picker */}
-<div className="relative ml-40 mt-3">
-          <label className="block text-sm font-medium !text-gray-800 mb-1"></label>
-          <input
-            type="date"
-            className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 font-family-poppins focus:border-transparent transition-all !text-gray-800  duration-200"
-            style={{...FONTS.paragraph}}
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </div>
-
         {/* Designation filter */}
-        <div className="relative  w-60 mt-3" ref={designationDropdownRef}>
-          <label className="block text-sm font-medium text-gray-800 mb-1"></label>
+        <div className="relative" ref={designationDropdownRef}>
+          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
           <button
             onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
             className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 focus:border-transparent transition-all duration-200 text-left flex items-center justify-between"
           >
             <span className="flex items-center gap-2">
               <FaBriefcase className="text-gray-400" />
-              <span className="truncate !text-gray-700" style={{...FONTS.paragraph}}>{designationFilter || " All Designations "}</span>
+              <span className="truncate">{designationFilter || "All Designations"}</span>
             </span>
             <svg
               className={`w-4 h-4 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
@@ -384,8 +418,7 @@ const Attendance: React.FC = () => {
                   setDesignationFilter("")
                   setShowDesignationDropdown(false)
                 }}
-                className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 flex items-center gap-2 border-b border-gray-100 !text-gray-800"
-               style={{...FONTS.cardSubHeader}}
+                className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 flex items-center gap-2 border-b border-gray-100"
               >
                 All Designations
               </div>
@@ -396,9 +429,8 @@ const Attendance: React.FC = () => {
                     setDesignationFilter(designation)
                     setShowDesignationDropdown(false)
                   }}
-                  className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 !text-gray-800"
-                  style={{...FONTS.cardSubHeader}}
-             >
+                  className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200"
+                >
                   {designation}
                 </div>
               ))}
@@ -408,72 +440,70 @@ const Attendance: React.FC = () => {
       </div>
 
       {/* Table Section */}
-     
-<div className="overflow-hidden rounded-md mt-6">
-  <div className="overflow-x-auto">
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead className="!bg-[#5e59a9]/70 backdrop-blur-sm" style={{...FONTS.tableHeader}}>
-        <tr>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>ID</th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>Name</th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>
-            Designation
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>Status</th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>
-            Check In
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>
-            Check Out
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium !text-white uppercase tracking-wider" style={{...FONTS.cardSubHeader}}>
-            Duration
-          </th>
-        </tr>
-      </thead>
-      <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100" style={{...FONTS.tableBody}}>
-        {paginatedDetails.map((item) => (
-          <tr
-            key={item.ID}
-            className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
-            onClick={() => handleClick(item)}
-          >
-            <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900">{item.ID}</td>
-            <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 !text-white flex items-center justify-center text-sm  !font-semibold shadow-sm" style={{...FONTS.paragraph}}>
-                  {item.Name?.charAt(0).toUpperCase()}
-                </div>
-                <span className="font-medium !text-gray-900" style={{...FONTS.cardSubHeader}}>{item.Name}</span>
-              </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-900" style={{...FONTS.paragraph}}>{item.Designation}</td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span
-                className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
-                  ${
-                    item.Status === "Present"
-                      ? "!bg-green-100 !text-green-800 !border !border-green-200"
-                      : "!bg-red-100 !text-red-800 !border !border-red-200"
-                  }`}
-                  style={{...FONTS.description}}
-              >
-                {item.Status}
-              </span>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-700"style={{...FONTS.paragraph}}>{item.CheckIn}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-700"style={{...FONTS.paragraph}}>{item.CheckOut}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-700"style={{...FONTS.paragraph}}>{item.Duration}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+
+      <div className="overflow-hidden rounded-md mt-6">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
+              <tr>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">ID</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Designation
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Check In
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Check Out
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Duration
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
+              {dailyAttendance && dailyAttendance.map((item) => (
+                <tr
+                  key={item.ID}
+                  className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
+                  onClick={() => handleClick(item)}
+                >
+                  <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900">{item.ID || "NA"}</td>
+                  <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
+                        {item.employee_id.first_name?.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="font-medium">{item.employee_id.first_name}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                  ${item.Status === "Present"
+                          ? "bg-green-100 text-green-800 border border-green-200"
+                          : "bg-red-100 text-red-800 border border-red-200"
+                        }`}
+                    >
+                      {item.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.clockIn || "-"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.clockOut || " - "}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
 
         {/* Pagination Controls */}
         <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-100">
-          <div className="text-sm !text-gray-500" style={{...FONTS.paragraph}}>
+          <div className="text-sm text-gray-500">
             Showing {Math.min(filteredDetails.length, (currentPage - 1) * rowsPerPage + 1)} to{" "}
             {Math.min(currentPage * rowsPerPage, filteredDetails.length)} of {filteredDetails.length} entries
           </div>
@@ -483,7 +513,7 @@ const Attendance: React.FC = () => {
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-2 rounded-lg !bg-white !text-gray-700 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:bg-gray-50"
+              className="px-3 py-2 rounded-lg bg-white text-gray-700 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:bg-gray-50"
             >
               <svg
                 className="w-4 h-4"
@@ -507,12 +537,10 @@ const Attendance: React.FC = () => {
               <button
                 key={index + 1}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`px-3.5 py-2 rounded-lg transition-all duration-200 ${
-                  currentPage === index + 1
-                    ? "!bg-[#5e59a9]/60 !text-white shadow-md"
-                    : "!bg-white !text-gray-700 border border-gray-200 !hover:bg-[#5e59a9]/60"
-                }`}
-                style={{...FONTS.button}}
+                className={`px-3.5 py-2 rounded-lg transition-all duration-200 ${currentPage === index + 1
+                    ? "bg-[#5e59a9]/60 text-white shadow-md"
+                    : "bg-white text-gray-700 border border-gray-200 hover:bg-[#5e59a9]/60"
+                  }`}
               >
                 {index + 1}
               </button>
@@ -524,9 +552,8 @@ const Attendance: React.FC = () => {
                 setCurrentPage((prev) => (prev < Math.ceil(filteredDetails.length / rowsPerPage) ? prev + 1 : prev))
               }
               disabled={currentPage >= Math.ceil(filteredDetails.length / rowsPerPage)}
-              className="px-3 py-2 rounded-lg bg-white !text-gray-700 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:bg-gray-50"
-              style={{...FONTS.button}}
-        >
+              className="px-3 py-2 rounded-lg bg-white text-gray-700 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:bg-gray-50"
+            >
               <svg
                 className="w-4 h-4"
                 aria-hidden="true"
@@ -577,10 +604,9 @@ const Attendance: React.FC = () => {
                     </div>
                     <span
                       className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize
-                        ${
-                          person.status === "approved"
-                            ? "bg-green-100 text-green-800 border border-green-200"
-                            : "bg-yellow-100 text-yellow-800 border border-yellow-200"
+                        ${person.status === "approved"
+                          ? "bg-green-100 text-green-800 border border-green-200"
+                          : "bg-yellow-100 text-yellow-800 border border-yellow-200"
                         }`}
                     >
                       {person.status}

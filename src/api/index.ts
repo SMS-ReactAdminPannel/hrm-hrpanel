@@ -56,6 +56,11 @@ export default class Client {
         httpClient.get(API_END_POINTS.announcement.AnnouncementGetAll),
     },
 
+    attendance: {
+      getDailyAttendance: (params:{date:string}) =>
+        httpClient.get(API_END_POINTS.attendance.getDailyAttendance,params),
+    },
+
     asset:{
       createasset:(data:any)=>
         httpClient.post(API_END_POINTS.asset.createAsset,data),

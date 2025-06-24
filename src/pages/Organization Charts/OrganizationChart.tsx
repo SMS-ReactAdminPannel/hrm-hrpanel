@@ -6,6 +6,7 @@ import { OrgChart } from "../../components/OrganizationChart/org-chart"
 import { EmployeeForm } from "../../components/OrganizationChart/employee-form"
 import { Modal } from "../../components/OrganizationChart/modal"
 import { Plus } from "lucide-react"
+import { FONTS } from "../../constants/uiConstants"
 
 const initialEmployees: Employee[] = [
   {
@@ -94,8 +95,45 @@ export default function OrganizationChart() {
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees)
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null)
   const [isFormOpen, setIsFormOpen] = useState(false)
-
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
   const chartContainerRef = useRef<HTMLDivElement>(null)
+  const [addingChildTo, setAddingChildTo] = useState<Employee | null>(null)
+
+  // Get visible employees based on expanded state
+  const getVisibleEmployees = () => {
+    const rootEmployee = employees.find((emp) => emp.managerId === null)
+    if (!rootEmployee) return []
+
+    const visibleEmployees = [rootEmployee]
+    const directReports = employees.filter((emp) => emp.managerId === rootEmployee.id)
+    visibleEmployees.push(...directReports)
+
+    // Add children of expanded nodes
+    expandedNodes.forEach((nodeId) => {
+      const children = employees.filter((emp) => emp.managerId === nodeId)
+      children.forEach((child) => {
+        if (!visibleEmployees.find((emp) => emp.id === child.id)) {
+          visibleEmployees.push(child)
+        }
+      })
+    })
+
+    return visibleEmployees
+  }
+
+  const toggleNodeExpansion = (nodeId: string) => {
+    const newExpandedNodes = new Set(expandedNodes)
+    if (newExpandedNodes.has(nodeId)) {
+      newExpandedNodes.delete(nodeId)
+    } else {
+      newExpandedNodes.add(nodeId)
+    }
+    setExpandedNodes(newExpandedNodes)
+  }
+
+  const hasChildren = (employeeId: string) => {
+    return employees.some((emp) => emp.managerId === employeeId)
+  }
 
   const handleAddEmployee = (employeeData: EmployeeFormData) => {
     const newEmployee: Employee = {
@@ -105,6 +143,7 @@ export default function OrganizationChart() {
     }
     setEmployees([...employees, newEmployee])
     setIsFormOpen(false)
+    setAddingChildTo(null)
   }
 
   const handleEditEmployee = (employeeData: EmployeeFormData) => {
@@ -127,6 +166,11 @@ export default function OrganizationChart() {
       .map((emp) => (emp.managerId === employeeId ? { ...emp, managerId: employeeToDelete.managerId } : emp))
 
     setEmployees(updatedEmployees)
+
+    // Remove from expanded nodes if it was expanded
+    const newExpandedNodes = new Set(expandedNodes)
+    newExpandedNodes.delete(employeeId)
+    setExpandedNodes(newExpandedNodes)
   }
 
   const openEditForm = (employee: Employee) => {
@@ -139,8 +183,15 @@ export default function OrganizationChart() {
     setIsFormOpen(true)
   }
 
+  const openAddChildForm = (parentEmployee: Employee) => {
+    setAddingChildTo(parentEmployee)
+    setEditingEmployee(null)
+    setIsFormOpen(true)
+  }
+
   const closeForm = () => {
     setEditingEmployee(null)
+    setAddingChildTo(null)
     setIsFormOpen(false)
   }
 
@@ -165,8 +216,8 @@ export default function OrganizationChart() {
     const handleWheel = (e: WheelEvent) => {
       if (e.ctrlKey && chartContainerRef.current) {
         e.preventDefault()
-        const chart = chartContainerRef.current.firstElementChild as HTMLElement
-        const scale = parseFloat(chart.dataset.scale || "1")
+        const chart = document.getElementById("org-chart-wrapper") as HTMLElement
+        const scale = Number.parseFloat(chart.dataset.scale || "1")
         const newScale = Math.min(Math.max(scale * (e.deltaY < 0 ? 1.1 : 0.9), 0.2), 3)
         chart.style.transform = `scale(${newScale})`
         chart.dataset.scale = newScale.toString()
@@ -224,14 +275,25 @@ export default function OrganizationChart() {
     }
   }, [])
 
+  // Auto-scroll to center
+  useEffect(() => {
+    const container = chartContainerRef.current
+    if (container) {
+      container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2
+      container.scrollTop = 0
+    }
+  }, [])
+
+  const visibleEmployees = getVisibleEmployees()
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto py-8 max-w-7xl">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="mb-1 text-3xl font-bold">Organization Chart</h1>
-            <p className="text-gray-600">Manage your company structure</p>
+            <h1 className="mb-1 text-3xl font-bold" style={{...FONTS.header}}>Organization Chart</h1>
+            <p className="!text-gray-600" style={{...FONTS.paragraph}}>Manage your company structure</p>
           </div>
           <button
             onClick={openAddForm}
@@ -288,21 +350,37 @@ export default function OrganizationChart() {
             className="p-2 overflow-auto"
             style={{ width: "100%", height: "600px", cursor: "grab" }}
           >
-            <div style={{ transformOrigin: "top left" }} data-scale="1">
+            <div id="org-chart-wrapper" className="inline-block" style={{ transformOrigin: "top left" }} data-scale="1">
               <OrgChart
-                employees={employees}
+                employees={visibleEmployees}
+                allEmployees={employees}
+                expandedNodes={expandedNodes}
+                onToggleExpansion={toggleNodeExpansion}
+                hasChildren={hasChildren}
                 onEdit={openEditForm}
                 onDelete={handleDeleteEmployee}
+                onAddChild={openAddChildForm}
               />
             </div>
           </div>
         </div>
 
         {/* Modal Form */}
-        <Modal isOpen={isFormOpen} onClose={closeForm} title={editingEmployee ? "Edit Employee" : "Add New Employee"}>
+        <Modal
+          isOpen={isFormOpen}
+          onClose={closeForm}
+          title={
+            editingEmployee
+              ? "Edit Employee"
+              : addingChildTo
+                ? `Add Employee under ${addingChildTo.name}`
+                : "Add New Employee"
+          }
+        >
           <EmployeeForm
             employee={editingEmployee}
             employees={employees}
+            parentEmployee={addingChildTo}
             onSubmit={editingEmployee ? handleEditEmployee : handleAddEmployee}
             onCancel={closeForm}
           />

@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg"
 import { FaCalendarAlt } from "react-icons/fa"
 import mainlayout from "../../assets/mainLayout.jpg"
 import AttendanceCalendar from '../../pages/AttendanceManagement/AttendanceCalendar';
+import { useEffect, useState } from "react"
+import { getDailyAttendance } from "../../features/Attendance/service"
 
 
 const EmployeeDetails: React.FC = () => {
