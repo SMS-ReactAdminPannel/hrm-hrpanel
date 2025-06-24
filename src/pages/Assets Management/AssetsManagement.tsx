@@ -1,5 +1,3 @@
-
-
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Search, Plus, Monitor, Laptop, Package, Edit3, Trash2, Filter } from "lucide-react"
@@ -9,7 +7,7 @@ import { FONTS } from "../../constants/uiConstants"
 import axios from "axios"
 import httpClient from "../../api/httpClient";
 import { API_END_POINTS } from "../../api/httpEndpoints";
-
+import { motion } from "framer-motion";
 
 interface Asset {
   [x: string]: any
@@ -653,12 +651,16 @@ const AssetsManagement: React.FC = () => {
       </div>
 
 
-      {showModal && (
+    {showModal && (
   <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div
+    <motion.div
       ref={modalRef}
-      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 transform transition-all duration-300 scale-100 max-h-[90vh] overflow-y-auto"
-    >
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 100 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white/90 backdrop-blur-sm rounded-md p-8 w-full max-w-md shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto"
+    > 
       <h2 className="text-2xl font-bold bg-[#006666] bg-clip-text text-transparent mb-6">
         {editingAsset ? "Edit Asset" : "Add New Asset"}
       </h2>
@@ -741,7 +743,6 @@ const AssetsManagement: React.FC = () => {
               </div>
             )}
           </div>
-          {/* Hidden input to ensure required works */}
           <input type="text" value={newAsset.category} required hidden readOnly />
         </div>
 
@@ -812,7 +813,6 @@ const AssetsManagement: React.FC = () => {
               </div>
             )}
           </div>
-          {/* Hidden input for required enforcement */}
           <input type="text" value={newAsset.status} required hidden readOnly />
         </div>
 
@@ -821,21 +821,22 @@ const AssetsManagement: React.FC = () => {
           <button
             type="button"
             onClick={handleCloseModal}
-            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#6f70ce] text-white rounded-md hover:bg-blue-400 "
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="flex-1 px-4 py-2 bg-[#6f70ce] text-white rounded-md hover:shadow-lg hover:scale-105 transition-all font-medium"
+            className="flex-1 px-4 py-2 bg-[#6f70ce] text-white rounded-md hover:shadow-lg hover:bg-blue-400 "
           >
             {editingAsset ? "Update Asset" : "Add Asset"}
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   </div>
 )}
+
 
 
     

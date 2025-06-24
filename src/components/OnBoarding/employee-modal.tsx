@@ -1,6 +1,7 @@
 "use client"
 
 import { X } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import type { TeamMember } from "./use-onboarding-state"
 
 interface EmployeeModalProps {
@@ -10,98 +11,102 @@ interface EmployeeModalProps {
   onViewDocs: (employeeName: string) => void
 }
 
-export function EmployeeModal({ isOpen, employee, onClose, onViewDocs }: EmployeeModalProps) {
-  if (!isOpen || !employee) return null
-
+export function EmployeeModal({
+  isOpen,
+  employee,
+  onClose,
+  onViewDocs,
+}: EmployeeModalProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-h-[90vh] w-full max-w-2xl overflow-hidden">
-        <div className="flex items-center justify-between border-b p-4">
-          <h3 className="text-lg  font-semibold">{employee.name}'s Onboarding Details</h3>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        <div className="p-6 space-y-4 ">
-          <div className="grid grid-cols-2 gap-4">
-            <div >
-              <p className="text-sm text-gray-800">Role</p>
-              <p className="font-medium border">{employee.role}</p>
+    <AnimatePresence>
+      {isOpen && employee && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white rounded-lg max-h-[90vh] w-full max-w-2xl overflow-hidden"
+          >
+            <div className="flex items-center justify-between border-b p-4">
+              <h3 className="text-lg font-semibold">
+                {employee.name}'s Onboarding Details
+              </h3>
+              <button
+                onClick={onClose}
+                className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-            <div>
-              <p className="text-sm text-gray-800">Email</p>
-              <p className="font-medium border">{employee.email}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-800">Phone</p>
-              <p className="font-medium border">{employee.phone}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-800">Hire Date</p>
-              <p className="font-medium border">{employee.hireDate}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-800">Onboarding Status</p>
-              <p
-                className={`font-medium border ${
-                  employee.onboardingStatus === "Completed"
-                    ? "text-green-600"
-                    : employee.onboardingStatus === "In Progress"
+
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <InfoItem label="Role" value={employee.role} />
+                <InfoItem label="Email" value={employee.email} />
+                <InfoItem label="Phone" value={employee.phone} />
+                <InfoItem label="Hire Date" value={employee.hireDate} />
+                <InfoItem
+                  label="Onboarding Status"
+                  value={employee.onboardingStatus}
+                  valueClass={
+                    employee.onboardingStatus === "Completed"
+                      ? "text-green-600"
+                      : employee.onboardingStatus === "In Progress"
                       ? "text-yellow-600"
                       : "text-red-600"
-                }`}
-              >
-                {employee.onboardingStatus}
-              </p>
-            </div>
-          </div>
+                  }
+                />
+              </div>
 
-          <div className="pt-4">
-            <h4 className="font-medium mb-2">Document Status</h4>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span>I-9 Form</span>
-                <span
-                  className={`px-2 py-1 text-xs rounded-full ${
-                    employee.documents.i9Form ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {employee.documents.i9Form ? "Completed" : "Pending"}
-                </span>
+              <div className="pt-4">
+                <h4 className="font-medium mb-2">Document Status</h4>
+                <DocumentStatus label="I-9 Form" status={employee.documents.i9Form} />
+                <DocumentStatus label="W-4 Form" status={employee.documents.w4Form} />
+                <DocumentStatus label="Direct Deposit" status={employee.documents.directDeposit} />
               </div>
-              <div className="flex items-center justify-between">
-                <span>W-4 Form</span>
-                <span
-                  className={`px-2 py-1 text-xs rounded-full ${
-                    employee.documents.w4Form ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  }`}
+
+              <div className="pt-4 flex justify-end">
+                <button
+                  onClick={() => onViewDocs(employee.name)}
+                  className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors"
                 >
-                  {employee.documents.w4Form ? "Completed" : "Pending"}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Direct Deposit</span>
-                <span
-                  className={`px-2 py-1 text-xs rounded-full ${
-                    employee.documents.directDeposit ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {employee.documents.directDeposit ? "Completed" : "Pending"}
-                </span>
+                  View Documents
+                </button>
               </div>
             </div>
-          </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
 
-          <div className="pt-4 flex justify-end">
-            <button
-              onClick={() => onViewDocs(employee.name)}
-              className="px-4 py-2 bg-[#006666] text-white rounded-md hover:bg-[#005555] transition-colors"
-            >
-              View Documents
-            </button>
-          </div>
-        </div>
-      </div>
+function InfoItem({ label, value, valueClass = "" }: { label: string; value: string; valueClass?: string }) {
+  return (
+    <div>
+      <p className="text-sm text-gray-800">{label}</p>
+      <p className={`font-medium border rounded px-2 py-1 ${valueClass}`}>{value}</p>
+    </div>
+  )
+}
+
+function DocumentStatus({ label, status }: { label: string; status: boolean }) {
+  return (
+    <div className="flex items-center justify-between mb-2">
+      <span>{label}</span>
+      <span
+        className={`px-2 py-1 text-xs rounded-full ${
+          status ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+        }`}
+      >
+        {status ? "Completed" : "Pending"}
+      </span>
     </div>
   )
 }
