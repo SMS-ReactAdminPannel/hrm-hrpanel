@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Employee, TrainingProgram } from "../../components/TraningManagement/Traning"
-import { FONTS } from "./Fonts"
+import {FONTS} from "../../constants/uiConstants"
 
 interface EmployeeRowProps {
   employee: Employee
@@ -16,19 +16,19 @@ export const EmployeeRow: React.FC<EmployeeRowProps> = ({ employee, selectedProg
 
   return (
     <tr className="bg-red-200 transition-colors text-gray-900">
-      <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-gray-900">{employee.id}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium !text-gray-900" style={{...FONTS.tableBody}}>{employee.id}</td>
       <td className="px-4 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">
             {employee.avatar}
           </div>
           <div className="ml-3">
-            <p className="text-base font-semibold text-gray-900">{employee.name}</p>
-            <p className="text-sm text-gray-900">{employee.position}</p>
+            <p className="text-sm font-medium !text-gray-900" style={{...FONTS.tableBody}}>{employee.name}</p>
+            <p className="text-sm text-gray-900" style={{...FONTS.tableBody}}>{employee.position}</p>
           </div>
         </div>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-gray-900">{employee.department}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-900" style={{...FONTS.tableBody}}>{employee.department}</td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="w-full bg-gray-200 rounded-full h-2 mr-3">
@@ -41,12 +41,12 @@ export const EmployeeRow: React.FC<EmployeeRowProps> = ({ employee, selectedProg
         </div>
       </td>
       {selectedProgram && (
-        <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-gray-900">
+        <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-900">
           {enrollmentDate ? new Date(enrollmentDate).toLocaleDateString() : "N/A"}
         </td>
       )}
       {!selectedProgram && (
-        <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{employee.completedCourses}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm !text-gray-900" style={{...FONTS.tableBody}}>{employee.completedCourses}</td>
       )}
       <td className="px-6 py-4 whitespace-nowrap">
         <span

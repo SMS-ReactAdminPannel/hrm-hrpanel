@@ -1,7 +1,8 @@
 import type React from "react"
 import { ArrowLeft, BookOpen, Users, Clock, Calendar } from "lucide-react"
-import type { TrainingProgram } from "../../components/TraningManagement/Traning"
-import { FONTS } from "../../components/TraningManagement/Fonts"
+import {FONTS} from "../../constants/uiConstants"
+
+
 
 interface ProgramHeaderProps {
   program: TrainingProgram
@@ -16,7 +17,7 @@ export const ProgramHeader: React.FC<ProgramHeaderProps> = ({ program, participa
         <button
           onClick={onBack}
           className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
-          style={FONTS.paragraph}
+          style={{...FONTS.button}}
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Programs</span>
@@ -24,21 +25,21 @@ export const ProgramHeader: React.FC<ProgramHeaderProps> = ({ program, participa
       </div>
     </div>
 
-    <div className="grid grid-cols-4 md:grid-cols-4 gap-4" style={FONTS.paragraph}>
+    <div className="grid grid-cols-4 md:grid-cols-4 gap-4">
       <div className="bg-blue-50 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <BookOpen className="w-5 h-5 text-blue-600" />
-          <h3 className="font-semibold text-gray-900">{program.title}</h3>
+          <h3 className="font-semibold !text-gray-900" style={{...FONTS.cardSubHeader}}>{program.title}</h3>
         </div>
-        <p className="text-sm text-gray-600 mt-1">{program.category}</p>
+        <p className="text-sm !text-gray-600 mt-1"style={{...FONTS.cardSubHeader}}>{program.category}</p>
       </div>
 
       <div className="bg-green-50 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <Users className="w-5 h-5 text-green-600" />
-          <span className="font-semibold text-gray-900">{participantCount}</span>
+          <span className="font-semibold !text-gray-900" style={{...FONTS.cardSubHeader}}>{participantCount}</span>
         </div>
-        <p className="text-sm text-gray-600" style={FONTS.paragraph}>
+        <p className="text-sm !text-gray-600 mt-2"style={{...FONTS.cardSubHeader}}>
           Enrolled Participants
         </p>
       </div>
@@ -46,9 +47,9 @@ export const ProgramHeader: React.FC<ProgramHeaderProps> = ({ program, participa
       <div className="bg-purple-50 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <Clock className="w-5 h-5 text-purple-600" />
-          <span className="font-semibold text-gray-900">{program.duration}</span>
+          <span className="font-semibold !text-gray-900" style={{...FONTS.cardSubHeader}}>{program.duration}</span>
         </div>
-        <p className="text-sm text-gray-600" style={FONTS.paragraph}>
+        <p className="text-sm !text-gray-600 mt-2" style={{...FONTS.cardSubHeader}}>
           Duration
         </p>
       </div>
@@ -56,9 +57,9 @@ export const ProgramHeader: React.FC<ProgramHeaderProps> = ({ program, participa
       <div className="bg-yellow-50 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <Calendar className="w-5 h-5 text-yellow-600" />
-          <span className="font-semibold text-gray-900">{new Date(program.startDate).toLocaleDateString()}</span>
+          <span className="font-semibold !text-gray-900" style={{...FONTS.cardSubHeader}}>{new Date(program.startDate).toLocaleDateString()}</span>
         </div>
-        <p className="text-sm text-gray-600" style={FONTS.paragraph}>
+        <p className="text-sm !text-gray-600 mt-2" style={{...FONTS.cardSubHeader}}>
           Start Date
         </p>
       </div>

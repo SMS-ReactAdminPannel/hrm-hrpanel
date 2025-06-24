@@ -162,56 +162,33 @@ export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
       onClick={() => setIsActive(!isActive)}
     >
       <div className="flex justify-between items-start">
-        <h3
-          className="text-lg font-semibold"
+        <h3 className="text-lg !text-black"
           style={{
-            fontSize: FONTS.header3.fontSize,
-            fontFamily: FONTS.paragraph.fontFamily,
-          }}
-        >
-          {grievance.title}
-        </h3>
-
+            ...FONTS.header3
+          }}>{grievance.title}</h3>
+        
         <span
-          className={`text-sm font-semibold px-3 py-1 rounded-full ${
-            isSolved
-              ? isActive
-                ? "bg-white text-green-700 border border-green-300"
-                : "bg-green-100 text-green-700 border border-green-300"
-              : isActive
-                ? "bg-white text-yellow-700 border border-yellow-300"
-                : "bg-yellow-100 text-yellow-700 border border-yellow-300"
-          }`}
+          className={`
+            font-medium px-2 py-1 rounded-md ${
+            grievance.status === "solved"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }` }
         >
           {grievance.status.charAt(0).toUpperCase() + grievance.status.slice(1)}
         </span>
       </div>
 
-      <div>
-        <h4
-          className="text-sm font-medium mb-1"
-          style={{
-            fontSize: FONTS.paragraph.fontSize,
-            fontFamily: FONTS.paragraph.fontFamily,
-          }}
-        >
-          Issue Description
-        </h4>
-        <p className="whitespace-pre-line text-sm leading-relaxed">
-          {grievance.description}
-        </p>
-      </div>
+      <h3 className="text-sm font-semibold !text-gray-800 mb-1" style={{
+       ...FONTS.header3
+      }}>Issue Description:</h3> 
+<p className="text-gray-700 mb-1 whitespace-pre-line">{grievance.description}</p>
 
-      <div
-        className="text-xs border-t pt-2 mt-3 border-opacity-20"
-        style={{
-          fontSize: FONTS.paragraph.fontSize,
-          fontFamily: FONTS.paragraph.fontFamily,
-        }}
-      >
-        <span className="font-medium">
-          {grievance.employee}
-        </span> — {grievance.date}
+      <div className=" text-sm !text-gray-500"
+      style={{...FONTS.paragraph
+
+      }}>
+        <span className="font-medium !text-gray-500"   style={{...FONTS.paragraph}}>{grievance.employee}</span> — {grievance.date}
       </div>
     </div>
   );

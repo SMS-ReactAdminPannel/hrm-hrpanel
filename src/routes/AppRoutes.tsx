@@ -45,6 +45,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
 import DepartmentList from "../pages/Department/DepartmentList";
+import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -66,7 +67,8 @@ const AppRoutes = () => {
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<LeaveManagement />} />
+
+          <Route path="leave-management" element={<LeaveTypes />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
@@ -80,6 +82,7 @@ const AppRoutes = () => {
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
+          <Route path="Attendancerequest" element={<AttendanceRequest />} />
           <Route path="asset-category" element={<Assetcategory />} />
           {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />

@@ -73,9 +73,9 @@ const fetchGrievances = async () => {
   }, []);
 
   return (
-    <div className="min-h-screen h-full flex flex-col border rounded-lg shadow p-4 bg-gray-500 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 transition-all duration-300 ease-in-out relative">
-      <div className="max-w-full ml-6">
-        <h1 className="text-[white] mb-2" style={FONTS.header}>
+    <div className="min-h-screen bg-white mt-5">
+      <div className="max-w-full ">
+        <h1 className="!text-gray-700 mb-6" style={{...FONTS.header}}>
           Grievances
         </h1>
 
@@ -99,7 +99,7 @@ const fetchGrievances = async () => {
           <div className="w-1/2">
             <div className="space-y-4">
               {filteredGrievances.length === 0 ? (
-                <p className="text-center text-gray-400 mt-12">No grievances to show.</p>
+                <p className="text-center text-gray-400 mt-12 " style={{...FONTS.paragraph}}>No grievances to show.</p>
               ) : (
                 filteredGrievances.map((grievance) => (
                   <motion.div
@@ -116,46 +116,23 @@ const fetchGrievances = async () => {
             </div>
           </div>
 
-          <div className="w-1/2  border-l   bg-opacity-10 pl-6">
-            <AnimatePresence mode="wait">
-              {selectedGrievance ? (
-                <motion.div
-                  key="detail-card"
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ 
-                    type: "spring",
-                    damping: 20,
-                    stiffness: 100,
-                    duration: 0.3
-                  }}
-                  className="h-full"
-                >
-                  <GrievanceDetailCard
-                    grievance={selectedGrievance}
-                    onClose={() => setSelectedGrievance(null)}
-                    onMarkSolved={() => {
-                      if (selectedGrievance?.id) {
-                        markAsSolved(selectedGrievance.id);
-                      } else {
-                        console.error("No valid grievance ID to mark as solved");
-                      }
-                    }}
-                  />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty-state"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center text-gray-400 mt-12 h-full flex items-center justify-center"
-                >
-                  Select a grievance to view details.
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="w-1/2 bg-[#fef7f4] border-l border-[#ecdcd7] pl-6">
+            {selectedGrievance ? (
+              <GrievanceDetailCard
+  grievance={selectedGrievance}
+  onClose={() => setSelectedGrievance(null)}
+ onMarkSolved={() => {
+  if (selectedGrievance?.id) {
+    markAsSolved(selectedGrievance.id);
+  } else {
+    console.error("No valid grievance ID to mark as solved");
+  }
+}}
+
+/>
+            ) : (
+              <p className="text-center text-gray-400 mt-12" style={{...FONTS.paragraph}}>Select a grievance to view details.</p>
+            )}
           </div>
         </div>
       </div>

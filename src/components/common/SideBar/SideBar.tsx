@@ -34,6 +34,7 @@ import { FaListAlt } from "react-icons/fa";
 import { GoOrganization } from "react-icons/go";
 import { LuPackagePlus } from "react-icons/lu";
 import { MdHotelClass } from "react-icons/md";
+import { HiMiniCalendarDays } from "react-icons/hi2";
 //<MdHotelClass /> training
 
 
@@ -134,6 +135,7 @@ const SideBar = ({
             <SidebarDropdown icon={<CgCalendarDates />} label="Attendance" isOpen={actualOpen}>
               <SidebarLink to="/time-sheet" icon={<RiTimeLine />} label="Time Sheet" isOpen={actualOpen} onClick={handleLinkClick} />
               <SidebarLink to="/attendance" icon={<CgProfile />} label="Attendance" isOpen={actualOpen} onClick={handleLinkClick} />
+              <SidebarLink to="/Attendancerequest" icon={<HiMiniCalendarDays />} label="Attendance Request" isOpen={actualOpen} onClick={handleLinkClick} />
             </SidebarDropdown>
           </div>
           <div className="bg-white/6 rounded-2xl">
