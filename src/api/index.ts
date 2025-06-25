@@ -101,7 +101,7 @@ export default class Client {
         httpClient.get(API_END_POINTS.assetCategory.getCategoryById(assetId)),
 
       getallassetcategory:()=>
-        httpClient.get(API_END_POINTS.assetCategory.getAllCategory),
+        httpClient.get(API_END_POINTS.assetcategory.getallasset),
 
       updateassetcategory: (assetId: string, data: any) =>
        httpClient.put(API_END_POINTS.assetCategory.updateCategory(assetId), data),
