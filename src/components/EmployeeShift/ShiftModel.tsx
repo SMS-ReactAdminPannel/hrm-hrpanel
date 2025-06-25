@@ -30,7 +30,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-end justify-center z-50"
+          className="fixed inset-0 bg-black  bg-opacity-50 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -40,13 +40,16 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto"
-          >
-            <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-black">Assign Rotating Shift</h2>
-              <button onClick={onClose} className="text-black hover:text-gray-500">
-                <X className="w-5 h-5" />
+            className="bg-white rounded-md w-full item-center max-w-xl relative "
+          > 
+          <button onClick={onClose} className="absolute top-2 left-2 -ml-12 text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow" >
+                <X size={30} /> 
               </button>
+            <div className="border-b border-gray-200  px-6 py-4 flex justify-between">
+              <h2 className="text-xl font-semibold text-black">Assign Rotating Shift</h2>
+              {/* <button onClick={onClose} className="text-black hover:text-gray-500">
+                <X className="w-5 h-5" />
+              </button> */}
             </div>
 
             <form

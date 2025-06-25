@@ -46,11 +46,14 @@ const EditShiftModal: React.FC<EditShiftModalProps> = ({
       <style>{modalAnimationStyle}</style>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg w-full max-w-2xl border animate-slideUp">
+           <button onClick={onClose} className="absoulte top-2  -ml-[39px] text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow">
+              <X size={30} />
+            </button>
           <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
             <h2 className="text-xl font-semibold text-black">Edit Rotating Shift</h2>
-            <button onClick={onClose} className="text-gray hover:text-gray-500">
+            {/* <button onClick={onClose} className="text-gray hover:text-gray-500">
               <X className="w-5 h-5" />
-            </button>
+            </button> */}
           </div>
           <form
             onSubmit={onSubmit}

@@ -61,13 +61,21 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
             transition={{ duration: 0.3 }}
             className="bg-white rounded-md shadow-2xl w-full max-w-2xl p-2 "
           >
+          <button
+  onClick={handleClose}
+  className="absolute top-15 -ml-11 bg-blue-600 text-white   p-1 shadow hover:text-gray-600 ml-2 rounded-l-full"
+>
+  <X size={30}  />
+</button>
+
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              
               <h2 className="text-xl font-semibold text-black">
                 {editingCategory ? "Edit Category" : "Create New Category"}
               </h2>
-              <button onClick={handleClose} className="hover:text-gray-600 transition-colors">
+              {/* <button onClick={handleClose} className="hover:text-gray-600 transition-colors">
                 <X className="w-5 h-5 text-black" />
-              </button>
+              </button> */}
             </div>
 
             <form onSubmit={handleSubmit} className="p-6">

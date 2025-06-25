@@ -105,16 +105,21 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
         </tbody>
       </table>
        <style>{modalAnimationStyle}</style> 
+      
       {editingEmployee && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <button
-                     onClick={() => setEditingEmployee(null)}
-                      className="absolute top-[88px] left-[400px] text-gray-700 hover:text-red-600  rounded bg-blue-700"
-                    >
-                      <X size={28} />
-                    </button>
+        
+
           <div className="bg-white  p-10 rounded shadow-lg w-full max-w-2xl h-[550px] mx-auto animate-slideUp">
+              <button
+  onClick={() => setEditingEmployee(null)}
+  className="absolute top-1 left-3 -ml-[51px] text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow"
+>
+  <X size={30} />
+</button>
+
             <h3 className="text-lg text-black font-bold mb-4 text-center">Edit Employee</h3>
+
             <div className="grid gap-6">
               <input name="name" value={editingEmployee.id} onChange={handleEditChange} className="border p-2 rounded" />
               <input name="name" value={editingEmployee.name} onChange={handleEditChange} className="border p-2 rounded" />

@@ -86,9 +86,9 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ isOpen, onCl
       
         <button
             onClick={onClose}
-            className="absolute top-2 -ml-12 text-gray-700 hover:text-red-600  rounded bg-blue-700"
+            className="absolute top-2 left-3 -ml-12    text-white   p-1 shadow hover:text-gray-600  rounded-l-full bg-blue-700"
           >
-            <X size={24} />
+            <X size={30} />
         </button>
 
           <h2 className="text-xl font-semibold mb-4 text-center">Add New Employee</h2>

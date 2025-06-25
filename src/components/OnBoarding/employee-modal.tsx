@@ -31,18 +31,19 @@ export function EmployeeModal({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-lg max-h-[90vh] w-full max-w-2xl overflow-hidden"
+            className="bg-white rounded-lg max-h-[90vh] w-full max-w-2xl "
           >
-            <div className="flex items-center justify-between border-b p-4">
+              <button
+                onClick={onClose}
+                className="absoulte top-2 left-3 -ml-10  text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow "
+              >
+                <X size={30} />
+              </button>
+            <div className="flex items-center border-b p-4 -mt-10 ">
               <h3 className="text-lg font-semibold">
                 {employee.name}'s Onboarding Details
               </h3>
-              <button
-                onClick={onClose}
-                className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+            
             </div>
 
             <div className="p-6 space-y-4">
