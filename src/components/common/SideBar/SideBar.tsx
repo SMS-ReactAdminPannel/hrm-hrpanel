@@ -24,13 +24,13 @@ import { GiLaptop } from "react-icons/gi";
 // import { FaUserTimes } from "react-icons/fa";
 import { MdOutlineSick } from "react-icons/md";
 // import { TbReportSearch } from "react-icons/tb";
-import { MdOutlineDashboardCustomize } from "react-icons/md";
+// import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FONTS } from "../../../constants/uiConstants"
 
 //icons
 import { CgCalendarDates } from "react-icons/cg";
 import { IoCalendarNumberOutline, IoChatbox } from "react-icons/io5";
-import { FaListAlt } from "react-icons/fa";
+// import { FaListAlt } from "react-icons/fa";
 import { GoOrganization } from "react-icons/go";
 import { LuPackagePlus } from "react-icons/lu";
 import { MdHotelClass } from "react-icons/md";

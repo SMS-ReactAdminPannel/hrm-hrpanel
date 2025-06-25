@@ -70,7 +70,7 @@ const AppRoutes = () => {
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
 
-          <Route path="leave-management" element={<LeaveTypes />} />
+          <Route path="leave-management" element={<LeaveManagement />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />

@@ -4,11 +4,12 @@ export type Card = {
   // holiday_type: string; //isPaid: string
   // holiday_date: string; //totalDays: number
   // is_active: "yes" | "no"; // reset: string;
+  _id:string
   title: string;
    isPaid: string;
    max_days: string;
    description:string;
-   reset: string;
+   reset: boolean;
   periodIn: string;
   carryforwardType: string;
   requireApproval: string;
@@ -26,10 +27,11 @@ export type NewCard = {
   // reset: string;
 
   _id: string;
-  holiday_name: string;
-  holiday_type: string; 
-  holiday_date: string; 
-  is_active: string;
+  title: string;
+  isPaid: string; 
+  max_days: string; 
+  reset: boolean;
+  description: string;
   periodIn: string;
   carryforwardType: string;
   requireApproval: string;

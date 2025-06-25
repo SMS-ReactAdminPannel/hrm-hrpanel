@@ -13,7 +13,7 @@ export default function LeaveTypeDetailsModal({
   isOpen,
   onClose,
   selectedCard,
-  cardColors,
+  // cardColors,
   getInitials
 }: LeaveTypeDetailsModalProps) {
   if (!isOpen || !selectedCard) return null;
@@ -25,9 +25,9 @@ export default function LeaveTypeDetailsModal({
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center">
               <div className={`w-12 h-12 rounded-full ${cardColors[selectedCard._id] || 'bg-blue-200'} flex items-center justify-center text-black text-xl font-bold mr-4`}>
-                {getInitials(selectedCard.holiday_name)}
+                {getInitials(selectedCard.title)}
               </div>
-              <h3 className="text-2xl font-bold text-gray-800">{selectedCard.holiday_name}</h3>
+              <h3 className="text-2xl font-bold text-gray-800">{selectedCard.title}</h3>
             </div>
             <button
               onClick={onClose}
@@ -41,8 +41,8 @@ export default function LeaveTypeDetailsModal({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <DetailItem label="Period In" value={selectedCard.periodIn} />
-            <DetailItem label="Is Paid" value={selectedCard.holiday_type} />
-            <DetailItem label="Total Days" value={selectedCard.holiday_date.toString()} />
+            <DetailItem label="Is Paid" value={selectedCard.isPaid} />
+            <DetailItem label="Total Days" value={selectedCard.max_days.toString()} />
             {/* <DetailItem label="Is Paid" value={selectedCard.is_active} /> */}
           </div>
 
