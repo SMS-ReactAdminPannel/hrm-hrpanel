@@ -47,6 +47,7 @@ import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offb
 import DepartmentList from "../pages/Department/DepartmentList";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
+import Calendar from "../components/DashBoard/Calender/calender";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -100,6 +101,8 @@ const AppRoutes = () => {
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
           <Route path="/ProfilePage" element={<ProfilePage />}/>
+          <Route path="/calendar" element={<Calendar />}/>
+
           
         </Route>
       ) : (

@@ -29,7 +29,7 @@ import { FONTS } from "../../../constants/uiConstants"
 
 //icons
 import { CgCalendarDates } from "react-icons/cg";
-import { IoChatbox } from "react-icons/io5";
+import { IoCalendarNumberOutline, IoChatbox } from "react-icons/io5";
 import { FaListAlt } from "react-icons/fa";
 import { GoOrganization } from "react-icons/go";
 import { LuPackagePlus } from "react-icons/lu";
@@ -166,6 +166,7 @@ const SideBar = ({
           {/* <SidebarLink to="/announcement" icon={<MdEventAvailable />} label="Announcement" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           {/* <SidebarLink to="/grievance-management" icon={<AiOutlineIssuesClose />} label="Grievance Management" isOpen={actualOpen} onClick={handleLinkClick} /> */}
           <SidebarLink to="/visitor-management" icon={<MdOutlineVisibility />} label="Visitor Management" isOpen={actualOpen} onClick={handleLinkClick} />
+          <SidebarLink to="/calendar" icon={<IoCalendarNumberOutline />} label="Calendar" isOpen={actualOpen} onClick={handleLinkClick} />
          
 
 
