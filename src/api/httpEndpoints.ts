@@ -43,5 +43,18 @@ export const API_END_POINTS = {
     updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
     deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
   },
+  
+
+
+    jobPosting: {
+      getAll: "/api/job-postings",
+      getById: "/api/job-postings",   
+      create: "/api/job-postings",
+      update: "/api/job-postings",    
+      delete: "/api/job-postings",    
+    },
+ 
+  
 };
+
 

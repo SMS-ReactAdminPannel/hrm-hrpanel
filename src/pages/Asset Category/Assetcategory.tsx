@@ -336,7 +336,7 @@ catch (error) {
 
 
   return (
-    <div className=" min-h-screen">
+    <div className=" min-h-screen ">
       <div className="container ">
         <AssetCategoryHeader
           searchQuery={searchQuery}
@@ -345,7 +345,7 @@ catch (error) {
           onCreate={handleCreateCategory}
         />
 
-        <div className="p-6">
+        <div className="">
           <div className="max-w-full mx-auto">
             {filteredCategories.length === 0 ? (
               <div className="text-center py-12">

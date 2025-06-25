@@ -33,7 +33,7 @@ export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
       <h3 className="text-sm font-semibold text-gray-800 mb-1" style={{
         fontSize: FONTS.paragraph.fontSize,
         fontFamily: FONTS.paragraph.fontFamily
-      }}>Issue Description:</h3>
+      }}>Issue Description:</h3> 
 <p className="text-gray-700 mb-1 whitespace-pre-line">{grievance.description}</p>
 
       <div className=" text-sm text-gray-500"

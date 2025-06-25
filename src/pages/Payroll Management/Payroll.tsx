@@ -109,7 +109,6 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
   return (
     <div className="flex flex-col w-full min-h-screen bg-transparent opacity-0.3">
       <div className="flex flex-col gap-6 p-6">
-        {/* Header */}
         <div className="flex flex-col-3 gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-black" style={FONTS.header}>Payroll</h1>
@@ -126,9 +125,8 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
         </div>
 
 
-        {/* Stats Cards */}
+        
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {/* Total Employees Card */}
           <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
@@ -155,7 +153,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
             </div>
           </div>
 
-          {/* Monthly Payroll Card */}
+  
           <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
@@ -182,7 +180,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
             </div>
           </div>
 
-          {/* Pending Payments Card */}
+  
           <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
@@ -209,7 +207,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
             </div>
           </div>
 
-          {/* Average Salary Card */}
+      
           <div className="bg-[#eff4f5] overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
@@ -237,7 +235,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
           </div>
         </div>
 
-        {/* Filters */}
+    
         <div className="flex items-center justify-between w-full gap-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -269,7 +267,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
           </div>
         </div>
 
-        {/* Employee Table */}
+        
         <div className="bg-[#eff4f5] shadow overflow-hidden sm:rounded-md">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -308,21 +306,18 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
               </tbody>
             </table>
 
-            {/* Payslip Modal */}
             {selectedEmployee && (
               <PayslipView
                 employee={selectedEmployee}
                 onClose={() => setSelectedEmployee(null)}
               />
             )}
-
-            {/* Process Payroll Modal */}
             <ProcessPayrollModal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               selectedOption={modalOption}
               setSelectedOption={setModalOption}
-              departmentOptions={departmentOptionsModal} // Only unique depts
+              departmentOptions={departmentOptionsModal}
               selectedDepartment={modalDepartment}
               setSelectedDepartment={setModalDepartment}
             />

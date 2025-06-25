@@ -65,16 +65,16 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
           onClick={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? (
-            <ChevronDown className="w-4 h-4 text-gray-600" />
+            <ChevronDown className="w-4 h-4 text-gray-900" />
           ) : (
-            <ChevronRight className="w-4 h-4 text-gray-600" />
+            <ChevronRight className="w-4 h-4 text-gray-900" />
           )}
 
           <div className="flex items-center gap-3">
             <span className="bg-[#006666] text-white text-xs font-medium px-2 py-1 rounded-full min-w-[24px] text-center">
               {searchQuery ? filteredAssets?.length : count}
             </span>
-            <span className="font-medium text-gray-900 capitalize">{category}</span>
+            <span className="font-medium text-gray-900 text-sm capitalize">{category}</span>
           </div>
         </div>
 
@@ -84,21 +84,21 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
             className="p-1 text-gray-400 hover:text-[#006666] transition-colors"
             title="Add New Asset"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={() => onEditCategory(category)}
             className="p-1 text-gray-400 hover:text-[#006666] transition-colors"
             title="Edit Category"
           >
-            <Edit className="w-4 h-4" />
+            <Edit className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={() => onDeleteCategory(category)}
             className="p-1 text-gray-400 hover:text-red-600 transition-colors"
             title="Delete Category"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-4 h-4 text-gray-600" />
           </button>
         </div>
       </div>

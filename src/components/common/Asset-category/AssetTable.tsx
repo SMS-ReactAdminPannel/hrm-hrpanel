@@ -77,12 +77,12 @@ const AssetTable: React.FC<AssetTableProps> = ({
   
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-[#006666] ">
             <tr>
               {tableHeaders?.map((header,index) => (
                 <th 
                   key={header?.key || index}
-                  className={`text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${header?.width}`}
+                  className={`text-left px-6 py-4 text-xs font-semibold text-white uppercase tracking-wider ${header?.width}`}
                 >
                   {header?.label}
                 </th>
@@ -115,7 +115,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
                 </td>
 
                 
-                <td className="px-6 py-4 w-1/6">
+                <td className="px-6 py-4 w-1/6 ">
                   <span
                     className={`inline-flex items-center px-1 py-1 text-xs font-medium rounded-md border ${getStatusColor(asset?.status)}`}
                   >
@@ -151,7 +151,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
                       className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-[#006666] hover:bg-gray-100 rounded-md transition-all duration-200"
                       title="Edit Asset"
                     >
-                      <Edit className="w-4 h-4" />
+                      <Edit className="w-4 h-4 text-gray-600" />
                     </button>
                     <button
                       onClick={(e) => {
@@ -161,7 +161,7 @@ const AssetTable: React.FC<AssetTableProps> = ({
                       className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all duration-200"
                       title="Delete Asset"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4 text-gray-600" />
                     </button>
                   </div>
                 </td>

@@ -440,13 +440,17 @@ export default function Deduction() {
       <div className={` transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
         {/* Search and Add Card */}
         <div className="flex md:flex-row justify-between mb-6 gap-4">
-          <div className='text-2xl font-bold px-2 py-2' >
+          <div className='text-2xl font-bold  py-2'
+           style={{
+                      fontSize: FONTS.header.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                    }} >
             Deduction Management
           </div>
           <div className="flex gap-5 ml-auto">
             <div className="relative">
               <div className="absolute inset-y-0 pb-2 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -470,7 +474,7 @@ export default function Deduction() {
                 setEditingCard(null);
                 setIsModalOpen(true);
               }}
-             style={{ backgroundColor: '#006666' }}
+             style={{ backgroundColor: '#006666',fontSize:FONTS.paragraph.fontSize }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
@@ -658,22 +662,24 @@ export default function Deduction() {
 
       {/* Card Details Modal */}
       {isDetailsModalOpen && selectedCard && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4
+      ">
           <div 
             ref={detailsModalRef}
-            className="bg-white rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto
+            backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100"
           >
-            <div className="p-6">
+            <div className="p-6 ">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center">
-                  <div className={`w-12 h-12 rounded-full ${cardColors[selectedCard.id] || 'bg-blue-200'} flex items-center justify-center text-black text-xl font-bold mr-4`}>
+                  <div className={`w-12 h-12 rounded-full text-white ${cardColors[selectedCard.id] || 'bg-blue-200'} flex items-center justify-center text-black text-xl font-bold mr-4`}>
                     {getInitials(selectedCard.title)}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800">{selectedCard.title}</h3>
+                  <h3 className="text-2xl font-bold text-white">{selectedCard.title}</h3>
                 </div>
                 <button 
                   onClick={closeDetailsModal}
-                  className="text-gray-500 rounded-md hover:text-white transition-colors"
+                  className="text-gray-900 rounded-md hover:text-white transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -681,8 +687,8 @@ export default function Deduction() {
                 </button>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <DetailItem label="Is Pretax" value={selectedCard.isPretax} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+                <DetailItem label="Is Pretax" value={selectedCard.isPretax}  />
                 <DetailItem label="Is Recurring" value={selectedCard.isRecurring} />
                 <DetailItem label="Deduction Type" value={selectedCard.deductionType} />
                 <DetailItem label="Is Condition Based" value={selectedCard.isConditionBased} />
@@ -714,9 +720,12 @@ export default function Deduction() {
 // Helper component for detail items
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-b pb-3">
-      <span className="text-gray-500 text-sm">{label}:</span>
-      <span className="ml-2 font-medium text-gray-800">{value}</span>
+    <div className="border-b pb-3 "
+    style={{fontSize:FONTS.paragraph.fontSize,
+      fontFamily:FONTS.paragraph.fontFamily
+    }}>
+      <span className="text-gray-500 text-sm text-white">{label}:</span>
+      <span className="ml-2 font-medium  text-white">{value}</span>
     </div>
   );
 }
