@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createVisitor, deleteVisitor, getVisitors } from "../../features/VisitorsManagement/service"; // Adjust path as needed
+import { createVisitor, deleteVisitor, getVisitors } from "../../features/VisitorsManagement/service";
 import { Building } from "lucide-react";
 import VisitorDetailsModal from "./VisitorDetailsModel";
 import VisitorCard from "./VisitorCard";

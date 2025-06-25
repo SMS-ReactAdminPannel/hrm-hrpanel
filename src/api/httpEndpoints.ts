@@ -52,7 +52,7 @@ export const API_END_POINTS = {
 
 
     jobPosting: {
-      getAll: "/api/hr/job-postings",
+      getAll: "/api/job-postings",
       getById: "/api/job-postings",   
       create: "/api/job-postings",
       update: "/api/job-postings",    
@@ -82,7 +82,7 @@ export const API_END_POINTS = {
       assetcategory:{
         createasset:"/api/hr/assetcategory/create",
         getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
-        getallasset:"/api/hr/assetcategory/getall",
+        getallasset:"/api/hr/assetcategory/assetgetall",
         updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
         deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
     

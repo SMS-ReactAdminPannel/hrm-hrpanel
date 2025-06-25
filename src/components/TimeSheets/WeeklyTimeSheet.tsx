@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FONTS } from "../../constants/uiConstants";
+// import { FONTS } from "../../constants/uiConstants";
 
 interface TimeEntry {
   day: string;
@@ -21,9 +21,9 @@ interface WeeklyTimeSheetProps {
 const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredUsers = timesheet.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredUsers = timesheet.filter((user) =>
+  //   user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   const daysOfWeek = [
     "Monday",
