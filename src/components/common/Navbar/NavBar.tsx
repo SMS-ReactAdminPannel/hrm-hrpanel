@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type JSX } from 'react';
-import { Search, Star, Moon, Bell } from 'lucide-react';
+import { Search, Star, Moon, Bell, QrCode, Monitor, Shield, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { postLogout } from '../../../features/auth/service';
 import { MdYoutubeSearchedFor } from 'react-icons/md';
@@ -18,6 +18,8 @@ export default function Navbar() {
   const notificationRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const handleProfileClick=()=>{navigate("/ProfilePage"); setShowProfileMenu(false)}
+
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -180,6 +182,7 @@ export default function Navbar() {
           )}
         </div>
 
+        {/*Profile*/}
         <div className="relative" ref={profileRef}>
           <div
             onClick={() => setShowProfileMenu((prev) => !prev)}
@@ -192,7 +195,69 @@ export default function Navbar() {
             />
           </div>
 
-          {showProfileMenu && (
+          <AnimatePresence>
+            {showProfileMenu && (
+              <motion.div initial={{ opacity: 0, y: 70 }} animate={{ opacity: 1, y: 10 }} transition={{ duration: 0.8, ease: "easeOut" }} 
+              className='absolute right-0 mt-3 w-72 bg-white shadow-xl rounded-xl z-50 p-5 text-sm space-y-4'>
+                <div onClick={handleProfileClick} className='cursor-pointer border rounded-lg mt-1 p-3'>
+                  <h2 className='font-semibold text-gray-800'>JOHN P</h2>
+                  <p className='text-xs text-gray-500'>Administrator</p>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="w-1/2 flex flex-col">
+                    <div className="flex flex-col justify-between border rounded-lg p-3 h-full">
+                      <div className="flex items-center gap-2">
+                        <QrCode className='text-gray-500'/>
+                        <p className="text-sm font-medium">Mobile Login</p>
+                      </div>
+                      <button className="text-xs text-gray-600 border mt-3 p-1 rounded-md">Show OR code</button>
+                    </div>
+                  </div>
+
+                  <div className="w-1/2 flex flex-col gap-2">
+                    <div className="flex flex-col border rounded-lg p-3">
+                      <div className="flex items-center gap-2">
+                        <Monitor className='text-gray-500'/>
+                        <p className="text-sm">Bitrix24 for Windows</p>
+                      </div>
+                      <button className="text-xs text-blue-600 border border-blue-600 rounded px-2 py-1 mt-2">Install</button>
+                    </div>
+
+                    <div className="flex flex-col border rounded-lg p-3">
+                      <div className="flex items-center gap-2">
+                        <Shield className='text-gray-500'/>
+                        <p className="text-sm">Two-factor authentication</p>
+                      </div>
+                      <button className="text-xs text-blue-600 border border-blue-600 rounded px-2 py-1 mt-2">Enable</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='flex-1 items-center justify-between border rounded-lg p-3'>
+                  <button className='flex items-center gap-2'>  
+                    <p>Extension</p>
+                  </button>
+                </div>
+                <div className='flex gap-4'>
+                  <div className='w-1/2'>
+                    <div className='flex items-center border rounded-lg p-3'>
+                      <button className='text-gray-700'>Change background</button>
+                    </div>
+                  </div>
+                  <div className='w-1/2'>
+                    <div className='flex items-center border rounded-lg p-3'>
+                      <button className='text-gray-700' onClick={handleLogout}>
+                        <LogOut className='w-4 h-4'/>
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {/*{showProfileMenu && (
             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-50 py-2">
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">My Profile</div>
               <div className="px-4 py-2 text-sm text-gray-600 cursor-pointer hover:bg-gray-100">Inbox</div>
@@ -204,8 +269,10 @@ export default function Navbar() {
                 Log Out
               </div>
             </div>
-          )}
+          )}*/}
         </div>
+
+
       </div>
     </div>
   );
