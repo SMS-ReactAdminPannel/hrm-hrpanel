@@ -77,7 +77,7 @@ const Transaction: React.FC = () => {
   ];
 
   return (
-    <div className= "p-2  ">
+    <div className="p-2  ">
       <div className="col-span-6 ">
         <h2 className="text-xl font-semibold text-gary-900 mb-4">
           Transaction History
@@ -92,44 +92,46 @@ const Transaction: React.FC = () => {
         </div>
 
         {/* Rows */}
-        <div className="overflow-y-scroll scrollbar-hide max-h-[280px]">
-            {transactions.map((txn, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-4 items-center text-sm text-gray-800 border-b py-2 last:border-b-0 "
-          >
-            {/* Name + Avatar */}
-            <div className="flex items-center space-x-3">
-              <img
-                src={txn.img}
-                alt={txn.name}
-                className="w-8 h-8 rounded-full object-cover"
-              />
+        <div className="overflow-y-scroll scrollbar-hide max-h-[280px] rounded-xl">
+          {transactions.map((txn, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-4 items-center text-sm text-gray-800 border-b py-2 last:border-b-0 "
+            >
+              {/* Name + Avatar */}
+              <div className="flex items-center space-x-3">
+                <img
+                  src={txn.img}
+                  alt={txn.name}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <div>
+                  <p className=" font-bold ">{txn.name}</p>
+                  <p className="text-xs font-bold text-gray-900">
+                    {txn.company}
+                  </p>
+                </div>
+              </div>
+
+              {/* Date-Time */}
               <div>
-                <p className=" font-bold ">{txn.name}</p>
-                <p className="text-xs font-bold text-gray-900">{txn.company}</p>
+                <p className="text-xs font-bold text-gray-900">{txn.date}</p>
+                <p className="text-xs font-bold text-gray-900">{txn.time}</p>
+              </div>
+
+              {/* Amount */}
+              <div>
+                <p className="font-bold">{txn.amount}</p>
+              </div>
+
+              {/* Action */}
+              <div className="text-left">
+                <button className="text-xs font-bold bg-gray-300 px-6 py-1 rounded-md">
+                  Send Invoice
+                </button>
               </div>
             </div>
-
-            {/* Date-Time */}
-            <div>
-              <p className="text-xs font-bold text-gray-900">{txn.date}</p>
-              <p className="text-xs font-bold text-gray-900">{txn.time}</p>
-            </div>
-
-            {/* Amount */}
-            <div>
-              <p className="font-bold">{txn.amount}</p>
-            </div>
-
-            {/* Action */}
-            <div className="text-left">
-              <button className="text-xs font-bold bg-gray-300 px-6 py-1 rounded-md">
-                Send Invoice
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
         </div>
       </div>
     </div>

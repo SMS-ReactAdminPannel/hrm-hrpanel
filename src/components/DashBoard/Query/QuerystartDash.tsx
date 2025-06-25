@@ -71,9 +71,9 @@ export default function SupportQueryBlock() {
       {/* Main content */}
       <div className="flex flex-col  gap-6">
           {/* Bottom Metrics */}
-        <div className="flex justify-between mt-5 gap-2">
-          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+        <div className="flex justify-between mt-5 gap-2 md:gap-1 ">
+          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md hover:scale-103 transition-transform duration-300">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center md:w-4 md:h-4">
               <Ticket className="w-4 h-4 text-purple-600" />
             </div>
             <div>
@@ -82,8 +82,8 @@ export default function SupportQueryBlock() {
             </div>
           </div>
 
-          <div className="flex  bg-yellow-100 items-center gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+          <div className="flex  bg-yellow-100 items-center gap-3 bg-gray-200 border rounded-xl p-1 shadow-md hover:scale-97 transition-transform duration-300">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center md:w-4 md:h-4">
               <CheckCircle className="w-4 h-4 text-teal-600" />
             </div>
             <div>
@@ -92,8 +92,8 @@ export default function SupportQueryBlock() {
             </div>
           </div>
 
-          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+          <div className="flex items-center  bg-yellow-100 gap-3 bg-gray-200 border rounded-xl p-1 shadow-md hover:scale-103 transition-transform duration-300">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center md:w-4 md:h-4">
               <Clock className="w-4 h-4 text-orange-600" />
             </div>
             <div>
@@ -104,17 +104,17 @@ export default function SupportQueryBlock() {
         </div>
 
         {/* Top Stats */}
-        <div className="flex justify-around  items-center mt-8">
+        <div className="flex justify-around  items-center mt-8 ">
           {/* Total */}
           <div className="flex flex-col items-center">
-            <div className="shadow-md bg-blue-200 border w-28 h-28 rounded-xl flex flex-col items-center justify-center ">
+            <div className="shadow-md bg-blue-200 border w-28 h-28 rounded-xl flex flex-col items-center justify-center hover:scale-103 transition-transform duration-300 ">
               <div className="text-4xl text-black  font-semibold">164</div>
               <div className="text-sm font-bold text-gray-800 mt-1">Total Queries</div>
             </div>
           </div>
 
           {/* Circular Progress */}
-          <div className="relative w-32 h-32 ">
+          <div className="relative w-32 h-32 hover:scale-97 transition-transform duration-300 ">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
               <circle
                 cx="50"

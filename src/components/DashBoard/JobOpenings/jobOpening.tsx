@@ -122,10 +122,13 @@ const JobOpening: React.FC = () => {
         </button>
       </div>
 
-      <div className="space-y-2  overflow-y-scroll max-h-[260px]  scrollbar-hide">
+      <div className="space-y-2 overflow-y-scroll max-h-[250px] rounded-xl  scrollbar-hide ">
         {activeTab === "applicants" &&
           applicants.map((applicant, index) => (
-            <div key={index} className="flex justify-between bg-[#FAF3EB] rounded-xl p-1 items-center ">
+            <div
+              key={index}
+              className="flex justify-between bg-[#FAF3EB] rounded-xl p-2 items-center hover:scale-97 transition-transform duration-300 "
+            >
               <div className="">
                 <p className="font-semibold">{applicant.name}</p>
                 <p className="text-sm text-gray-700">
@@ -142,7 +145,10 @@ const JobOpening: React.FC = () => {
 
         {activeTab === "openings" &&
           jobs.map((job, index) => (
-            <div key={index} className="flex justify-between bg-[#FAF3EB] rounded-xl p-1 items-center">
+            <div
+              key={index}
+              className="flex justify-between bg-[#FAF3EB] rounded-xl p-2 items-center hover:scale-97 transition-transform duration-300"
+            >
               <div>
                 <p className="font-semibold">{job.title}</p>
                 <p className="text-sm text-gray-500">
