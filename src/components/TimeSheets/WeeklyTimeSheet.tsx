@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { FONTS } from "../../constants/uiConstants";
+import { FONTS } from "../../constants/uiConstants";
 
 interface TimeEntry {
   day: string;
@@ -47,15 +47,16 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
                   placeholder="Search by name..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-[#eff4f5] text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                  className="w-full bg-[#eff4f5] !text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                 style={{...FONTS.paragraph}}
                 />
               </th>
               {daysOfWeek.map((day) => (
-                <th key={day} className="px-6 py-3 text-center">
+                <th key={day} className="px-6 py-3 text-center !font-semibold" style={{...FONTS.paragraph}}>
                   {day}
                 </th>
               ))}
-              <th className="px-6 py-3 text-center">Total</th>
+              <th className="px-6 py-3 text-center"style={{...FONTS.cardSubHeader}}>Total</th>
             </tr>
           </thead>
           <tbody>
@@ -63,7 +64,8 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
               <tr>
                 <td
                   colSpan={daysOfWeek.length + 2}
-                  className="text-center bg-[#eff4f5] py-6 text-black"
+                  className="!text-center !bg-[#eff4f5] py-6 !text-black"
+                  style={{...FONTS.tableBody}}
                 >
                   No timesheet found.
                 </td>
@@ -78,9 +80,10 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
                   <tr
                     key={user.name}
                     className="bg-[#eff4f5] border-b border-slate-200/50 group cursor-pointer"
+                    style={{...FONTS.tableBody}}
                   >
                     <td className="px-6 py-4 flex items-center gap-3">
-                      <span className="font-medium text-gray-700">
+                      <span className="!font-medium !text-gray-700" style={{...FONTS.cardSubHeader}}>
                         {user.name}
                       </span>
                     </td>
@@ -88,7 +91,7 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
                       <td
                         key={entry.day}
                         className={`px-6 py-4 text-center ${
-                          entry.isHoliday ? "text-red-500 font-semibold" : ""
+                          entry.isHoliday ? "!text-red-500 !font-semibold" : ""
                         }`}
                       >
                         <span
@@ -102,7 +105,7 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
                         </span>
                       </td>
                     ))}
-                    <td className="px-6 py-4 text-center font-semibold text-green-600">
+                    <td className="px-6 py-4 text-center !font-semibold !text-green-600" style={{...FONTS.tableBody}}>
                       {totalHours} hr
                     </td>
                   </tr>

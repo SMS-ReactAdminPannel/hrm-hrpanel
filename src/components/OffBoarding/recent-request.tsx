@@ -1,7 +1,7 @@
 "use client"
 
 import type { OffboardingRequest } from "./types"
-
+import {FONTS} from "../../constants/uiConstants"
 interface RecentRequestsProps {
   requests: OffboardingRequest[]
   onSelectEmployee: (request: OffboardingRequest) => void
@@ -11,7 +11,7 @@ export const RecentRequests = ({ requests, onSelectEmployee }: RecentRequestsPro
   return (
     <div className="lg:col-span-2 bg-white p-6 rounded-lg border shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Recent Exit Requests</h3>
+        <h3 className="text-lg !font-semibold !text-gray-900"style={{...FONTS.cardSubHeader}}>Recent Exit Requests</h3>
       </div>
       <div className="space-y-4">
         {requests.slice(0, 3).map((req) => (
@@ -22,10 +22,10 @@ export const RecentRequests = ({ requests, onSelectEmployee }: RecentRequestsPro
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="text-2xl">{req.employee.avatar}</div>
+                <div className="text-2xl" style={{...FONTS.header}}>{req.employee.avatar}</div>
                 <div>
-                  <h4 className="font-medium">{req.employee.name}</h4>
-                  <p className="text-sm text-gray-500">
+                  <h4 className="!font-medium !font-semibold !text-gray-900" style={{...FONTS.cardSubHeader}} >{req.employee.name}</h4>
+                  <p className="!text-sm !text-gray-500" style={{...FONTS.paragraph}}>
                     {req.employee.department} • {req.exitDetails.type}
                   </p>
                 </div>
@@ -34,13 +34,13 @@ export const RecentRequests = ({ requests, onSelectEmployee }: RecentRequestsPro
                 <div className="flex items-center space-x-2">
                   <div className="w-16 bg-gray-200 rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="!bg-blue-600 h-2 rounded-full"
                       style={{ width: `${req.progress.percentage}%` }}
                     ></div>
                   </div>
-                  <span className="text-sm text-gray-600">{req.progress.percentage}%</span>
+                  <span className="!text-sm !text-gray-600" style={{...FONTS.paragraph}}>{req.progress.percentage}%</span>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">Due: {req.exitDetails.lastWorkingDay}</p>
+                <p className="!text-sm !text-gray-500 mt-1" style={{...FONTS.paragraph}}>Due: {req.exitDetails.lastWorkingDay}</p>
               </div>
             </div>
           </div>

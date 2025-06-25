@@ -51,7 +51,7 @@ export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalP
               </div>
               <h3 className="text-2xl font-bold text-gray-800">{card.title}</h3>
             </div>
-            <button onClick={onClose} className="text-gray-500 rounded-md hover:text-white transition-colors">
+            <button onClick={onClose} className="text-gray-500 rounded-md bg-[#bf70cc] hover:text-white transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -79,7 +79,7 @@ export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalP
 
           <div className="flex justify-end mt-6">
             <button
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md bg-[#bf70cc] hover:bg-blue-700 transition-colors"
               onClick={onClose}
               type="button"
             >

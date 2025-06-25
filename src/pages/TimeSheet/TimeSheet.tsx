@@ -60,7 +60,8 @@ const TimeSheet = () => {
             <div className={`bg--200  rounded-lg transition duration-300 ${isExportOpen ? "blur-sm pointer-events-none select-none" : ""}`}>
                 <div className="flex justify-between items-center font-bold">
                     <h1
-                        className="py-3 text-black" style={FONTS.header}
+                 
+                        className="text-4xl !font-semibold !text-white mt-2 leading-relaxed pb-1" style={{...FONTS. subHeader}}
                     >
                         Timesheets
                     </h1>

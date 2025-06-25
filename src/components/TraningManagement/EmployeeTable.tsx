@@ -1,7 +1,8 @@
 import type React from "react"
 import { EmployeeRow } from "../../components/TraningManagement/EmployeeRow"
 import type { Employee, TrainingProgram } from "../../components/TraningManagement/Traning"
-import { FONTS } from "../../components/TraningManagement/Fonts" 
+import {FONTS} from "../../constants/uiConstants"
+
 
 interface EmployeeTableProps {
   employees: Employee[]
@@ -23,21 +24,14 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, selecte
       <div className="py-4 lg:px-[2%] lg:py-6 rounded-xl">
         <h2
           className="text-lg lg:text-xl font-bold text-gray-900"
-          style={{
-            fontFamily: FONTS.header2.fontFamily,
-            fontWeight: FONTS.header2.fontWeight,
-            fontSize: FONTS.header2.fontSize,
-          }}
+          style={{...FONTS.header}}
         >
           {selectedProgram ? `Participants in ${selectedProgram.title}` : "Employee Training Progress"}
         </h2>
         {selectedProgram && (
           <p
-            className="text-sm lg:text-base text-gray-600 mt-1"
-            style={{
-              fontFamily: FONTS.paragraph.fontFamily,
-              fontWeight: FONTS.paragraph.fontWeight,
-            }}
+            className="text-sm lg:text-base text-gray-700 mt-3"
+            style={{...FONTS.paragraph}}
           >
             Showing {employees.length} enrolled participants
           </p>
@@ -52,11 +46,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, selecte
                 <th
                   key={idx}
                   className="px-6 py-3 text-left text-sm lg:text-sm font-medium text-black tracking-wider"
-                  style={{
-                    fontFamily: FONTS.paragraph.fontFamily,
-                    fontWeight: FONTS.paragraph.fontWeight,
-                    fontSize: FONTS.paragraph.fontSize,
-                  }}
+                  style={{...FONTS.tableHeader}}
                 >
                   {heading}
                 </th>
@@ -64,12 +54,8 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, selecte
             </tr>
           </thead>
           <tbody
-            className="divide-y divide-gray-200 text-sm lg:text-base"
-            style={{
-              fontFamily: FONTS.paragraph.fontFamily,
-              fontWeight: FONTS.paragraph.fontWeight,
-              marginBottom: "10px",
-            }}
+            className="divide-y !divide-gray-200 text-sm lg:text-base"
+             style={{...FONTS.tableBody}}
           >
             {employees.map((employee) => (
               <EmployeeRow key={employee.id} employee={employee} selectedProgram={selectedProgram} />

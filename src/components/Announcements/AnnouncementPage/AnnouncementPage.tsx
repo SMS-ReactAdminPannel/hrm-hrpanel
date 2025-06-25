@@ -134,9 +134,8 @@ const Announcement = () => {
     });
     setEditIndex(null);
   }}
-            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#006666]  rounded-md group"
+            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#3e3a85]  rounded-md group"
 >
-  {/* <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-[#3e3a85] rounded-full group-hover:w-56 group-hover:h-56"></span> */}
 
   <span className="absolute bottom-0 left-0 h-full -ml-2">
     <svg
@@ -170,14 +169,13 @@ const Announcement = () => {
 
   <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
 
-  <span className="relative text-base font-semibold"
+  <span className="relative !text-base !font-semibold"
   
   >Add   Announcement</span>
 </button>
  </div>
 </div>
       <div className="my-4 rounded-lg">
-
         {showModal && (
           <AnnouncementForm
             formData={formData}
@@ -195,7 +193,6 @@ const Announcement = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-
         {totalPages > 1 && (
           <div className="flex justify-end  mt-2 p-2 rounded-b-lg">
             {/* <div className="text-sm text-gray-600 p-2">
@@ -219,7 +216,7 @@ const Announcement = () => {
                       ? "bg-[#4c469f] text-white"
                       : "bg-gray-300 hover:bg-[#a6a3cf]"
                   }`}
-                >
+                > 
                   {i + 1}
                 </button>
               ))}

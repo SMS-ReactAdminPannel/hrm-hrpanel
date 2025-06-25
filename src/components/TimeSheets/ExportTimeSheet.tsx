@@ -80,33 +80,36 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
         >Export Timesheet</h2>
         <button
           onClick={onClose}
-          className="text-2xl text-gray-500 hover:bg-[#006666] hover:text-white px-2 pb-1 rounded-md"
+          className="text-2xl !text-gray-500 hover:bg-[#006666] hover:text-white px-2 pb-1 rounded-md"
           aria-label="Close Export Timesheet"
+          style={{...FONTS.button}}
         >
           &times;
         </button>
       </div>
 
       <div className="mb-4 relative" ref={formatRef}>
-        <label className="block font-semibold text-white mb-1 cursor-pointer"
+        <label className="block !font-semibold !text-white mb-1 cursor-pointer"
+        style={{...FONTS.cardSubHeader}}
         >
           File Format
         </label>
         <button
           type="button"
           onClick={() => toggleDropdown("format")}
-          className="w-full px-4 py-2 bg-white border border-[#006666] rounded-md shadow-lg flex justify-between items-center text-[#006666] font-semibold hover:shadow-md hover:scale-[1.02] transition"
+          className="w-full px-4 py-2 !bg-white border border-[#006666] rounded-md shadow-lg flex justify-between items-center !text-[#006666] !font-semibold hover:shadow-md hover:scale-[1.02] transition"
+          style={{...FONTS.cardSubHeader}}   
         >
           {format}
           <span className="ml-2">&#9662;</span>
         </button>
         {dropdownOpen.format && (
-          <ul className="absolute z-50 mt-2 w-full bg-white text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-48 overflow-auto">
+          <ul className="absolute z-50 mt-2 w-full !bg-white !text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-48 overflow-auto" style={{...FONTS.cardSubHeader}}>
             {formatOptions.map((option) => (
               <li
                 key={option}
                 onClick={() => selectOption("format", option)}
-                className={`px-4 py-2 cursor-pointer hover:bg-[#f0fdfa] hover:text-[#006666] transition ${format === option ? "bg-[#e6fffa] font-semibold" : ""
+                className={`px-4 py-2 cursor-pointer hover:bg-[#f0fdfa] hover:text-[#006666] transition ${format === option ? "!bg-[#e6fffa] !font-semibold" : ""
                   }`}
               >
                 {option}
@@ -122,7 +125,8 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
         <div className="flex-1">
           <label
             htmlFor="fromDate"
-            className="block font-semibold text-white mb-1 cursor-pointer"
+            className="block !font-semibold !text-white mb-1 cursor-pointer" 
+            style={{...FONTS.cardSubHeader}}
           >
             From Date
           </label>
@@ -132,13 +136,15 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
             type="date"
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
-            className="w-full px-4 py-2 border border-[#006666] rounded-md text-[#006666] font-medium focus:outline-none focus:ring-2 focus:ring-[#006666]"
-          />
+            className="w-full px-4 py-2 border border-[#006666] rounded-md !text-[#006666] !font-medium focus:outline-none focus:ring-2 focus:ring-[#006666]"
+          style={{...FONTS.cardSubHeader}}
+     />
         </div>
         <div className="flex-1">
           <label
             htmlFor="toDate"
-            className="block font-semibold text-white mb-1 cursor-pointer"
+            className="block !font-semibold !text-white mb-1 cursor-pointer"
+          style={{...FONTS.cardSubHeader}}
           >
             To Date
           </label>
@@ -154,25 +160,29 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
       </div>
 
       <div className="mb-6 relative" ref={timeFormatRef}>
-        <label className="block font-semibold text-white mb-1 cursor-pointer">
+        <label className="block !font-semibold !text-white mb-1 cursor-pointer" style={{...FONTS.cardSubHeader}}>
           Time Format
         </label>
         <button
           type="button"
           onClick={() => toggleDropdown("timeFormat")}
-          className="w-full px-4 py-2 bg-white border border-[#006666] rounded-md shadow-lg flex justify-between items-center text-[#006666] font-semibold hover:shadow-md hover:scale-[1.02] transition"
+          className="w-full px-4 py-2 !bg-white border border-[#006666] rounded-md shadow-lg flex justify-between items-center !text-[#006666] !font-semibold hover:shadow-md hover:scale-[1.02] transition"
+         style={{...FONTS.button}}        
         >
           {timeFormat === "24hr" ? "24 Hour" : "12 Hour"}
-          <span className="ml-2">&#9662;</span>
+          <span className="ml-2 !text-gray-800" style={{...FONTS.cardSubHeader}}>&#9662;</span>
         </button>
         {dropdownOpen.timeFormat && (
-          <ul className="absolute z-50 mt-2 w-full bg-white text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-48 overflow-auto">
+          <ul className="absolute z-50 mt-2 w-full !bg-white !text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-48 overflow-auto"
+          style={{...FONTS.cardSubHeader}}
+          >
             {timeFormatOptions.map((option) => (
               <li
                 key={option}
                 onClick={() => selectOption("timeFormat", option)}
-                className={`px-4 py-2 cursor-pointer hover:bg-[#f0fdfa] hover:text-[#006666] transition ${timeFormat === option ? "bg-[#e6fffa] font-semibold" : ""
+                className={`px-4 py-2 cursor-pointer !hover:bg-[#f0fdfa] !hover:text-[#006666] !text-[#006666] transition ${timeFormat === option ? "bg-[#e6fffa] font-semibold" : ""
                   }`}
+                  style={{...FONTS.cardSubHeader}}
               >
                 {option === "24hr" ? "24 Hour" : "12 Hour"}
               </li>
@@ -185,13 +195,15 @@ const ExportTimeSheet: React.FC<ExportTimeSheetProps> = ({
       >
         <button
           onClick={onClose}
-          className="border border-[#006666] px-4 py-2 rounded text-[#006666] hover:bg-gray-100 transition"
+          className="border border-[#006666] px-4 py-2 rounded !text-[#006666] hover:bg-gray-100 transition"
+         style={{...FONTS.button}}
         >
           Cancel
         </button>
         <button
           onClick={handleExport}
-          className="bg-[#006666] text-white px-4 py-2 rounded hover:bg-[#005555] transition"
+          className="!bg-[#006666] !text-white px-4 py-2 rounded hover:bg-[#005555] transition"
+         style={{...FONTS.button}}
         >
           Export
         </button>

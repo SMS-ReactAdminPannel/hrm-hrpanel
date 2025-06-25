@@ -42,14 +42,6 @@ export const API_END_POINTS = {
     deleteAsset: (id: string) => `/api/hr/assetproperty/delete-assets/${id}`,
   },
 
-  assetcategory:{
-    createasset:"/api/hr/assetcategory/create",
-    getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
-    getallasset:"/api/hr/assetcategory/getall",
-    updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
-    deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
-
-  },
   // asset: {
   //   getAllAssets: "/api/assets",
   //   getAssetById: (id: string) => `/api/asset/${id}`,
@@ -60,34 +52,53 @@ export const API_END_POINTS = {
 
 
     jobPosting: {
-      getAll: "/api/job-postings",
+      getAll: "/api/hr/job-postings",
       getById: "/api/job-postings",   
       create: "/api/job-postings",
       update: "/api/job-postings",    
       delete: "/api/job-postings",    
     },
 
-    visitors:{
-      getAll: "api/hr/visitors/getAll",
-    } ,
-  
-  department : {
-    getAll:  "/api/department/all",
-  },
-  announcement:{
-    AnnouncementCreate:"/api/hr/announcement/create",
-    AnnouncementGetOne:"/api/hr/announcement/get/:id",
-    AnnouncementGetAll:"/api/hr/announcement/getall",
-    AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
-    AnnouncementDelete:"/api/hr/announcement/delete/:id"
-  },
-  assetCategory: {
+
+      department: {
+        getAll: "/api/hr/departments/getall",
+        create: "/api/hr/departments/create",
+        update: (id: string) => `/api/hr/departments/update/${id}`,
+        delete: (id: string) => `/api/hr/departments/delete/${id}`,
+      },
+      visitors:{
+        create: "api/hr/visitors/",
+        getAll: "api/hr/visitors/getAll",
+        delete:"/api/hr/visitors/:id",
+      } ,
+      
+      announcement:{
+        AnnouncementCreate:"/api/hr/announcement/create",
+        AnnouncementGetOne:"/api/hr/announcement/get/:id",
+        AnnouncementGetAll:"/api/hr/announcement/getall",
+        AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
+        AnnouncementDelete:"/api/hr/announcement/delete/:id"
+      },
+      assetcategory:{
+        createasset:"/api/hr/assetcategory/create",
+        getasset:(id:string)=>`/api/hr/assetcategory/get/${id}`,
+        getallasset:"/api/hr/assetcategory/getall",
+        updateasset:(id:string)=>`/api/hr/assetcategory/update/${id}`,
+        deleteasset:(id:string)=>`/api/hr/assetcategory/delete/${id}`,
+    
+      },
+      assetCategory: {
     createCategory: "/api/hr/assetproperty/asset-categories",
     getAllCategory: "/api/hr/assetproperty/getallasset-categories",
     getCategoryById: (id: string) => `/api/hr/assetproperty/getasset-categories/${id}`,
     updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
     deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
   },
+
+  attendance: {
+    getDailyAttendance: "/api/hr/timesheet/attendance/daily",
+  }
+
 };
 
 

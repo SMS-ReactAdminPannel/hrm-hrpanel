@@ -2,6 +2,7 @@ import type React from "react"
 import { X, ArrowLeft, Plus, Check } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import TextArea from "../../components/Appraisal/TextArea"
+import { FONTS } from "../../constants/uiConstants"
 
 interface Employee {
   id: string
@@ -115,7 +116,8 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
               <div className="pt-4">
                 <button
                   onClick={onCreateMode}
-                  className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full justify-center"
+                  style={FONTS.button}
+                  className="bg-[#4c469f] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full justify-center"
                 >
                   <Plus className="w-4 h-4" />
                   Create New Appraisal
@@ -265,11 +267,11 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
                       </div>
                     ))}
 
-                    <div className="bg-gradient-to-r from-[#006666] to-[#008080] rounded-lg p-6 text-white">
+                    <div className="bg-[#4c469f] rounded-lg p-6 text-white">
                       <div className="flex justify-between items-center">
                         <div>
-                          <h4 className="font-semibold text-white text-lg">Overall Rating</h4>
-                          <p className="text-green-100">Weighted average based on criteria</p>
+                          <h4 style={FONTS.header3} className="font-semibold text-white text-lg">Overall Rating</h4>
+                          <p style={FONTS.paragraph} className="text-green-100">Weighted average based on criteria</p>
                         </div>
                         <div className="text-right">
                           <div className="text-4xl font-bold text-white">{newAppraisalOverallRating.toFixed(1)}</div>
@@ -282,15 +284,16 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
 
                     <div className="flex justify-end gap-3 pt-4">
                       <button
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors"
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400  transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
                         onClick={onClose}
                       >
                         Cancel
                       </button>
                       <button
                         onClick={onSubmit}
+                        style={FONTS.button}
                         disabled={!newAppraisalData.employeeId}
-                        className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors disabled:opacity-50 flex items-center gap-2"
+                        className="bg-[#4c469f] text-white px-4 py-2 rounded-md   transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg disabled:opacity-50 flex items-center gap-2"
                       >
                         <Check className="w-5 h-5" />
                         Submit Appraisal

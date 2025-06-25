@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Search, Filter } from "lucide-react"
 import type { Filters } from "./types"
+import {FONTS} from "../../constants/uiConstants"
 
 interface SearchFilterProps {
   searchQuery: string
@@ -31,29 +32,30 @@ export const SearchFilter = ({ searchQuery, onSearchChange, filters, onFiltersCh
   return (
     <div className="flex items-center space-x-4">
       <div className="relative">
-        <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+        {/* <Search className="w-4 h-4 absolute left-3 top-3 !text-gray-400" /> */}
         <input
           type="text"
           placeholder="Search employees..."
           className="pl-10 pr-4 py-2 border rounded-lg w-64"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
+        style={{...FONTS.paragraph}}
         />
       </div>
       <div className="relative" ref={filterRef}>
-        <button className="px-4 py-2.5 bg-white rounded-md border" onClick={() => setIsFilterOpen(!isFilterOpen)}>
-          <Filter className="w-5 h-5 text-gray-500" />
+        <button className="px-4 py-2.5 bg-white rounded-md border" onClick={() => setIsFilterOpen(!isFilterOpen)} style={{...FONTS.button}}>
+          <Filter className="w-5 h-5 !text-gray-500" />
         </button>
 
         {isFilterOpen && (
           <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg z-10 border">
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <label className="block text-sm font-medium !text-gray-700 mb-1">Status</label>
                 <select
                   className="w-full p-2 border rounded-md"
                   value={filters.status}
-                  onChange={(e) => onFiltersChange({ ...filters, status: e.target.value })}
+                  onChange={(e) => onFiltersChange({ ...filters, status: e.target.value })} 
                 >
                   <option value="All">All Statuses</option>
                   <option value="Pending">Pending</option>
@@ -63,11 +65,12 @@ export const SearchFilter = ({ searchQuery, onSearchChange, filters, onFiltersCh
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                <label className="block text-sm font-medium !text-gray-700 mb-1" >Department</label>
                 <select
                   className="w-full p-2 border rounded-md"
                   value={filters.department}
                   onChange={(e) => onFiltersChange({ ...filters, department: e.target.value })}
+
                 >
                   <option value="All">All Departments</option>
                   <option value="Engineering">Engineering</option>

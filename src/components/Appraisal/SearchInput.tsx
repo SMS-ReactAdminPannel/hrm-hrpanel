@@ -21,7 +21,7 @@ const SearchInput = React.memo<SearchInputProps>(({ value, onChange, placeholder
       <input
         type="text"
         placeholder={placeholder}
-        className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666] focus:border-transparent transition-all duration-200"
+        className="w-full pl-10 pr-4 py-3  bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#4c469f] focus:border-transparent transition-all duration-200"
         value={value}
         onChange={handleChange}
       />

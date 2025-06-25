@@ -1,176 +1,89 @@
-import { useState } from "react"
-import type { Employee } from "./employe_interface"
-import { Dropdown, DropdownItem } from "./dropdown"
-import { AlertDialog } from "./alert-dialogue"
-import { MoreVertical, Edit, Trash2, Mail, Phone, ChevronDown, ChevronRight } from "lucide-react"
+"use client"
+import { Edit, Trash2, Mail, Phone, Plus } from "lucide-react"
+import type { Employee } from "./employee"
 
 interface EmployeeCardProps {
   employee: Employee
-  onEdit: (employee: Employee) => void
-  onDelete: (employeeId: string) => void
-  level: number
-  isExpanded?: boolean
-  hasChildren?: boolean
+  onEdit: () => void
+  onDelete: () => void
+  onAddChild: () => void
 }
 
-export function EmployeeCard({ 
-  employee, 
-  onEdit, 
-  onDelete, 
-  level, 
-  isExpanded = false, 
-  hasChildren = false 
-}: EmployeeCardProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+export function EmployeeCard({ employee, onEdit, onDelete, onAddChild }: EmployeeCardProps) {
 
-  const handleDelete = () => {
-    onDelete(employee.id)
-    setShowDeleteDialog(false)
+  const getDepartmentColor = (department: string) => {
+    const colors = {
+      Executive: "border border-9 border-purple-400 bg-gradient-to-br from-purple-500 to-purple-600 text-white",
+      Technology: "border border-9 border-blue-400 bg-gradient-to-br from-blue-500 to-blue-600 text-white",
+      Finance: "border border-9 border-green-400 bg-gradient-to-br from-green-500 to-green-600 text-white",
+      Marketing: "border border-9 border-pink-400 bg-gradient-to-br from-pink-500 to-pink-600 text-white",
+      Product: "border border-9 border-orange-400 bg-gradient-to-br from-orange-500 to-orange-600 text-white",
+    }
+    return colors[department as keyof typeof colors] || "bg-gradient-to-br from-gray-500 to-gray-600 text-white"
   }
-
-  const getLevelStyles = (level: number) => {
-    const styles = [
-      {
-        card: "border-blue-200 bg-blue-50",
-        badge: "bg-blue-100 text-blue-800",
-        avatar: "bg-blue-500",
-      },
-      {
-        card: "border-emerald-200 bg-emerald-50",
-        badge: "bg-emerald-100 text-emerald-800",
-        avatar: "bg-emerald-500",
-      },
-      {
-        card: "border-purple-200 bg-purple-50",
-        badge: "bg-purple-100 text-purple-800",
-        avatar: "bg-purple-500",
-      },
-      {
-        card: "border-amber-200 bg-amber-50",
-        badge: "bg-amber-100 text-amber-800",
-        avatar: "bg-amber-500",
-      },
-      {
-        card: "border-rose-200 bg-rose-50",
-        badge: "bg-rose-100 text-rose-800",
-        avatar: "bg-rose-500",
-      },
-    ]
-    return styles[level % styles.length]
-  }
-
-  const levelStyles = getLevelStyles(level)
-
   return (
-    <>
-      <div
-        className={`w-full max-w-xs rounded-xl border-2 ${levelStyles.card} shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden ${
-          hasChildren ? 'hover:scale-105' : ''
-        }`}
-      >
-        <div className="p-4">
-          {/* Header with Avatar */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3 min-w-0">
-              {/* Avatar Container */}
-              <div className="relative flex-shrink-0">
-                <div
-                  className={`w-12 h-12 rounded-xl ${levelStyles.avatar} shadow-md ring-2 ring-white flex items-center justify-center overflow-hidden`}
-                >
-                  <span className="text-white font-bold text-lg">
-                    {employee.name.charAt(0)}
-                  </span>
-                </div>
-                {/* Status Indicator */}
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full shadow-sm"></div>
-              </div>
-
-              {/* Name & Position */}
-              <div className="min-w-0">
-                <h3 className="text-lg font-bold text-gray-900 truncate">{employee.name}</h3>
-                <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide truncate">
-                  {employee.position}
-                </p>
-              </div>
-            </div>
-
-            {/* Actions Menu */}
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0">
-              <Dropdown
-                trigger={
-                  <button className="w-8 h-8 rounded-lg bg-white hover:bg-gray-50 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center">
-                    <MoreVertical className="w-3.5 h-3.5 text-gray-600" />
-                  </button>
-                }
-              >
-                <DropdownItem onClick={() => onEdit(employee)} className="hover:bg-blue-50 rounded-lg">
-                  <Edit className="h-3.5 w-3.5 mr-2 text-blue-600" />
-                  <span className="text-sm font-medium">Edit</span>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => setShowDeleteDialog(true)}
-                  className="text-red-600 hover:bg-red-50 rounded-lg"
-                >
-                  <Trash2 className="h-3.5 w-3.5 mr-2" />
-                  <span className="text-sm font-medium">Delete</span>
-                </DropdownItem>
-              </Dropdown>
-            </div>
-          </div>
-
-          {/* Department Badge - Now perfectly aligned */}
-          <div className="mb-3 -mx-1">
-            <span
-              className={`inline-block w-full px-3 py-1 rounded-lg ${levelStyles.badge} text-xs font-bold uppercase tracking-wider shadow-xs truncate`}
-            >
-              {employee.department}
-            </span>
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-200">
-              <Mail className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
-              <span className="text-xs font-medium text-gray-700 truncate">{employee.email}</span>
-            </div>
-            <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-200">
-              <Phone className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-              <span className="text-xs font-medium text-gray-700 truncate">{employee.phone}</span>
-            </div>
+    <div
+      className={`
+        w-[400px] p-6 rounded-lg shadow-lg border-2 border-blue-200 
+        ${getDepartmentColor(employee.department)}
+        transform transition-all duration-300 hover:scale-102 hover:shadow-2xl
+        backdrop-blur-sm bg-gray-100
+      `}
+    >
+      <div className="flex items-center space-x-3 mb-3 ">
+        <div className="flex justify-center mb-4 rounded-lg">
+          <div className="w-16 h-16 border border-purple-400 text-purple-400 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold">
+            {employee.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
           </div>
         </div>
-
-        {/* Expand/Collapse Indicator */}
-        {hasChildren && (
-          <div className="px-4 pb-3">
-            <div className="flex items-center justify-center">
-              <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${levelStyles.badge} text-xs font-medium transition-all duration-200`}>
-                {isExpanded ? (
-                  <>
-                    <ChevronDown className="w-3 h-3" />
-                    <span>Collapse</span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronRight className="w-3 h-3" />
-                    <span>Expand</span>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        <div className="flex-1 min-w-0">
+          <h3 className="font-semibold text-gray-900 truncate">{employee.name}</h3>
+          <p className="text-sm text-gray-600 truncate">{employee.position}</p>
+        </div>
       </div>
 
-      <AlertDialog
-        isOpen={showDeleteDialog}
-        onClose={() => setShowDeleteDialog(false)}
-        onConfirm={handleDelete}
-        title="Delete Employee"
-        description={`Are you sure you want to delete ${employee.name}? This action cannot be undone and will reassign their direct reports to their manager.`}
-        confirmText="Delete Employee"
-        cancelText="Cancel"
-      />
-    </>
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <Mail className="w-4 h-4" />
+          <span className="truncate">{employee.email}</span>
+        </div>
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <Phone className="w-4 h-4" />
+          <span>{employee.phone}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+          {employee.department}
+        </span>
+        <div className="flex space-x-1">
+          <button
+            onClick={onAddChild}
+            className="p-1.5 text-black hover:text-green-600 hover:bg-green-50 rounded transition-colors"
+            title="Add employee under this person"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onEdit}
+            className="p-1.5 text-black hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+            title="Edit employee"
+          >
+            <Edit className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-1.5 text-black hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+            title="Delete employee"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

@@ -1609,13 +1609,13 @@ const HRMAppraisalSystem = () => {
           <div className="">
             <div className="flex justify-between items-center gap-3">
               {activeTab !== "reports" && (
-                <h1 className="text-black" style={FONTS.header}>
+                <h1 className="text-black" style={{...FONTS.header}}>
                   Appraisal
                 </h1>
               )}
               {activeTab !== "reports" && (
                 <button
-                  className="text-white bg-[#006666] px-3 py-1 rounded-md"
+                  className="text-white bg-[#3a357f] px-3 py-1 rounded-md"
                   onClick={() => setActiveTab("reports")}
                 >
                   Reports

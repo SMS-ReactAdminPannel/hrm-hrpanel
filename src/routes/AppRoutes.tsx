@@ -36,7 +36,6 @@ import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetai
 import Chat from "../pages/ChatAPP/Chat";
 // import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
-import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 // import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
 // import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
@@ -45,6 +44,9 @@ import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
+import DepartmentList from "../pages/Department/DepartmentList";
+import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
+import ProfilePage from "../pages/ProfileCard/ProfilePage";
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -66,7 +68,8 @@ const AppRoutes = () => {
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<LeaveManagement />} />
+
+          <Route path="leave-management" element={<LeaveTypes />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
@@ -80,6 +83,7 @@ const AppRoutes = () => {
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
+          <Route path="Attendancerequest" element={<AttendanceRequest />} />
           <Route path="asset-category" element={<Assetcategory />} />
           {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
@@ -95,7 +99,8 @@ const AppRoutes = () => {
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
-
+          <Route path="/ProfilePage" element={<ProfilePage />}/>
+          
         </Route>
       ) : (
         <Route path="/">

@@ -29,17 +29,17 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-md w-full max-w-2xl">
+      <div className="border rounded-md w-full max-w-2xl">
         <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-900">Assign Rotating Shift</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+          <h2 className="text-xl font-semibold text-white">Assign Rotating Shift</h2>
+          <button onClick={onClose} className="text-white hover:text-gray-500">
             <X className="w-5 h-5" />
           </button>
         </div>
-        <form onSubmit={onSubmit} className="p-6">
-          <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+        <form onSubmit={onSubmit} className="p-6 z-100 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl">
+          <div className="grid grid-cols-2 gap-y-3 gap-x-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label htmlFor="employee" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="employee" className="block text-sm font-medium text-white">
                 Employee
               </label>
               <div className="mt-1">
@@ -56,7 +56,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-sm font-medium text-white">
                 Title
               </label>
               <div className="mt-1">
@@ -73,7 +73,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="basedOn" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="basedOn" className="block text-sm font-medium text-white">
                 Based On
               </label>
               <div className="mt-1">
@@ -92,7 +92,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="rotate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="rotate" className="block text-sm font-medium text-white">
                 Rotate
               </label>
               <div className="mt-1">
@@ -110,7 +110,43 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="rotate" className="block text-sm font-medium text-white">
+                Department
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="department"
+                  id="department"
+                  value={formData.department}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                  placeholder="Department"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="jobRole" className="block text-sm font-medium text-white">
+                Job Role
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="jobRole"
+                  id="jobRole"
+                  value={formData.jobRole}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                  placeholder="Department"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="startDate" className="block text-sm font-medium text-white">
                 Start Date
               </label>
               <div className="mt-1">
@@ -127,7 +163,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="currentShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="currentShift" className="block text-sm font-medium text-white">
                 Current Shift
               </label>
               <div className="mt-1">
@@ -149,7 +185,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="nextShift" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="nextShift" className="block text-sm font-medium text-white">
                 Next Shift
               </label>
               <div className="mt-1">
@@ -180,7 +216,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-3 py-2 md:px-4 md:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006666] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-3 py-2 md:px-4 md:py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#5e59a9] hover:bg-[#005353] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Assign Shift
             </button>
