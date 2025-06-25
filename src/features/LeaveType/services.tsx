@@ -8,16 +8,6 @@ export const leavetypeapi = async () => {
     console.log("what is happening",response)
     return response;
   } catch (error) {
-    console.log("Error in getAllGrievances", error);
-  }
-};
-//updateleavetype
-export const updateleavetypeapi = async (id: string, data: any) => {
-  try {
-    const response = await new Client().hr.leavetype.update(id, data);
-    console.log("update is happening or not",response);
-    return response;
-  } catch (error) {
-    console.log("Error in updateleavetypeapi", error);
+    console.log("Error in leavetype", error);
   }
 };

@@ -89,12 +89,12 @@ export default function LeaveTypesComponent() {
   const handleEditCard = (card: Card) => {
     setEditingCard(card);
     setNewCard({
-      _id: card._id || "",
-      holiday_name: card.holiday_name || "",
-      holiday_date: card.holiday_date || "",
-      is_active: card.is_active || "No",
+      _id: card.title || "",
+      title: card.title || "",
+      totalDays: card.totalDays || "",
+      reset: card.reset || "No",
       periodIn: card.periodIn || "Day",
-      holiday_type: card.holiday_type || "",
+      isPaid: card.isPaid || "",
       carryforwardType: card.carryforwardType || "No Carry Forward",
       requireApproval: card.requireApproval || "Yes",
       requireAttachment: card.requireAttachment || "No",
@@ -151,15 +151,16 @@ export default function LeaveTypesComponent() {
     try {
       const response: any = await leavetypeapi();
       const visitors = response?.data ?? [];
+      console.log("Fetched leave types:", visitors);
 
       // different card with different colors
-      const coloredCards = visitors.data.map((card: Card) => ({
-        ...card,
-        color: getRandomColor()
-      }));
+      // const coloredCards = visitors.data.map((card: Card) => ({
+      //   ...card,
+      //   color: getRandomColor()
+      // }));
 
-      setleavetypegetting(coloredCards);
-      setFilteredCards(coloredCards);
+      // setleavetypegetting(response);
+      setFilteredCards(visitors.data);
     } catch (error) {
       console.error("Error fetching leave types:", error);
     }
@@ -171,8 +172,8 @@ export default function LeaveTypesComponent() {
 
   useEffect(() => {
     const filtered = leavetypegetting.filter(card =>
-      card.holiday_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.holiday_type.toLowerCase().includes(searchTerm.toLowerCase())
+      card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.isPaid.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredCards(filtered);
   }, [searchTerm, leavetypegetting]);
@@ -219,7 +220,7 @@ export default function LeaveTypesComponent() {
         <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCards.map((card) => (
             <LeaveTypeCard
-              key={card._id}
+              key={card.title}
               card={card}
               onEdit={handleEditCard}
               onDelete={handleDeleteCard}
