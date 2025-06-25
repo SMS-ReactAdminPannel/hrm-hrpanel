@@ -36,7 +36,7 @@ const Attendances: React.FC = () => {
   };
 
   return (
-    <div className="relative gap-2  w-full  h-full ">
+    <div className="relative gap-2  w-full h-full ">
       <div className="col-span-6 p-3">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold text-gray-800">

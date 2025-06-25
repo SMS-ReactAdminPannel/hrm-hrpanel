@@ -2,12 +2,12 @@
 import Client from "../../api";
 
 
-// ✅ Create a single client instance
-const client = new Client();
+// ✅ Create a single Client instance
+
 
 export const getAllDepartments = async () => {
   try {
-    const response = await client.hr.departments.getAllDepartments();
+    const response = await Client.hr.departments.getAllDepartments();
     return response;
   } catch (error) {
     console.error("Error in getAllDepartments:", error);
@@ -18,7 +18,7 @@ export const getAllDepartments = async () => {
 // If needed later, uncomment and use like this:
 // export const getDepartmentById = async (id: string) => {
 //   try {
-//     const response = await client.hr.department.getDepartmentById(id);
+//     const response = await Client.hr.department.getDepartmentById(id);
 //     return response;
 //   } catch (error) {
 //     console.error("Error in getDepartmentById:", error);
@@ -32,7 +32,7 @@ export const createDepartment = async (data: {
   requiredRoles: string[];
 }) => {
   try {
-    const response = await client.hr.departments.createDepartment(data);
+    const response = await Client.hr.departments.createDepartment(data);
     return response;
   } catch (error) {
     console.error("Error in createDepartment:", error);
@@ -49,7 +49,7 @@ export const updateDepartment = async (
   }
 ) => {
   try {
-    const response = await client.hr.departments.updateDepartment(id, data);
+    const response = await Client.hr.departments.updateDepartment(id, data);
     return response;
   } catch (error) {
     console.error("Error in updateDepartment:", error);
@@ -59,7 +59,7 @@ export const updateDepartment = async (
 
 export const deleteDepartment = async (id: string) => {
   try {
-    const response = await client.hr.departments.deleteDepartment(id);
+    const response = await Client.hr.departments.deleteDepartment(id);
     return response;
   } catch (error) {
     console.error("Error in deleteDepartment:", error);
