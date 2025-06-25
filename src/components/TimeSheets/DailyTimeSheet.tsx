@@ -17,9 +17,9 @@ interface DailyTimeSheetProps {
 const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredUsers = timesheet.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredUsers = timesheet.filter((user) =>
+  //   user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="py-5">

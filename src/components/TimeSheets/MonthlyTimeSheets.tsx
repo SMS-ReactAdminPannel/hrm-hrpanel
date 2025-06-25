@@ -41,9 +41,9 @@ const MonthlyTimeSheets = ({ timesheet }: MonthlyTimeSheetsProps) => {
     };
   });
 
-  const filteredUsers = timesheet.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredUsers = timesheet.filter(user =>
+  //   user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="py-5 overflow-x-auto" style={{ fontFamily: FONTS.paragraph.fontFamily }}>

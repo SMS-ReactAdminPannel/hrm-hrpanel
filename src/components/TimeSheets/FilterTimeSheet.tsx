@@ -1,6 +1,6 @@
-import { FaPlus } from "react-icons/fa6";
+// import { FaPlus } from "react-icons/fa6";
 import { useState, useRef, useEffect } from "react";
-import { FONTS } from "../../constants/uiConstants";
+// import { FONTS } from "../../constants/uiConstants";
 
 const FilterTimeSheet = () => {
     const hourOptions = Array.from({ length: 10 }, (_, i) => `${i}-${i + 1} hr`);

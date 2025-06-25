@@ -71,7 +71,7 @@ export default class Client {
         httpClient.get(API_END_POINTS.asset.getAllAsset),
 
       updateasset: (assetId: string, data: any) =>
-       httpClient.update(API_END_POINTS.asset.updateAsset(assetId), data),
+       httpClient.put(API_END_POINTS.asset.updateAsset(assetId), data),
 
       deleteasset: (assetId: string) =>
       httpClient.delete(API_END_POINTS.asset.deleteAsset(assetId))

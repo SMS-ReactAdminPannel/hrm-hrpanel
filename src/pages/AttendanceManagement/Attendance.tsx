@@ -491,8 +491,8 @@ console.log(dailyAttendance,"sdfghjk")
                       {item.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.clockIn || "-"}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.clockOut || " - "}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(item.clockIn).toLocaleDateString("en-GB") || "-"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(item.clockOut).toLocaleDateString("en-GB") || " - "}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
                 </tr>
               ))}

@@ -46,7 +46,7 @@ export const API_END_POINTS = {
 
 
     jobPosting: {
-      getAll: "/api/hr/job-postings",
+      getAll: "/api/job-postings",
       getById: "/api/job-postings",   
       create: "/api/job-postings",
       update: "/api/job-postings",    
