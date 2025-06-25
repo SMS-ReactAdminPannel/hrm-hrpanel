@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import StackBar from "./Charts/StackBar";
 import { CardForProcessBar } from "./Charts/CardsForProcessBar";
 
@@ -27,10 +27,10 @@ const AttentDashboard = () => {
                 Attendance
               </h1>
               <p
-                className="text-sm"
-                style={{...FONTS.paragraph}}
+                className="text-sm !text-white"
+                style={{ fontSize: FONTS.header3.fontSize }}
               >
-                Weekly Attendance Overview
+                 Overview
               </p>
             </div>
             <div>
@@ -51,7 +51,7 @@ const AttentDashboard = () => {
   <select
     value={selectedMonth}
     onChange={(e) => setSelectedMonth(e.target.value)}
-    className="px-2 py-1 h-6 w-18 text-xs  bg-transparent text-white text-right focus:outline-none"
+    className="px-2 py-1 h-6 w-18 text-xs  bg-transparent text-black text-right focus:outline-none"
   >
     {[
       "January", "February", "March", "April", "May", "June",
@@ -66,7 +66,7 @@ const AttentDashboard = () => {
   <select
     value={selectedDepartment}
     onChange={(e) => setSelectedDepartment(e.target.value)}
-    className="px-2 py-1 h-6  w-18 text-xs  bg-transparent text-white text-right focus:outline-none "
+    className="px-2 py-1 h-6  w-18 text-xs  bg-transparent text-black text-right focus:outline-none "
   >
     <option value="All">Department</option>
     <option value="HR">HR</option>

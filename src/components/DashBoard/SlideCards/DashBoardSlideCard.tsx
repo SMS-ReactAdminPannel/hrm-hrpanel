@@ -45,14 +45,23 @@ const cardItems = [
 const DashBoardSlideCard = () => {
   const [index, setIndex] = useState(0);
 
+   const [animate, setAnimate] = useState(false);
+
   const handleNext = () => {
-    setIndex((prev) => (prev + 1) % cardItems.length);
+    setAnimate(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev + 1) % cardItems.length);
+      setAnimate(false);
+    }, 300);
   };
 
   const handlePrev = () => {
-    setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
+    setAnimate(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
+      setAnimate(false);
+    }, 300);
   };
-
   const current = cardItems[index];
 
   return (
@@ -62,10 +71,10 @@ const DashBoardSlideCard = () => {
         {/* Top Section: Title + Arrows + Dots */}
         <div className="flex justify-between items-center mb-2">
           <div>
-            <p className=" text-xl font-semibold mb-3"
-              style={{...FONTS.header }}>{current.title}</p>
-            <p className="text-sm text-black "
-            style={{...FONTS.paragraph}}>{current.subtitle}</p>
+            <p className=" !text-2xl font-semibold mb-3"
+              style={{ fontSize: FONTS.header2.fontSize }}>{current.title}</p>
+            <p className="text-sm text-white "
+            style={{fontSize:FONTS.paragraph.fontSize }}>{current.subtitle}</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -88,8 +97,8 @@ const DashBoardSlideCard = () => {
         <div className="flex items-center gap-6 mt-3">
           {/* Stats */}
           <div className="flex-1">
-            <h2 className=" text-md mb-2"
-            style={{...FONTS.header3}}>Spending</h2>
+            <h2 className=" text-md  font-semibold mb-2"
+            style={{fontSize:FONTS.header3.fontSize}}>Spending</h2>
             <div className="grid grid-cols-2 gap-3">
               {current.stats.map((stat, i) => (
                 <div key={i} className="flex gap-2">
@@ -104,7 +113,9 @@ const DashBoardSlideCard = () => {
 
           {/* Image */}
           <div className="flex-1 flex justify-center">
-            <img src={current.imageUrl} alt="card" className="w-28" />
+            <img src={current.imageUrl} alt="card" 
+            className={`w-28 transition-transform duration-700 ease-in-out transform ${animate ? "scale-90 opacity-0" : "scale-100 opacity-300"}`} 
+            />
           </div>
         </div>
       </div>

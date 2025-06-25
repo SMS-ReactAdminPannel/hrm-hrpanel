@@ -14,6 +14,8 @@ interface EmployeeTableProps {
 }
 
 export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortConfig, onSort, onEdit, onDelete }) => {
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null)
+
   const getEmploymentTypeColor = (type: EmploymentType) => {
     switch (type) {
       case "Full-time":

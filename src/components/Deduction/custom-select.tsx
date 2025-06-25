@@ -34,7 +34,7 @@ export function CustomSelect({ label, value, options, onChange, className = "" }
 
   return (
     <div className={`space-y-2 relative ${className}`} ref={dropdownRef}>
-      <label className="block text-sm font-medium text-white">{label}</label>
+      <label className="block text-sm font-medium text-black">{label}</label>
 
       <button
         type="button"

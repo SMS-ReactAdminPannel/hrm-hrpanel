@@ -4,6 +4,7 @@ import { Eye } from "lucide-react"
 import type { TeamMember } from "./use-onboarding-state"
 import { FONTS } from "../../constants/uiConstants";
 
+
 interface TeamOverviewProps {
   teamMembers: TeamMember[]
   onViewEmployee: (employee: TeamMember) => void
@@ -16,8 +17,8 @@ export function TeamOverview({ teamMembers, onViewEmployee, onNavigateToDocument
       <div className="space-y-4">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="!bg-gray-100" style={{...FONTS.tableHeader}}>
-              <tr>
+            <thead className="bg-gray-50 bg-green-800" >
+              <tr  className="bg-blue-500 font-bold text-white" >
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                   Name
                 </th>

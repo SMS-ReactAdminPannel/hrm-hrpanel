@@ -45,6 +45,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
 import DepartmentList from "../pages/Department/DepartmentList";
+import Leave from "../pages/Leave Management/Leave";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
 import Calendar from "../components/DashBoard/Calender/calender";
@@ -69,8 +70,7 @@ const AppRoutes = () => {
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-
-          <Route path="leave-management" element={<LeaveTypes />} />
+          <Route path="leave-management" element={<Leave />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />

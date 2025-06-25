@@ -208,11 +208,7 @@ const AdvancedHRMOffboardings = () => {
 
   return (
     <div>
-      <h1 
-      // className="!text-2xl !font-bold !text-black py-4 pb-8" 
-        className="text-3xl !font-semibold !text-white mt-2 leading-relaxed pb-1"
-
-      style={{...FONTS.subHeader}}>HRM Offboarding System</h1>
+      <h1 className="text-2xl font-bold text-white py-4 pb-8">HRM Offboarding System</h1>
     <div className="min-h-screen rounded-lg "> 
       {/* Header */}
       {/* Navigation Tabs */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import HttpClient from "../../api/httpClient"
 import { API_END_POINTS } from "../../api/httpEndpoints"
 import { FONTS } from "../../constants/uiConstants"
+import { motion, AnimatePresence } from "framer-motion"
 
 // Type for each job posting
 type Job = {
@@ -197,152 +198,200 @@ const OpenRecruitments = () => {
       </div>
 
       {/* Job Details / Edit Modal */}
-      {selectedJob && (
-        <div className="fixed inset-0 z-10 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-lg w-full max-w-xl p-6 relative">
-            <button className="absolute top-4 right-4 text-gray-700 hover:text-red-500 text-2xl" onClick={closeModal}>
-              &times;
-            </button>
-            {!isEditMode ? (
-              <>
-                <h2 className="text-xl font-bold mb-2">{selectedJob.title}</h2>
-                <p className="text-gray-600 text-sm mb-4">{selectedJob.description || "No description provided."}</p>
-                <div className="mb-6">
-                  <h4 className="font-semibold text-sm mb-2">Job Positions:</h4>
-                  <ul className="space-y-2 text-sm text-gray-800">
-                    {selectedJob.roles.map((role, index) => (
-                      <li key={index}>• {role}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex justify-end gap-2">
-                  <button onClick={handleEditClick} className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded hover:bg-indigo-200 transition">
-                    Edit
-                  </button>
-                  <button onClick={closeModal} className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition">
-                    Close
-                  </button>
-                </div>
-              </>
-            ) : (
-              <form className="space-y-4" onSubmit={handleUpdate}>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Job Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={editFormData.title}
-                    onChange={handleEditFormChange}
-                    className="w-full border rounded px-3 py-2"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <textarea
-                    name="description"
-                    value={editFormData.description}
-                    onChange={handleEditFormChange}
-                    className="w-full border rounded px-3 py-2"
-                    rows={4}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Roles (comma-separated)</label>
-                  <input
-                    type="text"
-                    name="roles"
-                    value={editFormData.roles}
-                    onChange={handleEditFormChange}
-                    className="w-full border rounded px-3 py-2"
-                  />
-                </div>
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
+    <AnimatePresence>
+  {selectedJob && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-10 flex items-end justify-center p-4 bg-black/40 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 100, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-2xl shadow-lg w-full max-w-xl p-6 relative max-h-[90vh] overflow-y-auto scrollbar-hide"
+      >
+        <button
+          className="absolute top-4 right-4 text-gray-700 hover:text-red-500 text-2xl"
+          onClick={closeModal}
+        >
+          &times;
+        </button>
+
+        {!isEditMode ? (
+          <>
+            <h2 className="text-xl font-bold mb-2">{selectedJob.title}</h2>
+            <p className="text-gray-600 text-sm mb-4">{selectedJob.description || "No description provided."}</p>
+            <div className="mb-6">
+              <h4 className="font-semibold text-sm mb-2">Job Positions:</h4>
+              <ul className="space-y-2 text-sm text-gray-800">
+                {selectedJob.roles.map((role, index) => (
+                  <li key={index}>• {role}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={handleEditClick}
+                className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded hover:bg-indigo-200 transition"
+              >
+                Edit
+              </button>
+              <button
+                onClick={closeModal}
+                className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition"
+              >
+                Close
+              </button>
+            </div>
+          </>
+        ) : (
+          <form className="space-y-4" onSubmit={handleUpdate}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Job Title</label>
+              <input
+                type="text"
+                name="title"
+                value={editFormData.title}
+                onChange={handleEditFormChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <textarea
+                name="description"
+                value={editFormData.description}
+                onChange={handleEditFormChange}
+                className="w-full border rounded px-3 py-2"
+                rows={4}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Roles (comma-separated)</label>
+              <input
+                type="text"
+                name="roles"
+                value={editFormData.roles}
+                onChange={handleEditFormChange}
+                className="w-full border rounded px-3 py-2"
+              />
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+        )}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
 
       {/* Create Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 z-10 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm ">
-          <div className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative max-h-[90vh] overflow-y-auto  scrollbar-hide">
-            <button className="absolute top-4 right-4 text-gray-700 hover:text-red-500 text-2xl" onClick={() => setShowCreateModal(false)}>
-              &times;
+     <AnimatePresence>
+  {showCreateModal && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-10 flex items-end justify-center p-4 bg-black/40 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 100, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative max-h-[90vh] overflow-y-auto scrollbar-hide"
+      >
+        <button
+          className="absolute top-4 right-4 text-gray-700 hover:text-red-500 text-2xl"
+          onClick={() => setShowCreateModal(false)}
+        >
+          &times;
+        </button>
+        <h2 className="text-xl !font-bold mb-6 !text-black" style={{ ...FONTS.header3 }}>
+          Create Job Posting
+        </h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          {[
+            { label: "Company Name", name: "company", placeholder: "e.g., SCHULL TECHNOLOGIES LIMITED" },
+            { label: "Job Title", name: "title", placeholder: "e.g., Django Developer" },
+            { label: "Job Roles/Skills", name: "roles", placeholder: "e.g. Django Dev, Training Coordinator" },
+            { label: "Capacity", name: "capacity", type: "number", placeholder: "e.g. 10" },
+            { label: "Job Description", name: "description", textarea: true },
+            { label: "Location", name: "location", placeholder: "e.g., Remote, Bangalore" },
+            { label: "Min Salary", name: "salaryMin", type: "number" },
+            { label: "Max Salary", name: "salaryMax", type: "number" },
+          ].map((field, idx) => (
+            <div key={idx}>
+              <label
+                className="block text-sm !font-bold !text-gray-600 mb-1"
+                style={{ ...FONTS.cardSubHeader }}
+              >
+                {field.label}
+              </label>
+              {field.textarea ? (
+                <textarea
+                  name={field.name}
+                  value={(formData as any)[field.name]}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                  rows={4}
+                  placeholder={field.placeholder}
+                  required
+                />
+              ) : (
+                <input
+                  type={field.type || "text"}
+                  name={field.name}
+                  value={(formData as any)[field.name]}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                  placeholder={field.placeholder}
+                  required={field.name !== "location"}
+                />
+              )}
+            </div>
+          ))}
+          <div className="flex gap-3 pt-4">
+            <button
+              type="button"
+              onClick={() => setShowCreateModal(false)}
+              className="flex-1 bg-gray-300 !text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+              style={{ ...FONTS.button }}
+            >
+              Cancel
             </button>
-            <h2 className="text-xl !font-bold mb-6 !text-black" style={{...FONTS.header3}}>Create Job Posting</h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              {[
-                { label: "Company Name", name: "company", placeholder: "e.g., SCHULL TECHNOLOGIES LIMITED" },
-                { label: "Job Title", name: "title", placeholder: "e.g., Django Developer" },
-                { label: "Job Roles/Skills", name: "roles", placeholder: "e.g. Django Dev, Training Coordinator" },
-                { label: "Capacity", name: "capacity", type: "number", placeholder: "e.g. 10" },
-                { label: "Job Description", name: "description", textarea: true },
-                { label: "Location", name: "location", placeholder: "e.g., Remote, Bangalore" },
-                { label: "Min Salary", name: "salaryMin", type: "number" },
-                { label: "Max Salary", name: "salaryMax", type: "number" },
-              ].map((field, idx) => (
-                <div key={idx}>
-                  <label className="block text-sm !font-bold !text-gray-600 mb-1" style={{...FONTS.cardSubHeader}}>{field.label}</label>
-                  {field.textarea ? (
-                    <textarea
-                      name={field.name}
-                      value={(formData as any)[field.name]}
-                      onChange={handleChange}
-                      className="w-full border rounded px-3 py-2"
-                      rows={4}
-                      placeholder={field.placeholder}
-                      required
-                    />
-                  ) : (
-                    <input
-                      type={field.type || "text"}
-                      name={field.name}
-                      value={(formData as any)[field.name]}
-                      onChange={handleChange}
-                      className="w-full border rounded px-3 py-2"
-                      placeholder={field.placeholder}
-                      required={field.name !== "location"}
-                    />
-                  )}
-                </div>
-              ))}
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setShowCreateModal(false)}
-                  className="flex-1 bg-gray-200 !text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
-                  style={{...FONTS.button}}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 bg-indigo-500 hover:bg-indigo-200 text-white py-2 px-4 rounded shadow "
-                  style={{...FONTS.button}}
-                >
-                  Create Job Posting
-                </button>
-              </div>
-            </form>
+            <button
+              type="submit"
+              className="flex-1 bg-gray-300 !text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+              style={{ ...FONTS.button }}
+            >
+              Create Job Posting
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </div>
   )
 }
