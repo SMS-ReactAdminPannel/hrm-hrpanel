@@ -14,6 +14,8 @@ export const GrievanceDetailCard: React.FC<Props> = ({
   onClose,
   onMarkSolved,
 }) => {
+
+  console.log( grievance)
   return (
     <div className="px-8 py-8 flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-md ">
       
@@ -28,8 +30,8 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       </button>
 
     
-      <h2 className="text-xl font-bold text-black mb-2"
-      style={{fontSize:FONTS.header.fontSize}}>{grievance.title}</h2>
+      <h2 className="text-xl font-bold !text-black mb-2"
+      style={{...FONTS.header2}}>{grievance.title}</h2>
 
     
       <span
@@ -43,15 +45,15 @@ export const GrievanceDetailCard: React.FC<Props> = ({
       </span>
 
 
-<h3 className="text-sm font-semibold text-black mb-2"
-style={{fontSize:FONTS.header3.fontSize}}>Issue Description:</h3>
-<p className="text-gray-700 mb-3 whitespace-pre-line"
-style={{fontSize:FONTS.paragraph.fontSize}}>{grievance.description}</p>
+<h3 className="text-sm font-semibold !text-black mb-2"
+style={{...FONTS.header3}}>Issue Description:</h3>
+<p className="!text-gray-700 mb-3 whitespace-pre-line"
+style={{...FONTS.paragraph}}>{grievance.description}</p>
 
 
       
-      <div className="text-sm text-black space-y-1 mb-4 "
-        style={{ fontSize: FONTS.paragraph.fontSize }}>
+      <div className="text-sm !text-black space-y-1 mb-4 "
+        style={{...FONTS.paragraph}}>
         <p><strong>Employee:</strong> {grievance.employee}</p>
         <p><strong>Employee ID:</strong> {grievance.empid}</p>
         <p><strong>Mail ID:</strong> {grievance.mail}</p>
@@ -64,6 +66,7 @@ style={{fontSize:FONTS.paragraph.fontSize}}>{grievance.description}</p>
         <button
           onClick={onMarkSolved}
           className="w-40 bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#004f4f] transition"
+          style={{...FONTS.button}}
         >
           Mark as Solved
         </button>
