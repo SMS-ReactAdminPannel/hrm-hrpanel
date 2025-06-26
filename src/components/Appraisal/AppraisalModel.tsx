@@ -243,7 +243,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
                     <select
                       value={newAppraisalData.employeeId}
                       onChange={(e) => onEmployeeChange(e.target.value)}
-                      className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-[#006666] focus:border-[#006666]"
+                      className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-[#006666] focus:border-[#006666] !text-black"style={{...FONTS.cardSubHeader}}
                     >
                       <option value="">Select an employee</option>
                       {employees.map((employee) => (

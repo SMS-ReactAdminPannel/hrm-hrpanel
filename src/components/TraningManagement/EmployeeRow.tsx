@@ -15,8 +15,8 @@ export const EmployeeRow: React.FC<EmployeeRowProps> = ({ employee, selectedProg
   const enrollmentDate = selectedProgram ? employee.enrollmentDate[selectedProgram.id] : null
 
   return (
-    <tr className="bg-red-200 transition-colors text-gray-900">
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium !text-gray-900" style={{...FONTS.tableBody}}>{employee.id}</td>
+    <tr className="bg-white transition-colors text-gray-900">
+      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{employee.id}</td>
       <td className="px-4 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#006666] rounded-full flex items-center justify-center text-white text-sm font-medium">

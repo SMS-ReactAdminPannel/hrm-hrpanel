@@ -61,7 +61,7 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
         </div>
       <div className="flex items-center justify-start gap-3 mt-8">
           <div className="relative w-100 md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 !text-gray-400 w-4 h-4"style={{...FONTS.cardSubHeader}} />
             <input
               type="text"
               placeholder="Search by employee name"
@@ -94,25 +94,25 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
                   None
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("rotatingShift")}
                 >
                   Rotating Shift
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("department")}
                 >
                   Department
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("jobRole")}
                 >
                   Job Role
                 </button>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 !text-black"style={{...FONTS.paragraph}}
                   onClick={() => handleGroupBySelect("reportingManager")}
                 >
                   Reporting Manager

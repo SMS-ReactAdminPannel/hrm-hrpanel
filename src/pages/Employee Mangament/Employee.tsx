@@ -280,4 +280,3 @@ const EmployeeManagement = () => {
 }
 
 export default EmployeeManagement
-

@@ -1,6 +1,5 @@
 import type React from "react"
 import { useState, useCallback, useMemo } from "react"
-import { FONTS } from "../../components/TraningManagement/Fonts"  
 import type { TrainingProgram, NewProgramFormData } from "../../components/TraningManagement/Traning"
 import { useTrainingData } from "../../components/TraningManagement/TraningData"
 import { SearchFilterBar } from "../../components/TraningManagement/SearchFilter"
@@ -8,6 +7,7 @@ import { ProgramCard } from "../../components/TraningManagement/ProgramCard"
 import { ProgramHeader } from "../../components/TraningManagement/ProgramHeader"
 import { EmployeeTable } from "../../components/TraningManagement/EmployeeTable"
 import { NewProgramForm } from "../../components/TraningManagement/Form"
+import { FONTS } from "../../constants/uiConstants"
 
 const TrainingDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("programs")
@@ -97,9 +97,8 @@ const TrainingDashboard: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <h1
-                className="font-bold"
+                className="font-bold !text-black"
                 style={{...FONTS.header}}
-
               >
                 Training Management
               </h1>
