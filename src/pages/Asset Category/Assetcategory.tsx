@@ -12,7 +12,7 @@ import EditAssetModal from "../../components/common/Asset-category/EditAssetModa
 import DeleteAssetModal from "../../components/common/Asset-category/DeleteConfirmModal"
 import AssetDetailsCard from "../../components/common/Asset-category/AssetDetailsCard"
 import AddAssetModal from "../../components/common/Asset-category/AddAssetModal"
-import { getallasset, getAllAssetcategory } from "../../features/assetcategory/service"
+import { getAllAssetcategory } from "../../features/assetcategory/service"
 
 
 interface Asset {
@@ -65,10 +65,10 @@ const AssetCategory: React.FC = () => {
   
   const fetchAllAssestcategory= async () => {
      try{
-const response:any= await getallasset() 
-console.log(response.data, 'response data')
+const response:any= await getAllAssetcategory() 
+console.log(response.data.data, 'response data')
         if(response){
-             setAssetCategories(response?.data?.data)
+             setAssetCategories(response?.data)
         }
 }
 catch (error) {
@@ -320,7 +320,7 @@ catch (error) {
     if (!searchQuery) return true
 
 
-    if (category?.category?.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (category?.category_name?.toLowerCase().includes(searchQuery.toLowerCase())) {
       return true
     }
 
