@@ -88,6 +88,18 @@ export const API_END_POINTS = {
     updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
     deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
   },
+  leave: {
+    NewHoliday: "/api/hr/leave/createHoliday",
+    getHoliday: "api/hr/leave/getAll",
+    updateHoliday: (id: string) => `api/hr/leave/updateHoliday/${id}`,
+    deleteHoliday: (id: string) => `api/hr/leave/deleteHoliday/${id}`,
+  },
+    leaveType: {
+    createLeaveType: "/api/hr/leaveType/createLeaveType",
+    getAllLeaveType: "api/hr/leaveType/getAllLeave",
+    updateLeaveType: (id: string) => `api/hr/leaveType/UpdateLeave/${id}`,
+    getLeaveById: (id: string) => `api/hr/leaveType/getUniqueLeave/${id}`,
+    deleteLeaveType: (id: string) => `api/hr/leaveType/deleteLeave/${id}`,
+  },
+  
 };
-
-

@@ -2,10 +2,10 @@ import type { Card } from './types';
 import { useState, useRef } from 'react';
 
 interface LeaveTypeCardProps {
-  card: Card;
+  card: any;
   color: string;
   onEdit: (card: Card) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
   onShowDetails: (card: Card) => void;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
   showDropdown: boolean;
@@ -34,7 +34,7 @@ export default function LeaveTypeCard({
             </div>
             <div>
               <h3 className="font-medium text-gray-800">{card.title}</h3>
-              <p className="text-sm text-gray-500">{card.isPaid}</p>
+              <p className="text-sm text-gray-500">{card.isPaid ? 'Paid' : 'Unpaid'}</p>
             </div>
           </div>
           <div className="relative" ref={dropdownRef}>
@@ -48,32 +48,32 @@ export default function LeaveTypeCard({
             </button>
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
-                <div className="py-1">
+                <div className="py-1 ">
                   <button
                     onClick={() => onEdit(card)}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-2 py-1 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => onDelete(card.id)}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                    onClick={() => onDelete(card.uuid)}
+                    className="block w-full text-left px-2 py-1 text-sm text-red-600 hover:bg-gray-100"
                   >
                     Delete
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => onShowDetails(card)}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     View Details
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
-          <span className="text-lg font-semibold">{card.totalDays} days</span>
+          <span className="text-lg font-semibold">{card.max_days} days</span>
           <span className="text-sm text-gray-500">{card.reset}</span>
         </div>
       </div>

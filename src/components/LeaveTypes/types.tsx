@@ -11,6 +11,7 @@ export type Card = {
   excludeCompanyLeaves: string;
   excludeHolidays: string;
   isEncashable: string;
+  description: string;
 };
 
 export type NewCard = {
@@ -19,6 +20,7 @@ export type NewCard = {
   totalDays: string;
   reset: string;
   carryforwardType: string;
+  description: string;
   isPaid: string;
   requireApproval: string;
   requireAttachment: string;

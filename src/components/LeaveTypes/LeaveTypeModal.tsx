@@ -58,7 +58,13 @@ export default function LeaveTypeModal({
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <form onSubmit={(e) => {
+          e.preventDefault();            
+          onSubmit(newCard);          
+          onClose();                  
+          }} >
+
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-white">Title<span className="text-red-500">*</span></label>
               <input
@@ -77,6 +83,8 @@ export default function LeaveTypeModal({
                 type="text"
                 className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
                 placeholder="Description"
+                value = {newCard.description}
+                onChange={(e) => setNewCard({...newCard, description: e.target.value})}
               />
             </div>
 
@@ -92,18 +100,6 @@ export default function LeaveTypeModal({
               />
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white">Is Paid</label>
-              <select
-                className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
-                value={newCard.isPaid}
-                onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
-              >
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
-                <option value="Partial">Partial</option>
-              </select>
-            </div>
           </div>
 
           <div className="flex justify-end gap-3 mt-2">
@@ -115,17 +111,19 @@ export default function LeaveTypeModal({
               Cancel
             </button>
             <button
-              className={`px-5 py-1 rounded-lg text-white transition ${!newCard.title || !newCard.totalDays
-                ? 'bg-[#006666] opacity-50 cursor-not-allowed'
-                : 'bg-[#006666] hover:bg-[#004d4d]'
-                }`}
-              onClick={onSubmit}
-              type="button"
-              disabled={!newCard.title || !newCard.totalDays}
-            >
-              {editingCard ? "Update" : "Create"}
-            </button>
+           className={`px-5 py-1 rounded-lg text-white transition ${!newCard.title || !newCard.totalDays
+           ? 'bg-[#006666] opacity-50 cursor-not-allowed'
+           : 'bg-[#006666] hover:bg-[#004d4d]'
+             }`}
+
+          type="submit"
+          disabled={!newCard.title || !newCard.totalDays}
+          >
+          {editingCard ? "Update" : "Create"}
+          </button>
+
           </div>
+          </form>
         </div>
       </div>
     </div>

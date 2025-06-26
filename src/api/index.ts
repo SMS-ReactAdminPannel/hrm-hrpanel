@@ -1,4 +1,5 @@
 
+import { get } from "http";
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
@@ -85,7 +86,7 @@ export default class Client {
         httpClient.put(API_END_POINTS.department.update(id), data),
     
       deleteDepartment: (id: string) =>
-        httpClient.delete(API_END_POINTS.department.delete(id)),
+        httpClient.delete(API_END_POINTS.department.delete(id), {}),
     },
     
     assetcategory:{
@@ -113,6 +114,30 @@ export default class Client {
         httpClient.get(API_END_POINTS.visitors.getAll),
       deleteVisitor: (visitorId: string) =>
         httpClient.delete(API_END_POINTS.visitors.delete.replace(':id', visitorId))
+    },
+
+    leave:{
+      createHoliday: (data: any) => 
+        httpClient.post(API_END_POINTS.leave.NewHoliday, data),
+      getAllHoliday: () => 
+        httpClient.get(API_END_POINTS.leave.getHoliday),
+      updateHoliday: (data: any, id: any) => 
+        httpClient.put(API_END_POINTS.leave.updateHoliday(id), data),
+      deleteHoliday: (id: any) =>
+        httpClient.delete(API_END_POINTS.leave.deleteHoliday(id), {})
+    },
+
+      leaveType :{
+      createLeaveType: (data: any) => 
+        httpClient.post(API_END_POINTS.leaveType.createLeaveType, data),
+      getAllLeaveType: () => 
+        httpClient.get(API_END_POINTS.leaveType.getAllLeaveType),
+      updateLeaveType: (data: any, id: any) => 
+        httpClient.put(API_END_POINTS.leaveType.updateLeaveType(id), data),
+      deleteLeaveType: (id: any) =>
+        httpClient.delete(API_END_POINTS.leaveType.deleteLeaveType(id)),
+      getLeaveTypeById: (id: string) =>
+        httpClient.get(API_END_POINTS.leaveType.getLeaveById(id))
     }
 
   };

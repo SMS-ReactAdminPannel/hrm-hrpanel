@@ -12,48 +12,11 @@ import {useNavigate } from "react-router-dom"
 import { io } from "socket.io-client";
 
 
-const SOCKET_SERVER_URL = "http://localhost:3002";
 
 const NotificationsPage = () => {
+
+  const [userID,setUserID] = useState<any>();
   
-  useEffect(() => {
-    const socket = io(SOCKET_SERVER_URL);
-    
-
-    const dummyUserId = "123"; // Replace with actual logged-in user ID
-    socket.emit('join-user-room', dummyUserId); // Join room
-
-    socket.on('connect', () => {
-      console.log(" Socket connected:", socket.id);
-    });
-
-    socket.on('new-notification', (notification: Notification) => {
-      console.log(" New notification received", notification);
-      setNotificationsData(prev => ({
-        ...prev,
-        all: [notification, ...prev.all],
-        Unread: [notification, ...prev.Unread],
-      }));
-    });
-
-    socket.on('notification-updated', (updatedNotification: Notification) => {
-      console.log(" Notification updated", updatedNotification);
-      setNotificationsData(prev => {
-        const update = (list: Notification[]) =>
-          list.map(n => n.id === updatedNotification.id ? updatedNotification : n);
-        return {
-          all: update(prev.all),
-          Read: update(prev.Read),
-          Unread: update(prev.Unread),
-        };
-      });
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
 
   const [notificationsData, setNotificationsData] = useState<{
     all: Notification[];

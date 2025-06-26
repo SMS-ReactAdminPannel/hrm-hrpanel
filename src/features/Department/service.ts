@@ -7,7 +7,7 @@ const client = new Client();
 
 export const getAllDepartments = async () => {
   try {
-    const response = await client.hr.departments.getAllDepartments();
+    const response = await new Client().hr.departments.getAllDepartments();
     return response;
   } catch (error) {
     console.error("Error in getAllDepartments:", error);

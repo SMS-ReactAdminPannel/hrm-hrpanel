@@ -3,6 +3,9 @@ import LeaveTypeCard from './LeaveTypeCard';
 import LeaveTypeModal from './LeaveTypeModal';
 import LeaveTypeDetailsModal from './LeaveTypeDetailsModal';
 import { type Card, type NewCard, FONTS } from './types';
+import { createLeaveType, deleteLeaveType, getAllLeaveTypes } from '../../features/leaveTypes/services';
+
+
 
 const getRandomColor = () => {
   const colors = [
@@ -17,51 +20,73 @@ const getRandomColor = () => {
 };
 
 export default function LeaveTypesComponent() {
+
+  const [leave,setLeaves] = useState<any []>()
+  const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
+
+
+   const fetchLeaveTypes = async () => {
+       try {
+         const response: any = await getAllLeaveTypes();
+         const leave = response;
+         setLeaves(leave)
+         console.log("Leaves fetched:", leave);
+       } catch (error) {
+         console.error("Error fetching leaves:", error);
+       }
+     };
+   
+     useEffect(() => {
+       fetchLeaveTypes();
+     }, []);
+
+     
+    
+const handleAddEvent = async (eventData: {
+  totalDays: number;
+  title: string;
+  description: string;
+}) => {
+  try {
+    if (editingCard) {
+      await updateLeaveType(editingCard.uuid, {
+        title: eventData.title,
+        max_days: Number(eventData.totalDays),
+        description: eventData.description
+      });
+      console.log("Leave type updated:", editingCard.uuid);
+    } else {
+      await createLeaveType({
+        title: eventData.title,
+        max_days: Number(eventData.totalDays),
+        description: eventData.description
+      });
+      console.log("Leave type created");
+    }
+
+    await fetchLeaveTypes();
+    setEditingCard(null); // clear edit state
+    setIsModalOpen(false); // close modal
+  } catch (error) {
+    console.error("Failed to create/update leave type:", error);
+  }
+};
+     
+const handleDeleteLeaveType = async (leaveId: string) => {
+    console.log('delete handler triggered for:', leaveId);
+  try {
+    await deleteLeaveType(leaveId);
+    console.log("Deleted:", leaveId);
+    await fetchLeaveTypes();
+  } catch (error) {
+    console.error("Error deleting leave type:", error);
+  }
+};
+
   const [cards, setCards] = useState<Card[]>(() => {
     const savedCards = localStorage.getItem('leaveTypeCards');
     return savedCards ? JSON.parse(savedCards) : [
-      {
-        id: 1,
-        title: "Working Saturday",
-        periodIn: "Day",
-        totalDays: 30,
-        reset: "No",
-        carryforwardType: "No Carry Forward",
-        isPaid: "Unpaid",
-        requireApproval: "Yes",
-        requireAttachment: "No",
-        excludeCompanyLeaves: "No",
-        excludeHolidays: "No",
-        isEncashable: "No"
-      },
-      {
-        id: 2,
-        title: "Annual Leave",
-        periodIn: "Day",
-        totalDays: 20,
-        reset: "Yearly",
-        carryforwardType: "Carry Forward with Limit",
-        isPaid: "Paid",
-        requireApproval: "Yes",
-        requireAttachment: "No",
-        excludeCompanyLeaves: "Yes",
-        excludeHolidays: "Yes",
-        isEncashable: "Yes"
-      },
-      {
-        id: 3,
-        title: "Sick Leave",
-        periodIn: "Day",
-        totalDays: 10,
-        reset: "Yearly",
-        carryforwardType: "No Carry Forward",
-        isPaid: "Paid",
-        requireApproval: "Yes",
-        requireAttachment: "Yes",
-        excludeCompanyLeaves: "No",
-        excludeHolidays: "No",
-        isEncashable: "No"
-      }
+
     ];
   });
 
@@ -86,7 +111,8 @@ export default function LeaveTypesComponent() {
     requireAttachment: "No",
     excludeCompanyLeaves: "No",
     excludeHolidays: "No",
-    isEncashable: "No"
+    isEncashable: "No",
+    description: "none"
   });
   const [editingCard, setEditingCard] = useState<Card | null>(null);
   const [showDropdownId, setShowDropdownId] = useState<number | null>(null);
@@ -138,7 +164,8 @@ export default function LeaveTypesComponent() {
           requireAttachment: newCard.requireAttachment,
           excludeCompanyLeaves: newCard.excludeCompanyLeaves,
           excludeHolidays: newCard.excludeHolidays,
-          isEncashable: newCard.isEncashable
+          isEncashable: newCard.isEncashable,
+          description: ''
         };
 
         setCards([...cards, cardToAdd]);
@@ -156,7 +183,8 @@ export default function LeaveTypesComponent() {
         requireAttachment: "No",
         excludeCompanyLeaves: "No",
         excludeHolidays: "No",
-        isEncashable: "No"
+        isEncashable: "No",
+        description: "None"
       });
       setIsModalOpen(false);
     }
@@ -175,7 +203,8 @@ export default function LeaveTypesComponent() {
       requireAttachment: card.requireAttachment,
       excludeCompanyLeaves: card.excludeCompanyLeaves,
       excludeHolidays: card.excludeHolidays,
-      isEncashable: card.isEncashable
+      isEncashable: card.isEncashable,
+      description: card.description
     });
     setIsModalOpen(true);
   };
@@ -202,7 +231,8 @@ export default function LeaveTypesComponent() {
       requireAttachment: "No",
       excludeCompanyLeaves: "No",
       excludeHolidays: "No",
-      isEncashable: "No"
+      isEncashable: "No",
+      description: "None"
     });
     setIsModalOpen(false);
   };
@@ -257,17 +287,17 @@ export default function LeaveTypesComponent() {
         </div>
 
         <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCards.map((card) => (
+          {(leave ?? []).map((card) => (
             <LeaveTypeCard
               key={card.id}
               card={card}
               color={cardColors[card.id] || 'bg-blue-200'}
               onEdit={handleEditCard}
-              onDelete={handleDeleteCard}
+              onDelete={handleDeleteLeaveType}
               onShowDetails={showCardDetails}
               dropdownRef={dropdownRef}
-              showDropdown={showDropdownId === card.id}
-              toggleDropdown={() => toggleDropdown(card.id)}
+              showDropdown={showDropdownId === card.uuid}
+              toggleDropdown={() => toggleDropdown(card.uuid)}
               getInitials={getInitials}
             />
           ))}
@@ -277,10 +307,17 @@ export default function LeaveTypesComponent() {
       <LeaveTypeModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        onSubmit={handleAddCard}
+        onSubmit={(card) => {
+          handleAddEvent({
+            title: card.title,
+            totalDays: Number(card.totalDays),
+            description: card.description
+          });
+        }}
         newCard={newCard}
         setNewCard={setNewCard}
         editingCard={editingCard}
+        
       />
 
       <LeaveTypeDetailsModal
