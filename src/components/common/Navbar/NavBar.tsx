@@ -219,7 +219,7 @@ export default function Navbar() {
                     <div className="flex flex-col border rounded-lg p-3">
                       <div className="flex items-center gap-2">
                         <Monitor className='text-gray-500'/>
-                        <p className="text-sm">Bitrix24 for Windows</p>
+                        <p className="text-sm">Yoho for Windows</p>
                       </div>
                       <button className="text-xs text-blue-600 border border-blue-600 rounded px-2 py-1 mt-2">Install</button>
                     </div>
