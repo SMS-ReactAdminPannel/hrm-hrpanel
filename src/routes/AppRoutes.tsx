@@ -102,6 +102,7 @@ const AppRoutes = () => {
           <Route path="visitor-management" element={<VisitorManagement />} />
           <Route path="/ProfilePage" element={<ProfilePage />}/>
           <Route path="/calendar" element={<Calendar />}/>
+          <Route path='employee-details' element={<Profile/>}/>
 
           
         </Route>

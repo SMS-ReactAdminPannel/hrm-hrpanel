@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Edit, Trash2 } from "lucide-react"
 import type { Employee, EmploymentType } from "../../components/Employee/Employee"
 import { FONTS } from '../../constants/uiConstants';
-import { X } from "lucide-react"
-
+import { X } from "lucide-react";
 
 interface EmployeeTableProps {
   employees: Employee[]
@@ -125,7 +124,7 @@ return (
             <td className="px-6 py-4 whitespace-nowrap" style={{...FONTS.tableBody}}>
               {emp.id}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap" style={{...FONTS.tableBody}}>
+            <td className="px-6 py-4 whitespace-nowrap cursor-pointer hover:bg-[#ffff]" style={{...FONTS.tableBody}}>
               {emp.name}
             </td>
             <td className="px-6 py-4 whitespace-nowrap" style={{...FONTS.tableBody}}>
