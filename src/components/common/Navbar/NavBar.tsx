@@ -71,7 +71,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 border-b relative">
+    <div className="flex items-center justify-between px-4 py-3 h-14 bg-white/10 relative">
       <div>
         {/* <h2 className="text-xl font-semibold flex items-center gap-1">
           Welcome HRM <span>👋</span>
