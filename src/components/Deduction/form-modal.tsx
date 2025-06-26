@@ -36,11 +36,11 @@ export function FormModal({ isOpen, editingCard, newCard, onClose, onSubmit, onC
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div
         ref={modalRef}
-        className="rounded-xl w-[800px] border bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
+        className="rounded-2xl w-[800px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
       >
-        <div className="flex bg-[] border-b bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 justify-between items-center p-6 sticky top-0 z-50">
-          <h3 className="text-2xl text-white" style={{...FONTS.cardheader}}>{editingCard ? "Edit Deduction" : "Create New Deduction"}</h3>
-          <button onClick={onClose} className="text-black rounded-md hover:text-white transition-colors">
+        <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/10 rounded-t-2xl">
+          <h3 className="text-2xl text-white font-semibold" style={{...FONTS.cardheader}}>{editingCard ? "Edit Deduction" : "Create New Deduction"}</h3>
+          <button onClick={onClose} className="text-white hover:text-red-400 transition-colors">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

@@ -13,7 +13,7 @@ interface DeductionCardProps {
   onShowDetails: (card: Card) => void
 }
 
-export function DeductionCard({ card, color, onEdit, onDelete, onShowDetails }: DeductionCardProps) {
+export function DeductionCard({ card, color, onEdit, onDelete, onShowDetails, }: DeductionCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="p-5">
@@ -23,7 +23,7 @@ export function DeductionCard({ card, color, onEdit, onDelete, onShowDetails }: 
           >
             {getInitials(card.title)}
           </div>
-          <ActionDropdown card={card} onEdit={onEdit} onDelete={onDelete} />
+          <ActionDropdown card={card} onEdit={onEdit} onDelete={onDelete}/>
         </div>
 
         <div className="mt-4">
