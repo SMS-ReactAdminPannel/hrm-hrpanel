@@ -488,8 +488,8 @@ const DepartmentList: React.FC = () => {
     const payload = {
       name: name,
       description: newDeptDescription.trim(),
-      subDescription: newDeptSubDescription,
-      total_employee: 0,
+      requiredRoles: [],
+      
     };
   
     try {
@@ -580,7 +580,13 @@ const DepartmentList: React.FC = () => {
     {dept.name}
   </h3>
                 <button
-                  onClick={(e) => handleDeleteDepartment(dept._id, e)}
+                  onClick={(e) => {
+                    if (typeof dept._id === "string") {
+                      handleDeleteDepartment(dept._id, e);
+                    } else {
+                      alert("Invalid department id");
+                    }
+                  }}
                   aria-label="Delete Department"
                   className="bg-red-400 hover:bg-red-300 text-white rounded-full p-2 shadow"
                 >
@@ -651,13 +657,13 @@ const DepartmentList: React.FC = () => {
                 placeholder="Description"
                 className="w-full border rounded px-4 py-2 text-sm"
               />
-              <input
+              {/* <input
                 type="text"
                 value={newDeptSubDescription}
                 onChange={(e) => setNewDeptSubDescription(e.target.value)}
                 placeholder="Sub Description"
                 className="w-full border rounded px-4 py-2 text-sm"
-              />
+              /> */}
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button

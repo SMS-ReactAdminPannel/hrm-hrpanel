@@ -153,7 +153,7 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ isOpen, onCl
           <button className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400" onClick={onClose}>
             Cancel
           </button>
-          <button className="bg-[#006666] text-white px-4 py-2 rounded hover:bg-teal-700" onClick={handleSubmit}>
+          <button className="bg-[#4c469f] text-white px-4 py-2 rounded hover:bg-[#4c469f]-100" onClick={handleSubmit}>
             Add Employee
           </button>
         </div>

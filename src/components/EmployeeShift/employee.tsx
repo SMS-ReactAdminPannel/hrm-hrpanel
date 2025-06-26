@@ -23,4 +23,7 @@ export interface FormData {
   startDate: string
   currentShift: string
   nextShift: string
+  department?: string
+  category: string
+  jobRole: string;
 }

@@ -2,6 +2,7 @@ import type React from "react"
 import { useState } from "react"
 import { ChevronDown, ChevronRight, Edit, Trash2, Plus } from "lucide-react"
 import AssetTable from "./AssetTable"
+import LocalAsset from "../../../pages/Asset Category/Assetcategory";
 
 interface Asset {
   id: string
@@ -21,13 +22,13 @@ interface Asset {
 interface AssetCategoryCardProps {
   category: string
   count: number
-  assets: Asset[]
+  assets: LocalAsset[]
   searchQuery: string
   onEditCategory: (category: string) => void
   onDeleteCategory: (category: string) => void
-  onEditAsset: (asset: Asset) => void
-  onDeleteAsset: (asset: Asset) => void
-  onViewAsset: (asset: Asset) => void
+  onEditAsset: (asset: LocalAsset) => void
+  onDeleteAsset: (asset: LocalAsset) => void
+  onViewAsset: (asset:LocalAsset) => void
   onAddAsset: (category: string) => void
 }
 
@@ -106,10 +107,32 @@ const AssetCategoryCard: React.FC<AssetCategoryCardProps> = ({
       {isExpanded && (
         <div className="border-t border-gray-200">
           <AssetTable
-            assets={searchQuery ? filteredAssets : assets}
-            onEditAsset={onEditAsset}
-            onDeleteAsset={onDeleteAsset}
-            onViewAsset={onViewAsset}
+            assets={(searchQuery ? filteredAssets : assets)?.map(asset => ({
+              id: asset.id,
+              asset_name: asset.asset_name,
+              status: asset.status,
+              trackingId: asset.trackingId,
+              batchNo: asset.batchNo,
+              avatar: asset.avatar,
+              avatarBg: asset.avatarBg,
+              description: asset.description,
+              category: asset.category,
+              purchaseDate: asset.purchaseDate,
+              cost: asset.cost,
+              expiryDate: asset.expiryDate,
+            }))}
+            onEditAsset={(asset) => {
+              const originalAsset = assets.find(a => a.id === asset.id);
+              if (originalAsset) onEditAsset(originalAsset);
+            }}
+            onDeleteAsset={(asset) => {
+              const originalAsset = assets.find(a => a.id === asset.id);
+              if (originalAsset) onDeleteAsset(originalAsset);
+            }}
+            onViewAsset={(asset) => {
+              const originalAsset = assets.find(a => a.id === asset.id);
+              if (originalAsset) onViewAsset(originalAsset);
+            }}
           />
         </div>
       )}

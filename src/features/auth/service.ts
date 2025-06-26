@@ -2,7 +2,7 @@ import Client from "../../api"
 
 export const postLogin = async(data:any)=>{
     try{
-const response= await  new Client().hr.hrprofile.postlogin(data)
+const response= await  Client.hr.hrprofile.postlogin(data)
 
  return response;
     }
@@ -13,7 +13,7 @@ console.log('Error fetching data:',error);
 
 export const postSignup = async (data: any) => {
   try {
-    const response = await new Client().hr.hrprofile.postregister(data);
+    const response = await Client.hr.hrprofile.postregister(data);
     return response;
   } catch (error) {
     console.log("Error during signup:", error);
@@ -24,7 +24,7 @@ export const postSignup = async (data: any) => {
 
 export const postLogout = async () => {
   try {
-    const response = await new Client().hr.hrprofile.postlogout();
+    const response = await Client.hr.hrprofile.postlogout();
     return response;
   } catch (error) {
     console.log("Error during logout:", error);

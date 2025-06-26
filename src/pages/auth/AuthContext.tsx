@@ -33,7 +33,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const name = localStorage.getItem("userName");
 
     if (token && email) {
-      setUser({ email });
+      setUser({
+        email,
+        name: ""
+      });
       setIsAuthenticated(true);
     }
     setLoading(false); 
@@ -44,7 +47,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
       
-      setUser({ email });
+      setUser({
+        email,
+        name: ""
+      });
       setIsAuthenticated(true);
     } else {
       throw new Error("Invalid login credentials");
@@ -55,7 +61,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (email && password) {
       localStorage.setItem("authToken", "dummy-token");
       localStorage.setItem("userEmail", email);
-      setUser({ email });
+      setUser({
+        email,
+        name: ""
+      });
       setIsAuthenticated(true);
     } else {
       throw new Error("Invalid signup credentials");

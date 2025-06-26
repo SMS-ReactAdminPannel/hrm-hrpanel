@@ -1,9 +1,5 @@
 // src/services/departmentService.ts
-import Client from "../../api";
-
-
-// ✅ Create a single client instance
-const client = new Client();
+import client from "../../api"; 
 
 export const getAllDepartments = async () => {
   try {
@@ -15,16 +11,15 @@ export const getAllDepartments = async () => {
   }
 };
 
-// If needed later, uncomment and use like this:
-// export const getDepartmentById = async (id: string) => {
-//   try {
-//     const response = await client.hr.department.getDepartmentById(id);
-//     return response;
-//   } catch (error) {
-//     console.error("Error in getDepartmentById:", error);
-//     throw error;
-//   }
-// };
+export const getDepartmentById = async (id: string) => {
+  try {
+    const response = await client.hr.departments.getDepartmentById(id);
+    return response;
+  } catch (error) {
+    console.error("Error in getDepartmentById:", error);
+    throw error;
+  }
+};
 
 export const createDepartment = async (data: {
   name: string;

@@ -97,7 +97,7 @@ const AssetsManagement: React.FC = () => {
   useEffect(() => {
     const fetchAssets = async () => {
       try {
-        const res = await httpClient.get(API_END_POINTS.asset.getAllAssets);
+        const res = await httpClient.get(API_END_POINTS.asset.getAllAsset);
         console.log(res.data); // Optional: Debug
         setAssets(res.data);   // Make sure response is the array
       } catch (err) {
@@ -192,7 +192,7 @@ const AssetsManagement: React.FC = () => {
         ...newAsset,
       };
   
-      await httpClient.update(API_END_POINTS.asset.updateAsset(editingAsset._id), updated);
+      await httpClient.put(API_END_POINTS.asset.updateAsset(editingAsset._id), updated);
   
       setAssets((prev) =>
         prev.map((a) => (a._id === editingAsset._id ? { ...updated, _id: editingAsset._id } : a))

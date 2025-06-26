@@ -14,28 +14,55 @@ import AssetDetailsCard from "../../components/common/Asset-category/AssetDetail
 import AddAssetModal from "../../components/common/Asset-category/AddAssetModal"
 import { getAllAssetcategory } from "../../features/assetcategory/service"
 
-
-interface Asset {
-  id: string
-  name: string
-  status: "Available" | "Not-Available"
-  trackingId: string
-  batchNo: string
-  avatar: string
-  avatarBg: string
-  description?: string
-  category?: string
-  purchaseDate?: string
-  cost?: string
-  expiryDate?: string
+export interface LocalAsset {
+  id: string;
+  name: string;
+  asset_name?: string;
+  status: "Available" | "Not-Available";
+  trackingId: string;
+  batchNo: string;
+  avatar: string;
+  avatarBg: string;
+  description?: string;
+  category?: string;
+  purchaseDate?: string;
+  cost?: string;
+  expiryDate?: string;
+  assignedTo: string;
+  serialNumber: string;
+  dateAdded: string;
 }
 
+
 interface AssetCategory {
+  id: any
+  status: any
+  batchNo: any
+  avatar: any
+  avatarBg: any
+  purchaseDate: any
+  cost: any
+  expiryDate: any
+  asset_name: any
+  trackingId: any
   category: string
   count: number
   description?: string
-  assets: Asset[]
+  assets: LocalAsset[]
 }
+
+
+
+
+
+interface EditAssetModalProps {
+  isOpen: boolean
+  onClose: () => void
+  onSave: (asset: LocalAsset) => void
+  asset: LocalAsset | null
+}
+
+
 
 const AssetCategory: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("")
@@ -47,9 +74,9 @@ const AssetCategory: React.FC = () => {
   const [showAddAssetModal, setShowAddAssetModal] = useState(false)
   const [editingCategory, setEditingCategory] = useState<string | null>(null)
   const [categoryToDelete, setCategoryToDelete] = useState<string>("")
-  const [editingAsset, setEditingAsset] = useState<Asset | null>(null)
-  const [assetToDelete, setAssetToDelete] = useState<Asset | null>(null)
-  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
+  const [editingAsset, setEditingAsset] = useState<LocalAsset | null>(null)
+  const [assetToDelete, setAssetToDelete] = useState<LocalAsset | null>(null)
+  const [selectedAsset, setSelectedAsset] = useState<LocalAsset | null>(null)
   const [selectedCategoryForAsset, setSelectedCategoryForAsset] = useState<string>("")
 
   const createModalRef = useRef<HTMLDivElement>(null)
@@ -156,17 +183,17 @@ catch (error) {
     setShowDeleteModal(true)
   }
 
-  const handleEditAsset = (asset: Asset) => {
+  const handleEditAsset = (asset: LocalAsset) => {
     setEditingAsset(asset)
     setShowEditAssetModal(true)
   }
 
-  const handleDeleteAsset = (asset: Asset) => {
+  const handleDeleteAsset = (asset: LocalAsset) => {
     setAssetToDelete(asset)
     setShowDeleteAssetModal(true)
   }
 
-  const handleViewAsset = (asset: Asset) => {
+  const handleViewAsset = (asset: LocalAsset) => {
     setSelectedAsset(asset)
     setShowAssetDetailsCard(true)
   }
@@ -202,6 +229,16 @@ catch (error) {
         count: 0,
         description: categoryData.description,
         assets: [],
+        id: undefined,
+        status: undefined,
+        batchNo: undefined,
+        avatar: undefined,
+        avatarBg: undefined,
+        purchaseDate: undefined,
+        cost: undefined,
+        expiryDate: undefined,
+        asset_name: undefined,
+        trackingId: undefined
       }
       setAssetCategories((prev) => [...prev, newCategory])
       toast.success("Category created successfully!", {
@@ -233,7 +270,7 @@ catch (error) {
     })
   }
 
-  const handleSaveAsset = (updatedAsset: Asset) => {
+  const handleSaveAsset = (updatedAsset: LocalAsset) => {
     setAssetCategories((prev) =>
       prev.map((category) => ({
         ...category,
@@ -256,8 +293,8 @@ catch (error) {
     })
   }
 
-  const handleAddNewAsset = (newAssetData: Omit<Asset, "id">) => {
-    const newAsset: Asset = {
+  const handleAddNewAsset = (newAssetData: Omit<LocalAsset, "id">) => {
+    const newAsset: LocalAsset = {
       ...newAssetData,
       id: Date.now().toString(),
     }
@@ -320,7 +357,7 @@ catch (error) {
     if (!searchQuery) return true
 
 
-    if (category?.category_name?.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (category?.category?.toLowerCase().includes(searchQuery.toLowerCase())) {
       return true
     }
 
@@ -367,9 +404,12 @@ catch (error) {
               filteredCategories?.map((category, index) => (
                 <AssetCategoryCard
                   key={index}
-                  category={category?.category_name}
+                  category={category?.category}
                   count={category?.count}
-                  assets={category?.asset}
+                  assets={category?.assets.map(asset => ({
+                    ...asset,
+                    asset_name: asset.name ?? "",
+                  }))}
                   searchQuery={searchQuery}
                   onEditCategory={handleEditCategory}
                   onDeleteCategory={handleDeleteCategory}

@@ -25,6 +25,8 @@ const RotatingShiftAssign: React.FC = () => {
     startDate: "",
     currentShift: "",
     nextShift: "",
+    category: "",
+    jobRole: "",
   })
 
   const employees: Employee[] = [
@@ -127,6 +129,8 @@ const RotatingShiftAssign: React.FC = () => {
       startDate: "",
       currentShift: "",
       nextShift: "",
+      category: "",
+      jobRole: "",
     })
   }
 
@@ -152,6 +156,8 @@ const RotatingShiftAssign: React.FC = () => {
       startDate: employee.startDate,
       currentShift: employee.currentShift,
       nextShift: employee.nextShift,
+      category: employee.department || "",
+      jobRole: employee.jobRole || "",
     })
     setIsEditModalOpen(true)
   }

@@ -1,6 +1,8 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { FONTS } from "../../../constants/uiConstants";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -74,10 +76,10 @@ const PayrollStack: React.FC = () => {
     <div className="grid grid-cols-9 gap-2 mt-1 w-full">
       {/* Transaction History Table */}
       <div className="col-span-6 bg-white rounded-xl border border-white shadow-sm p-4 backdrop-blur bg-opacity-10 backdrop-saturate-100">
-        <h2 className="text-lg font-semibold mb-4">Transaction History</h2>
+        <h2 style={{...FONTS.header}} className="text-lg font-semibold mb-4 text-white">Transaction History</h2>
 
         {/* Table Headers */}
-        <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 border-b pb-2 mb-2">
+        <div style={{...FONTS.tableHeader}} className="grid grid-cols-4 font-semibold text-white text-gray-600 border-b pb-2 pt-4 mb-2">
           <div>Name</div>
           <div>Date - Time</div>
           <div>Amount</div>
@@ -88,7 +90,7 @@ const PayrollStack: React.FC = () => {
         {transactions.map((txn, index) => (
           <div
             key={index}
-            className="grid grid-cols-4 items-center text-sm text-gray-700 border-b py-2 last:border-b-0"
+            className="grid grid-cols-4 items-center text-sm text-white border-b py-2 last:border-b-0"
           >
             {/* Name + Avatar */}
             <div className="flex items-center space-x-3">
@@ -99,14 +101,14 @@ const PayrollStack: React.FC = () => {
               />
               <div>
                 <p className="font-medium">{txn.name}</p>
-                <p className="text-xs text-gray-700">{txn.company}</p>
+                <p className="text-xs text-white">{txn.company}</p>
               </div>
             </div>
 
             {/* Date-Time */}
             <div>
               <p>{txn.date}</p>
-              <p className="text-xs text-gray-600">{txn.time}</p>
+              <p className="text-xs text-white">{txn.time}</p>
             </div>
 
             {/* Amount */}
@@ -116,8 +118,8 @@ const PayrollStack: React.FC = () => {
 
             {/* Action */}
             <div className="text-left">
-              <button className="text-xs bg-gray-100 px-6 py-1 rounded-md">
-                Send Invoice
+              <button style={{...FONTS.button}} className="text-xs bg-gray-100 px-6 py-1 rounded-md !text-black">
+                Summary
               </button>
             </div>
           </div>
@@ -127,8 +129,8 @@ const PayrollStack: React.FC = () => {
       <div className=" col-span-3 bg-white border border-white rounded-xl shadow-lg p-6 backdrop-blur bg-opacity-10 backdrop-saturate-100 flex flex-col justify-between">
   {/* Title and View Button */}
   <div className="flex justify-between items-center mb-6">
-    <h2 className="text-xl font-extrabold text-gray-800 tracking-wide">Payroll Summary</h2>
-    <button className="text-sm text-purple-600 hover:underline">View Report</button>
+    <h2  style={{...FONTS.header}}   className="text-xl font-extrabold text-white tracking-wide">Payroll Summary</h2>
+    <button style={{...FONTS.subParagraph}} className="text-sm !text-white my-4 ">View Report</button>
   </div>
 
   {/* Bold Stat Blocks */}

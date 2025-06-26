@@ -64,20 +64,24 @@ export const API_END_POINTS = {
 
       department: {
         getAll: "/api/hr/departments/getall",
+        getById: (id: string) => `/api/hr/departments/get/${id}`,
         create: "/api/hr/departments/create",
         update: (id: string) => `/api/hr/departments/update/${id}`,
         delete: (id: string) => `/api/hr/departments/delete/${id}`,
-},
-    visitors:{
-      getAll: "api/hr/visitors/getAll",
-    } ,
-  
-  announcement:{
-    AnnouncementCreate:"/api/hr/announcement/create",
-    AnnouncementGetOne:"/api/hr/announcement/get/:id",
-    AnnouncementGetAll:"/api/hr/announcement/getall",
-    AnnouncementUpdateWithUUID:"/api/hr/announcement/update/:id",
-    AnnouncementDelete:"/api/hr/announcement/delete/:id"
+
+        
+  },
+  visitors: {
+    create: "api/hr/visitors/",
+    getAll: "api/hr/visitors/getAll",
+    delete: "/api/hr/visitors/:id",
+  },
+  announcement: {
+    AnnouncementCreate: "/api/hr/announcement/create",
+    AnnouncementGetOne: "/api/hr/announcement/get/:id",
+    AnnouncementGetAll: "/api/hr/announcement/getall",
+    AnnouncementUpdateWithUUID: "/api/hr/announcement/update/:id",
+    AnnouncementDelete: "/api/hr/announcement/delete/:id"
   },
   assetCategory: {
     createCategory: "/api/hr/assetproperty/asset-categories",
@@ -85,6 +89,13 @@ export const API_END_POINTS = {
     getCategoryById: (id: string) => `/api/hr/assetproperty/getasset-categories/${id}`,
     updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
     deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
+  },
+  payroll: {
+    create: "/api/hr/payroll/create",
+    getAll: "/api/hr/payroll/getall",
+    getOne: (id: string) => `/api/hr/payroll/get/${id}`,
+    update: (id: string) => `/api/hr/payroll/update/${id}`,
+    delete: (id: string) => `/api/hr/payroll/delete/${id}`,
   },
 };
 

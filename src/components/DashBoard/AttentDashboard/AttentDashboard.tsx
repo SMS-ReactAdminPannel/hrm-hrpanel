@@ -21,26 +21,26 @@ const AttentDashboard = () => {
           <div className="flex-1 flex flex-col">
             <div className="mb-14">
               <h1
-                className="text-xl text-black font-semibold mb-3"
-                style={{ fontSize: FONTS.header2.fontSize }}
+                className="text-xl text-white font-semibold mb-3"
+                style={{ ...FONTS.header }}
               >
                 Attendance
               </h1>
               <p
-                className="text-sm"
-                style={{ fontSize: FONTS.header3.fontSize }}
+                className="text-sm !text-white"
+                style={{...FONTS.cardSubHeader }}
               >
                 Weekly Attendance Overview
               </p>
             </div>
             <div>
               <p
-                className="text-md text-black"
-                style={{ fontSize: FONTS.paragraph.fontSize }}
+                className="text-md !text-white mx-8"
+                style={{ ...FONTS.header3 }}
               >
                 Total Employees
               </p>
-              <p className="text-lg font-semibold">234k</p>
+              <p style={{...FONTS.cardSubHeader}} className="text-lg !text-white font-semibold mx-8">234k</p>
             </div>
           </div>
 
@@ -51,6 +51,7 @@ const AttentDashboard = () => {
   <select
     value={selectedMonth}
     onChange={(e) => setSelectedMonth(e.target.value)}
+    style={{...FONTS.subParagraph}}
     className="px-2 py-1 h-6 w-18 text-xs  bg-transparent text-white text-right focus:outline-none"
   >
     {[
@@ -66,6 +67,7 @@ const AttentDashboard = () => {
   <select
     value={selectedDepartment}
     onChange={(e) => setSelectedDepartment(e.target.value)}
+    style={{...FONTS.subParagraph}}
     className="px-2 py-1 h-6  w-18 text-xs  bg-transparent text-white text-right focus:outline-none "
   >
     <option value="All">Department</option>
@@ -81,7 +83,7 @@ const AttentDashboard = () => {
         </div>
 
         {/* Bottom Card */}
-        <div className="flex justify-around p-4">
+        <div style={{...FONTS.cardSubHeader}} className="flex justify-around p-4 ">
           <CardForProcessBar
             icon={<RxCross2 />}
             title="Absent"

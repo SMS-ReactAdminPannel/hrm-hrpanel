@@ -8,6 +8,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { color } from "framer-motion";
+
 
 // Register Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -93,14 +95,22 @@ const StackBar: React.FC<StackBarProps> = ({ month, department }) => {
     scales: {
       x: {
         stacked: true,
+        ticks: {
+          color: "#ffffff", 
+        },
         grid: {
           display: false,
           drawBorder: false,
+      
+        
         },
       },
       y: {
         stacked: true,
         beginAtZero: true,
+        ticks: {
+          color: "#ffffff", 
+        },
         grid: {
           display: false,
           drawBorder: false,
@@ -110,7 +120,7 @@ const StackBar: React.FC<StackBarProps> = ({ month, department }) => {
   };
 
   return (
-    <div className="w-full h-[250px]">
+    <div className="w-full h-[250px] ">
       <Bar data={data} options={options} />
     </div>
   );
