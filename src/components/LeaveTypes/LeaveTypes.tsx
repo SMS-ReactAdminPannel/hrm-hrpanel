@@ -204,7 +204,7 @@ export default function LeaveTypesComponent() {
             </div>
 
             <button
-              className="ml-auto w-38 bg-[#5e59a9]/70 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+              className="ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
               onClick={() => {
                 setEditingCard(null);
                 setIsModalOpen(true);
