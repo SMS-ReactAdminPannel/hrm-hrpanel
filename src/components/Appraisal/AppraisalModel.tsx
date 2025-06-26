@@ -80,9 +80,14 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-xl shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-xl shadow-lg w-full max-h-full max-w-4xl max-h-[90vh] relative overflow-y-auto  "
           >
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+             <button onClick={onClose} className="absolute top-2 text-white   p-1 shadow hover:text-gray-600  rounded-l-full bg-blue-700"
+          >
+                <X size={30} />
+              </button>
+            <div>
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center "> 
               <h3 className="text-xl font-semibold text-gray-900">
                 {modalMode === "select" && "Select Employee"}
                 {modalMode === "view" &&
@@ -90,12 +95,12 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
                   `Appraisal for ${modalEmployee.name}`}
                 {modalMode === "create" && "Create New Appraisal"}
               </h3>
-              <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+              {/* <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
                 <X className="w-6 h-6" />
-              </button>
+              </button> */}
             </div>
 
-            <div className="p-6">
+            <div className="p-6 ">
               {modalMode === "select" && (
                 <div className="space-y-4">
                   <h4 className="font-medium text-gray-900">Select Employee</h4>
@@ -143,7 +148,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
               )}
 
               {modalMode === "view" && modalEmployee && (
-                <div className="space-y-8">
+                <div className="space-y-8 ">
                   <div className="flex items-center gap-4 mb-6">
                     <button onClick={onBackToSelect} className="text-[#006666] hover:text-[#005555]">
                       <ArrowLeft className="w-5 h-5" />
@@ -171,7 +176,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
                   {modalAppraisalData.map((criteria) => (
                     <div
                       key={criteria.id}
-                      className="border border-gray-200 rounded-lg p-6 bg-gray-50"
+                      className="border border-gray-200 rounded-lg h-96 p-6 bg-gray-50"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div>
@@ -327,6 +332,7 @@ const AppraisalModal: React.FC<AppraisalModalProps> = ({
                   )}
                 </div>
               )}
+            </div>
             </div>
           </motion.div>
         </motion.div>
