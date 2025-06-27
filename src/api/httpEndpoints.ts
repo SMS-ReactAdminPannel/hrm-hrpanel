@@ -51,13 +51,13 @@ export const API_END_POINTS = {
   // },
 
 
-    jobPosting: {
-      getAll: "/api/job-postings",
-      getById: "/api/job-postings",   
-      create: "/api/job-postings",
-      update: "/api/job-postings",    
-      delete: "/api/job-postings",    
-    },
+    // jobPosting: {
+    //   getAll: "/api/job-postings",
+    //   getById: "/api/job-postings",   
+    //   create: "/api/job-postings",
+    //   update: "/api/job-postings",    
+    //   delete: "/api/job-postings",    
+    // },
 
 
       department: {
@@ -97,7 +97,16 @@ export const API_END_POINTS = {
 
   attendance: {
     getDailyAttendance: "/api/hr/timesheet/attendance/daily",
-  }
+  },
+  
+  jobPosting: {
+  create: "/api/hr/jobposting", 
+  getAll: "/api/hr/jobposting", 
+  getById: (id: string) => `/api/hr/jobposting/${id}`,
+  update: (id: string) => `/api/hr/jobposting/${id}`,
+  delete: (id: string) => `/api/hr/jobposting/${id}`,  
+}
+
 
 };
 

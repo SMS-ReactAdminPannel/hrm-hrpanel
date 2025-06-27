@@ -1,4 +1,5 @@
 import React from "react";
+import {FONTS} from "../../../constants/uiConstants";
 
 const Transaction: React.FC = () => {
   const transactions = [
@@ -79,12 +80,13 @@ const Transaction: React.FC = () => {
   return (
     <div className="p-2  ">
       <div className="col-span-6 ">
-        <h2 className="text-xl font-semibold text-gary-900 mb-4">
+        <h2 className="text-xl font-semibold !text-gray-800 mb-4 mt-2"
+        style={{... FONTS.cardheader}}>
           Transaction History
         </h2>
 
         {/* Table Headers */}
-        <div className="grid grid-cols-4 font-semibold text-sm text-black-800 border-b pb-2 mb-2 ">
+        <div className="grid grid-cols-4 font-normal text-sm text-black-800 border-b pb-2 mb-2 ">
           <div>Name</div>
           <div>Date - Time</div>
           <div>Amount</div>
@@ -92,11 +94,11 @@ const Transaction: React.FC = () => {
         </div>
 
         {/* Rows */}
-        <div className="overflow-y-scroll scrollbar-hide max-h-[280px] rounded-xl">
+        <div className="overflow-y-scroll scrollbar-hide max-h-[280px] rounded-xl ">
           {transactions.map((txn, index) => (
             <div
               key={index}
-              className="grid grid-cols-4 items-center text-sm text-gray-800 border-b py-2 last:border-b-0 "
+              className="grid grid-cols-4 items-center text-sm text-gray-800 border-b py-2 last:border-b-0 hover:scale-97 transition-transform duration-300"
             >
               {/* Name + Avatar */}
               <div className="flex items-center space-x-3">
@@ -105,28 +107,28 @@ const Transaction: React.FC = () => {
                   alt={txn.name}
                   className="w-8 h-8 rounded-full object-cover"
                 />
-                <div>
-                  <p className=" font-bold ">{txn.name}</p>
-                  <p className="text-xs font-bold text-gray-900">
+                <div style={{... FONTS.tableHeader}}>
+                  <p className=" font-light ">{txn.name}</p>
+                  <p className="text-xs font-light text-gray-900">
                     {txn.company}
                   </p>
                 </div>
               </div>
 
               {/* Date-Time */}
-              <div>
-                <p className="text-xs font-bold text-gray-900">{txn.date}</p>
-                <p className="text-xs font-bold text-gray-900">{txn.time}</p>
+              <div style={{... FONTS.tableHeader}}>
+                <p className="text-xs font-light text-gray-900">{txn.date}</p>
+                <p className="text-xs font-light text-gray-900">{txn.time}</p>
               </div>
 
               {/* Amount */}
               <div>
-                <p className="font-bold">{txn.amount}</p>
+                <p className=""style={{... FONTS.tableHeader}}>{txn.amount}</p>
               </div>
 
               {/* Action */}
-              <div className="text-left">
-                <button className="text-xs font-bold bg-gray-300 px-6 py-1 rounded-md">
+              <div className="text-left" style={{... FONTS.tableHeader}}>
+                <button className="text-xs  bg-gray-300 px-6 py-1 rounded-md">
                   Send Invoice
                 </button>
               </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FONTS } from "../../../constants/uiConstants";
 
 interface Applicant {
   name: string;
@@ -93,13 +94,13 @@ const JobOpening: React.FC = () => {
   return (
     <div className=" w-full h-full p-2 ">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Jobs Portal</h2>
+        <h2 className="text-xl font-semibold !text-gray-800" style={{...FONTS.cardheader}}>Jobs Portal</h2>
         <button className="text-sm text-white hover:text-blue-200">
           View All
         </button>
       </div>
 
-      <div className="flex mb-2">
+      <div className="flex mb-2" style={{...FONTS.paragraph}}>
         <button
           onClick={() => setActiveTab("openings")}
           className={`w-1/2 text-center py-2 font-medium rounded-l ${
@@ -122,7 +123,7 @@ const JobOpening: React.FC = () => {
         </button>
       </div>
 
-      <div className="space-y-2 overflow-y-scroll max-h-[250px] rounded-xl  scrollbar-hide ">
+      <div className="space-y-2 overflow-y-scroll max-h-[250px] rounded-xl  scrollbar-hide " style={{...FONTS.subParagraph}}>
         {activeTab === "applicants" &&
           applicants.map((applicant, index) => (
             <div
@@ -130,13 +131,13 @@ const JobOpening: React.FC = () => {
               className="flex justify-between bg-[#FAF3EB] rounded-xl p-2 items-center hover:scale-97 transition-transform duration-300 "
             >
               <div className="">
-                <p className="font-semibold">{applicant.name}</p>
-                <p className="text-sm text-gray-700">
+                <p className="!font-semibold !text-gray-800" style={{...FONTS.subParagraph}}>{applicant.name}</p>
+                <p className="text-sm !text-gray-700">
                   Exp: {applicant.experience} · {applicant.location}
                 </p>
               </div>
               <span
-                className={`text-white text-xs font-semibold px-3 py-1 rounded-full ${applicant.badgeColor}`}
+                className={`text-white text-xs font-semibold px-3 py-1 rounded-full  ${applicant.badgeColor}`}style={{...FONTS.subParagraph}}
               >
                 {applicant.role}
               </span>
@@ -150,8 +151,8 @@ const JobOpening: React.FC = () => {
               className="flex justify-between bg-[#FAF3EB] rounded-xl p-2 items-center hover:scale-97 transition-transform duration-300"
             >
               <div>
-                <p className="font-semibold">{job.title}</p>
-                <p className="text-sm text-gray-500">
+                <p className="!font-semibold !text-gray-800"style={{...FONTS.subParagraph}}>{job.title}</p>
+                <p className="text-sm text-gray-700">
                   {job.location} · Openings: {job.openings}
                 </p>
               </div>
