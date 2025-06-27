@@ -45,6 +45,8 @@ import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
 import DepartmentList from "../pages/Department/DepartmentList";
 import Leave from "../pages/Leave Management/Leave";
+import OTPValidation from "../pages/auth/OTPValidation";
+
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -95,15 +97,21 @@ const AppRoutes = () => {
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
+
+           {/* <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="login" element={<LoginPage />} /> */}
+
           
         </Route>
       ) : (
         <Route path="/">
           <Route index element={<Navigate to="/login" />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="otp-validation" element={<OTPValidation />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password/:token" element={<ResetPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
         </Route>
       )}
     </Routes>

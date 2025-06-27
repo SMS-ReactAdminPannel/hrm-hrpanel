@@ -19,7 +19,10 @@ export const API_END_POINTS = {
   hrprofile:{
     Postlogin:"/api/hr/auth/signin",
     Postregister:"/api/hr/auth/",
-    postlogout:"/api/hr/auth/logout"
+    postlogout:"/api/hr/auth/logout",
+    validateOtp: "/api/hr/auth/otp",
+    forgotPassword: "/api/hr/auth/forgot-password",
+    resetPassword: "/api/hr/auth/reset-password"
   },
 
   candidates:{
