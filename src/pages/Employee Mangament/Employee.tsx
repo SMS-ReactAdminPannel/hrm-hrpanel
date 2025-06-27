@@ -146,7 +146,7 @@ const EmployeeManagement = () => {
       const matchesSearch = Object.values(employee).some(
         (value) => typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase()),
       )
-      const matchesDepartment = selectedDepartment ? employee.department === selectedDepartment : true
+      const matchesDepartment = selectedDepartment ? employee.department ===selectedDepartment : true
       return matchesSearch && matchesDepartment
     })
 

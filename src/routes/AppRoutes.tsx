@@ -10,7 +10,7 @@ import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
 import LeaveTypes from "../pages/Leave Types/LeaveTypes";
-import LeaveManagement from "../pages/Leave Management/Leave"
+// import LeaveManagement from "../pages/Leave Management/Leave"
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
@@ -102,6 +102,7 @@ const AppRoutes = () => {
           <Route path="visitor-management" element={<VisitorManagement />} />
           <Route path="/ProfilePage" element={<ProfilePage />}/>
           <Route path="/calendar" element={<Calendar />}/>
+          <Route path="/employee-details" element={<Profile/>}/>
 
           
         </Route>
