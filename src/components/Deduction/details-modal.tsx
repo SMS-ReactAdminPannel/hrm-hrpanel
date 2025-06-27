@@ -1,7 +1,24 @@
+"use client"
 import { useRef, useEffect, useState } from "react"
-import type { Card } from "./types"
-import { getInitials } from "./utils"
-import { AnimatePresence, motion } from "framer-motion"
+
+// Mock types and utils for demo
+interface Card {
+  title: string
+  isPretax: string
+  isRecurring: string
+  deductionType: string
+  isConditionBased: string
+  calculationType: string
+  employerRate: number
+  employeeRate: number
+  hasMaxLimit: string
+  eligibilityCondition: string
+  eligibilityValue: number
+}
+
+function getInitials(name: string) {
+  return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2)
+}
 
 interface DetailsModalProps {
   isOpen: boolean
@@ -49,73 +66,79 @@ export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalP
     }, 300)
   }
 
+  if (!isOpen || !card) return null
+
   return (
-    <AnimatePresence>
-      {isOpen && card && (
-        <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+    <div 
+      className={`fixed inset-0 bg-black flex items-end justify-center z-50 transition-all duration-100 ${
+        isAnimating ? 'bg-opacity-50' : 'bg-opacity-0'
+      }`}
+    >
+
+      <button 
+        onClick={handleClose} 
+        className={`left-8 mb-[630px] ml-[150px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-300 shadow-lg z-10 ${
+          isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className=" w-6 pr-1 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
-          <motion.div
-            ref={modalRef}
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
-          >
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center">
-                  <div
-                    className={`w-12 h-12 rounded-full ${cardColor} flex items-center justify-center text-black text-xl font-bold mr-4`}
-                  >
-                    {getInitials(card.title)}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-800">{card.title}</h3>
-                </div>
-                <button onClick={onClose} className="text-gray-500 rounded-md hover:text-white transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <DetailItem label="Is Pretax" value={card.isPretax} />
-                <DetailItem label="Is Recurring" value={card.isRecurring} />
-                <DetailItem label="Deduction Type" value={card.deductionType} />
-                <DetailItem label="Is Condition Based" value={card.isConditionBased} />
-                <DetailItem label="Calculation Type" value={card.calculationType} />
-                <DetailItem label="Employer Rate" value={`${card.employerRate}%`} />
-                <DetailItem label="Employee Rate" value={`${card.employeeRate}%`} />
-                <DetailItem label="Has Maximum Limit" value={card.hasMaxLimit} />
-                <DetailItem label="Eligibility Condition" value={card.eligibilityCondition} />
-                <DetailItem label="Eligibility Value" value={card.eligibilityValue.toString()} />
-              </div>
-
-              <div className="flex justify-end mt-6">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  onClick={onClose}
-                  type="button"
-                >
-                  Close
-                </button>
-              </div>
+      <div 
+        ref={modalRef} 
+        className={`bg-white rounded-t-3xl shadow-2xl w-[1200px] h-[700px] overflow-hidden transform transition-all duration-250 ease-out ${
+          isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
+        {/* Header */}
+        <div className="relative ml-4 mt-3 bg-white px-3 py-4 border-b-1 border-blue-300">
+          
+          <div className=" flex ">
+            <div
+              className={`w-16 h-16 rounded-full ${cardColor} flex items-center justify-center text-white text-xl font-bold mb-4 shadow-lg`}
+            >
+              {getInitials(card.title)}
             </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            <h3 className="text-xl font-bold text-gray-900 mt-5 ml-5">{card.title}</h3>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="px-6 py-4 max-h-[60vh] overflow-y-auto">
+          <div className=" p-6 grid grid-cols-2 gap-9 ">
+            <DetailItem label="Is Pretax" value={card.isPretax} />
+            <DetailItem label="Is Recurring" value={card.isRecurring} />
+            <DetailItem label="Deduction Type" value={card.deductionType} />
+            <DetailItem label="Is Condition Based" value={card.isConditionBased} />
+            <DetailItem label="Calculation Type" value={card.calculationType} />
+            <DetailItem label="Employer Rate" value={`${card.employerRate}%`} />
+            <DetailItem label="Employee Rate" value={`${card.employeeRate}%`} />
+            <DetailItem label="Has Maximum Limit" value={card.hasMaxLimit} />
+            <DetailItem label="Eligibility Condition" value={card.eligibilityCondition} />
+            <DetailItem label="Eligibility Value" value={card.eligibilityValue.toString()} />
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-8 pt-3 py-8">
+          <button
+            className="w-full px-6 py-5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium "
+            onClick={handleClose}
+            type="button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -53,13 +53,19 @@ export default class Client {
         ),
     },
 
-    hrprofile:{
-       postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
-       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data),
-       postlogout: () => httpClient.post(API_END_POINTS.hrprofile.postlogout,{}),
-       validateOtp: (data: any) => httpClient.post(API_END_POINTS.hrprofile.validateOtp,data),
-       forgotPassword: (data: any) =>  httpClient.post(API_END_POINTS.hrprofile.forgotPassword,data),
-       resetPassword: (data: any) =>  httpClient.post(API_END_POINTS.hrprofile.resetPassword,data),
+    hrprofile: {
+      postlogin: (data: any) =>
+        httpClient.post(API_END_POINTS.hrprofile.Postlogin, data),
+      postregister: (data: any) =>
+        httpClient.post(API_END_POINTS.hrprofile.Postregister, data),
+      postlogout: () =>
+        httpClient.post(API_END_POINTS.hrprofile.postlogout, {}),
+      validateOtp: (data: any) => 
+        httpClient.post(API_END_POINTS.hrprofile.validateOtp,data),
+      forgotPassword: (data: any) =>  
+        httpClient.post(API_END_POINTS.hrprofile.forgotPassword,data),
+      resetPassword: (data: any) =>  
+        httpClient.post(API_END_POINTS.hrprofile.resetPassword,data),
     },
 
     candidates: {
