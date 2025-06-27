@@ -42,7 +42,6 @@ export type NewCard = {
 };
 
 
-
 export const FONTS = {
   header: {
     fontSize: "24px",

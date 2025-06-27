@@ -1,4 +1,5 @@
 export type Customer = {
+  uuid: string;
   id: string;
   date: Date;
   day: string;
@@ -7,10 +8,11 @@ export type Customer = {
 };
 
 export interface WorkEvent {
+  color: any;
   id: string;
   title: string;
   date: Date;
-  color: string;
+  type: string;
 }
 
 export interface DayData {
@@ -18,4 +20,10 @@ export interface DayData {
   isCurrentMonth: boolean;
   isToday: boolean;
   events: WorkEvent[];
+}
+
+export interface Holiday {
+  id: string;
+  holiday_name: string;
+  holiday_date: string; 
 }

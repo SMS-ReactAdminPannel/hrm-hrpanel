@@ -13,7 +13,7 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ timeLeft }) => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+    <div className="flex items-center text-bold justify-center gap-2 text-sm">
       <Clock className="w-4 h-4" />
       <span>Code expires in {formatTime(timeLeft)}</span>
     </div>

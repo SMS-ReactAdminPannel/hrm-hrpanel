@@ -3,14 +3,50 @@ import { Shield, Mail, ArrowLeft } from 'lucide-react';
 import OTPInput from './OTPInput';
 import TimerDisplay from './TimerDisplay';
 import VerifiedView from './VerifiedView';
+import { validateOtp } from '../../features/auth/service';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../pages/auth/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const HRMOTPValidation: React.FC = () => {
   const [otp, setOtp] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [timeLeft, setTimeLeft] = useState<number>(300);
+  const [timeLeft, setTimeLeft] = useState<number>(600);
   const [canResend, setCanResend] = useState<boolean>(false);
+  const { setIsAuthenticated } = useAuth(); 
+  const navigate = useNavigate();
+
+ const handleOtpComplete = async (otp: string) => {
+  console.log("otp get from integration", otp);
+  const email = localStorage.getItem("userEmail");
+  const token = localStorage.getItem("authToken");
+  console.log('succesfully got data')
+    try {
+      const response = await validateOtp({ otp, email, token });
+      console.log('OTP validation success:', response);  
+      if(response.success){
+         toast.success("OTP Verified Successfully!", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+          });
+        setIsAuthenticated(true);
+        navigate("/dashboard")
+      }
+    } catch (err: any) {
+      console.error('OTP validation failed:', err);
+      setError(err?.response?.data?.message || 'OTP validation failed');
+    }
+  };
+ 
 
   useEffect(() => {
     if (timeLeft > 0 && !isVerified) {
@@ -21,26 +57,6 @@ const HRMOTPValidation: React.FC = () => {
     }
   }, [timeLeft, isVerified]);
 
-  const handleOTPComplete = async (otpValue: string) => {
-    setError('');
-    setIsLoading(true);
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      if (otpValue === '123456') {
-        setIsVerified(true);
-        setError('');
-      } else {
-        setError('Invalid OTP. Please try again.');
-        setOtp('');
-      }
-    } catch (err) {
-      setError('Verification failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleResendOTP = async () => {
     setIsLoading(true);
@@ -71,7 +87,7 @@ const HRMOTPValidation: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4" style={{ backgroundImage: `url('/loginbg.jpg')` }}>
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -82,28 +98,23 @@ const HRMOTPValidation: React.FC = () => {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-2 text-blue-600">
-              <Shield className="w-6 h-6" />
-              <span className="font-semibold">HRM System</span>
+              
+              <span className="text-2xl font-bold text-[#006666] mb-2">OTP Validation</span>
             </div>
             <div className="w-9"></div>
           </div>
           
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Verify Your Identity</h1>
           <p className="text-gray-600 mb-4">
             We've sent a 6-digit verification code to your registered email address
           </p>
           
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500 bg-gray-50 py-2 px-4 rounded-lg">
-            <Mail className="w-4 h-4" />
-            <span>j***n@company.com</span>
-          </div>
         </div>
 
         <div className="mb-6">
           <OTPInput
             value={otp}
             onChange={setOtp}
-            onComplete={handleOTPComplete}
+            onComplete={handleOtpComplete}
           />
         </div>
 
@@ -137,28 +148,28 @@ const HRMOTPValidation: React.FC = () => {
           )}
         </div>
 
-        <div className="text-center">
-          <p className="text-xs text-gray-500">
-            Having trouble? Contact IT support at{' '}
-            <a href="mailto:support@company.com" className="text-blue-600 hover:underline">
-              support@company.com
-            </a>
-          </p>
-        </div>
+       
 
         <div className="mt-6 pt-4 border-t border-gray-100">
           <button
-            onClick={() => handleOTPComplete('123456')}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50"
+            onClick={() => handleOtpComplete((otp))}  // pass the otp for verification from getting api integration
+            className="w-full bg-[#006666] hover:bg-[#004d4d] text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50"
             disabled={isLoading}
           >
             {isLoading ? 'Verifying...' : 'Verify OTP'}
           </button>
-          <p className="text-xs text-gray-400 text-center mt-2">
-            Demo: Use "123456" for successful verification
-          </p>
         </div>
       </div>
+      <ToastContainer
+       position="top-center"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover />
     </div>
   );
 };

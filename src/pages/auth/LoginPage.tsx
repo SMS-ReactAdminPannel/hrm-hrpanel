@@ -32,14 +32,17 @@ const LoginPage = () => {
       const datas:any =JSON.stringify(User.data)
       localStorage.setItem("user",datas)
       console.log("Backend response:", User)
-      if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
-        await login(email, password)
-        console.log("Login successful:", User)
-        navigate("/")
-      } else {
-        const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
-        setError(errorMessage)
+      if(User.success){
+        navigate("/otp-validation")
       }
+      // if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
+      //   await login(email, password)
+      //   console.log("Login successful:", User)
+      //   navigate("/")
+      // } else {
+      //   const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
+      //   setError(errorMessage)
+      // }
     } catch (err: any) {
       console.log("Login error:", err)
 
@@ -123,9 +126,8 @@ const LoginPage = () => {
               ) : (
                 "Log In"
               )}
-            </button>
+            </button> 
           </form>
-
           <p className="text-center text-sm text-gray-700 mt-4">
             Forgot password?{" "}
             <Link to="/forgot-password" className="text-[#006666] hover:text-[#004d4d]">
@@ -139,6 +141,7 @@ const LoginPage = () => {
               Sign Up
             </Link>
           </p>
+
         </div>
       </div>
     </div>

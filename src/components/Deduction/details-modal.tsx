@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import type { Card } from "./types"
 import { getInitials } from "./utils"
 import { AnimatePresence, motion } from "framer-motion"
@@ -12,20 +12,21 @@ interface DetailsModalProps {
 
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-b pb-3">
-      <span className="text-gray-500 text-sm">{label}:</span>
-      <span className="ml-2 font-medium text-gray-800">{value}</span>
+    <div className="flex justify-between items-center py-3 p-6 border-gray-100 last:border-b-0">
+      <span className="text-gray-600 font-medium">{label}</span>
+      <span className="text-gray-900 font-semibold max-w-[60%] text-right">{value}</span>
     </div>
   )
 }
 
 export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (isOpen && modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose()
+        handleClose()
       }
     }
 
@@ -33,7 +34,20 @@ export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalP
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isOpen, onClose])
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsAnimating(true)
+    }
+  }, [isOpen])
+
+  const handleClose = () => {
+    setIsAnimating(false)
+    setTimeout(() => {
+      onClose()
+    }, 300)
+  }
 
   return (
     <AnimatePresence>
@@ -102,5 +116,39 @@ export function DetailsModal({ isOpen, card, cardColor, onClose }: DetailsModalP
         </motion.div>
       )}
     </AnimatePresence>
+  )
+}
+
+// Demo component to show the modal
+export default function ModalDemo() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
+  const mockCard: Card = {
+    title: "Health Insurance",
+    isPretax: "Yes",
+    isRecurring: "Yes", 
+    deductionType: "Percentage",
+    isConditionBased: "No",
+    calculationType: "Fixed Rate",
+    employerRate: 80,
+    employeeRate: 20,
+    hasMaxLimit: "Yes",
+    eligibilityCondition: "Full Time",
+    eligibilityValue: 40
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">Redesigned Modal Demo</h1>
+      </div>
+      
+      <DetailsModal 
+        isOpen={isModalOpen}
+        card={mockCard}
+        cardColor="bg-blue-500"
+        onClose={() => setIsModalOpen(false)}
+      />
+    </div>
   )
 }

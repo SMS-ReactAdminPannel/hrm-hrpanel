@@ -49,6 +49,8 @@ import Leave from "../pages/Leave Management/Leave";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
 import Calendar from "../components/DashBoard/Calender/calender";
+import OTPValidation from "../pages/auth/OTPValidation";
+
 
 // import EmployeesPage from "../components/Department/Employees";
 
@@ -110,9 +112,10 @@ const AppRoutes = () => {
         <Route path="/">
           <Route index element={<Navigate to="/login" />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="otp-validation" element={<OTPValidation />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password/:token" element={<ResetPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
         </Route>
       )}
     </Routes>

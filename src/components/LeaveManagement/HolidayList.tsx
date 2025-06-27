@@ -3,7 +3,7 @@ import type { Customer } from './types';
 import { FONTS } from '../../constants/uiConstants';
 
 interface HolidayListProps {
-  holidays: Customer[];
+  holidays: any[];
   onNavigateToDate: (date: Date) => void;
   onDeleteEvent: (id: string) => void;
 }
@@ -29,7 +29,7 @@ const HolidayList: React.FC<HolidayListProps> = ({
       <div className="space-y-4">
         {holidays.length > 0 ? (
           holidays.map((holiday) => {
-            const holidayDate = new Date(holiday.date);
+            const holidayDate = new Date(holiday.holiday_date);
             const dayName = dayNames[holidayDate.getDay()];
             
             return (
@@ -40,20 +40,17 @@ const HolidayList: React.FC<HolidayListProps> = ({
               >
                 <div className="flex items-center space-x-4">
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">{holiday.holiday}</p>
+                    <p className="text-xl font-semibold text-gray-900 " style={{fontFamily: FONTS.header.fontFamily}}>{holiday.holiday_name}</p>
+                    <p className="text-sm font-semibold text-gray-900" style={{fontFamily: FONTS.paragraph.fontFamily}}>{holiday.holiday_type}</p>
                     <p className="text-sm text-gray-500">
-                      {holidayDate.toLocaleDateString('en-US', { 
-                        month: 'short', 
-                        day: 'numeric', 
-                        year: 'numeric' 
-                      })} ({dayName})
+                      {holiday.holiday_date}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onDeleteEvent(holiday.id);
+                    onDeleteEvent(holiday.uuid);
                   }}
                   className="px-4 py-2 text-red-500 rounded-md hover:text-red-700"
                   title="Delete holiday"
