@@ -97,7 +97,14 @@ export const API_END_POINTS = {
 
   attendance: {
     getDailyAttendance: "/api/hr/timesheet/attendance/daily",
-  }
+  },
+  appraisal: {
+    create: "/api/hr/Appraisal/",  // POST
+    getAll: "/api/hr/Appraisal/",  // GET
+    getById: (id: string) => `/api/hr/Appraisal/${id}`,  // GET
+    update: (id: string) => `/api/hr/Appraisal/${id}`,   // PUT
+    delete: (id: string) => `/api/hr/Appraisal/${id}`,   // DELETE
+  },
 
 };
 

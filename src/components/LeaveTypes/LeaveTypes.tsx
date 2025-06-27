@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import LeaveTypeCard from './LeaveTypeCard';
 import LeaveTypeModal from './LeaveTypeModal';
@@ -20,16 +19,15 @@ const getRandomColor = () => {
 };
 
 export default function LeaveTypesComponent() {
-  const [showDropdownId, setShowDropdownId] = useState<number | null>(null);
+  const [showDropdownId, setShowDropdownId] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [cards, setCards] = useState<Card[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const getInitials = (title: string) => {
-    return title.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
-  };
+  const getInitials = (title: string) =>
+    title.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
 
   const [newCard, setNewCard] = useState<NewCard>({
     _id: "",
@@ -51,12 +49,10 @@ export default function LeaveTypesComponent() {
   const handleAddCard = () => {
     if (newCard.holiday_name && newCard.holiday_date) {
       if (editingCard) {
-        const updatedCards = cards.map((card) =>
-          card._id === editingCard._id ? {
-            ...newCard,
-            _id: editingCard._id,
-            color: editingCard.color || getRandomColor()
-          } : card
+        const updatedCards = cards.map(card =>
+          card._id === editingCard._id
+            ? { ...newCard, _id: editingCard._id, color: editingCard.color || getRandomColor() }
+            : card
         );
         setCards(updatedCards);
         setEditingCard(null);
@@ -68,20 +64,7 @@ export default function LeaveTypesComponent() {
         setCards([...cards, cardToAdd]);
       }
 
-      setNewCard({
-        _id: "",
-        holiday_name: "",
-        periodIn: "Day",
-        holiday_type: "",
-        is_active: "No",
-        holiday_date: "",
-        carryforwardType: "No Carry Forward",
-        requireApproval: "Yes",
-        requireAttachment: "No",
-        excludeCompanyLeaves: "No",
-        excludeHolidays: "No",
-        isEncashable: "No"
-      });
+      resetNewCard();
       setIsModalOpen(false);
     }
   };
@@ -89,47 +72,34 @@ export default function LeaveTypesComponent() {
   const handleEditCard = (card: Card) => {
     setEditingCard(card);
     setNewCard({
-      _id: card.title || "",
-      title: card.title || "",
-      totalDays: card.totalDays || "",
-      reset: card.reset || "No",
-      periodIn: card.periodIn || "Day",
-      isPaid: card.isPaid || "",
-      carryforwardType: card.carryforwardType || "No Carry Forward",
-      requireApproval: card.requireApproval || "Yes",
-      requireAttachment: card.requireAttachment || "No",
-      excludeCompanyLeaves: card.excludeCompanyLeaves || "No",
-      excludeHolidays: card.excludeHolidays || "No",
-      isEncashable: card.isEncashable || "No"
+      _id: card._id,
+      holiday_name: card.holiday_name,
+      holiday_date: card.holiday_date,
+      is_active: card.is_active,
+      periodIn: card.periodIn,
+      holiday_type: card.holiday_type,
+      carryforwardType: card.carryforwardType,
+      requireApproval: card.requireApproval,
+      requireAttachment: card.requireAttachment,
+      excludeCompanyLeaves: card.excludeCompanyLeaves,
+      excludeHolidays: card.excludeHolidays,
+      isEncashable: card.isEncashable
     });
     setIsModalOpen(true);
   };
 
-  const handleDeleteCard = (id: number) => {
+  const handleDeleteCard = (id: string) => {
     setCards(cards.filter(card => card._id !== id));
     setShowDropdownId(null);
   };
 
-  const toggleDropdown = (id: number) => {
+  const toggleDropdown = (id: string) => {
     setShowDropdownId(showDropdownId === id ? null : id);
   };
 
   const closeModal = () => {
     setEditingCard(null);
-    setNewCard({
-      _id: "",
-      holiday_type: "",
-      holiday_name: "",
-      periodIn: "Day",
-      holiday_date: "",
-      is_active: "No",
-      carryforwardType: "No Carry Forward",
-      requireApproval: "Yes",
-      requireAttachment: "No",
-      excludeCompanyLeaves: "No",
-      excludeHolidays: "No",
-      isEncashable: "No"
-    });
+    resetNewCard();
     setIsModalOpen(false);
   };
 
@@ -143,24 +113,40 @@ export default function LeaveTypesComponent() {
     setIsDetailsModalOpen(false);
   };
 
-  const [leavetypegetting, setleavetypegetting] = useState<Card[]>([]);
+  const resetNewCard = () => {
+    setNewCard({
+      _id: "",
+      holiday_name: "",
+      holiday_date: "",
+      is_active: "No",
+      periodIn: "Day",
+      holiday_type: "",
+      carryforwardType: "No Carry Forward",
+      requireApproval: "Yes",
+      requireAttachment: "No",
+      excludeCompanyLeaves: "No",
+      excludeHolidays: "No",
+      isEncashable: "No"
+    });
+  };
+
+  const [leavetypegetting, setLeavetypegetting] = useState<Card[]>([]);
   const [filteredCards, setFilteredCards] = useState<Card[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const fetchLeaveType = async () => {
     try {
-      const response: any = await leavetypeapi();
-      const visitors = response?.data ?? [];
+      const response = await leavetypeapi();
+      const visitors: Card[] = response?.data ?? [];
       console.log("Fetched leave types:", visitors);
 
-      // different card with different colors
-      // const coloredCards = visitors.data.map((card: Card) => ({
-      //   ...card,
-      //   color: getRandomColor()
-      // }));
+      const coloredCards = visitors.map(card => ({
+        ...card,
+        color: getRandomColor()
+      }));
 
-      // setleavetypegetting(response);
-      setFilteredCards(visitors.data);
+      setLeavetypegetting(coloredCards);
+      setFilteredCards(coloredCards);
     } catch (error) {
       console.error("Error fetching leave types:", error);
     }
@@ -172,17 +158,17 @@ export default function LeaveTypesComponent() {
 
   useEffect(() => {
     const filtered = leavetypegetting.filter(card =>
-      card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.isPaid.toLowerCase().includes(searchTerm.toLowerCase())
+      card.holiday_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.holiday_type.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredCards(filtered);
   }, [searchTerm, leavetypegetting]);
 
   return (
     <div className="relative">
-      <div className={`transition-all duration-300 ${(isModalOpen || isDetailsModalOpen) ? 'blur-sm' : ''}`}>
+      <div className={`transition-all duration-300 ${isModalOpen || isDetailsModalOpen ? 'blur-sm' : ''}`}>
         <div className="flex md:flex-row justify-between mb-6 gap-4">
-          <div className='font-bold' style={{ ...FONTS.header }}>
+          <div className="font-bold" style={{ ...FONTS.header }}>
             Leave Types
           </div>
           <div className="flex gap-5 ml-auto">
@@ -197,7 +183,7 @@ export default function LeaveTypesComponent() {
                 placeholder="Search leave types..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
@@ -207,7 +193,7 @@ export default function LeaveTypesComponent() {
                 setEditingCard(null);
                 setIsModalOpen(true);
               }}
-              style={{ backgroundColor: '#3a357f'  }}
+              style={{ backgroundColor: '#3a357f' }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
@@ -220,7 +206,7 @@ export default function LeaveTypesComponent() {
         <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCards.map((card) => (
             <LeaveTypeCard
-              key={card.title}
+              key={card._id}
               card={card}
               onEdit={handleEditCard}
               onDelete={handleDeleteCard}
@@ -229,7 +215,7 @@ export default function LeaveTypesComponent() {
               showDropdown={showDropdownId === card._id}
               toggleDropdown={() => toggleDropdown(card._id)}
               getInitials={getInitials}
-              color={card.color} 
+              color={card.color}
             />
           ))}
         </div>

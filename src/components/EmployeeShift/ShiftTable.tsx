@@ -80,7 +80,7 @@ const EmployeeShiftTable: React.FC<EmployeeShiftTableProps> = ({
             </tr>
           </thead>
 
-          <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200">
             {Object.keys(groupedEmployees).length > 0 ? (
               Object.entries(groupedEmployees).map(([groupKey, groupEmployees]) => (
                 <React.Fragment key={groupKey}>
