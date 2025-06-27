@@ -1,14 +1,15 @@
-import React from "react"
-import { X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import type { FormData } from "../../components/EmployeeShift/employee"
+import React from "react";
+import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import type { FormData } from "../../components/EmployeeShift/employee";
+import { FONTS } from "../../constants/uiConstants";
 
 interface AssignShiftModalProps {
-  isOpen: boolean
-  onClose: () => void
-  formData: FormData
-  onFormDataChange: (data: FormData) => void
-  onSubmit: (e: React.FormEvent) => void
+  isOpen: boolean;
+  onClose: () => void;
+  formData: FormData;
+  onFormDataChange: (data: FormData) => void;
+  onSubmit: (e: React.FormEvent) => void;
 }
 
 const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
@@ -18,19 +19,21 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
   onFormDataChange,
   onSubmit,
 }) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     onFormDataChange({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black  bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black  bg-opacity-50 flex items-center justify-center z-50 "
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -40,120 +43,160 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-md w-full item-center max-w-xl relative "
-          > 
-          <button onClick={onClose} className="absolute top-2 left-2 -ml-12 text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow" >
-                <X size={30} /> 
-              </button>
-            <div className="border-b border-gray-200  px-6 py-4 flex justify-between">
-              <h2 className="text-xl font-semibold text-black">Assign Rotating Shift</h2>
-              {/* <button onClick={onClose} className="text-black hover:text-gray-500">
-                <X className="w-5 h-5" />
-              </button> */}
-            </div>
-
-            <form
-              onSubmit={onSubmit}
-              className="p-6 z-100 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl"
+            className="bg-white rounded-md w-full item-center max-w-xl p-6 relative shadow-xl "
+          >
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-1 left-1 -ml-7 text-white hover:text-gray-600 bg-blue-700 rounded-l-full text-gray-600 hover:text-black flex items-center justify-center "
             >
-              <div className="grid grid-cols-2 gap-y-3 gap-x-4 sm:grid-cols-2">
-                {[
-                  { label: "Employee", name: "employee", type: "text" },
-                  { label: "Title", name: "title", type: "text" },
-                  { label: "Rotate", name: "rotate", type: "text", placeholder: "e.g. Rotate after 5 days" },
-                  { label: "Department", name: "department", type: "text" },
-                  { label: "Job Role", name: "jobRole", type: "text" },
-                  { label: "Start Date", name: "startDate", type: "date" },
-                ].map((field) => (
-                  <div key={field.name} className="sm:col-span-1">
-                    <label htmlFor={field.name} className="block text-sm font-medium text-black">
-                      {field.label}
+              <X size={24} />
+            </button>
+
+            <div className="">
+              {/* Header */}
+              <h2
+                className="text-xl font-semibold !text-[#5e59a9] mb-4 border-b pb-2"
+                style={{ ...FONTS.subHeader }}
+              >
+                Assign Rotating Shift
+              </h2>
+
+              {/* Form */}
+              <form onSubmit={onSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { label: "Employee", name: "employee", type: "text" },
+                    { label: "Title", name: "title", type: "text" },
+                    {
+                      label: "Rotate",
+                      name: "rotate",
+                      type: "text",
+                      placeholder: "e.g. every 5 days",
+                    },
+                    { label: "Department", name: "department", type: "text" },
+                    { label: "Job Role", name: "jobRole", type: "text" },
+                    { label: "Start Date", name: "startDate", type: "date" },
+                  ].map((field) => (
+                    <div key={field.name}>
+                      <label
+                        className="block text-sm font-medium text-gray-800 mb-1"
+                        htmlFor={field.name}
+                        style={{ ...FONTS.statusCardHeader }}
+                      >
+                        {field.label}
+                      </label>
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        id={field.name}
+                        value={(formData as any)[field.name]}
+                        onChange={handleInputChange}
+                        placeholder={field.placeholder || ""}
+                        required
+                        className="w-full border-0 border-b border-gray-400 focus:border-[#5e59a9] focus:ring-0 text-sm px-1 py-2 bg-transparent"
+                        autoComplete="off"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Based On */}
+                  <div>
+                    <label
+                      htmlFor="basedOn"
+                      className="block text-sm font-medium text-gray-800 mb-1"
+                      style={{ ...FONTS.statusCardHeader }}
+                    >
+                      Based On
                     </label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      id={field.name}
-                      value={(formData as any)[field.name]}
+                    <select
+                      id="basedOn"
+                      name="basedOn"
+                      value={formData.basedOn}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
-                      placeholder={field.placeholder || ""}
-                      required
-                    />
+                      className="w-full  border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:ring-[#5e59a9] focus:border-[#5e59a9] text-sm"
+                    >
+                      <option value="After">After</option>
+                      <option value="Weekend">Weekend</option>
+                      <option value="Month">Month</option>
+                    </select>
                   </div>
-                ))}
 
-                <div className="sm:col-span-1">
-                  <label htmlFor="basedOn" className="block text-sm font-medium text-black">Based On</label>
-                  <select
-                    id="basedOn"
-                    name="basedOn"
-                    value={formData.basedOn}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
-                  >
-                    <option value="After">After</option>
-                    <option value="Weekend">Weekend</option>
-                    <option value="Month">Month</option>
-                  </select>
+                  {/* Current Shift */}
+                  <div>
+                    <label
+                      htmlFor="currentShift"
+                      className="block text-sm font-medium text-gray-800 mb-1"
+                      style={{ ...FONTS.statusCardHeader }}
+                    >
+                      Current Shift
+                    </label>
+                    <select
+                      id="currentShift"
+                      name="currentShift"
+                      value={formData.currentShift}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:ring-[#5e59a9] focus:border-[#5e59a9] text-sm"
+                    >
+                      <option value="">Select shift</option>
+                      <option value="Morning">Morning</option>
+                      <option value="Night">Night</option>
+                      <option value="Regular Shift">Regular Shift</option>
+                      <option value="None">None</option>
+                    </select>
+                  </div>
+
+                  {/* Next Shift */}
+                  <div>
+                    <label
+                      htmlFor="nextShift"
+                      className="block text-sm font-medium text-gray-800 mb-1"
+                      style={{ ...FONTS.statusCardHeader }}
+                    >
+                      Next Shift
+                    </label>
+                    <select
+                      id="nextShift"
+                      name="nextShift"
+                      value={formData.nextShift}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:ring-[#5e59a9] focus:border-[#5e59a9] text-sm"
+                    >
+                      <option value="">Select shift</option>
+                      <option value="Morning">Morning</option>
+                      <option value="Night">Night</option>
+                      <option value="Regular Shift">Regular Shift</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="sm:col-span-1">
-                  <label htmlFor="currentShift" className="block text-sm font-medium text-black">Current Shift</label>
-                  <select
-                    id="currentShift"
-                    name="currentShift"
-                    value={formData.currentShift}
-                    onChange={handleInputChange}
-                    required
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                {/* Footer Buttons */}
+                <div className="flex justify-end gap-3 pt-4 border-t">
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
                   >
-                    <option value="">Select shift</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Night">Night</option>
-                    <option value="Regular Shift">Regular Shift</option>
-                    <option value="None">None</option>
-                  </select>
-                </div>
-
-                <div className="sm:col-span-1">
-                  <label htmlFor="nextShift" className="block text-sm font-medium text-black">Next Shift</label>
-                  <select
-                    id="nextShift"
-                    name="nextShift"
-                    value={formData.nextShift}
-                    onChange={handleInputChange}
-                    required
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 text-sm font-medium text-white bg-[#5e59a9] hover:bg-[#4c4aa1] rounded-md"
                   >
-                    <option value="">Select shift</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Night">Night</option>
-                    <option value="Regular Shift">Regular Shift</option>
-                  </select>
+                    Assign Shift
+                  </button>
                 </div>
-              </div>
-
-              <div className="mt-6 flex justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2 rounded-md text-sm font-medium text-white bg-[#006666] hover:bg-[#005353]"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-md text-sm font-medium text-white bg-[#5e59a9] hover:bg-[#4c4aa1]"
-                >
-                  Assign Shift
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default AssignShiftModal
+export default AssignShiftModal;

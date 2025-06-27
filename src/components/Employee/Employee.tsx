@@ -25,6 +25,7 @@ export interface Employeenew {
 }
 
 export interface Department {
+  name: string
   title: "Engineering" | "Marketing" | "HR" | "Finance" | "Operations";
 }
 export interface JobTitle {
