@@ -321,7 +321,7 @@ const NewProgramForm = memo(({ onClose, onSubmit, categories }: NewProgramFormPr
 NewProgramForm.displayName = "NewProgramForm"
 
 const HRMTrainingDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("overview")
+  const [activeTab, setActiveTab] = useState<string>("programs")
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null)
@@ -832,7 +832,7 @@ const HRMTrainingDashboard: React.FC = () => {
       {/* navigation */}
 
 
-      <nav className="shadow-sm">
+      {/* <nav className="shadow-sm">
         <div className="max-w-full px-3 py-3">
           <div
             className="flex space-x-4"
@@ -842,10 +842,10 @@ const HRMTrainingDashboard: React.FC = () => {
             }}
           >
             {[
-              { id: "overview", label: "Overview", icon: BarChart3 },
+              // { id: "overview", label: "Overview", icon: BarChart3 },
               { id: "programs", label: "Programs", icon: BookOpen },
-              { id: "employees", label: "Employees", icon: Users },
-              { id: "analytics", label: "Analytics", icon: PieChart },
+              // { id: "employees", label: "Employees", icon: Users },
+              // { id: "analytics", label: "Analytics", icon: PieChart },
             ].map((tab) => (
                   <button
               key={tab.id}
@@ -863,16 +863,16 @@ const HRMTrainingDashboard: React.FC = () => {
           </div>
         </div>
       </nav>
-
+ */}
 
 
 
       {/* Main Content */}
       <main className="max-w-full py-8">
-        {activeTab === "overview" && (
+        {activeTab === "programs" && (
           <div className="space-y-8">
             {/* Stats Grid */}
-            <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
+            {/* <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
 
               <StatCard
                 title="Total Employees"
@@ -902,10 +902,10 @@ const HRMTrainingDashboard: React.FC = () => {
                 trend="Excellent feedback"
                 color="text-green-600"
               />
-            </div>
+            </div> */}
 
             {/* Recent Activity */}
-            <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
+            {/* <div className="bg-black  rounded-xl shadow-sm border border-gray-100 p-6 backdrop-filter   bg-opacity-10 backdrop-saturate-190 backdrop-contrast-50 ">
               <h2
                 className="text-lg lg:text-xl font-semibold text-white mb-4"
                 style={{
@@ -980,7 +980,7 @@ const HRMTrainingDashboard: React.FC = () => {
 
 
             }}
-          >
+          > */}
             {/* Search and Filter */}
             <div className="flex flex-row sm:flex-row md:flex-row gap-4 ">
               <div className="flex-1 relative ">
