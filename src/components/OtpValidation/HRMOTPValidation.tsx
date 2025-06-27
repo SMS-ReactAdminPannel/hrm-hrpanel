@@ -17,27 +17,27 @@ const HRMOTPValidation: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [timeLeft, setTimeLeft] = useState<number>(600);
   const [canResend, setCanResend] = useState<boolean>(false);
-  const { setIsAuthenticated } = useAuth(); 
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
- const handleOtpComplete = async (otp: string) => {
-  console.log("otp get from integration", otp);
-  const email = localStorage.getItem("userEmail");
-  const token = localStorage.getItem("authToken");
-  console.log('succesfully got data')
+  const handleOtpComplete = async (otp: string) => {
+    console.log("otp get from integration", otp);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const email = user.email
+    const token = user.token
     try {
       const response = await validateOtp({ otp, email, token });
-      console.log('OTP validation success:', response);  
-      if(response.success){
-         toast.success("OTP Verified Successfully!", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-          });
+      console.log('OTP validation success:', response);
+      if (response.success) {
+        toast.success("OTP Verified Successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setIsAuthenticated(true);
         navigate("/dashboard")
       }
@@ -46,7 +46,7 @@ const HRMOTPValidation: React.FC = () => {
       setError(err?.response?.data?.message || 'OTP validation failed');
     }
   };
- 
+
 
   useEffect(() => {
     if (timeLeft > 0 && !isVerified) {
@@ -62,7 +62,7 @@ const HRMOTPValidation: React.FC = () => {
     setIsLoading(true);
     setError('');
     setOtp('');
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setTimeLeft(300);
@@ -86,6 +86,9 @@ const HRMOTPValidation: React.FC = () => {
     return <VerifiedView onContinue={handleContinue} />;
   }
 
+  const storedOtp = JSON.parse(localStorage.getItem("user"))?.otp;
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4" style={{ backgroundImage: `url('/loginbg.jpg')` }}>
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
@@ -98,16 +101,24 @@ const HRMOTPValidation: React.FC = () => {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-2 text-blue-600">
-              
+
               <span className="text-2xl font-bold text-[#006666] mb-2">OTP Validation</span>
             </div>
             <div className="w-9"></div>
           </div>
-          
+
           <p className="text-gray-600 mb-4">
             We've sent a 6-digit verification code to your registered email address
           </p>
-          
+
+          {storedOtp && (
+            <p className="text-gray-500 mb-4">
+              <span className="font-medium">Your OTP (for testing): </span>
+              {storedOtp}
+            </p>
+          )}
+
+
         </div>
 
         <div className="mb-6">
@@ -148,7 +159,7 @@ const HRMOTPValidation: React.FC = () => {
           )}
         </div>
 
-       
+
 
         <div className="mt-6 pt-4 border-t border-gray-100">
           <button
@@ -161,15 +172,15 @@ const HRMOTPValidation: React.FC = () => {
         </div>
       </div>
       <ToastContainer
-       position="top-center"
-       autoClose={5000}
-       hideProgressBar={false}
-       newestOnTop={false}
-       closeOnClick
-       rtl={false}
-       pauseOnFocusLoss
-       draggable
-       pauseOnHover />
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover />
     </div>
   );
 };
