@@ -27,7 +27,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
         console.log("API Response:", response.data);
   
         const visitors = response?.data ?? [];
-        setannouncement(visitors.data);
+        setannouncement(visitors);
       } catch (error) {
         console.error("Error fetching Announcement:", error);
       }
@@ -111,7 +111,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
     //     </tbody>
     //   </table>
     // </div>
-    <div className={`overflow-x-auto ${announcement.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
+    <div className={`overflow-x-auto ${announcement && announcement.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
       <table className="min-w-full text-center table-fixed border-collapse text-sm bg-white">
         <thead
           className="bg-[#5e59a9]/70  backdrop-blur-sm text-white"
@@ -129,7 +129,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
           </tr>
         </thead>
         <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
-          {announcement.length === 0 ? (
+          {announcement && announcement.length === 0 ? (
             <tr>
               <td
                 colSpan={5}
@@ -139,7 +139,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
               </td>
             </tr>
           ) : (
-            announcement.map((item, index) => (
+            announcement && announcement.map((item, index) => (
               <tr
                 key={index}
                 className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"

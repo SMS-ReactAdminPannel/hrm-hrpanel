@@ -31,11 +31,12 @@ export default function LeaveTypesComponent() {
 
   const [newCard, setNewCard] = useState<NewCard>({
     _id: "",
-    holiday_name: "",
-    holiday_date: "",
-    is_active: "No",
+    title: "",
+    max_days: "",
+    description: "",
+    isPaid: "",
+    reset: "No",
     periodIn: "Day",
-    holiday_type: "",
     carryforwardType: "No Carry Forward",
     requireApproval: "Yes",
     requireAttachment: "No",
@@ -47,12 +48,14 @@ export default function LeaveTypesComponent() {
   const [editingCard, setEditingCard] = useState<Card | null>(null);
 
   const handleAddCard = () => {
-    if (newCard.holiday_name && newCard.holiday_date) {
+    if (newCard.title && newCard.max_days) {
       if (editingCard) {
-        const updatedCards = cards.map(card =>
-          card._id === editingCard._id
-            ? { ...newCard, _id: editingCard._id, color: editingCard.color || getRandomColor() }
-            : card
+        const updatedCards = cards.map((card) =>
+          card.title === editingCard.title ? {
+            ...newCard,
+            _id: editingCard.title,
+            color: editingCard.color || getRandomColor()
+          } : card
         );
         setCards(updatedCards);
         setEditingCard(null);
@@ -64,7 +67,21 @@ export default function LeaveTypesComponent() {
         setCards([...cards, cardToAdd]);
       }
 
-      resetNewCard();
+      setNewCard({
+        _id: "",
+        title: "",
+        periodIn: "Day",
+        isPaid: "",
+        reset: "No",
+        max_days: "",
+        description:"",
+        carryforwardType: "No Carry Forward",
+        requireApproval: "Yes",
+        requireAttachment: "No",
+        excludeCompanyLeaves: "No",
+        excludeHolidays: "No",
+        isEncashable: "No"
+      });
       setIsModalOpen(false);
     }
   };
@@ -72,24 +89,25 @@ export default function LeaveTypesComponent() {
   const handleEditCard = (card: Card) => {
     setEditingCard(card);
     setNewCard({
-      _id: card._id,
-      holiday_name: card.holiday_name,
-      holiday_date: card.holiday_date,
-      is_active: card.is_active,
-      periodIn: card.periodIn,
-      holiday_type: card.holiday_type,
-      carryforwardType: card.carryforwardType,
-      requireApproval: card.requireApproval,
-      requireAttachment: card.requireAttachment,
-      excludeCompanyLeaves: card.excludeCompanyLeaves,
-      excludeHolidays: card.excludeHolidays,
-      isEncashable: card.isEncashable
+      _id: card._id || "",
+      title: card.title || "",
+      max_days: card.max_days || "",
+      description: card.description || "",
+      isPaid: card.isPaid || "",
+      reset: card.reset || "No",
+      periodIn: card.periodIn || "Day",
+      carryforwardType: card.carryforwardType || "No Carry Forward",
+      requireApproval: card.requireApproval || "Yes",
+      requireAttachment: card.requireAttachment || "No",
+      excludeCompanyLeaves: card.excludeCompanyLeaves || "No",
+      excludeHolidays: card.excludeHolidays || "No",
+      isEncashable: card.isEncashable || "No"
     });
     setIsModalOpen(true);
   };
 
-  const handleDeleteCard = (id: string) => {
-    setCards(cards.filter(card => card._id !== id));
+  const handleDeleteCard = (id: number) => {
+    setCards(cards.filter(card => card._id !== id.toString()));
     setShowDropdownId(null);
   };
 
@@ -99,7 +117,21 @@ export default function LeaveTypesComponent() {
 
   const closeModal = () => {
     setEditingCard(null);
-    resetNewCard();
+    setNewCard({
+      _id: "",
+      title: "",
+      max_days: "",
+      description: "",
+      isPaid: "",
+      reset: "No",
+      periodIn: "Day",
+      carryforwardType: "No Carry Forward",
+      requireApproval: "Yes",
+      requireAttachment: "No",
+      excludeCompanyLeaves: "No",
+      excludeHolidays: "No",
+      isEncashable: "No"
+    });
     setIsModalOpen(false);
   };
 
@@ -113,40 +145,21 @@ export default function LeaveTypesComponent() {
     setIsDetailsModalOpen(false);
   };
 
-  const resetNewCard = () => {
-    setNewCard({
-      _id: "",
-      holiday_name: "",
-      holiday_date: "",
-      is_active: "No",
-      periodIn: "Day",
-      holiday_type: "",
-      carryforwardType: "No Carry Forward",
-      requireApproval: "Yes",
-      requireAttachment: "No",
-      excludeCompanyLeaves: "No",
-      excludeHolidays: "No",
-      isEncashable: "No"
-    });
-  };
-
-  const [leavetypegetting, setLeavetypegetting] = useState<Card[]>([]);
+  
+  //for filter basic of title 
+  const [allCards, setAllCards] = useState<Card[]>([]);
+  //get backend data
   const [filteredCards, setFilteredCards] = useState<Card[]>([]);
+  
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const fetchLeaveType = async () => {
     try {
-      const response = await leavetypeapi();
-      const visitors: Card[] = response?.data ?? [];
+      const response= await leavetypeapi();
+      const visitors = response?.data ?? [];
       console.log("Fetched leave types:", visitors);
-
-      const coloredCards = visitors.map(card => ({
-        ...card,
-        color: getRandomColor()
-      }));
-
-      setLeavetypegetting(coloredCards);
-      setFilteredCards(coloredCards);
+      setAllCards(visitors);
+      setFilteredCards(visitors);
     } catch (error) {
       console.error("Error fetching leave types:", error);
     }
@@ -157,12 +170,14 @@ export default function LeaveTypesComponent() {
   }, []);
 
   useEffect(() => {
-    const filtered = leavetypegetting.filter(card =>
-      card.holiday_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.holiday_type.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = allCards.filter((card) =>
+      card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredCards(filtered);
-  }, [searchTerm, leavetypegetting]);
+  }, [searchTerm, allCards]);
+
+  
 
   return (
     <div className="relative">
@@ -188,7 +203,7 @@ export default function LeaveTypesComponent() {
             </div>
 
             <button
-              className="ml-auto w-38 bg-[#5e59a9]/70 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
+              className="ml-auto w-38 rounded-md text-white px-4 py-2 h-9 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
               onClick={() => {
                 setEditingCard(null);
                 setIsModalOpen(true);
@@ -235,6 +250,7 @@ export default function LeaveTypesComponent() {
         onClose={closeDetailsModal}
         selectedCard={selectedCard}
         getInitials={getInitials}
+        
       />
     </div>
   );

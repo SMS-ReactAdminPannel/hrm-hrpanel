@@ -30,12 +30,12 @@ export default function LeaveTypeCard({
       <div className="p-4">
         <div className="flex justify-between items-start">
           <div className="flex items-center">
-            <div className={`w-10 h-10  rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
+            <div className={`w-10 h-10 bg-green-400 rounded-full ${color} flex items-center justify-center text-black text-sm font-bold mr-3`}>
               {getInitials(card.title)}
             </div>
             <div>
               <h3 className="font-medium !text-gray-800" style={{...FONTS.cardheader}}>{card.title}</h3>
-              <p className="text-sm !text-gray-500" style={{ ...FONTS.cardSubHeader}}>{card.isPaid}</p>
+              <p className=" font-medium !text-gray-500" style={{ ...FONTS.cardheader}}>{card.isPaid}</p>
             </div>
           </div>
           <div className="relative" ref={dropdownRef}>
@@ -77,7 +77,7 @@ export default function LeaveTypeCard({
               <p className="text-sm !text-gray-500 pl-12" style={{ ...FONTS.subParagraph }}>{card.description}</p>  
             </div> 
         <div className="mt-4 flex justify-between items-center">
-          <span className="text-lg !text-gray-500 font-semibold" style={{ ...FONTS.subParagraph }}>{card.max_days} days</span>
+          <span className="text-lg  !text-gray-500 font-semibold" style={{ ...FONTS.subParagraph }}>{card.max_days} days</span>
           <span className="text-sm !text-gray-500">{card.reset}</span>
         </div>
       </div>
