@@ -10,6 +10,7 @@ export interface Employee {
   nextShift: string
   nextSwitch: string
   department: string
+  subDepartment:string
   jobRole: string
   reportingManager: string
   avatar?: string
@@ -24,6 +25,7 @@ export interface FormData {
   currentShift: string
   nextShift: string
   department?: string
-  category: string
-  jobRole: string;
+  subDepartment?:string
+  category?: string      
+  jobRole?: string        
 }

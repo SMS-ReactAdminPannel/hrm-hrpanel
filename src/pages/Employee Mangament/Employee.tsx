@@ -31,6 +31,7 @@ const EmployeeManagement = () => {
       jobTitle: "Manager",
       hireDate: "2019-08-22",
       employmentType: "Full-time",
+      
     },
     {
       id: "EMP003",
@@ -263,7 +264,7 @@ const EmployeeManagement = () => {
         employees={paginatedEmployees}
         sortConfig={sortConfig}
         onSort={requestSort}
-        onEdit={EmployeeTable}
+        // onEdit={}
         onDelete={handleDeleteEmployee}
       />
 

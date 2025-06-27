@@ -15,7 +15,6 @@ interface AddEmployeeModalProps {
   onAdd: (profile: ProfileData) => void;
 }
 
-
 const defaultProfile: ProfileData = {
   personal: {
     name: "",
@@ -66,24 +65,25 @@ const defaultProfile: ProfileData = {
 };
 
 const modalAnimationStyle = `
-  @keyframes slideInFromRight {
-    0% { transform: translateX(100%); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
+  @keyframes slideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
   }
 
-  @keyframes slideOutToLeft {
-    0% { transform: translateX(0); opacity: 1; }
-    100% { transform: translateX(100%); opacity: 0; }
+  @keyframes slideDown {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
   }
 
-  .animate-slide-in {
-    animation: slideInFromRight 0.4s ease-out forwards;
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
   }
 
-  .animate-slide-out {
-    animation: slideOutToLeft 0.4s ease-in forwards;
+  .animate-slide-down {
+    animation: slideDown 0.4s ease-out forwards;
   }
-`;
+`
+
 
 export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
   isOpen,
@@ -95,7 +95,6 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
   const modalRef = useRef<HTMLDivElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -105,18 +104,17 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0] || null;
-  if (file) {
-    setProfile((prev) => ({
-      ...prev,
-      personal: {
-        ...prev.personal,
-        profileImage: file,
-      },
-    }));
-  }
-};
-
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      setProfile((prev) => ({
+        ...prev,
+        personal: {
+          ...prev.personal,
+          profileImage: file,
+        },
+      }));
+    }
+  };
 
   const handleSubmit = () => {
     onAdd(profile);
@@ -158,8 +156,8 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-end z-50">
         <div
           ref={modalRef}
-          className={`bg-white p-6 rounded-l-lg w-full max-w-[80%] max-h-[95%] mt-8  right-1 shadow-lg relative ${
-            isClosing ? "animate-slide-out" : "animate-slide-in"
+          className={`bg-white p-6 rounded-l-lg w-full max-w-[80%] max-h-[95%] mt-8 right-1 shadow-lg relative ${
+            isClosing ? "animate-slide-down" : "animate-slide-up"
           }`}
         >
           <button
@@ -178,28 +176,29 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
             <div className="flex flex-col items-center justify-center my-4  relative ">
               <div>
                 <div
-                className="w-32 h-32 rounded-full border-4 border-[#006666] shadow cursor-pointer overflow-hidden  "
-                onClick={() => fileInputRef.current?.click()}>
-                <img
-                  src={profileImageUrl}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
+                  className="w-32 h-32 rounded-full border-4 border-[#006666] shadow cursor-pointer overflow-hidden  "
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <img
+                    src={profileImageUrl}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
                 />
-               
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="hidden"
-              />
-               
+              <div
+                className="absolute  bottom-1 ml-20 border border-3 rounded-xl p-1 bg-white"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <FaCameraRetro />
               </div>
-              <div className="absolute  bottom-1 ml-20 border border-3 rounded-xl p-1 bg-white"  onClick={() => fileInputRef.current?.click()}>
-                <FaCameraRetro/>
-              </div>
-             
             </div>
 
             <h3 className="text-lg font-semibold mt-4">Personal Info</h3>
