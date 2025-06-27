@@ -1,11 +1,12 @@
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { GrievanceCard } from "../../components/common/GrievanceManagement/GrievanceCard";
 import { GrievanceDetailCard } from "../../components/common/GrievanceManagement/GrievanceDetailCard";
 import { FONTS } from "../../constants/uiConstants";
 import { getAllGrievances, updateGrievanceStatus } from "../../features/Grievance/services";
 
 export type Grievance = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   status: "solved" | "unsolved";
@@ -15,86 +16,10 @@ export type Grievance = {
   department: string;
   role: string;
   date: string;
-};
-
-// const initialGrievances: Grievance[] = [
-//   {
-//     id: 1,
-//     title: "Broken Chair",
-//     description: "The chair at my desk is broken and causes back pain.",
-//     status: "unsolved",
-//     employee: "John Doe",
-//     empid: "EMP001",
-//     mail: "john.doe@example.com",
-//     department: "Facilities",
-//     role: "Office Assistant",
-//     date: "2025-06-01",
-//   },
-//   {
-//     id: 2,
-//     title: "Late Salary",
-//     description: "My salary was credited late this month.",
-//     status: "solved",
-//     employee: "Jane Smith",
-//     empid: "EMP002",
-//     mail: "jane.smith@example.com",
-//     department: "Finance",
-//     role: "Accountant",
-//     date: "2025-05-28",
-//   },
-//   {
-//     id: 3,
-//     title: "System not working",
-//     description: "My computer has not been starting up since morning.",
-//     status: "unsolved",
-//     employee: "Emily Clark",
-//     empid: "EMP003",
-//     mail: "emily.clark@example.com",
-//     department: "IT",
-//     role: "Support Engineer",
-//     date: "2025-06-02",
-//   },
-//   {
-//     id: 4,
-//     title: "Internet Issues",
-//     description: "The internet connection is very unstable and affecting my work.",
-//     status: "unsolved",
-//     employee: "Michael Brown",
-//     empid: "EMP004",
-//     mail: "michael.brown@example.com",
-//     department: "IT",
-//     role: "Developer",
-//     date: "2025-06-03",
-//   },
-//   {
-//     id: 5,
-//     title: "No Air Conditioning",
-//     description: "The AC in our cabin is not working for the past week.",
-//     status: "solved",
-//     employee: "Linda Johnson",
-//     empid: "EMP005",
-//     mail: "linda.johnson@example.com",
-//     department: "Admin",
-//     role: "Manager",
-//     date: "2025-05-30",
-//   },
-//   {
-//     id: 6,
-//     title: "Unhygienic Pantry",
-//     description: "The pantry area is not cleaned regularly.",
-//     status: "unsolved",
-//     employee: "Robert King",
-//     empid: "EMP006",
-//     mail: "robert.king@example.com",
-//     department: "General Services",
-//     role: "Staff",
-//     date: "2025-06-03",
-//   }
-// ];
+}; 
 
 const GrievanceManagement = () => {
   const [grievances, setGrievances] = useState<Grievance[]>([]);
-
   const [filter, setFilter] = useState<"all" | "solved" | "unsolved">("all");
   const [selectedGrievance, setSelectedGrievance] = useState<Grievance | null>(null);
 
@@ -103,18 +28,18 @@ const GrievanceManagement = () => {
   );
 
   const markAsSolved = async (id: string) => {
-  if (!id) {
-    console.warn("markAsSolved called with invalid ID:",id);
-    return;
-  }
+    if (!id) {
+      console.warn("markAsSolved called with invalid ID:", id);
+      return;
+    }
 
-  try {
-    const updatedStatus: { status: "solved" } = { status: "solved" };
-    await updateGrievanceStatus(id.toString(), updatedStatus);
+    try {
+      const updatedStatus: { status: "solved" } = { status: "solved" };
+      await updateGrievanceStatus(id.toString(), updatedStatus);
 
-    setGrievances((prev) =>
-      prev.map((g) => (g.id === id ? { ...g, status: "solved" } : g))
-    );
+      setGrievances((prev) =>
+        prev.map((g) => (g.id === id ? { ...g, status: "solved" } : g))
+      );
 
     setSelectedGrievance(null);
   } catch (error) {
@@ -131,7 +56,7 @@ const fetchGrievances = async () => {
     const response: any = await getAllGrievances();
     console.log("API Response:", response);
 
-    const grievances = response?.data ?? []; // adjust if shape is different
+    const grievances = response?.data ?? []; 
     setGrievances(grievances);
   } catch (error) {
     console.error("Error fetching grievances:", error);
@@ -139,26 +64,30 @@ const fetchGrievances = async () => {
 };
 
   useEffect(() => {
-   fetchGrievances();
- }, []);
+    setSelectedGrievance(null);
+  }, [filter]);
 
+
+  useEffect(() => {
+    fetchGrievances();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mt-5">
       <div className="max-w-full ">
-        <h1 className=" text-[black] mb-6" style={FONTS.header}>
+        <h1 className="!text-gray-700 mb-6" style={{...FONTS.header}}>
           Grievances
         </h1>
 
-        <div className="flex space-x-4 mb-6">
+        <div className="flex space-x-4 mb-2">
           {(["all", "unsolved", "solved"] as const).map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
-              className={`px-4 py-2 rounded-full font-medium capitalize border transition-all duration-200 text-sm ${
+              className={`px-4 py-2 rounded-md font-medium capitalize border transition-all bg-white duration-200 text-sm ${
                 filter === status
-                  ? "bg-[#006666] text-white border-[#006666]"
-                  : "text-[#006666] border-[#006666] hover:bg-[#e6f4f4]"
+                  ? "bg-[#5e59a9] text-white border-[#5e59a9]"
+                  : "text-bg-[#5e59a9] border-bg-[#5e59a9] hover:bg-[#e6f4f4]"
               }`}
             >
               {status}
@@ -170,16 +99,18 @@ const fetchGrievances = async () => {
           <div className="w-1/2">
             <div className="space-y-4">
               {filteredGrievances.length === 0 ? (
-                <p className="text-center text-gray-400 mt-12">No grievances to show.</p>
+                <p className="text-center text-gray-400 mt-12 " style={{...FONTS.paragraph}}>No grievances to show.</p>
               ) : (
                 filteredGrievances.map((grievance) => (
-                  <div
+                  <motion.div
                     key={grievance.id}
                     onClick={() => setSelectedGrievance(grievance)}
                     className="cursor-pointer"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
                   >
                     <GrievanceCard grievance={grievance} />
-                  </div>
+                  </motion.div>
                 ))
               )}
             </div>
@@ -200,12 +131,11 @@ const fetchGrievances = async () => {
 
 />
             ) : (
-              <p className="text-center text-gray-400 mt-12">Select a grievance to view details.</p>
+              <p className="text-center text-gray-400 mt-12" style={{...FONTS.paragraph}}>Select a grievance to view details.</p>
             )}
           </div>
         </div>
       </div>
-
     </div>
   );
 };

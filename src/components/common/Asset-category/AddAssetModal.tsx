@@ -1,6 +1,6 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
-import { X, Calendar, ChevronDown } from "lucide-react"
+import { X, ChevronDown } from "lucide-react"
 import { FONTS } from "../../../constants/uiConstants"
 
 interface Asset {
@@ -274,7 +274,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
        backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 border border-white">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-white"
-          style={{fontSize:FONTS.header.fontSize}}>Add New Asset to {category}</h2>
+          style={{ ...FONTS.header3}}>Add New Asset to {category}</h2>
           <button onClick={handleClose} className="text-white hover:text-gray-600 transition-colors">
             <X className="w-5 h-5" />
           </button>
@@ -284,7 +284,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
         
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-white mb-1"
-              style={{ fontSize: FONTS.paragraph.fontSize }}>
+              style={{ ...FONTS.cardSubHeader  }}>
               Asset Name *
             </label>
             <input
@@ -294,7 +294,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
+              style={{ ...FONTS.paragraph }}
+              className={`w-full px-3 py-2 border  !text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
                 errors.name ? 'border-red-300' : 'border-gray-300'
               }`}
               placeholder="Enter asset name"
@@ -305,7 +306,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
         
           <div>
             <label htmlFor="trackingId" className="block text-sm font-medium text-white mb-1"
-              style={{ fontSize: FONTS.paragraph.fontSize }}>
+              style={{ ...FONTS.cardSubHeader  }}>
               Tracking ID *
             </label>
             <input
@@ -315,7 +316,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               name="trackingId"
               value={formData.trackingId}
               onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
+              style={{ ...FONTS.paragraph }}
+              className={`w-full px-3 py-2 border !text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
                 errors.trackingId ? 'border-red-300' : 'border-gray-300'
               }`}
               placeholder="Enter tracking ID"
@@ -324,7 +326,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
           </div>
 
           <div className="grid grid-cols-2 gap-4"
-            style={{ fontSize: FONTS.paragraph.fontSize }}>
+          style={{ ...FONTS.paragraph }}>
         
             <CustomDropdown
               label="Status"
@@ -333,6 +335,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               onChange={(value) => handleDropdownChange('status', value)}
               placeholder="Select status"
               error={errors.status}
+              
             />
 
             
@@ -349,7 +352,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
       
           <div>
             <label htmlFor="cost" className="block text-sm font-medium text-white mb-1"
-              style={{ fontSize: FONTS.paragraph.fontSize }}>
+              style={{ ...FONTS.cardSubHeader }}>
               Cost *
             </label>
             <input
@@ -359,7 +362,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               name="cost"
               value={formData.cost}
               onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
+              style={{ ...FONTS.paragraph }}
+              className={`w-full px-3 py-2 border rounded-md !text-black focus:outline-none focus:ring-2 focus:ring-[#006666] ${
                 errors.cost ? 'border-red-300' : 'border-gray-300'
               }`}
               placeholder="Enter cost"
@@ -372,7 +376,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
     
           <div>
             <label htmlFor="purchaseDate" className="block text-sm font-medium text-white mb-1"
-              style={{ fontSize: FONTS.paragraph.fontSize }}>
+              style={{ ...FONTS.cardSubHeader  }}>
               Purchase Date *
             </label>
             <input
@@ -382,7 +386,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               name="purchaseDate"
               value={formData.purchaseDate}
               onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] ${
+              style={{ ...FONTS.paragraph }}
+              className={`w-full px-3 py-2 border rounded-md !text-black focus:outline-none focus:ring-2 focus:ring-[#006666] ${
                 errors.purchaseDate ? 'border-red-300' : 'border-gray-300'
               }`}
             />
@@ -392,7 +397,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
           
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-white mb-1"
-              style={{ fontSize: FONTS.paragraph.fontSize }}>
+             style={{ ...FONTS.cardSubHeader  }}>
               Description
             </label>
             <textarea
@@ -402,7 +407,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300  rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666]"
+              style={{ ...FONTS.paragraph }}
+              className="w-full px-3 py-2 border border-gray-300 !text-black  rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666]"
               placeholder="Enter description (optional)"
             />
           </div>
@@ -412,6 +418,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               type="button"
               className="px-4 py-2 border border-gray-300 text-white text-sm rounded-md hover:bg-gray-50 transition-colors"
               onClick={handleClose}
+              style={{ ...FONTS.button }}
             >
               Cancel
             </button>
@@ -419,6 +426,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({ isOpen, onClose, onSave, 
               type="button"
               className="px-4 py-2 bg-[#006666] text-white text-sm rounded-md hover:bg-[#005252] transition-colors"
               onClick={handleSubmit}
+              style={{ ...FONTS.button }}
             >
               Add Asset
             </button>

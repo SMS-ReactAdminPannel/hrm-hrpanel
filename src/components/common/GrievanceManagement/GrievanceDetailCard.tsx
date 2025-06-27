@@ -1,6 +1,6 @@
 import React from "react";
 import type { Grievance } from "../../../pages/GrievanceManagement/GrievanceManagement";
-import { ArrowLeft } from "lucide-react";
+import { X } from "lucide-react";
 import { FONTS } from "../../../constants/uiConstants";
 
 type Props = {
@@ -14,60 +14,71 @@ export const GrievanceDetailCard: React.FC<Props> = ({
   onClose,
   onMarkSolved,
 }) => {
-  return (
-    <div className="px-8 py-8 flex flex-col w-full h-full bg-[#fff8f7] p-6 rounded-md ">
-      
-      <button
-        onClick={onClose}
-        className="flex items-center  text-green text-sm 
-        font-medium mb-6 hover:underline w-fit  rounded  "
-        style={{fontSize:FONTS.header3.fontSize}}
-      >
-        <ArrowLeft className="mr-2" size={25} />
-       
-      </button>
 
+return (
+  <div className="relative flex p-2 rounded-lg mb-4">
     
-      <h2 className="text-xl font-bold text-black mb-2"
-      style={{fontSize:FONTS.header.fontSize}}>{grievance.title}</h2>
+    <button
+      onClick={onClose}
+      className="absolute -left-4 top-3 flex items-center justify-center w-8 h-10 bg-blue-800 text-white rounded-l-full rounded-r-none"
+    >
+      <X size={18} className="ml-1" />
+    </button>
 
+  
+    <div className="px-6 py-4 flex flex-col w-full bg-[#fff8f7] rounded-md shadow-sm">
+      
+      <div className="flex justify-end w-full mb-3">
+        <span
+          className={`text-xs font-medium px-2.5 py-1 rounded-md ${
+            grievance.status === "solved"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {grievance.status.charAt(0).toUpperCase() + grievance.status.slice(1)}
+        </span>
+      </div>
     
-      <span
-        className={`text-sm font-medium px-3 py-1 rounded-md mb-4 w-fit ${
-          grievance.status === "solved"
-            ? "bg-green-100 text-green-800"
-            : "bg-yellow-100 text-yellow-800"
-        }`}
+
+      <h2 
+        className="text-sm font-semibold text-gray-700 mb-3"
+        style={{ fontSize: FONTS.header3.fontSize }}
       >
-        {grievance.status === "solved" ? "Solved" : "Unsolved"}
-      </span>
-
-
-<h3 className="text-sm font-semibold text-black mb-2"
-style={{fontSize:FONTS.header3.fontSize}}>Issue Description:</h3>
-<p className="text-gray-700 mb-3 whitespace-pre-line"
-style={{fontSize:FONTS.paragraph.fontSize}}>{grievance.description}</p>
-
+        {grievance.title}
+      </h2>
 
       
-      <div className="text-sm text-black space-y-1 mb-4 "
-        style={{ fontSize: FONTS.paragraph.fontSize }}>
-        <p><strong>Employee:</strong> {grievance.employee}</p>
-        <p><strong>Employee ID:</strong> {grievance.empid}</p>
-        <p><strong>Mail ID:</strong> {grievance.mail}</p>
-        <p><strong>Role:</strong> {grievance.role}</p>
-        <p><strong>Department:</strong> {grievance.department}</p>
-        <p><strong>Date:</strong> {grievance.date}</p>
+      <div className="mb-4">
+        <p className="text-xs font-medium text-gray-500 mb-1">DESCRIPTION</p>
+        <p 
+          className="text-gray-700 text-sm leading-snug whitespace-pre-line"
+          style={{ fontSize: FONTS.paragraph.fontSize }}
+        >
+          {grievance.description}
+        </p>
       </div>
 
+
+      <div className="grid grid-cols-2 gap-2 text-sm mb-4">
+        <p><span className="font-medium">Employee:</span> {grievance.employee}</p>
+        <p><span className="font-medium">ID:</span> {grievance.empid}</p>
+        <p><span className="font-medium">Email:</span> {grievance.mail}</p>
+        <p><span className="font-medium">Role:</span> {grievance.role}</p>
+        <p><span className="font-medium">Department:</span> {grievance.department}</p>
+        <p><span className="font-medium">Date:</span> {grievance.date}</p>
+      </div>
+
+      
       {grievance.status === "unsolved" && (
         <button
           onClick={onMarkSolved}
-          className="w-40 bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#004f4f] transition"
+          className="w-full sm:w-40 bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#004f4f] transition-colors"
         >
           Mark as Solved
         </button>
       )}
     </div>
-  );
+  </div>
+);
 };

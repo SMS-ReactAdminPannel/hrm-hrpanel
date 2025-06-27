@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { announcements as initialAnnouncements } from "../AnnouncementDatas/AnnouncementsData";
 import AnnouncementTable from "./AnnouncementTable";
 import AnnouncementForm from "./AnnouncementForm";
@@ -6,6 +6,7 @@ import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { FONTS } from "../../../constants/uiConstants";
 import { Search } from "lucide-react";
+
 
 type AnnouncementType = {
   title: string;
@@ -69,25 +70,39 @@ const Announcement = () => {
     }
   };
 
-  const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEntriesPerPage(Number(e.target.value));
-    setCurrentPage(1);
-  };
+  // const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setEntriesPerPage(Number(e.target.value));
+  //   setCurrentPage(1);
+  // };
+
+  // const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
+
+  // const fetchannouncement = async () => {
+  //   try {
+  //     const response: any = await AnnouncementGetAll();
+  //     console.log("API Respchonse:", response);
+  //     const announcementdata = response?.data ?? [];
+  //     setannouncement(announcementdata);
+  //   } catch (error) {
+  //     console.error("Error fetching grievances:", error);
+  //   }
+  // };
+  
 
   return (
     <div
-      className=" text-[17px] relative"
+      
       style={{ fontFamily: FONTS.paragraph.fontFamily }}
     >
-      <section className="flex justify-between items-center mb-4">
-        <h1 className=" text-white" style={FONTS.header}>
+      <section className="flex justify-between items-center mb-2 ">
+        <h1 className=" text-black" style={FONTS.header}>
           Announcements
         </h1>
         
       </section>
       {/* button */}
-<div className="flex justify-between"> 
-<div className="flex  gap-4  rounded-lg ">
+      <div className="flex justify-between"> 
+        <div className="flex  gap-4  rounded-lg ">
           <aside className="flex items-center gap-2 text-gray-700">
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 mt-1.5 text-gray-500">
@@ -119,9 +134,8 @@ const Announcement = () => {
     });
     setEditIndex(null);
   }}
-  className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#4c469f] rounded-md group"
+            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#3e3a85]  rounded-md group"
 >
-  <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-[#3e3a85] rounded-full group-hover:w-56 group-hover:h-56"></span>
 
   <span className="absolute bottom-0 left-0 h-full -ml-2">
     <svg
@@ -138,7 +152,7 @@ const Announcement = () => {
     </svg>
   </span>
 
-  <span className="absolute top-0 right-0 w-12 h-full -mr-3">
+  <span className="absolute top-0 right-0 w-12 h-full -mr-10">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="object-cover w-full h-full"
@@ -155,14 +169,13 @@ const Announcement = () => {
 
   <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
 
-  <span className="relative text-base font-semibold"
+  <span className="relative !text-base !font-semibold"
   
-  >Add Announcement</span>
+  >Add   Announcement</span>
 </button>
  </div>
 </div>
       <div className="my-4 rounded-lg">
-
         {showModal && (
           <AnnouncementForm
             formData={formData}
@@ -176,11 +189,10 @@ const Announcement = () => {
           />
         )}
         <AnnouncementTable
-          data={currentData}
+          // data={data}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-
         {totalPages > 1 && (
           <div className="flex justify-end  mt-2 p-2 rounded-b-lg">
             {/* <div className="text-sm text-gray-600 p-2">
@@ -204,7 +216,7 @@ const Announcement = () => {
                       ? "bg-[#4c469f] text-white"
                       : "bg-gray-300 hover:bg-[#a6a3cf]"
                   }`}
-                >
+                > 
                   {i + 1}
                 </button>
               ))}

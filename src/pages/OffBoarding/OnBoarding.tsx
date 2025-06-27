@@ -108,7 +108,7 @@ export default function OnboardingTemplate() {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-h-[90vh] w-full max-w-4xl overflow-hidden">
           <div className="flex items-center justify-between border-b p-4">
-            <h3 className="text-lg font-semibold">{fileName}</h3>
+            {/* <h3 className="text-lg font-semibold">{fileName}</h3> */}
             <button 
               onClick={closeFileViewer} 
               className="p-1 hover:bg-gray-100 rounded-full transition-colors"
@@ -234,13 +234,17 @@ export default function OnboardingTemplate() {
   return (
     <div className="mx-auto space-y-6 min-h-screen pb-12">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1">On Boarding</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 ml-1"
+          style={{
+            fontSize: FONTS.header.fontSize,
+            fontFamily: FONTS.header.fontFamily
+          }}>On Boarding</h1>
       </div>
 
       {/* Tabs */}
       <div className="rounded-lg shadow-sm bg-white border pb-10 border-gray-200">
         <div className="border-gray-200 ">
-          <nav className="flex space-x-8 bg-gray-100 px-6" aria-label="Tabs">
+          <nav className="flex space-x-8 bg-[#006666]  px-6" aria-label="Tabs">
             {[
               { id: "welcome", name: "Welcome" },
               { id: "documents", name: "Documents" },
@@ -252,9 +256,13 @@ export default function OnboardingTemplate() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`py-4 px-2 border-b-2 rounded-md font-medium text-sm transition-colors duration-200 ${
                   activeTab === tab.id
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-[#FCECDD] text-white"
+                    : "border-transparent text-white hover:text-gray-700 hover:border-gray-300"
                 }`}
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.header.fontFamily
+                }}
               >
                 <span className="flex items-center gap-2">
                   {tab.name}
@@ -269,24 +277,41 @@ export default function OnboardingTemplate() {
           {activeTab === "welcome" && (
             <div className="space-y-6">
               <div className="text-center p-5">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Your New Role!</h2>
-                <p className="text-gray-600">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2"
+                  style={{
+                    fontSize: FONTS.header2.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Welcome to Your New Role!</h2>
+                <p className="text-gray-600"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>
                   {"We're excited to have you join our team as a Senior Software Engineer"}
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2"
+                    style={{
+                      fontSize: FONTS.header3.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                  }}>
                     Your Team
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3  rounded-lg">
+                    <div className="flex items-center gap-3 p-3  rounded-lg"
+                      style={{
+                        fontSize: FONTS.paragraph.fontSize,
+                        fontFamily: FONTS.header.fontFamily
+                    }}>
                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
                         SM
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">Sarah Miller</p>
+                        <p className="font-medium text-gray-900"
+                        >Sarah Miller</p>
                         <p className="text-sm text-gray-500">Engineering Manager</p>
                       </div>
                     </div>
@@ -303,10 +328,18 @@ export default function OnboardingTemplate() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2"
+                    style={{
+                      fontSize: FONTS.header3.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                  }}>
                     First Week Schedule
                   </h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-sm"
+                    style={{
+                      fontSize: FONTS.paragraph.fontSize,
+                      fontFamily: FONTS.header.fontFamily
+                  }}>
                     <div className="flex justify-between items-center p-2  rounded">
                       <span>Day 1: Orientation & Setup</span>
                       <span className="px-3 py-1 text-white rounded text-xs font-medium" style={{background:'#006666'}}>9:00 AM</span>
@@ -329,11 +362,23 @@ export default function OnboardingTemplate() {
           {activeTab === "documents" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Required Documents</h2>
-                <p className="text-gray-600">Please upload the following documents to complete your onboarding</p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2"
+                  style={{
+                    fontSize: FONTS.header2.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Required Documents</h2>
+                <p className="text-gray-600"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Please upload the following documents to complete your onboarding</p>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-4"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.header.fontFamily
+              }}>
                 <FileUploadCard
                   documentType="i9Form"
                   title="Form I-9 (Employment Eligibility)"
@@ -360,11 +405,23 @@ export default function OnboardingTemplate() {
           {activeTab === "profile" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Complete Your Profile</h2>
-                <p className="text-black">Help us get to know you better</p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2"
+                  style={{
+                    fontSize: FONTS.header2.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Complete Your Profile</h2>
+                <p className="text-black"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Help us get to know you better</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-6"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.header.fontFamily
+              }}>
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -426,7 +483,11 @@ export default function OnboardingTemplate() {
 
               <hr className="border-gray-200" />
 
-              <div className="space-y-4">
+              <div className="space-y-4"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.header.fontFamily
+              }}>
                 <h3 className="font-semibold text-gray-900">Preferences</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <label className="flex items-center space-x-3 cursor-pointer">
@@ -449,7 +510,11 @@ export default function OnboardingTemplate() {
               </div>
 
               <div className="flex justify-end">
-                <button className="px-4 py-2 text-white rounded-md bg-[#006666] transition-colors">Save Profile</button>
+                <button className="px-4 py-2 text-white rounded-md bg-[#006666] transition-colors"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Save Profile</button>
               </div>
             </div>
           )}
@@ -458,11 +523,23 @@ export default function OnboardingTemplate() {
           {activeTab === "tasks" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Onboarding Checklist</h2>
-                <p className="text-black">Complete these tasks during your first few weeks</p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2"
+                  style={{
+                    fontSize: FONTS.header2.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Onboarding Checklist</h2>
+                <p className="text-black"
+                  style={{
+                    fontSize: FONTS.paragraph.fontSize,
+                    fontFamily: FONTS.header.fontFamily
+                }}>Complete these tasks during your first few weeks</p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4"
+                style={{
+                  fontSize: FONTS.paragraph.fontSize,
+                  fontFamily: FONTS.header.fontFamily
+              }}>
                 {onboardingTasks.map((task) => (
                   <div
                     key={task.id}

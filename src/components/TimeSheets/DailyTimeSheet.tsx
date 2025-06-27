@@ -17,15 +17,15 @@ interface DailyTimeSheetProps {
 const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredUsers = timesheet.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredUsers = timesheet.filter((user) =>
+  //   user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="py-5">
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse text-sm shadow-lg">
-          <thead className="bg-[#006666] text-white">
+          <thead className="bg-[#6f70ce] !text-white" style={{...FONTS.tableHeader}} >
             <tr>
               <th className="px-6 py-3 text-left">
                 <input
@@ -33,7 +33,8 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
                   placeholder="Search by name..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full border border-gray-300 bg-[#eff4f5] text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                  className="w-full border border-gray-300 bg-[#eff4f5] !text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#E6A895]"
+                  style={{...FONTS.paragraph}}
                 />
               </th>
               <th className="px-6 py-3 text-center"
@@ -67,10 +68,10 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
                 }}>Tracked (hr)</th>
             </tr>
           </thead>
-          <tbody className='bg-white'>
+          <tbody className='bg-white' style={{...FONTS.tableBody}}>
             {timesheet.length === 0 ? (
               <tr>
-                <td colSpan={7} className="text-center py-6 text-gray-500">
+                <td colSpan={7} className="text-center py-6 !text-gray-500" style={{...FONTS.subParagraph}}>
                   No matching timesheet found.
                 </td>
               </tr>
@@ -78,17 +79,17 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
               timesheet.map((user, index) => (
                 <tr
                   key={index}
-                  className="bg-[#eff4f5] border-b border-slate-200/50 group cursor-pointer"
+                  className="!bg-[#eff4f5] border-b border-slate-200/50 group cursor-pointer"
                 >
                   <td className="px-6 py-4 flex  items-center gap-3 border-b border-slate-200/50">
-                    <span className="font-medium text-gray-700">{user.name}</span>
+                    <span className="font-medium !text-gray-700" style={{...FONTS.paragraph}}>{user.name}</span>
                   </td>
-                  <td className="px-6 py-4 text-center">{user.firstIn}</td>
-                  <td className="px-6 py-4 text-center">{user.lastOut}</td>
-                  <td className="px-6 py-4 text-center">{user.regular}</td>
-                  <td className="px-6 py-4 text-center text-orange-500">{user.overtime}</td>
-                  <td className="px-6 py-4 text-center text-red-500">{user.dailyDoubleOvertime}</td>
-                  <td className="px-6 py-4 text-center font-semibold text-green-600">{user.tracked}</td>
+                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.firstIn}</td>
+                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.lastOut}</td>
+                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.regular}</td>
+                  <td className="px-6 py-4 text-center !text-orange-500" style={{...FONTS.description}}>{user.overtime}</td>
+                  <td className="px-6 py-4 text-center !text-red-500" style={{...FONTS.description}}>{user.dailyDoubleOvertime}</td>
+                  <td className="px-6 py-4 text-center font-semibold !text-green-600" style={{...FONTS.description}}>{user.tracked}</td>
                 </tr>
               ))
             )}

@@ -6,8 +6,8 @@ const cardItems = [
   {
     title: "Admin Department",
     subtitle: "Efficiency Rate Improved by 28.25%",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-2.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-2.png",
     stats: [
       { label: "Leave Requests", value: "120" },
       { label: "Attendance Rate", value: "92%" },
@@ -18,8 +18,8 @@ const cardItems = [
   {
     title: "Digital Marketing",
     subtitle: "15% Increase in Engagement",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-1.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-1.png",
     stats: [
       { label: "Ad Clicks", value: "3.2K" },
       { label: "Campaigns", value: "5 " },
@@ -30,12 +30,12 @@ const cardItems = [
   {
     title: "Development",
     subtitle: "New Feature Release Successful",
-    imageUrl:
-      "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-3.png",
+    // imageUrl:
+    //   "https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-1/images/cards/graphic-illustration-3.png",
     stats: [
       { label: "Tickets Closed", value: "96" },
       { label: "Code Coverage", value: "89%" },
-      { label: "Deployments", value: "12 " },
+      { label: "Deployments", value: "12" },
       { label: "Bugs Fixed", value: "34" },
     ],
   },
@@ -45,14 +45,23 @@ const cardItems = [
 const DashBoardSlideCard = () => {
   const [index, setIndex] = useState(0);
 
+   const [animate, setAnimate] = useState(false);
+
   const handleNext = () => {
-    setIndex((prev) => (prev + 1) % cardItems.length);
+    setAnimate(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev + 1) % cardItems.length);
+      setAnimate(false);
+    }, 300);
   };
 
   const handlePrev = () => {
-    setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
+    setAnimate(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev - 1 + cardItems.length) % cardItems.length);
+      setAnimate(false);
+    }, 300);
   };
-
   const current = cardItems[index];
 
   return (
@@ -62,9 +71,9 @@ const DashBoardSlideCard = () => {
         {/* Top Section: Title + Arrows + Dots */}
         <div className="flex justify-between items-center mb-2">
           <div>
-            <p className=" text-xl font-semibold mb-3"
+            <p className=" !text-2xl font-semibold mb-3"
               style={{ fontSize: FONTS.header2.fontSize }}>{current.title}</p>
-            <p className="text-sm text-black "
+            <p className="text-sm text-white "
             style={{fontSize:FONTS.paragraph.fontSize }}>{current.subtitle}</p>
           </div>
 
@@ -88,7 +97,7 @@ const DashBoardSlideCard = () => {
         <div className="flex items-center gap-6 mt-3">
           {/* Stats */}
           <div className="flex-1">
-            <h2 className=" text-md mb-2"
+            <h2 className=" text-md  font-semibold mb-2"
             style={{fontSize:FONTS.header3.fontSize}}>Spending</h2>
             <div className="grid grid-cols-2 gap-3">
               {current.stats.map((stat, i) => (
@@ -96,16 +105,16 @@ const DashBoardSlideCard = () => {
                   <p className="bg-blue-100 rounded-lg font-bold p-1 text-sm w-16 h-8 flex justify-center items-center">
                     {stat.value}
                   </p>
-                  <p className="text-black text-sm mt-1">{stat.label}</p>
+                  <p className="text-black text-sm mt-1" style={{...FONTS.paragraph}}>{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Image */}
-          <div className="flex-1 flex justify-center">
+          {/* <div className="flex-1 flex justify-center">
             <img src={current.imageUrl} alt="card" className="w-28" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

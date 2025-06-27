@@ -27,6 +27,7 @@ export default function EditCandidateModal({ candidate, onClose }: { candidate: 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
     console.log("Updated Candidate Data:", formData)
     onClose()
   }
