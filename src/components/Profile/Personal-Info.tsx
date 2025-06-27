@@ -70,7 +70,7 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
   }
 
   return (
-    <div className="flex flex-2 flex-col rounded-xl bg-white max-w-[65%] h-full p-2 shadow-2xl border border-[#006666]/20  transition-all duration-300 group">
+    <div className="flex flex-2 flex-col rounded-xl bg-white max-w-[60%] h-full p-2 shadow-2xl border border-[#006666]/20  transition-all duration-300 group">
       {isEditing && (
         <div className=" flex p-2  -mb-3">
           <p className="text-red-800 text-sm ">Edit Mode Active - Make your changes and click Save</p>
@@ -83,7 +83,7 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <User size={24} />
           </div>
           <div>
-            <h2 className="text-xl !text-black/90 " style={{ ...FONTS.cardheader }}>
+            <h2 className="text-xl !text-black/90 " style={{ ...FONTS.header2 }}>
               Personal Information
             </h2>
           </div>

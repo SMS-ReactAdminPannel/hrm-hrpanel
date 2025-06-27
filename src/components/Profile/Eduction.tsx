@@ -63,13 +63,13 @@ export const EducationComponent: React.FC<EducationProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-2 relative justify-between">
+      <div className="flex items-center gap-3  relative justify-between">
         <div className="flex gap-2 items-center justify-center">
           <div className="p-3 -mr-3   transition-transform duration-300">
             <GraduationCap size={24} />
           </div>
           <div><h2 className="text-2xl  !text-[#000000]"
-          style={{...FONTS.cardheader}}>Education</h2></div>
+          style={{...FONTS.header2}}>Education</h2></div>
         </div>
         
         <div className="flex gap-2">
@@ -97,61 +97,75 @@ export const EducationComponent: React.FC<EducationProps> = ({
               key={index}
               className="p-2 bg-gradient-to-r  rounded-xl  transition-shadow duration-200 relative"
             >
-              {isEditing && education.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeEducation(index)}
-                  className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200"
-                >
-                  <Trash2 size={12} />
-                </button>
+              {isEditing && education.length > 1 ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    className="font-semibold !text-gray-800 bg-transparent w-full mb-2 outline-none"
+                    value={item.instituteName}
+                    onChange={(e) =>
+                      handleArrayFieldChange(index, "instituteName", e.target.value)
+                    }
+                    readOnly={!isEditing}
+                    placeholder="Institute Name"
+                    style={{ ...FONTS.cardheader }}
+                  />
+                  <input
+                    type="text"
+                    className="font-semibold bg-transparent !text-[#000000]/60 w-full text-slate-800 mb-1 outline-none"
+                    value={item.degree}
+                    onChange={(e) =>
+                      handleArrayFieldChange(index, "degree", e.target.value)
+                    }
+                    readOnly={!isEditing}
+                    placeholder="Degree"
+                    style={{ ...FONTS.statusCardHeader }}
+                  />
+                  <input
+                    type="text"
+                    className="bg-transparent text-slate-900"
+                    value={item.startDate}
+                    onChange={(e) =>
+                      handleArrayFieldChange(index, "startDate", e.target.value)
+                    }
+                    readOnly={!isEditing}
+                    placeholder="Start Date"
+                    style={{ ...FONTS.statusCardDescription }}
+                  />
+                  <input
+                    type="text"
+                    className="bg-transparent w-1/2 text-slate-900"
+                    value={item.endDate}
+                    onChange={(e) =>
+                      handleArrayFieldChange(index, "endDate", e.target.value)
+                    }
+                    readOnly={!isEditing}
+                    placeholder="End Date"
+                    style={{ ...FONTS.statusCardDescription }}
+                  />
+                  {isEditing && education.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeEducation(index)}
+                      className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <div className="font-semibold !text-gray-800 mb-1" style={{ ...FONTS.cardheader }}>
+                   College Name : {item.instituteName}
+                  </div>
+                  <div className="font-semibold !text-[#000000]/60 mb-1" style={{ ...FONTS.statusCardHeader }}>
+                    Course : {item.degree}
+                  </div>
+                  <div className="text-slate-900" style={{ ...FONTS.statusCardDescription }}>
+                    Duration : {item.startDate} - {item.endDate}
+                  </div>
+                </div>
               )}
-              <input
-                type="text"
-                className="font-semibold !text-gray-800 bg-transparent w-full mb-2 outline-none"
-                value={item.instituteName}
-                onChange={(e) =>
-                  handleArrayFieldChange(index, "instituteName", e.target.value)
-                }
-                readOnly={!isEditing}
-                placeholder="Institute Name"
-                style={{...FONTS.cardSubHeader}}
-              />
-              <input
-                type="text"
-                className="font-semibold bg-transparent !text-[#000000]/60 w-full text-slate-800 mb-1 outline-none"
-                value={item.degree}
-                onChange={(e) =>
-                  handleArrayFieldChange(index, "degree", e.target.value)
-                }
-                readOnly={!isEditing}
-                placeholder="Degree"
-                style={{...FONTS.subParagraph}}
-              />
-              <div className="flex flex-row space-x-1 ">
-                <input
-                  type="text"
-                  className="bg-transparent w-1/2 text-slate-900 outline-none"
-                  value={item.startDate}
-                  onChange={(e) =>
-                    handleArrayFieldChange(index, "startDate", e.target.value)
-                  }
-                  readOnly={!isEditing}
-                  placeholder="Start Date"
-                  style={{...FONTS.statusCardDescription}}
-                />
-                <input
-                  type="text"
-                  className="bg-transparent w-1/2 text-slate-900 outline-none"
-                  value={item.endDate}
-                  onChange={(e) =>
-                    handleArrayFieldChange(index, "endDate", e.target.value)
-                  }
-                  readOnly={!isEditing}
-                  placeholder="End Date"
-                  style={{...FONTS.statusCardDescription}}
-                />
-              </div>
             </div>
           ))}
         </div>
