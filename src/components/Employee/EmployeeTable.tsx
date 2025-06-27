@@ -1,8 +1,8 @@
 import React from 'react';
-import { Edit, Trash2 } from "lucide-react"
+// import { Edit, Trash2 } from "lucide-react"
 import type { Employee} from "../../components/Employee/Employee"
 import { FONTS } from '../../constants/uiConstants';
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ interface EmployeeTableProps {
   onDelete: (employeeId: string) => void
 }
 
-export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortConfig, onSort, onEdit, onDelete }) => {
+export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortConfig, onSort, }) => {
   // const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null)
   const navigate = useNavigate();
   const handleClick=()=>{
@@ -43,7 +43,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({ employees, sortCon
 return (
   <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
     <table className="min-w-full divide-y divide-gray-200">
-      <thead className="bg-[#4c469f] text-white">
+      <thead className="bg-[#4c469f] text-white ">
         <tr>
           {["id", "name", "email", "department", "jobTitle", "employmentType"].map((key) => (
             <th
@@ -62,19 +62,19 @@ return (
               </div>
             </th>
           ))}
-          <th 
+          {/* <th 
             className="px-6 py-3 text-left"
             style={{...FONTS.tableHeader}}
           >
             Actions
-          </th>
+          </th> */}
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-200 " onClick={handleClick} >
         {employees.map((emp) => (
           <tr 
             key={emp.id} 
-            className="hover:bg-gray-50 transition-colors"
+            className="hover:bg-gray-50 transition-colors text-left "
           >
             <td className="px-6 py-4 whitespace-nowrap" style={{...FONTS.tableBody}}>
               {emp.id}
@@ -97,7 +97,7 @@ return (
                    {emp.employmentType}
                  </span>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            {/* <td className="px-6 py-4 whitespace-nowrap">
               <div className="flex space-x-3">
                 <button 
                   onClick={() => onEdit(emp)}
@@ -114,7 +114,7 @@ return (
                   <Trash2 size={16} style={{...FONTS.tableBody}} />
                 </button>
               </div>
-            </td>
+            </td> */}
           </tr>
         ))}
         {employees.length === 0 && (
