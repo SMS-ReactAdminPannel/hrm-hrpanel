@@ -58,16 +58,12 @@ import OTPValidation from "../pages/auth/OTPValidation";
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
-
   return (
-
     <Routes>
-      {isAuthenticated ? (
+      {/* Authenticated Routes */}
+      {isAuthenticated && (
         <Route path="/" element={<MainLayout />}>
-          {/* Redirect to dashboard on login */}
-          <Route index element={<Navigate to="dashboard" />} />
-
-          {/* Authenticated routes */}
+          <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
@@ -88,38 +84,39 @@ const AppRoutes = () => {
           <Route path="asset" element={<AssetsManagement />} />
           <Route path="Attendancerequest" element={<AttendanceRequest />} />
           <Route path="asset-category" element={<Assetcategory />} />
-          {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="offboarding" element={<AdvancedHRMOffboardings />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="grievance-management" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
-          {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
           <Route path="recruitment/candidatelists/candidatesPage" element={<CandidateDetailPage />} />
           <Route path="recruitment/candidatelists" element={<CandidatesPage />} />
-          <Route path="/recruitment/job-postings" element={<OpenRecruitments />} />
-          <Route path="/recruitment/job-postings/job-details" element={<JobDetailsPage />} />
+          <Route path="recruitment/job-postings" element={<OpenRecruitments />} />
+          <Route path="recruitment/job-postings/job-details" element={<JobDetailsPage />} />
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
-          <Route path="/ProfilePage" element={<ProfilePage />}/>
-          <Route path="/calendar" element={<Calendar />}/>
-          <Route path='employee-details' element={<Profile/>}/>
-
-          
-        </Route>
-      ) : (
-        <Route path="/">
-          <Route index element={<Navigate to="/login" />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="otp-validation" element={<OTPValidation />} />
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="ProfilePage" element={<ProfilePage />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="employee-details" element={<Profile />} />
         </Route>
       )}
+
+      {/* Public Routes */}
+      {!isAuthenticated && (
+        <>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/otp-validation" element={<OTPValidation />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </>
+      )}
+
+      {/* Catch-All Route */}
+      <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
     </Routes>
   );
 };
-
 export default AppRoutes;
