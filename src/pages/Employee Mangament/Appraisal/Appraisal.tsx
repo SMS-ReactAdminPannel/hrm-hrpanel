@@ -356,14 +356,13 @@ const HRMAppraisalSystem = () => {
   const selectedEmployeeOverallRating = selectedEmployee ? calculateOverallRating(selectedEmployeeAppraisalData) : 0
 
   return (
-    <div className="">
-      {/* Header */}
-      <header className="border-gray-200">
+    <div className=" ">
+      <div className="max-w-full mx-auto  h-[552px]">
+      <header className="">
         <div className="max-w-full px-2">
-          <div className="">
             <div className="flex justify-between items-center gap-3">
               {activeTab !== "reports" && (
-                <h1 className="!text-black" style={{...FONTS.header}}>
+                <h1 className="text-black" style={{...FONTS.header}}>
                   Appraisal
                 </h1>
               )}
@@ -376,11 +375,10 @@ const HRMAppraisalSystem = () => {
                 </button>
               )}
             </div>
-          </div>
         </div>
       </header>
 
-      {/* Main Content */}
+      
       <main className="max-w-full py-8">
         {activeTab === "dashboard" && (
           <Dashboard
@@ -404,7 +402,7 @@ const HRMAppraisalSystem = () => {
         {activeTab === "reports" && <Reports setActiveTab={setActiveTab} />}
       </main>
 
-      {/* Appraisal Modal */}
+      
       <AppraisalModal
         showModal={showAppraisalModal}
         modalMode={modalMode}
@@ -424,6 +422,9 @@ const HRMAppraisalSystem = () => {
         onSubmit={handleSubmitNewAppraisal}
         getStatusColor={getStatusColor}
       />
+      </div>
+      
+  
     </div>
   )
 }
