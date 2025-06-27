@@ -70,7 +70,8 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
   };
 
   return (
-    <div className="flex flex-1 flex-col rounded-xl bg-white  p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    <div className="flex flex-1 flex-col rounded-xl bg-white 
+     p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl  transition-all duration-300 group">
       {isEditing && (
         <div className="">
           <p className="text-red-800 text-xs">
@@ -81,12 +82,12 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
 
       <div className="flex items-center justify-between mb-2 relative ">
         <div className="flex items-center gap-1 justify-center ">
-          <div className=" group-hover:scale-110 transition-transform duration-300">
+          <div className="  transition-transform duration-300">
             <Users size={24} />
           </div>
           <div>
             <h2 className="text-lg !text-[#000000]/90"
-            style={{...FONTS.cardheader}}>
+            style={{...FONTS.header2}}>
             Emergency Contact
           </h2>
           </div>
@@ -100,24 +101,26 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
           </button>
         </div>
       </div>
+      <hr className="border-gray-900 mb-5" />
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-3 p-2 border-gray-600 border rounded-xl hover:shadow-md transition-shadow duration-200">
-          <p className="font-bold !text-[#000000]/90 mb-1"
-          style={{...FONTS.cardSubHeader}}>Primary Contact</p>
-          <div className="text-sm  grid grid-cols-2 gap-5 ">
-            <p>
-              <strong style={{...FONTS.statusCardHeader}} className="!text-gray-800">Name:</strong>
+        <div className="mb-3   rounded-xl hover:shadow-md transition-shadow duration-200">
+          <p className=" font-bold  !text-gray-900 mb-1"
+          style={{...FONTS.cardheader}}>Primary Contact</p>
+          <hr className="border-gray-900 mb-5 w-[44%] border-1" />
+          <div className="text-sm  grid grid-cols-2 gap-3 ">
+            <p className="flex items-center">
+              <strong style={{...FONTS.statusCardHeader}} className="!text-gray-800 mr-2">Name:</strong>
               <input
                 name="primaryName"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl outline-none w-full"
                 value={formData.primaryName}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Relationship:</strong>
               <input
                 name="primaryRelationship"
@@ -128,7 +131,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center" >
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Phone:</strong>
               <input
                 name="primaryPhone"
@@ -139,7 +142,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Email:</strong>
               <input
                 name="primaryEmail"
@@ -150,7 +153,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Address:</strong>
               <input
                 name="primaryAddress"
@@ -164,11 +167,12 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
           </div>
         </div>
 
-        <div className="p-2 border-gray-500 border rounded-xl hover:shadow-md transition-shadow duration-200">
-          <p className="font-bold  !text-[#000000]/100 mb-1"
-          style={{...FONTS.cardSubHeader}}>Secondary Contact</p>
+        <div className=" rounded-xl hover:shadow-md transition-shadow duration-200">
+          <p className="font-bold  !text-gray-900 mb-2"
+          style={{...FONTS.cardheader}}>Secondary Contact</p>
+          <hr className="border-gray-900 mb-5 w-[51%] border-1" />
           <div className="text-sm grid grid-cols-2 gap-5">
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Name:</strong>
               <input
                 name="secondaryName"
@@ -180,7 +184,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 // style={{...FONTS.paragraph}}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Relationship:</strong>
               <input
                 name="secondaryRelationship"
@@ -191,7 +195,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Phone:</strong>
               <input
                 name="secondaryPhone"
@@ -202,7 +206,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Email:</strong>
               <input
                 name="secondaryEmail"
@@ -213,7 +217,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
                 readOnly={!isEditing}
               />
             </p>
-            <p>
+            <p className="flex items-center">
               <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Address:</strong>
               <input
                 name="secondaryAddress"

@@ -54,7 +54,7 @@ export const EducationComponent: React.FC<EducationProps> = ({
   };
 
   return (
-    <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl  transition-all duration-300 group">
       {isEditing && (
         <div className="-mb-2 p-2 ">
           <p className="text-red-800 text-xs">
@@ -63,14 +63,15 @@ export const EducationComponent: React.FC<EducationProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-6 relative justify-between">
+      <div className="flex items-center gap-3 mb-2 relative justify-between">
         <div className="flex gap-2 items-center justify-center">
-          <div className="p-3 -mr-3  group-hover:scale-110 transition-transform duration-300">
+          <div className="p-3 -mr-3   transition-transform duration-300">
             <GraduationCap size={24} />
           </div>
           <div><h2 className="text-2xl  !text-[#000000]"
           style={{...FONTS.cardheader}}>Education</h2></div>
         </div>
+        
         <div className="flex gap-2">
           {isEditing && (
             <button
@@ -88,13 +89,13 @@ export const EducationComponent: React.FC<EducationProps> = ({
           </button>
         </div>
       </div>
-
+      <hr className="border-gray-900 mb-5" />
       <form onSubmit={handleSubmit}>
         <div className="space-y-4 h-64 overflow-y-auto scrollbar-hide">
           {education.map((item, index) => (
             <div
               key={index}
-              className="p-2 bg-gradient-to-r border border-gray-500 rounded-xl hover:shadow-md transition-shadow duration-200 relative"
+              className="p-2 bg-gradient-to-r  rounded-xl  transition-shadow duration-200 relative"
             >
               {isEditing && education.length > 1 && (
                 <button
