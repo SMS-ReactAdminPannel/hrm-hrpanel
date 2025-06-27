@@ -3,10 +3,10 @@ import type { Card } from './types';
 
 
 interface LeaveTypeCardProps {
-  card: Card;
+  card: any;
   color: string;
   onEdit: (card: Card) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
   onShowDetails: (card: Card) => void;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
   showDropdown: boolean;
@@ -49,10 +49,10 @@ export default function LeaveTypeCard({
             </button>
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
-                <div className="py-1">
+                <div className="py-1 ">
                   <button
                     onClick={() => onEdit(card)}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-2 py-1 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Edit
                   </button>
@@ -62,12 +62,12 @@ export default function LeaveTypeCard({
                   >
                     Delete
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => onShowDetails(card)}
                     className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                   >
                     View Details
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}

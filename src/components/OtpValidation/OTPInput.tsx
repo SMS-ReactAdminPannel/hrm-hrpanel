@@ -56,7 +56,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, onComplete }) => {
   };
 
   return (
-    <div className="flex gap-3 justify-center">
+    <div className="flex gap-3 justify-center" >
       {otp.map((digit, index) => (
         <input
           key={index}
@@ -67,7 +67,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, onComplete }) => {
           onChange={(e) => handleChange(e.target, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
           onPaste={handlePaste}
-          className="w-12 h-12 text-center text-xl font-semibold border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white"
+          className="w-12 h-12 text-center text-xl font-semibold border-2 border-gray-300 rounded-lg focus:border-[#006666] focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white"
           autoFocus={index === 0}
         />
       ))}

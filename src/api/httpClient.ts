@@ -2,6 +2,7 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from"axios";
 
 const backEndUrl = "http://localhost:3002";
+// const backEndUrl = "https://hrm-node-backend.onrender.com";
 
 const Axios = axios.create({
   baseURL: backEndUrl,
@@ -34,6 +35,9 @@ Axios.interceptors.response.use(
 );
 
 class HttpClient {
+  update(arg0: string, data: any) {
+    throw new Error("Method not implemented.");
+  }
   hr: any;
   async get<T = any>(url: string, params?: any): Promise<T> {
     const response = await Axios.get<T>(url,{
@@ -57,7 +61,7 @@ class HttpClient {
     return response.data;
   }
 
-  async delete<T = any>(url: string): Promise<T> {
+  async delete<T = any>(url: string, data: any): Promise<T> {
     const response = await Axios.delete<T>(url);
     return response.data;
   }

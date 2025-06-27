@@ -1,10 +1,13 @@
 import React from 'react';
-import type { DayData } from './types';
 import { FONTS } from '../../constants/uiConstants';
+import type { DayData, Holiday } from './types';
+
+
 
 interface CalendarProps {
   currentMonth: Date;
   days: DayData[];
+  holidays: Holiday[]; // Add holidays prop
   onNavigateMonth: (direction: 'prev' | 'next') => void;
   onSetCurrentMonth: (date: Date) => void;
   onShowModal: () => void;
@@ -13,9 +16,10 @@ interface CalendarProps {
 const Calendar: React.FC<CalendarProps> = ({
   currentMonth,
   days,
+  holidays,
   onNavigateMonth,
   onSetCurrentMonth,
-  onShowModal
+  onShowModal,
 }) => {
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -23,6 +27,18 @@ const Calendar: React.FC<CalendarProps> = ({
   ];
 
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // Function to check if a date has a holiday
+  const getHolidaysForDate = (date: Date) => {
+    return holidays.filter(holiday => {
+      const holidayDate = new Date(holiday.holiday_date);
+      return (
+        holidayDate.getDate() === date.getDate() &&
+        holidayDate.getMonth() === date.getMonth() &&
+        holidayDate.getFullYear() === date.getFullYear()
+      );
+    });
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -100,28 +116,44 @@ const Calendar: React.FC<CalendarProps> = ({
 
       {/* Calendar Grid */}
       <div className="grid grid-cols-7 gap-px bg-gray-50">
-        {days.map((day, idx) => (
-          <div
-            key={idx}
-            className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
-          >
+        {days.map((day, idx) => {
+          const dateHolidays = getHolidaysForDate(day.date);
+          
+          return (
             <div
-              className={`text-center p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
+              key={idx}
+              className={`bg-white min-h-32 p-1 ${!day.isCurrentMonth ? 'opacity-50' : ''}`}
             >
-              {day.date.getDate()}
+              <div
+                className={`text-right p-1 ${day.isToday ? 'bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center ml-auto' : ''}`}
+              >
+                {day.date.getDate()}
+              </div>
+              <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
+                {/* Display holidays */}
+                {dateHolidays.map(holiday => (
+                 
+                  <div
+                    key={holiday.id}
+                    className=" text-yellow-800 bg-yellow-400 text-xs p-1 rounded truncate"
+                  >
+                    {holiday.holiday_name}
+                  </div>
+                ))}
+                {/* Display regular events */}
+                {day.events.map((event) => (
+                  
+                  <div
+                    key={event.id}
+                   className={` text-xs p-1 rounded truncate`}
+                  >
+                    <div className="font-medium">{event.title}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-1 space-y-1 overflow-y-auto max-h-24">
-              {day.events.map((event) => (
-                <div
-                  key={event.id}
-                  className={`${event.color} text-white text-xs p-1 rounded truncate`}
-                >
-                  <div className="font-medium">{event.title}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

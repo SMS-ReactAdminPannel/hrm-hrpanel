@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, type Key } from "react";
 import { ArrowLeft, Plus, Trash2, Users } from "lucide-react";
+import { getAllDepartments } from "../../features/Department/service";
 import axios from "axios";
 import { FONTS } from "../../constants/uiConstants";
 
@@ -27,26 +28,25 @@ const EmployeesPage = () => {
   const [error, setError] = useState("");
   const [newEmployee, setNewEmployee] = useState({ name: "", role: "" });
 
-  useEffect(() => {
+   
+  
     const fetchDepartment = async () => {
       try {
-        const res = await axios.get(`/api/departments/${departmentId}`);
-        const departmentData = {
-          ...res.data,
-          employees: Array.isArray(res.data.employees) ? res.data.employees : [],
-          requiredRoles: Array.isArray(res.data.requiredRoles) ? res.data.requiredRoles : [],
-        };
-        setDepartment(departmentData);
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to load department", err);
-        setError("Department not found.");
-        setLoading(false);
+        const response: any = await getAllDepartments();
+        console.log("page response", response);
+        const department = response?.data;
+        console.log("Department data:", department);
+        setDepartment(department);
+        console.log("Holidays fetched:", department);
+      } catch (error) {
+        console.error("Error fetching holidays:", error);
       }
-    };
+     };
+   
+     useEffect(() => {
+       fetchDepartment();
+     }, []);
   
-    fetchDepartment();
-  }, [departmentId]);
   
   const handleAddEmployee = async () => {
     if (!newEmployee.name.trim() || !newEmployee.role.trim() || !department) return;

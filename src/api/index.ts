@@ -53,13 +53,13 @@ export default class Client {
         ),
     },
 
-    hrprofile: {
-      postlogin: (data: any) =>
-        httpClient.post(API_END_POINTS.hrprofile.Postlogin, data),
-      postregister: (data: any) =>
-        httpClient.post(API_END_POINTS.hrprofile.Postregister, data),
-      postlogout: () =>
-        httpClient.post(API_END_POINTS.hrprofile.postlogout, {}),
+    hrprofile:{
+       postlogin:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postlogin,data),
+       postregister:(data:any)=>httpClient.post(API_END_POINTS.hrprofile.Postregister,data),
+       postlogout: () => httpClient.post(API_END_POINTS.hrprofile.postlogout,{}),
+       validateOtp: (data: any) => httpClient.post(API_END_POINTS.hrprofile.validateOtp,data),
+       forgotPassword: (data: any) =>  httpClient.post(API_END_POINTS.hrprofile.forgotPassword,data),
+       resetPassword: (data: any) =>  httpClient.post(API_END_POINTS.hrprofile.resetPassword,data),
     },
 
     candidates: {
@@ -159,7 +159,30 @@ export default class Client {
         httpClient.delete(API_END_POINTS.appraisal.delete(appraisalId)),
     },
     
+    leave:{
+      createHoliday: (data: any) => 
+        httpClient.post(API_END_POINTS.leave.NewHoliday, data),
+      getAllHoliday: () => 
+        httpClient.get(API_END_POINTS.leave.getHoliday),
+      updateHoliday: (data: any, id: any) => 
+        httpClient.put(API_END_POINTS.leave.updateHoliday(id), data),
+      deleteHoliday: (id: any) =>
+        httpClient.delete(API_END_POINTS.leave.deleteHoliday(id), {})
+    },
+
+      leaveType :{
+      createLeaveType: (data: any) => 
+        httpClient.post(API_END_POINTS.leaveType.createLeaveType, data),
+      getAllLeaveType: () => 
+        httpClient.get(API_END_POINTS.leaveType.getAllLeaveType),
+      updateLeaveType: (data: any, id: any) => 
+        httpClient.put(API_END_POINTS.leaveType.updateLeaveType(id), data),
+      deleteLeaveType: (id: any) =>
+        httpClient.delete(API_END_POINTS.leaveType.deleteLeaveType(id)),
+      getLeaveTypeById: (id: string) =>
+        httpClient.get(API_END_POINTS.leaveType.getLeaveById(id))
+    }
+
   };
   static hr: any;
 }
-
