@@ -78,7 +78,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
       onFormDataChange({
         ...formData,
         [name]: value,
-        subDepartment: "", 
+        subDepartment: "",
       });
     } else {
       onFormDataChange({
@@ -116,9 +116,9 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-1 left-1 -ml-7 text-white hover:text-gray-600 bg-blue-700 rounded-l-full text-gray-600 hover:text-black flex items-center justify-center focus:outline-none"
+              className="absolute top-1   -ml-[4rem] text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow"
             >
-              <X size={24} />
+              <X size={30} />
             </button>
 
             <div className="">
@@ -185,9 +185,9 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       value={formData.department}
                       onChange={handleInputChange}
                       required
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
+                      className="w-full  border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
                     >
-                      <option value="">Select department</option>
+                      <option value="" className="appearance-none">Select department</option>
                       {DEPARTMENTS.map((dept) => (
                         <option key={dept.name} value={dept.name}>
                           {dept.name}
