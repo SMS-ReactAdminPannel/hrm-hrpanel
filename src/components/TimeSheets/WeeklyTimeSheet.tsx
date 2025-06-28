@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { FONTS } from "../../constants/uiConstants";
+import { FONTS } from "../../constants/uiConstants";
 
 interface TimeEntry {
   day: string;

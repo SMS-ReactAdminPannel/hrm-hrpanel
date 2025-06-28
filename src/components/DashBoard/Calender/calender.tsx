@@ -1,70 +1,84 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   format,
+  parse,
+  startOfToday,
+  eachDayOfInterval,
   startOfMonth,
   endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  eachDayOfInterval,
   addMonths,
-  subMonths,
+  getDay,
   isSameMonth,
   isToday,
-  type Locale,
-}
- from 'date-fns';
+} from 'date-fns';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-interface CalendarProps {
-  locale?: Locale;
-}
+export const CalendarNav = () => (
+  <div>
+    <button><ChevronLeftIcon className="w-5 h-5" /></button>
+    <button><ChevronRightIcon className="w-5 h-5" /></button>
+  </div>
+);
 
-const Calendar: React.FC<CalendarProps> = ({ locale }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(monthStart);
-  const startDate = startOfWeek(monthStart, { locale });
-  const endDate = endOfWeek(monthEnd, { locale });
+const colStartClasses = [
+  '', 'col-start-2', 'col-start-3', 'col-start-4',
+  'col-start-5', 'col-start-6', 'col-start-7'
+];
 
-  const days = eachDayOfInterval({ start: startDate, end: endDate });
-  
-  const header = format(currentMonth, 'MMMM yyyy');
-
-  const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
-  const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
-
-  const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+export const Calendar = () => {
+  const today = startOfToday();
+  const [monthLabel, setMonthLabel] = useState(format(today, 'MMM-yyyy'));
+  const firstDay = parse(monthLabel, 'MMM-yyyy', new Date());
+  const days = eachDayOfInterval({
+    start: startOfMonth(firstDay),
+    end: endOfMonth(firstDay),
+  });
 
   return (
-    <div className="max-w-md mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg p-4">
-      <div className="flex justify-between items-center mb-4">
-        <button onClick={prevMonth} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-          ‹
-        </button>
-        <h2 className="font-semibold text-lg dark:text-gray-200">{header}</h2>
-        <button onClick={nextMonth} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-          ›
-        </button>
+    <div className="bg-white rounded-lg shadow-md p-6 max-w-screen-lg mx-auto">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-semibold">
+          {format(firstDay, 'MMMM, yyyy')}
+        </h2>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setMonthLabel(format(addMonths(firstDay, -1), 'MMM-yyyy'))}
+            className="p-1 hover:bg-gray-200 rounded"
+          >
+            <ChevronLeftIcon className="w-5 h-5 text-gray-600" />
+          </button>
+          <button
+            onClick={() => setMonthLabel(format(addMonths(firstDay, +1), 'MMM-yyyy'))}
+            className="p-1 hover:bg-gray-200 rounded"
+          >
+            <ChevronRightIcon className="w-5 h-5 text-gray-600" />
+          </button>
+        </div>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-sm text-gray-500 dark:text-gray-400">
-        {weekdays.map(d => (
-          <div key={d} className="text-center font-medium">{d}</div>
+
+      <div className="grid grid-cols-7 text-xs uppercase tracking-wide text-gray-500 mb-1">
+        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
+          <div key={d} className="text-center">{d}</div>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-1">
-        {days.map(day => (
+
+      <div className="grid grid-cols-7 gap-y-2">
+        {days.map((day, idx) => (
           <div
-            key={day.toString()}
-            className={`p-2 text-center rounded cursor-pointer
-              ${!isSameMonth(day, monthStart) ? 'text-gray-300 dark:text-gray-600' : 'text-gray-900 dark:text-gray-100'}
-              ${isToday(day) ? 'bg-blue-500 text-white' : 'hover:bg-blue-100 dark:hover:bg-gray-800'}`}
+            key={day.toISOString()}
+            className={`${idx === 0 ? colStartClasses[getDay(day)] : ''} flex justify-center`}
           >
-            {format(day, 'd')}
+            <div
+              className={`w-10 h-10 flex items-center justify-center rounded-full
+                ${isToday(day) ? 'bg-blue-600 text-white' : 
+                isSameMonth(day, firstDay) ? 'text-gray-900 hover:bg-gray-100' : 'text-gray-300'}`}
+            >
+              {format(day, 'd')}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 };
-
-export default Calendar;

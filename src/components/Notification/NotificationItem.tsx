@@ -1,6 +1,5 @@
 import { Clock, FileText, Star, User } from "lucide-react"
 import type { Notification } from "../../types/Notification"
-
 // Represents a single notification preview in the list view
 // Clicking it opens the detailed view
 type Props = {

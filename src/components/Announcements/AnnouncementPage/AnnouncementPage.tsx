@@ -70,23 +70,7 @@ const Announcement = () => {
     }
   };
 
-  // const handleEntriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setEntriesPerPage(Number(e.target.value));
-  //   setCurrentPage(1);
-  // };
-
-  // const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
-
-  // const fetchannouncement = async () => {
-  //   try {
-  //     const response: any = await AnnouncementGetAll();
-  //     console.log("API Respchonse:", response);
-  //     const announcementdata = response?.data ?? [];
-  //     setannouncement(announcementdata);
-  //   } catch (error) {
-  //     console.error("Error fetching grievances:", error);
-  //   }
-  // };
+ 
   
 
   return (
