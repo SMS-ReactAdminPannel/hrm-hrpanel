@@ -106,6 +106,8 @@ const AppRoutes = () => {
           <Route path="/calendar" element={<Calendar />}/>
           <Route path='employee-details' element={<Profile/>}/>
 
+           <Route path="forgot-password" element={<ForgotPassword />} />
+
           
         </Route>
       ) : (
