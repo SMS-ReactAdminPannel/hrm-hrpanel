@@ -164,7 +164,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                         onChange={handleInputChange}
                         placeholder={field.placeholder || ""}
                         required
-                        className="w-full border-0 border-b border-gray-400 focus:border-[#5e59a9] focus:outline-none text-sm px-1 py-2 bg-transparent"
+                        className="w-full border-0 border-b border-gray-400 focus:outline-none text-sm px-1 py-2 bg-transparent"
                         autoComplete="off"
                       />
                     </div>
@@ -185,7 +185,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       value={formData.department}
                       onChange={handleInputChange}
                       required
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none focus:border-[#5e59a9] text-sm"
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
                     >
                       <option value="">Select department</option>
                       {DEPARTMENTS.map((dept) => (
@@ -212,7 +212,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       value={formData.subDepartment || ""}
                       onChange={handleInputChange}
                       disabled={!formData.department}
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none focus:border-[#5e59a9] text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="">
                         {formData.department
@@ -241,7 +241,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       name="basedOn"
                       value={formData.basedOn}
                       onChange={handleInputChange}
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none focus:border-[#5e59a9] text-sm"
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
                     >
                       <option value="After">After</option>
                       <option value="Weekend">Weekend</option>
@@ -264,7 +264,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       value={formData.currentShift}
                       onChange={handleInputChange}
                       required
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none focus:border-[#5e59a9] text-sm"
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
                     >
                       <option value="">Select shift</option>
                       <option value="Morning">Morning</option>
@@ -289,7 +289,7 @@ const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                       value={formData.nextShift}
                       onChange={handleInputChange}
                       required
-                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none focus:border-[#5e59a9] text-sm"
+                      className="w-full border-0 border-b bg-transparent border-gray-400 px-3 py-2 shadow-sm focus:outline-none text-sm"
                     >
                       <option value="">Select shift</option>
                       <option value="Morning">Morning</option>
