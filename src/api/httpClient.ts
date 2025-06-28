@@ -1,7 +1,8 @@
 // httpClient.ts
 import axios, { type AxiosRequestConfig, type AxiosResponse } from"axios";
 
-const backEndUrl = "http://localhost:3002";
+// const backEndUrl = "http://localhost:3002";
+const backEndUrl = "https://hrm-node-backend.onrender.com";
 
 const Axios = axios.create({
   baseURL: backEndUrl,

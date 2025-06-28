@@ -1,9 +1,9 @@
 import Client from "../../api";
 //appraisal
 // ✅ Create Appraisal
-export const createAppraisal = async (data: any) => {
+export const createAppraisal = async () => {
   try {
-    const response = await new Client().hr.appraisal.create(data);
+    const response = await new Client().hr.appraisal.create();
     return response;
   } catch (error) {
     console.error("Error in createAppraisal:", error);

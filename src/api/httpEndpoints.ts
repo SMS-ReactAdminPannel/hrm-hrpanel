@@ -45,24 +45,6 @@ export const API_END_POINTS = {
     deleteAsset: (id: string) => `/api/hr/assetproperty/delete-assets/${id}`,
   },
 
-  // asset: {
-  //   getAllAssets: "/api/assets",
-  //   getAssetById: (id: string) => `/api/asset/${id}`,
-  //   createAsset: "/api/assets",
-  //   updateAsset: (id: string) => `/api/assets/${id}`,
-  //   deleteAsset: (id: string) => `/api/assets/${id}`,
-  // },
-
-
-  jobPosting: {
-    getAll: "/api/job-postings",
-    getById: "/api/job-postings",
-    create: "/api/job-postings",
-    update: "/api/job-postings",
-    delete: "/api/job-postings",
-  },
-
-
   department: {
     getAll: "/api/hr/departments/getall",
     create: "/api/hr/departments/create",
@@ -122,5 +104,14 @@ export const API_END_POINTS = {
     getLeaveById: (id: string) => `api/hr/leaveType/getUniqueLeave/${id}`,
     deleteLeaveType: (id: string) => `api/hr/leaveType/deleteLeave/${id}`,
   },
+  
+  jobPosting: {
+  create: "/api/hr/jobposting", 
+  getAll: "/api/hr/jobposting", 
+  getById: (id: string) => `/api/hr/jobposting/${id}`,
+  update: (id: string) => `/api/hr/jobposting/${id}`,
+  delete: (id: string) => `/api/hr/jobposting/${id}`,  
+}
+
 
 };

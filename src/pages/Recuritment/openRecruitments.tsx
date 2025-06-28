@@ -127,7 +127,7 @@ const OpenRecruitments = () => {
         description: editFormData.description,
         roles: editFormData.roles.split(",").map((r) => r.trim()),
       }
-      await HttpClient.update(`${API_END_POINTS.jobPosting.update}/${selectedJob._id}`, payload)
+      await HttpClient.put(`${API_END_POINTS.jobPosting.update}/${selectedJob._id}`, payload)
       setIsEditMode(false)
       setSelectedJob(null)
       fetchJobs()

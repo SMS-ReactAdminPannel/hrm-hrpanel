@@ -29,16 +29,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true); // <- Add loading state
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const email = localStorage.getItem("userEmail");
-    // const name = localStorage.getItem("userName");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    if (token && email) {
-      setUser({ email });
-      setIsAuthenticated(true);
-    }
-    setLoading(false); 
-  }, []);
+  if (storedUser?.token && storedUser?.email) {
+    setUser({ email: storedUser.email });
+    setIsAuthenticated(true);
+  }
+  setLoading(false); 
+}, []);
+
 
   const login = async (email: string, password: string) => {
     if (email && password) { 

@@ -3,9 +3,12 @@ import { User, Calendar, Star, TrendingUp, Plus, Eye } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
 import { FONTS } from "../../constants/uiConstants"
+import  { useState,useEffect } from 'react';
+import {  getAllAppraisals } from "../../features/Appraisal/service"
+
 
 interface Employee {
-  id: string
+  // id: string
   Employee: string
   Position: string
   Rating: number
@@ -13,99 +16,99 @@ interface Employee {
   department: string
   ProjectPeriod: string
 }
-const employees: Employee[] = [
-  {
-    id: '1',
-    Employee: 'Harry',
-    Position: 'Software Engineer',
-    Rating: 4.5,
-    Status: 'Active',
-    department: 'Engineering',
-    ProjectPeriod: 'Jan 2023 - Dec 2023',
-  },
-  {
-    id: '2',
-    Employee: 'james',
-    Position: 'Product Manager',
-    Rating: 2,
-    Status: 'On Leave',
-    department: 'Product',
-    ProjectPeriod: 'Mar 2023 - Mar 2024',
-  },
-  {
-    id: '3',
-    Employee: ' Smith',
-    Position: 'UI/UX Designer',
-    Rating: 3,
-    Status: 'Active',
-    department: 'Design',
-    ProjectPeriod: 'Feb 2024 - Jan 2025',
-  },
-  {
-    id: '4',
-    Employee: 'Michael',
-    Position: 'QA Engineer',
-    Rating: 4,
-    Status: 'Inactive',
-    department: 'Quality Assurance',
-    ProjectPeriod: 'Jul 2022 - Jun 2023',
-  },
-  {
-    id: '5',
-    Employee: 'John',
-    Position: 'DevOps Engineer',
-    Rating: 5,
-    Status: 'Active',
-    department: 'Infrastructure',
-    ProjectPeriod: 'Aug 2023 - Jul 2024',
-  },
-  {
-    id: '6',
-    Employee: 'Harry',
-    Position: 'Software Engineer',
-    Rating: 4.5,
-    Status: 'Active',
-    department: 'Engineering',
-    ProjectPeriod: 'Jan 2023 - Dec 2023',
-  },
-  {
-    id: '7',
-    Employee: 'james',
-    Position: 'Product Manager',
-    Rating: 2,
-    Status: 'On Leave',
-    department: 'Product',
-    ProjectPeriod: 'Mar 2023 - Mar 2024',
-  },
-  {
-    id: '8',
-    Employee: ' Smith',
-    Position: 'UI/UX Designer',
-    Rating: 3,
-    Status: 'Active',
-    department: 'Design',
-    ProjectPeriod: 'Feb 2024 - Jan 2025',
-  },
-  {
-    id: '9',
-    Employee: 'Michael',
-    Position: 'QA Engineer',
-    Rating: 4,
-    Status: 'Inactive',
-    department: 'Quality Assurance',
-    ProjectPeriod: 'Jul 2022 - Jun 2023',
-  },
-  {
-    id: '10',
-    Employee: 'John',
-    Position: 'DevOps Engineer',
-    Rating: 5,
-    Status: 'Active',
-    department: 'Infrastructure',
-    ProjectPeriod: 'Aug 2023 - Jul 2024',
-  },
+// const employees: Employee[] = [
+//   {
+//     id: '1',
+//     Employee: 'Harry',
+//     Position: 'Software Engineer',
+//     Rating: 4.5,
+//     Status: 'Active',
+//     department: 'Engineering',
+//     ProjectPeriod: 'Jan 2023 - Dec 2023',
+//   },
+//   {
+//     id: '2',
+//     Employee: 'james',
+//     Position: 'Product Manager',
+//     Rating: 2,
+//     Status: 'On Leave',
+//     department: 'Product',
+//     ProjectPeriod: 'Mar 2023 - Mar 2024',
+//   },
+//   {
+//     id: '3',
+//     Employee: ' Smith',
+//     Position: 'UI/UX Designer',
+//     Rating: 3,
+//     Status: 'Active',
+//     department: 'Design',
+//     ProjectPeriod: 'Feb 2024 - Jan 2025',
+//   },
+//   {
+//     id: '4',
+//     Employee: 'Michael',
+//     Position: 'QA Engineer',
+//     Rating: 4,
+//     Status: 'Inactive',
+//     department: 'Quality Assurance',
+//     ProjectPeriod: 'Jul 2022 - Jun 2023',
+//   },
+//   {
+//     id: '5',
+//     Employee: 'John',
+//     Position: 'DevOps Engineer',
+//     Rating: 5,
+//     Status: 'Active',
+//     department: 'Infrastructure',
+//     ProjectPeriod: 'Aug 2023 - Jul 2024',
+//   },
+//   {
+//     id: '6',
+//     Employee: 'Harry',
+//     Position: 'Software Engineer',
+//     Rating: 4.5,
+//     Status: 'Active',
+//     department: 'Engineering',
+//     ProjectPeriod: 'Jan 2023 - Dec 2023',
+//   },
+//   {
+//     id: '7',
+//     Employee: 'james',
+//     Position: 'Product Manager',
+//     Rating: 2,
+//     Status: 'On Leave',
+//     department: 'Product',
+//     ProjectPeriod: 'Mar 2023 - Mar 2024',
+//   },
+//   {
+//     id: '8',
+//     Employee: ' Smith',
+//     Position: 'UI/UX Designer',
+//     Rating: 3,
+//     Status: 'Active',
+//     department: 'Design',
+//     ProjectPeriod: 'Feb 2024 - Jan 2025',
+//   },
+//   {
+//     id: '9',
+//     Employee: 'Michael',
+//     Position: 'QA Engineer',
+//     Rating: 4,
+//     Status: 'Inactive',
+//     department: 'Quality Assurance',
+//     ProjectPeriod: 'Jul 2022 - Jun 2023',
+//   },
+//   {
+//     id: '10',
+//     Employee: 'John',
+//     Position: 'DevOps Engineer',
+//     Rating: 5,
+//     Status: 'Active',
+//     department: 'Infrastructure',
+//     ProjectPeriod: 'Aug 2023 - Jul 2024',
+//   },
 
-];
+// ];
 
 
 interface DashboardProps {
@@ -118,15 +121,31 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
-  appraisals,
+  // appraisals,
   searchTerm,
   onSearchChange,
   onViewEmployee,
   onNewAppraisal,
   getStatusColor,
 }) => {
+  const [filteredappraisals, setFilteredAppraisals] = useState<Employee[]>([]);
+
+  const fetchAppraisals = async () => {
+    try {
+      const response = await getAllAppraisals(); 
+      const visitors = response?.data ?? [];
+      console.log("Fetched appraisals:", visitors.data);
+      setFilteredAppraisals(visitors || []);
+    } catch (error) {
+      console.error("Error fetching appraisals:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppraisals();
+  }, []);
   return (
-    <div className="space-y-6 ">
+    <div className="space-y-6  w-full  ">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
@@ -180,7 +199,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Employee List with Search */}
       <div className="bg-[#eff4f5] rounded-md shadow-sm  bg-transparent ">
-        <div className="p-4 md:p-6  border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+        <div className="py-4 border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
           {/* Search Input */}
           <div className="w-full md:max-w-md" style={FONTS.tableBody}>
             <SearchInput
@@ -191,19 +210,19 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* New Appraisal Button */}
-          <div className="w-100 md:w-auto">
+          <div className="w-100  ">
             <button
               onClick={onNewAppraisal}
-              className="bg-[#3a357f]    text-white px-4 py-2 rounded-md hover:bg-[#3a357f] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
+              className="bg-[#3a357f] text-white px-2 py-2 rounded-md hover:bg-[#3a357f] transition-colors flex justify-end gap-2  "
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="" />
               New Appraisal
             </button>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full ">
             <thead className="bg-[#3a357f]">
               <tr>
                 <th className="px-6 py-3 text-left text-md  text-white">Employee</th>
@@ -214,16 +233,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <th className="px-6 py-3 text-left text-md  text-white">Actions</th>
               </tr>
             </thead>
-            <tbody style={FONTS.tableBody} className="bg-[#eff4f5] divide-y divide-gray-200">
-              {appraisals.map((employee) => (
-                <tr key={employee._id}>
+            <tbody style={FONTS.tableBody} className="bg-[#eff4f5] divide-y divide-gray-200  ">
+              { filteredappraisals.map((employee) => (
+                <tr key={employee.Employee} className="hover:bg-gray-100 transition-colors h-[10%]">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">{employee.Employee}</div>
-                      <div className="text-sm text-gray-500">{employee.department}</div>
+                      <div className="text-sm font-medium text-gray-900">{employee.Employee || "no data"}</div>
+                      <div className="text-sm text-gray-500">{employee.department || "no data"}</div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.Position}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.Position || "no data"}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       <StarRating rating={employee.Rating} readonly />
@@ -252,7 +271,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             </tbody>
           </table>
 
-          {appraisals.length === 0 && (
+          { filteredappraisals.length === 0 && (
             <div className="text-center py-8">
               <div style={FONTS.paragraph} className="text-gray-900">No employees found matching your search</div>
             </div>

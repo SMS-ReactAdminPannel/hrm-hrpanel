@@ -135,9 +135,6 @@ export default function RecruitmentDashboard() {
     { title: "Head Engineering", initial: 0, test: 0 },
     { title: "Sr. DevOps Engineer", initial: 0, test: 0 },
   ];
-      
-  
-
   return (
 
 
@@ -261,12 +258,6 @@ export default function RecruitmentDashboard() {
             </CardContent>
           </Card>
         </div>
-
-
-
-
-
-
        {/* 3-Column Stats Cards */}
 <div className="grid grid-cols-3 md:grid-cols-3 gap-6 mt-6">
   {/* Skill Zone Status */}

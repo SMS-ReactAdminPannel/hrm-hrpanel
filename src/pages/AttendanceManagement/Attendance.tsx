@@ -30,9 +30,9 @@ const Attendance: React.FC = () => {
 
   const details = [
     {
-      ID: "JD01",
-      Name: "Hema",
-      Designation: "Junior Developer",
+      ID: "EMP001",
+      Name: "Alice Johnson",
+      Designation: "Manager",
       Status: "Present",
       CheckIn: "9:30 am",
       CheckOut: "6:30pm",
@@ -43,9 +43,9 @@ const Attendance: React.FC = () => {
       TotalLeaveDays: "5",
     },
     {
-      ID: "D02",
-      Name: "Priya",
-      Designation: "Designer",
+      ID: "EMP002",
+      Name: "Bob Smith",
+      Designation: "Developer",
       Status: "Absent",
       CheckIn: "-",
       CheckOut: "-",
@@ -639,7 +639,7 @@ console.log(dailyAttendance,"sdfghjk")
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Attendance

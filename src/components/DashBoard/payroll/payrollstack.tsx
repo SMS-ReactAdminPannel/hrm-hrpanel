@@ -34,7 +34,7 @@ const PayrollStack: React.FC = () => {
       <div className=" col-span-3   ">
         {/* Title and View Button */}
         <div className="flex justify-between items-center  mb-6">
-          <h2 className="text-xl font-bold text-gray-800 tracking-wide">
+          <h2 className="text-xl font-bold  !text-gray-800 tracking-wide mt-2" style={{ ...FONTS.cardheader }}>
             Payroll Summary
           </h2>
           <button className="text-sm text-white hover:test-blue-200">
@@ -43,18 +43,18 @@ const PayrollStack: React.FC = () => {
         </div>
 
         {/* Bold Stat Blocks */}
-        <div className="grid grid-cols-3 gap-2 text-center mb-2">
+        <div className="grid grid-cols-3 gap-2 text-center mb-2" >
           <div className="bg-purple-50 py-3 rounded-lg shadow-sm">
-            <p className="text-xs font-bold text-gray-800 uppercase">Payment</p>
-            <p className="text-lg font-bold text-purple-700">₹181.34</p>
+            <p className="text-xs font-bold !text-gray-800 " style={{ ...FONTS.subParagraph }}>Payment</p>
+            <p className="text-lg font-bold !text-purple-700"style={{ ...FONTS.paragraph }}>₹181.34</p>
           </div>
           <div className="bg-yellow-50 py-3 rounded-lg shadow-sm">
-            <p className="text-xs font-bold text-gray-800 uppercase">Pending</p>
-            <p className="text-lg font-bold text-yellow-600">₹37.13</p>
+            <p className="text-xs font-bold !text-gray-800 "style={{ ...FONTS.subParagraph }}>Pending</p>
+            <p className="text-lg font-bold !text-yellow-600"style={{ ...FONTS.paragraph}}>₹37.13</p>
           </div>
           <div className="bg-green-50 py-3 rounded-lg shadow-sm">
-            <p className="text-xs font-bold text-gray-800 uppercase">Paid</p>
-            <p className="text-lg font-bold text-green-700">₹234.20</p>
+            <p className="text-xs font-bold !text-gray-800 "style={{ ...FONTS.subParagraph }}>Paid</p>
+            <p className="text-lg font-bold !text-green-700"style={{ ...FONTS.paragraph}}>₹234.20</p>
           </div>
         </div>
 
