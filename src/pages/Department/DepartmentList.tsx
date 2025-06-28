@@ -33,7 +33,7 @@ const DepartmentList: React.FC = () => {
   const navigate = useNavigate()
 
   const fetchDepartments = async () => {
-    try {
+  try {   
       const res = await axios.get("http://localhost:3002/api/departments")
       setDepartments(res.data)
     } catch (error) {
@@ -135,7 +135,7 @@ const DepartmentList: React.FC = () => {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {departments.map((dept, index) => (
-  <div
+    <div
     key={dept.id ?? `${dept.name}-${index}`} // fallback key if id is missing
     role="button"
     tabIndex={0}
