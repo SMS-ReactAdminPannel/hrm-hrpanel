@@ -19,23 +19,25 @@ type AnnouncementTableProps = {
 const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
 
   const [announcement, setannouncement] = useState<AnnouncementType[]>([]);
-  
+  const [confirmIndex, setConfirmIndex] = useState<number | null>(null);
 
-    const fetchannouncement = async () => {
-      try {
-        const response: any = await AnnouncementGetAll();
-        console.log("API Response:", response.data);
-  
-        const visitors = response?.data ?? [];
-        setannouncement(visitors);
-      } catch (error) {
-        console.error("Error fetching Announcement:", error);
-      }
-    };
-  
-    useEffect(() => {
-      fetchannouncement();
-    }, []);
+
+
+  const fetchannouncement = async () => {
+    try {
+      const response: any = await AnnouncementGetAll();
+      console.log("API Response:", response.data);
+
+      const visitors = response?.data ?? [];
+      setannouncement(visitors);
+    } catch (error) {
+      console.error("Error fetching Announcement:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchannouncement();
+  }, []);
 
 
 
@@ -71,7 +73,7 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
     //             key={index}
     //             className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
     //              style={{
-                                    
+
     //                                  fontFamily: FONTS.header.fontFamily
     //                           }}
     //           >
@@ -111,20 +113,19 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
     //     </tbody>
     //   </table>
     // </div>
-    <div className={`overflow-x-auto ${announcement && announcement.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
+    <div className={`overflow-x-auto min-h-screen ${announcement && announcement.length === 0 ? "rounded-lg" : "rounded-xl"} shadow mt-6`}>
       <table className="min-w-full text-center table-fixed border-collapse text-sm bg-white">
         <thead
-          className="bg-[#5e59a9]/70  backdrop-blur-sm text-white"
+          className="bg-[#5e59a9]/70  backdrop-blur-sm text-white  "
           style={{
-            fontSize: FONTS.paragraph.fontSize,
-            fontFamily: FONTS.header.fontFamily,
+            fontFamily: FONTS.tableHeader.fontFamily,
           }}
         >
           <tr>
-            <th className="w-40 px-6 py-3 ">Title</th>
-            <th className="w-36 px-6 py-3 ">Start Date</th>
-            <th className="w-36 px-6 py-3 ">End Date</th>
-            <th className="w-[30rem] px-6 py-3 ">Description</th>
+            <th className="w-40 px-6 py-3 text-left ">Title</th>
+            <th className="w-36 px-6 py-3 text-left" >Start Date</th>
+            <th className="w-36 px-6 py-3 text-left" >End Date</th>
+            <th className="w-20 px-6 py-3">Description</th>
             <th className="w-28 px-6 py-3 ">Action</th>
           </tr>
         </thead>
@@ -143,25 +144,25 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
               <tr
                 key={index}
                 className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
-               style={{...FONTS.tableBody}}
-                
+                style={{ fontFamily: FONTS.tableBody.fontSize }}
+
               >
                 <td
-                  className="px-6 py-4 font-bold text-black  "
-                 style={{...FONTS.tableBody}}
+                  className="px-6 py-4 font-semibold text-black text-left "
+
                 >
                   {item.title_name || "no title"}
                 </td>
-                <td className="px-6 py-4 text-gray-900" style={{ ...FONTS.tableBody }}>
+                <td className="px-6 py-4 text-gray-900 text-left" >
                   {item.start_date || "no startdate"}
                 </td>
-                <td className="px-6 py-4 text-gray-900" style={{ ...FONTS.tableBody }}>
+                <td className="px-6 py-4 text-gray-900 text-left" >
                   {item.end_date || "no enddate"}
                 </td>
-                <td className="px-6 py-4 text-gray-900  text-center " style={{ ...FONTS.tableBody }}>
+                <td className="px-6 py-4 text-gray-900  text-center ">
                   {item.description || "no description"}
                 </td>
-                <td className="px-6 py-4 text-center">
+                <td className="px-6 py-4 text-left">
                   <div className="flex justify-center gap-3">
                     <button
                       className="text-blue-600 hover:text-blue-800"
@@ -173,10 +174,34 @@ const AnnouncementTable = ({ onEdit, onDelete }: AnnouncementTableProps) => {
                     <button
                       className="text-red-600 hover:text-red-800"
                       title="Delete"
-                      onClick={() => onDelete(index)}
+                      onClick={() => setConfirmIndex(index)}
                     >
                       <Trash2 size={16} />
                     </button>
+
+                    {confirmIndex === index && (
+                      <div className="absolute top-8 right-0 z-20 w-60 bg-white border border-gray-300 rounded-lg shadow-lg p-3">
+                        <p className="text-gray-800 text-sm mb-3">Are you sure you want to delete this data?</p>
+                        <div className="flex justify-end gap-2">
+                          <button
+                            onClick={() => setConfirmIndex(null)}
+                            className="px-3 py-1 text-xs text-gray-600 hover:bg-gray-100 rounded"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={() => {
+                              onDelete(index);
+                              setConfirmIndex(null);
+                            }}
+                            className="px-3 py-1 text-xs bg-red-600 text-white hover:bg-red-700 rounded"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                   </div>
                 </td>
               </tr>
