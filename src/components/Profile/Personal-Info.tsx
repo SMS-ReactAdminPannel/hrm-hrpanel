@@ -77,24 +77,24 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
         </div>
       )}
 
-      <div className="flex items-center gap-3   relative">
+      <div className="flex items-center gap-3   relative ">
         <div className="flex gap-1 items-center justify-center ">
-          <div className="p-3 -mr-2   ">
+          <div className="p-3 -mr-2 !text-gray-700   ">
             <User size={24} />
           </div>
           <div>
-            <h2 className="text-xl !text-black/90 " style={{ ...FONTS.header2 }}>
+            <h2 className="text-xl !text-gray-700  " style={{ ...FONTS.header }}>
               Personal Information
             </h2>
           </div>
         </div>
         <div className="absolute right-1  cursor-pointer m-1">
           <button
-            className=" !text-[#000000] p-1 hover:text-blue-200  rounded-lg cursor-pointer"
+            className=" !text-gray-700 p-1 hover:text-blue-200   rounded-lg cursor-pointer"
             onClick={() => setIsEditing(!isEditing)}
             style={{ ...FONTS.button }}
           >
-            <Pencil size={16} />
+            <Pencil size={16} className="!text-gray-700 " />
           </button>
         </div>
       </div>
@@ -173,13 +173,14 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
           <div className="grid-cols-2 grid md:grid-cols-1">
             <div className="flex flex-col items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center  ">
-                <Phone size={16} className=" mt-1" />
-              <strong  className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Phone:</strong>
+                <Phone size={16} className=" mt-1 " />
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Phone</strong>
+              <span>:</span>
               <span className="">
                 <input
                   name="phone"
                   type="tel"
-                  className="placeholder-black bg-transparent rounded-xl   outline-none w-full"
+                  className="placeholder-black bg-transparent rounded-xl   outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.phone}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -191,12 +192,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col items-start  p-3   transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Mail size={16} className="] mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Email:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Email</strong>
+              <span>:</span>
               <span>
                   <input
                   name="email"
                   type="email"
-                  className="placeholder-black bg-transparent rounded-xl  outline-none w-full"
+                  className="placeholder-black bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.email}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -208,13 +210,14 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3   transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Calendar size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Birthday:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Birthday</strong>
+              <span>:</span>
               <span>
                 
                 <input
                   name="birthday"
                   type="text"
-                  className="bg-transparent rounded-xl  outline-none w-full"
+                  className="bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.birthday}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -226,12 +229,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Phone size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Blood:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Blood</strong>
+              <span>:</span>
               <span>
                 <input
                   name="blood"
                   type="text"
-                  className="placeholder-black bg-transparent  ml-2 outline-none w-full"
+                  className="placeholder-black bg-transparent  ml-2 outline-none w-full !text-gray-900 text-md " style={{ ...FONTS.subParagraph}}
                   value={formData.blood}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -243,11 +247,12 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
              <div className="flex flex-row gap-2 item-center justify-center">
                <User size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Gender:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Gender</strong>
+              <span>:</span>
               <span>
                 <select
                   name="gender"
-                  className=" bg-transparent rounded-xl"
+                  className=" bg-transparent rounded-xl !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.gender}
                   onChange={handleInputChange}
                   disabled={!isEditing}
@@ -264,12 +269,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <MapPin size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Address:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Address</strong>
+              <span>:</span>
               <span>
                 <input
                   name="address"
                   type="text"
-                  className="block w-full  bg-transparent rounded-xl placeholder-black"
+                  className="block w-full  bg-transparent rounded-xl placeholder-black !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.address}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -281,12 +287,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <MapPin size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Family:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Family</strong>
+              <span>:</span>
               <span>
                 <input
                   name="family"
                   type="text"
-                  className="block w-full  bg-transparent rounded-xl placeholder-black"
+                  className="block w-full  bg-transparent rounded-xl placeholder-black !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.family}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
@@ -298,12 +305,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <User size={16} className=" mt-1" />
-              <strong className="!text-[#000000]/90 " style={{ ...FONTS.cardSubHeader }}>Married Status:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Married Status</strong>
+              <span>:</span> 
               <span>
                 
                 <select
                   name="marriedStatus"
-                  className="ml-2 bg-transparent rounded-xl"
+                  className="ml-2 bg-transparent rounded-xl !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                   value={formData.marriedStatus}
                   onChange={handleInputChange}
                   disabled={!isEditing}

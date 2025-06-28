@@ -67,7 +67,7 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
             <CreditCard size={24} />
           </div>
           <div><h2 className=" text-sm ml-1 flex mt-[3px] !text-[#000000] "
-          style={{...FONTS.header2}}>Bank Account</h2></div>
+          style={{...FONTS.header}}>Bank Account</h2></div>
         </div>
         <button
           className=" p-1 hover:text-blue-200 rounded-lg cursor-pointer"
@@ -80,7 +80,8 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
       <form onSubmit={handleSubmit}>
         <div className="text-sm ">
           <div className="flex items-center py-2 px-3">
-        <strong style={{ ...FONTS.cardSubHeader }} className="!text-gray-800 min-w-[130px]">Account Holder:</strong>
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Account Holder</strong>
+        <span className="ml-1">:</span>
         <input
           name="bankHolderName"
           type="text"
@@ -91,7 +92,8 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
         />
           </div>
           <div className="flex items-center py-2  px-3">
-        <strong style={{ ...FONTS.cardSubHeader }} className="!text-gray-800 min-w-[130px]">Account Number:</strong>
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Account Number</strong>
+        <span className="ml-1">:</span>
         <input
           name="bankAccountNumber"
           type="text"
@@ -102,7 +104,8 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
         />
           </div>
           <div className="flex items-center py-2  px-3">
-        <strong style={{ ...FONTS.cardSubHeader }} className="!text-gray-800 min-w-[130px]">Bank Name:</strong>
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Bank Name</strong>
+        <span className="ml-1">:</span>
         <input
           name="bankName"
           type="text"
@@ -113,7 +116,9 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
         />
           </div>
           <div className="flex items-center py-2  px-3">
-        <strong style={{ ...FONTS.cardSubHeader }} className="!text-gray-800 min-w-[130px]">Branch Name:</strong>
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Branch Name
+        <span className="ml-1">:</span>
+        </strong>
         <input
           name="bankBranchName"
           type="text"
@@ -124,7 +129,8 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
         />
           </div>
           <div className="flex items-center  px-3 py-2">
-        <strong style={{ ...FONTS.cardSubHeader }} className="!text-gray-800 min-w-[130px]">SWIFT Code:</strong>
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>SWIFT Code</strong>
+        <span className="ml-1">:</span>
         <input
           name="bankSwiftCode"
           type="text"
