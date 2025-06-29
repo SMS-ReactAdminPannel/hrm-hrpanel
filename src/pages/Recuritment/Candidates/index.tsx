@@ -84,18 +84,18 @@ const Input = ({
 );
 
 const statusColor = (s: string = "") =>
-  ({
-    "interview schedules": "bg-blue-100 text-blue-800",
-    "under review": "bg-yellow-100 text-yellow-800",
-    shortlisted: "bg-green-100 text-green-800",
-  }[s.toLowerCase()] ?? "bg-gray-100 text-gray-800");
+({
+  "interview schedules": "bg-blue-100 text-blue-800",
+  "under review": "bg-yellow-100 text-yellow-800",
+  shortlisted: "bg-green-100 text-green-800",
+}[s.toLowerCase()] ?? "bg-gray-100 text-gray-800");
 
 const nextStatus = (s: string = "") =>
   s.toLowerCase() === "under review"
     ? "shortlisted"
     : s.toLowerCase() === "shortlisted"
-    ? "interview schedules"
-    : "under review";
+      ? "interview schedules"
+      : "under review";
 
 
 export default function CandidatesPage() {
@@ -106,7 +106,7 @@ export default function CandidatesPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res: any = await getAllcandidates(); 
+        const res: any = await getAllcandidates();
         console.log("getAllcandidates raw →", res);
         // controller sends { success: true, data: [...] }
         setCandidates(res?.data ?? []);
@@ -143,11 +143,31 @@ export default function CandidatesPage() {
     )
   );
 
+  const DashboardCard = () => {
+    const stats = [
+      { title: 'Total Applications', value: '300' },
+      { title: 'Shortlisted', value: '80' },
+      { title: 'Interviews Scheduled', value: '20' },
+      { title: 'Hired This Month', value: '8' },
+    ];
 
+    return (
+      <div className="flex flex-wrap gap-4 mb-6">
+        {stats.map((stat, index) => (
+          <div
+            key={index}
+            className="inline-block bg-white border rounded-xl shadow-sm p-4 w-64">
+            <span className="text-sm text-gray-500">{stat.title}</span>
+            <span className="text-2xl font-semibold text-gray-900 mt-1 block">{stat.value}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="p-2 space-y-6">
-    
+      <DashboardCard />
       <div className="flex items-center gap-2">
         <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
@@ -162,18 +182,18 @@ export default function CandidatesPage() {
         </Button>
       </div>
 
-      
+
       {filtered.length === 0 ? (
         <p className="text-center text-sm text-gray-500 mt-10">
           No candidates found.
         </p>
       ) : (
-        <div className="grid gap-8 mx-2">
+        <div className="grid grid-cols-2 gap-8 mx-2">
           {filtered.map((cand) => {
             const d = cand.details ?? {};
             return (
               <Card key={cand._id}>
-              
+
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
@@ -213,7 +233,7 @@ export default function CandidatesPage() {
                       </div>
                     </div>
 
-                  
+
                     <div className="flex items-center space-x-2">
                       <Badge
                         className={statusColor(d.status)}
@@ -228,10 +248,10 @@ export default function CandidatesPage() {
                   </div>
                 </CardHeader>
 
-          
+
                 <CardContent>
-                
-                  <div className="flex flex-wrap gap-6 mb-4">
+
+                  <div className="flex flex-wrap grid grid-cols-2 gap-6 mb-4">
                     {d.experience && (
                       <Info label="Experience" value={d.experience} />
                     )}
@@ -247,7 +267,7 @@ export default function CandidatesPage() {
                     )}
                   </div>
 
-              
+
                   {Array.isArray(d.skills) && d.skills.length > 0 && (
                     <div className="mb-4">
                       <p className="text-sm font-medium mb-2">Skills</p>
@@ -264,7 +284,7 @@ export default function CandidatesPage() {
                     </div>
                   )}
 
-            
+
                   <div className="flex gap-2">
                     <Button
                       onClick={() => navigate(`/recruitment/candidatelists/candidatesPage`)}

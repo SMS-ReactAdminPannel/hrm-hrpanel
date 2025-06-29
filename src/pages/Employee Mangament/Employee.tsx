@@ -31,6 +31,7 @@ const EmployeeManagement = () => {
       jobTitle: "Manager",
       hireDate: "2019-08-22",
       employmentType: "Full-time",
+      
     },
     {
       id: "EMP003",
@@ -146,7 +147,7 @@ const EmployeeManagement = () => {
       const matchesSearch = Object.values(employee).some(
         (value) => typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase()),
       )
-      const matchesDepartment = selectedDepartment ? employee.department === selectedDepartment : true
+      const matchesDepartment = selectedDepartment ? employee.department ===selectedDepartment : true
       return matchesSearch && matchesDepartment
     })
 
@@ -263,7 +264,7 @@ const EmployeeManagement = () => {
         employees={paginatedEmployees}
         sortConfig={sortConfig}
         onSort={requestSort}
-        onEdit={EmployeeTable}
+        // onEdit={}
         onDelete={handleDeleteEmployee}
       />
 

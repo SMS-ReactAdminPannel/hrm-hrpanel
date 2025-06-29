@@ -22,6 +22,7 @@ import Transaction from "../../components/DashBoard/payroll/Transaction";
 import CardDashboard from "../../components/DashBoard/DashboardCards/CardDashboard";
 import TotalEmploye from "../../components/DashBoard/Empolyetotals/Empolyetotalcard";
 
+
 const Dashboard = () => {
   return (
     <div className="m-3 flex flex-col flex-1 gap-3 ">
@@ -31,30 +32,30 @@ const Dashboard = () => {
           {/* <AttentDashboard/> */}
           <CardDashboard />
         </div>
-        <div className="flex-1 border bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl hover:scale-101 transition-transform duration-300">
+        <div className="flex-1 border bg-gray-500 bg-white rounded-xl ">
           <Attendances />
         </div>
       </div>
 
       {/* content-2 */}
       <div className="flex flex-1 flex-row gap-3 rounded ">
-        <div className="flex flex-1 bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl border hover:scale-101 transition-transform duration-300">
+        <div className="flex flex-1 bg-white rounded-xl " >
           <QuerystartDash />
         </div>
-        <div className="flex flex-1 bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl border hover:scale-101 transition-transform duration-300">
+        <div className="flex flex-1 bg-white rounded-xl" >
           <JobOpening />
         </div>
-        <div className="flex flex-1 bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl border hover:scale-101 transition-transform duration-300">
+        <div className="flex flex-1 bg-white rounded-xl">
           <TotalEmploye />
         </div>
       </div>
 
       {/* content-3 */}
-      <div className="flex-row flex gap-3 rounded-xl flex-1  ">
-        <div className="flex-2 border  bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl hover:scale-101 transition-transform duration-300">
+      <div className="flex-row flex gap-3 rounded-xl flex-1 ">
+        <div className="flex-2 border  bg-white rounded-xl">
           <Transaction />
         </div>
-        <div className="flex-1 border bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 rounded-xl hover:scale-101 transition-transform duration-300">
+        <div className="flex-1 border bg-white rounded-xl">
           <Payrollstack />
         </div>
       </div>

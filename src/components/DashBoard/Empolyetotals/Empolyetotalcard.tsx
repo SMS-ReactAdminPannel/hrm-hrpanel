@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FONTS } from "../../../constants/uiConstants";
 
 const total = 154;
 
@@ -47,84 +48,98 @@ const status = [
   },
 ];
 
-const departments = ["All", "HR", "UI", "UX"];
+// const departments = ["All", "HR", "UI", "UX"];
 
 const TotalEmploye: React.FC = () => {
   const [selectedDept, setSelectedDept] = useState("All");
+const [showDeptDropdown, setShowDeptDropdown] = useState(false);
+
+const departments = ["All", "HR", "Tech", "Sales", "Finance"]; // Replace with your dynamic list
 
   const filteredStatus =
     selectedDept === "All"
       ? status
       : status.filter((item) => item.department === selectedDept);
 
-  return (
-    <div className="p-2  w-full  h-full m-1">
-      <div className="flex justify-between items-center mb-2 border-b">
-        <h2 className="text-xl font-semibold  pb-2">Employee Status</h2>
-        <select
-          value={selectedDept}
-          onChange={(e) => setSelectedDept(e.target.value)}
-          className="text-sm px-3 py-1 border rounded  bg-gray-100 text-gray-700"
+ return (
+  <div className="relative p-2 w-full h-full m-1">
+    {/* Custom Dropdown – fixed to top right */}
+    <div className="absolute top-2 right-2 z-10 text-xs">
+  <button
+    onClick={() => setShowDeptDropdown(!showDeptDropdown)}
+    className="flex items-center text-sm bg-transparent px-2 py-1 text-gray-800 outline-none"
+  >
+    <span className="mr-0.5">{selectedDept}</span>
+    <svg
+      className={`w-5 h-5 text-gray-600 transition-transform duration-200 ${showDeptDropdown ? "rotate-180" : ""}`}
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.08 1.04l-4.25 4.25a.75.75 0 0 1-1.08 0L5.21 8.27a.75.75 0 0 1 .02-1.06z" />
+    </svg>
+  </button>
+
+  {showDeptDropdown && (
+    <ul className="absolute right-0 mt-1 w-40 bg-white border border-gray-300 rounded shadow max-h-60 overflow-y-auto z-20">
+      {departments.map((dept) => (
+        <li
+          key={dept}
+          onClick={() => {
+            setSelectedDept(dept);
+            setShowDeptDropdown(false);
+          }}
+          className="px-3 py-1 hover:bg-blue-200 cursor-pointer text-sm"
         >
-          {departments.map((dept) => (
-            <option key={dept} value={dept}>
-              {dept}
-            </option>
-          ))}
-        </select>
-      </div>
+          {dept}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
 
-      <div className="">
-        <p className="text-lg font-semibold mb-1">Total Employees: {total}</p>
 
-        <div className="flex h-4 rounded overflow-hidden shadow-sm border mb-4">
-          {filteredStatus.map((s, i) => (
-            <div
-              key={i}
-              className={`${s.color}`}
-              style={{ width: `${s.percent}%` }}
-            />
-          ))}
+    {/* Main Card Content */}
+    <div>
+  <p
+    className="text-lg font-semibold mb-1 !text-gray-700"
+    style={{ ...FONTS.cardheader }}
+  >
+    Total Employees: {total}
+  </p>
+
+  <div className="flex h-4 rounded overflow-hidden shadow-sm border  mb-4 mt-8">
+    {filteredStatus.map((s, i) => (
+      <div key={i} className={`${s.color}`} style={{ width: `${s.percent}%` }} />
+    ))}
+  </div>
+
+  {/* Two-column layout */}
+  <div className="grid grid-cols-2 gap-4 text-sm md:text-xs  border p-8 rounded">
+    {filteredStatus.map((s, i) => (
+      <div key={i} className="flex items-start space-x-2 md:space-x-1">
+        <div className={`w-2 h-2 ${s.color} rounded-full mt-1`} />
+        <div className="flex flex-col">
+          <span>
+            {s.label} ({s.percent}%)
+          </span>
+          <span className="font-bold text-xl">{s.count}</span>
         </div>
-
-        <div className="grid grid-cols-3 md:grid-cols-2 gap-4 md:gap-2 md:text-xs md:p-1 border p-4 rounded text-sm">
-          {filteredStatus.map((s, i) => (
-            <div key={i} className="flex items-start space-x-2 md:space-x-1">
-              <div className={`w-2 h-2 ${s.color} rounded-full mt-1 `} />
-              <div className="flex flex-col">
-                <span>
-                  {s.label} ({s.percent}%)
-                </span>
-                <span className="font-bold text-xl">{s.count}</span>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
+    ))}
+  </div>
+</div>
 
-      {/* <div className="border-t pt-4">
-        <p className="font-semibold text-sm mb-1">Top Performer</p>
-        <div className="flex items-center bg-orange-100 p-4 rounded">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo7WfE6wFfdpeFph92LdEFJFnula0ecIObiQ&s"
-            alt="Top Performer"
-            className="w-10 h-10 rounded-full mr-4"
-          />
-          <div className="flex-1">
-            <p className="font-semibold">Daniel</p>
-            <p className="text-sm text-gray-500">Software Developer</p>
-          </div>
-          <span className="text-orange-600 font-bold">Performance: 99%</span>
-        </div>
-      </div> */}
-
-      <div className="bg-gray-200 rounded-lg mt-2">
-        <button className="p-1 w-full text-center text-base font-medium text-gray-700 hover:underline cursor-pointer">
-          View All
-        </button>
-      </div>
+    <div className="bg-gray-200 rounded-lg mt-5" style={{ ...FONTS.subParagraph }}>
+      <button
+        className="p-1 w-full text-center text-base font-medium !text-gray-700 hover:underline cursor-pointer"
+        style={{ ...FONTS.subParagraph }}
+      >
+        View All
+      </button>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default TotalEmploye;
