@@ -350,3 +350,13 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
