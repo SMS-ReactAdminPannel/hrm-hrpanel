@@ -74,7 +74,8 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
               className="text-white px-2 md:px-4 py-1 rounded-lg font-medium text-sm md:text-base transition-colors duration-200 "
               style={{ backgroundColor: "#5e59a9", ...FONTS.button }}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "rgba(94, 89, 169, 0.9)")
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 89, 169, 0.9)")
               }
               onMouseLeave={(e) =>
                 (e.currentTarget.style.backgroundColor = "#5e59a9")
