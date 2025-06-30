@@ -5,6 +5,7 @@ import HttpClient from "../../api/httpClient"
 import { API_END_POINTS } from "../../api/httpEndpoints"
 import { FONTS } from "../../constants/uiConstants"
 import { motion, AnimatePresence } from "framer-motion"
+import { getAllJobPostings,deleteJobPosting } from "../../features/recruitment/service"
 
 // Type for each job posting
 type Job = {
@@ -48,8 +49,9 @@ const OpenRecruitments = () => {
   // Fetch jobs from backend
   const fetchJobs = async () => {
     try {
-      const res = await HttpClient.get(API_END_POINTS.jobPosting.getAll)
-      setJobs(res.data)
+      const res = await getAllJobPostings()
+      console.log("Fetched jobs:", res)
+      setJobs(res.jobs || [])
     } catch (err) {
       console.error("Failed to fetch jobs", err)
     }
@@ -94,8 +96,9 @@ const OpenRecruitments = () => {
 
   const handleDelete = async (jobId: string) => {
     try {
-      await HttpClient.delete(`${API_END_POINTS.jobPosting.delete}/${jobId}`)
+      const res = await deleteJobPosting(jobId)
       setJobs((prev) => prev.filter((job) => job._id !== jobId))
+      console.log ("Delete successful", res.message)
     } catch (error) {
       console.error("Delete failed", error)
     }

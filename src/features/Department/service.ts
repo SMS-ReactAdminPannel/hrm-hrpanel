@@ -15,6 +15,7 @@ export const getAllDepartments = async () => {
   }
 };
 
+
 // If needed later, uncomment and use like this:
 // export const getDepartmentById = async (id: string) => {
 //   try {

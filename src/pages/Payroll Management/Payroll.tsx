@@ -277,7 +277,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
               <thead className="bg-[#3a357f] ">
                 <tr>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
-                  <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
+                  <th className="px-6 py-3 text-left text-md font-medium text-white">Sub Department</th>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Department</th>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Salary</th>
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Hours</th>
@@ -285,7 +285,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
                   <th className="px-6 py-3 text-left text-md font-medium text-white">Last Payment</th>
                 </tr>
               </thead>
-              <tbody className="bg-white/45 backdrop-blur  divide-y divide-gray-200">
+              <tbody className="bg-white  divide-y divide-gray-200">
                 {filteredEmployees.map((employee) => (
                   <tr
                     key={employee.id}
@@ -323,7 +323,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
               onClose={() => setIsModalOpen(false)}
               selectedOption={modalOption}
               setSelectedOption={setModalOption}
-              departmentOptions={departmentOptionsModal} // Only unique depts
+              // departmentOptions={departmentOptionsModal} // Only unique depts
               selectedDepartment={modalDepartment}
               setSelectedDepartment={setModalDepartment}
             />

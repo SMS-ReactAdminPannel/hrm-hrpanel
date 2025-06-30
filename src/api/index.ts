@@ -190,7 +190,41 @@ export default class Client {
       getLeaveTypeById: (id: string) =>
         httpClient.get(API_END_POINTS.leaveType.getLeaveById(id)),
     },
+    jobposting:{
+      createJobPosting: (data: any) =>
+        httpClient.post(API_END_POINTS.jobposting.createJobPosting, data),
+
+      getAllJobPostings: () =>
+        httpClient.get(API_END_POINTS.jobposting.getAllJobPostings),
+
+      updateJobPosting: (jobId: string, data: any) =>
+        httpClient.put(
+          API_END_POINTS.jobposting.updateJobPosting(jobId),
+          data
+        ),
+
+      deleteJobPosting: (jobId: string) =>
+        httpClient.delete(API_END_POINTS.jobposting.deleteJobPosting(jobId)),
+    },
+    payroll: {
+  createPayroll: (data: any) =>
+    httpClient.post(API_END_POINTS.payroll.createPayroll, data),
+
+  getAllPayrolls: () =>
+    httpClient.get(API_END_POINTS.payroll.getAllPayrolls),
+
+  getPayrollById: (payrollId: string) =>
+    httpClient.get(API_END_POINTS.payroll.getById(payrollId)),
+
+  updatePayroll: (payrollId: string, data: any) =>
+    httpClient.put(API_END_POINTS.payroll.updatePayroll(payrollId), data),
+
+  deletePayroll: (payrollId: string) =>
+    httpClient.delete(API_END_POINTS.payroll.deletePayroll(payrollId)),
+}
   };
+
+
   employee = {
    employeedetails: {
       create: (data: any) =>
@@ -203,5 +237,9 @@ export default class Client {
       delete: (id: string) =>
         httpClient.delete(API_END_POINTS.employeeDetails.delete(id)),
     },
+        
+    }
+
+
+
   };
-}
