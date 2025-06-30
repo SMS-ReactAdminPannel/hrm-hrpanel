@@ -602,9 +602,8 @@ const SidebarLink = ({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`flex items-center transition-all py-2 rounded-xl mb-1 ${
-        isActive ? "bg-white/30 backdrop-blur-sm" : isHovered ? "bg-white/20" : "hover:bg-white/10"
-      } ${isOpen ? "justify-start gap-3 px-3" : "justify-center px-0"}`}
+      className={`flex items-center transition-all py-2 rounded-xl mb-1 ${isActive ? "bg-white/30 backdrop-blur-sm" : isHovered ? "bg-white/20" : "hover:bg-white/10"
+        } ${isOpen ? "justify-start gap-3 px-3" : "justify-center px-0"}`}
     >
       <div className="text-lg text-white flex-shrink-0">{icon}</div>
       {isOpen && <span className="text-white font-medium text-sm">{label}</span>}
