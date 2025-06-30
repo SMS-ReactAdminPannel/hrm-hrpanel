@@ -7,7 +7,7 @@ import Client from "../../api";
 
 export const getAllDepartments = async () => {
   try {
-    const response = await Client.hr.departments.getAllDepartments();
+    const response = await new Client().hr.departments.getAllDepartments();
     return response;
   } catch (error) {
     console.error("Error in getAllDepartments:", error);
@@ -32,7 +32,7 @@ export const createDepartment = async (data: {
   requiredRoles: string[];
 }) => {
   try {
-    const response = await Client.hr.departments.createDepartment(data);
+    const response = await new Client().hr.departments.createDepartment(data);
     return response;
   } catch (error) {
     console.error("Error in createDepartment:", error);
@@ -49,7 +49,7 @@ export const updateDepartment = async (
   }
 ) => {
   try {
-    const response = await Client.hr.departments.updateDepartment(id, data);
+    const response = await new Client().hr.departments.updateDepartment(id, data);
     return response;
   } catch (error) {
     console.error("Error in updateDepartment:", error);
@@ -59,7 +59,7 @@ export const updateDepartment = async (
 
 export const deleteDepartment = async (id: string) => {
   try {
-    const response = await Client.hr.departments.deleteDepartment(id);
+    const response = await new Client().hr.departments.deleteDepartment(id);
     return response;
   } catch (error) {
     console.error("Error in deleteDepartment:", error);

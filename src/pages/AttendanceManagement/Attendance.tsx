@@ -291,63 +291,54 @@ console.log(dailyAttendance,"sdfghjk")
   return (
     <div className="space-y-6 min-h-screen w-full  p-1">
       <div>
-        <h1 className="text-4xl font-bold text-white mt-2 leading-relaxed pb-1">
+        <h1 className="text-3xl font-bold text-white mt-2 leading-relaxed pb-3">
           Attendance Dashboard
         </h1>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {/* Employees Card */}
-        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-md">
 
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">No. of Employees</p>
             <p className="text-2xl font-semibold text-gray-900">{details.length}</p>
           </div>
-          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
-            <IoIosPeople className="w-10 h-10 text-[#5e59a9]/40" />
+          <div className="bg-[#ECEBFA] p-3 rounded-full">
+            <IoIosPeople className="w-10 h-10 text-[#5E59A9]" />
           </div>
         </div>
 
-           <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm  !text-gray-500 mb-1" style={{...FONTS.paragraph}}>No of Employees</p>
-          <p className={`!text-4xl !font-semibold mt-3 !text-blue-800`} style={{...FONTS.paragraph}}>{details.length}</p>
-          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>all Employees Counting</p>
-        </div>
-            <IoIosPeople className="w-10 h-10 !text-blue-600" style={{...FONTS.cardSubHeader}}/>
-      </div>
-    </div>
+           
 
         {/* Duration Card */}
-        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
             <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
           </div>
-          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
-            <MdTimer className="w-10 h-10 text-[#5e59a9]/40" />
+          <div className="bg-[#ECEBFA] p-3 rounded-full">
+            <MdTimer className="w-10 h-10 text-[#5E59A9]" />
           </div>
         </div>
 
         {/* Permission Card */}
         <div
-          className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
+          className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
           onClick={() => setIsOpen(true)}
         >
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">Permission</p>
             <p className="text-2xl font-semibold text-gray-900">{dummyData.length}</p>
           </div>
-          <div className="bg-[#5e59a9]/5 p-3 rounded-full">
-            <MdManageHistory className="w-10 h-10 text-[#5e59a9]/40" />
+          <div className="bg-[#ECEBFA] p-3 rounded-full">
+            <MdManageHistory className="w-10 h-10 text-[#5E59A9]" />
           </div>
         </div>
 
         {/* Attendance Chart Card */}
-        <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">Attendance</p>
             <div className="flex items-center gap-2">
@@ -402,13 +393,15 @@ console.log(dailyAttendance,"sdfghjk")
         </div>
 
         {/* Designation filter */}
-        <div className="relative" ref={designationDropdownRef}>
+        <div className="relative w-50 max-w-md" ref={designationDropdownRef}>
           <label className="block text-sm font-medium text-gray-700 mb-1"></label>
           <button
+            id="designation-filter"
+            type="button"
             onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
             className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 focus:border-transparent transition-all duration-200 text-left flex items-center justify-between"
           >
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 truncate">
               <FaBriefcase className="text-gray-400" />
               <span className="truncate">{designationFilter || "All Designations"}</span>
             </span>
@@ -429,7 +422,9 @@ console.log(dailyAttendance,"sdfghjk")
                   setDesignationFilter("")
                   setShowDesignationDropdown(false)
                 }}
-                className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 flex items-center gap-2 border-b border-gray-100"
+                className={`px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 flex items-center gap-2 border-b border-gray-100 ${
+          designationFilter === "" ? "bg-[#006666]/10 text-[#006666]" : ""
+        }`}
               >
                 All Designations
               </div>
@@ -440,7 +435,9 @@ console.log(dailyAttendance,"sdfghjk")
                     setDesignationFilter(designation)
                     setShowDesignationDropdown(false)
                   }}
-                  className="px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200"
+                  className={`px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 ${
+            designationFilter === designation ? "bg-[#006666]/10 text-[#006666]" : ""
+          }`}
                 >
                   {designation}
                 </div>
@@ -474,7 +471,7 @@ console.log(dailyAttendance,"sdfghjk")
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
+            <tbody className="bg-white divide-y divide-gray-100">
               {dailyAttendance && dailyAttendance.map((item) => (
                 <tr
                   key={item.ID}

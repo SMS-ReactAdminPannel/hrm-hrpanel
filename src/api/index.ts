@@ -190,5 +190,4 @@ export default class Client {
     }
 
   };
-  static hr: any;
 }

@@ -40,7 +40,7 @@ export const ExperienceComponent: React.FC<ExperienceProps> = ({
   };
 
   return (
-    <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20  transition-all duration-300 group">
       {isEditing && (
         <div className="-mb-2 p-2 ">
           <p className="text-red-800 text-xs">
@@ -49,13 +49,13 @@ export const ExperienceComponent: React.FC<ExperienceProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-6 relative justify-between">
+      <div className="flex items-center gap-3  relative justify-between">
         <div className="flex gap-1 justify-center items-center">
-          <div className="p-3 -mr-2  group-hover:scale-110 transition-transform duration-300">
+          <div className="p-3 -mr-2   transition-transform duration-300">
             <Briefcase size={24} />
           </div>
          <div> <h2 className="text-zxl font-bold !text-[#000000]"
-         style={{...FONTS.cardheader}}>Experience</h2></div>
+         style={{...FONTS.header2}}>Experience</h2></div>
         </div>
         <div className="flex gap-1 ">
           {isEditing && (
@@ -74,13 +74,13 @@ export const ExperienceComponent: React.FC<ExperienceProps> = ({
           </button>
         </div>
       </div>
-
+      <hr className="border-gray-900 mb-5" />
       <form onSubmit={handleSubmit}>
         <div className="space-y-4">
           {experience.map((item, index) => (
             <div
               key={index}
-              className="p-4 bg-gradient-to-r border border-gray-500 rounded-xl hover:shadow-md transition-shadow duration-200 relative"
+              className="p-4   rounded-xl hover:shadow-md transition-shadow duration-200 relative"
             >
               {isEditing && experience.length > 1 && (
                 <button

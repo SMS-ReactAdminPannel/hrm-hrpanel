@@ -47,7 +47,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-lg shadow-sm  overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-[#4c469f] text-white">
           <tr>
@@ -61,7 +61,7 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = ({
             ].map((key) => (
               <th
                 key={key}
-                className="px-6 py-3 text-left cursor-pointer hover:bg-[#3a357f] transition-colors"
+                className="px-6 py-3 text-left cursor-pointer "
                 style={{ ...FONTS.tableHeader }}
                 onClick={() => onSort(key as keyof Employee)}
               >

@@ -51,7 +51,8 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
   };
 
   return (
-    <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    <div className="flex flex-1 flex-col rounded-xl h-full
+    bg-white px-2 py-4 shadow-2xl border border-[#006666]/20 ">
       {isEditing && (
         <div className="mb-2 p-1">
           <p className="text-red-800 text-xs">
@@ -60,13 +61,13 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-6 relative justify-between">
+      <div className="flex items-center gap-3 mb-2 relative justify-between">
         <div className="flex gap-1 ">
-          <div className=" group-hover:scale-110 transition-transform duration-300">
+          <div className="  transition-transform duration-300">
             <CreditCard size={24} />
           </div>
-          <div><h2 className=" text-sm flex mt-[3px] !text-[#000000] "
-          style={{...FONTS.cardheader}}>Bank Account</h2></div>
+          <div><h2 className=" text-sm ml-1 flex mt-[3px] !text-[#000000] "
+          style={{...FONTS.header}}>Bank Account</h2></div>
         </div>
         <button
           className=" p-1 hover:text-blue-200 rounded-lg cursor-pointer"
@@ -75,83 +76,89 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
           <Pencil size={16} />
         </button>
       </div>
-
+      <hr className="border-gray-900 mb-6 mt-2" />
       <form onSubmit={handleSubmit}>
-        <div className="text-sm space-y-2">
-          <div className="p-3 border rounded-xl border-gray-500">
-            <strong style={{...FONTS.cardSubHeader}} className="!text-gray-800">Account Holder:</strong>
-            <input
-              name="bankHolderName"
-              type="text"
-              className="placeholder-black  bg-transparent rounded-xl ml-2 outline-none w-full"
-              value={formData.bankHolderName}
-              onChange={handleInputChange}
-              readOnly={!isEditing}
-            />
+        <div className="text-sm ">
+          <div className="flex items-center py-2 px-3">
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Account Holder</strong>
+        <span className="ml-1">:</span>
+        <input
+          name="bankHolderName"
+          type="text"
+          className="placeholder-black bg-transparent rounded-xl ml-2 outline-none flex-1"
+          value={formData.bankHolderName}
+          onChange={handleInputChange}
+          readOnly={!isEditing}
+        />
           </div>
-          <div className="p-3 border rounded-xl border-gray-500">
-            <strong style={{...FONTS.cardSubHeader}} className="!text-gray-800">Account Number:</strong>
-            <input
-              name="bankAccountNumber"
-              type="text"
-              className="placeholder-black  bg-transparent  ml-2 outline-none w-full"
-              value={formData.bankAccountNumber}
-              onChange={handleInputChange}
-              readOnly={!isEditing}
-            />
+          <div className="flex items-center py-2  px-3">
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Account Number</strong>
+        <span className="ml-1">:</span>
+        <input
+          name="bankAccountNumber"
+          type="text"
+          className="placeholder-black bg-transparent ml-2 outline-none flex-1"
+          value={formData.bankAccountNumber}
+          onChange={handleInputChange}
+          readOnly={!isEditing}
+        />
           </div>
-          <div className="p-3 border rounded-xl border-gray-500">
-            <strong style={{...FONTS.cardSubHeader}} className="!text-gray-800">Bank Name:</strong>
-            <input
-              name="bankName"
-              type="text"
-              className="placeholder-black  bg-transparent ml-2 outline-none w-full"
-              value={formData.bankName}
-              onChange={handleInputChange}
-              readOnly={!isEditing}
-            />
+          <div className="flex items-center py-2  px-3">
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Bank Name</strong>
+        <span className="ml-1">:</span>
+        <input
+          name="bankName"
+          type="text"
+          className="placeholder-black bg-transparent ml-2 outline-none flex-1"
+          value={formData.bankName}
+          onChange={handleInputChange}
+          readOnly={!isEditing}
+        />
           </div>
-          <div className="p-3 border rounded-xl border-gray-500">
-            <strong style={{...FONTS.cardSubHeader}} className="!text-gray-800">Branch Name:</strong>
-            <input
-              name="bankBranchName"
-              type="text"
-              className="placeholder-black  bg-transparent  ml-2 outline-none w-full"
-              value={formData.bankBranchName}
-              onChange={handleInputChange}
-              readOnly={!isEditing}
-            />
+          <div className="flex items-center py-2  px-3">
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Branch Name
+        <span className="ml-1">:</span>
+        </strong>
+        <input
+          name="bankBranchName"
+          type="text"
+          className="placeholder-black bg-transparent ml-2 outline-none flex-1"
+          value={formData.bankBranchName}
+          onChange={handleInputChange}
+          readOnly={!isEditing}
+        />
           </div>
-          <div className="p-3 border rounded-xl border-gray-500">
-            <strong style={{...FONTS.cardSubHeader}} className="!text-gray-800" >SWIFT Code:</strong>
-            <input
-              name="bankSwiftCode"
-              type="text"
-              className="placeholder-black  bg-transparent ml-2 outline-none w-full "
-              value={formData.bankSwiftCode}
-              onChange={handleInputChange}
-              readOnly={!isEditing}
-            />
+          <div className="flex items-center  px-3 py-2">
+        <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>SWIFT Code</strong>
+        <span className="ml-1">:</span>
+        <input
+          name="bankSwiftCode"
+          type="text"
+          className="placeholder-black bg-transparent ml-2 outline-none flex-1"
+          value={formData.bankSwiftCode}
+          onChange={handleInputChange}
+          readOnly={!isEditing}
+        />
           </div>
         </div>
 
         {isEditing && (
-          <div className="mt-3 flex justify-end gap-3 p-1 ">
-            <button
-              onClick={() => setIsEditing(false)}
-              type="button"
-              className="px-2 py-1 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 font-semibold"
-              style={{...FONTS.button}}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-2 py-1 bg-gradient-to-r from-[#006666] to-[#008080] text-white rounded-lg hover:from-[#008080] hover:to-[#006666] transition-all duration-200 font-semibold shadow-lg transform hover:scale-105"
-              style={{...FONTS.button}}
-            >
-              Save Changes
-            </button>
+          <div className="mt-3 flex justify-end gap-3 p-1">
+        <button
+          onClick={() => setIsEditing(false)}
+          type="button"
+          className="px-2 py-1 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 font-semibold"
+          style={{ ...FONTS.button }}
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="px-2 py-1 bg-gradient-to-r from-[#006666] to-[#008080] text-white rounded-lg hover:from-[#008080] hover:to-[#006666] transition-all duration-200 font-semibold shadow-lg transform hover:scale-105"
+          style={{ ...FONTS.button }}
+        >
+          Save Changes
+        </button>
           </div>
         )}
       </form>

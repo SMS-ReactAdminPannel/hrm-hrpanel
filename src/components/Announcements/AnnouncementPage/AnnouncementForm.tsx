@@ -62,7 +62,7 @@ return (
 
 
         <motion.div
-          className="w-full max-w-4xl h-[85vh] max-h-[90vh] rounded-t-lg p-10 shadow-lg absolute bg-white sm:rounded-lg overflow-y-auto"
+          className="w-full max-w-4xl h-[95vh] max-h-[90vh] rounded-t-lg p-10 shadow-lg absolute  sm:rounded-lg overflow-y-auto"
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 60, opacity: 0 }}
@@ -70,21 +70,22 @@ return (
         >
 
 {/* inside button  */}
-   <button
+   
+ 
+          <div className="h-full flex flex-col px-6 py-4 bg-white rounded-lg shadow-md">
+            <button
             onClick={onClose}
-            className="absolute right-2 top-2 z-10 flex items-center justify-center w-8 h-8 bg-gray-200 text-gray-700 rounded-full hover:bg-red-500 hover:text-white   transition-colors sm:w-10 sm:h-10"
+            className="absolute right-2 top-4 z-10 flex items-center justify-center w-8 h-8 bg-gray-200 text-gray-700 rounded-full hover:bg-red-500 hover:text-white   transition-colors sm:w-10 sm:h-10"
           >
             <X size={18} />
           </button>
- 
-          <div className="h-full flex flex-col">
             
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               {isEditing ? "Edit Announcement" : "Add New Announcement"}
-            </h2>
+            </h2><hr className="w-[1/2 border border-gray-200"/>
 
             <form onSubmit={onSubmit} className="flex-1 flex flex-col space-y-4 overflow-y-auto">
-              <div>
+              <div className="mt-4">
                 <label 
                   className="block text-sm font-medium !text-gray-900 mb-1"
                   style={{...FONTS.paragraph}}>
