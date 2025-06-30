@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { PieChart, Pie, Cell, Tooltip } from "recharts"
 import { CiSearch } from "react-icons/ci"
 import { FaBriefcase } from "react-icons/fa"
@@ -7,7 +7,9 @@ import { MdManageHistory, MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
 import { FONTS } from "../../constants/uiConstants"
 import { getDailyAttendance } from "../../features/Attendance/service"
-
+import { ChevronDown, ChevronUp, Search } from "lucide-react"
+import { FaBuilding } from "react-icons/fa";
+import { getAllDepartments } from "../../features/Department/service"
 
 const Attendance: React.FC = () => {
   type EmployeeDetail = {
@@ -22,12 +24,13 @@ const Attendance: React.FC = () => {
     TotalWorkedDuration?: string
     TotalBreakTime?: string
     TotalLeaveDays?: string
-
   }
 
-  // const [value, setValue] = useState("")
   const [selectedDate, setSelectedDate] = useState("2025-06-11")
+  const [searchQuery, setSearchQuery] = useState("")
+  const navigate = useNavigate()
 
+  // Sample data - replace with your actual data source
   const details = [
     {
       ID: "EMP001",
@@ -42,134 +45,10 @@ const Attendance: React.FC = () => {
       TotalBreakTime: "24h",
       TotalLeaveDays: "5",
     },
-    {
-      ID: "EMP002",
-      Name: "Bob Smith",
-      Designation: "Developer",
-      Status: "Absent",
-      CheckIn: "-",
-      CheckOut: "-",
-      Duration: "0h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "TL03",
-      Name: "Nila",
-      Designation: "TL",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "SD04",
-      Name: "Dev",
-      Designation: "Senior Developer",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "M05",
-      Name: "Karen",
-      Designation: "Marketing",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "SD06",
-      Name: "Wilson",
-      Designation: "Senior Developer",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "JD07",
-      Name: "Kia",
-      Designation: "Junior Developer",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "M08",
-      Name: "Sam",
-      Designation: "Marketing",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "A09",
-      Name: "Kim",
-      Designation: "Admin",
-      Status: "Present",
-      CheckIn: "9:30 am",
-      CheckOut: "6:30 pm",
-      Duration: "9h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h", TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
-    {
-      ID: "A11",
-      Name: "Kanna",
-      Designation: "Junior Developer",
-      Status: "Absent",
-      CheckIn: "-",
-      CheckOut: "-",
-      Duration: "0h",
-      TotalCompletedProject: "2",
-      TotalWorkedDuration: "215h 40m",
-      TotalBreakTime: "24h",
-      TotalLeaveDays: "5",
-    },
+    // ... other sample data
   ]
-  const [searchQuery, setSearchQuery] = useState("")
-  const navigate = useNavigate()
 
-  // Donut
+  // Donut chart data
   const presentCount = details.filter((d) => d.Status === "Present").length
   const absentCount = details.filter((d) => d.Status === "Absent").length
   const chartData = [
@@ -178,36 +57,99 @@ const Attendance: React.FC = () => {
   ]
   const COLORS = ['#7e79c2', 'rgba(94, 89, 169, 0.45)'];
 
-
   // Designation filter
   const [designationFilter, setDesignationFilter] = useState("")
   const designations = Array.from(new Set(details.map((d) => d.Designation)))
 
-  const filteredDetails = details.filter((item) => {
+  // Department filter state
+  const [departmentFilter, setDepartmentFilter] = useState("")
+  const [showDepartmentDropdown, setShowDepartmentDropdown] = useState(false)
+  const departmentDropdownRef = useRef<HTMLDivElement>(null)
+  const [departments, setDepartments] = useState<any[]>([])
+
+  // Fetch departments
+  const fetchDepartments = async () => {
+    try {
+      const response = await getAllDepartments()
+      console.log("Departments:", response)
+      setDepartments(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Daily attendance data
+  type DailyAttendanceItem = {
+    ID: string;
+    employee_id: {
+      first_name: string;
+      role: string;
+      department?: string;
+    };
+    status: string;
+    Status?: string;
+    clockIn: string;
+    clockOut: string;
+    totalHours: string;
+  };
+
+  const [dailyAttendance, setDailyAttendance] = useState<DailyAttendanceItem[]>([])
+
+  const fetchDailyAttendance = async () => {
+    try {
+      const response: any = await getDailyAttendance({ date: selectedDate })
+      const attendanceData = response?.Data ?? []
+      setDailyAttendance(attendanceData)
+      console.log("Daily Attendance fetched:", attendanceData)
+    } catch (error) {
+      console.error("Error fetching AttendanceData:", error)
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartments()
+    fetchDailyAttendance()
+  }, [selectedDate])
+
+  // Filter logic
+  const filteredDetails = dailyAttendance.filter((item) => {
     const query = searchQuery.trim().toLowerCase()
     const matchesSearch =
-      item.Designation.toLowerCase().includes(query) ||
-      item.Status.toLowerCase().includes(query) ||
-      item.Name.toLowerCase().includes(query)
+      item.employee_id.role.toLowerCase().includes(query) ||
+      item.status.toLowerCase().includes(query) ||
+      item.employee_id.first_name.toLowerCase().includes(query)
 
-    const matchesDesignation = designationFilter === "" || item.Designation === designationFilter
+    const matchesDesignation = designationFilter === "" || item.employee_id.role === designationFilter
+    const matchesDepartment = departmentFilter === "" || 
+      (item.employee_id.department && item.employee_id.department === departmentFilter)
 
-    return matchesSearch && matchesDesignation
+    return matchesSearch && matchesDesignation && matchesDepartment
   })
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1)
   const rowsPerPage = 10
+  const paginatedDetails = filteredDetails.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  )
 
-  const paginatedDetails = filteredDetails.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchQuery, designationFilter])
-  const [showDesignationDropdown, setShowDesignationDropdown] = useState(false)
-  const designationDropdownRef = React.useRef<HTMLDivElement>(null)
+  }, [searchQuery, designationFilter, departmentFilter])
 
+  // Designation dropdown
+  const [showDesignationDropdown, setShowDesignationDropdown] = useState(false)
+  const designationDropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (designationDropdownRef.current && !designationDropdownRef.current.contains(event.target as Node)) {
         setShowDesignationDropdown(false)
+      }
+      if (departmentDropdownRef.current && !departmentDropdownRef.current.contains(event.target as Node)) {
+        setShowDepartmentDropdown(false)
       }
     }
 
@@ -216,22 +158,15 @@ const Attendance: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
-  // Employee component
-  // const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
 
+  // Employee click handler
   const handleClick = (employee: DailyAttendanceItem) => {
     navigate("/attendance-id", { state: { employee } })
   }
 
-  interface Person {
-    id: number
-    name: string
-    email: string
-    status: string
-  }
-
+  // Permission modal
   const [isOpen, setIsOpen] = useState(false)
-  const dummyData: Person[] = [
+  const dummyData = [
     {
       id: 1,
       name: "Kia",
@@ -246,54 +181,160 @@ const Attendance: React.FC = () => {
     },
   ]
 
-
-
-  
-  
-// Define a type for daily attendance items (adjust fields as needed)
-type DailyAttendanceItem = {
-  ID: string;
-  employee_id: {
-    first_name: string;
-    role: string;
-  };
-  status: string;
-  Status?: string;
-  clockIn: string;
-  clockOut: string;
-  totalHours: string;
-};
-
-const [dailyAttendance, setdailyAttendance] = useState<DailyAttendanceItem[]>([]);
-const fetchDailyAttendance = async () => {
-  try {
-    const response: any = await getDailyAttendance({ date: selectedDate });
-
-    const attendanceData = response?.Data ?? [];
-
-    setdailyAttendance(attendanceData);
-
-    console.log("Daily Attendance fetched:", attendanceData); // ✅ this is correct
-  } catch (error) {
-    console.error("Error fetching AttendanceData:", error);
-  }
-};
-
-    
-      useEffect(() => {
-        fetchDailyAttendance();
-      }, [selectedDate]);
-
-
-console.log(dailyAttendance,"sdfghjk")
-
+  // Get unique department names from fetched data
+  const departmentNames = Array.from(new Set(departments.map(dept => dept.name)))
 
   return (
-    <div className="space-y-6 min-h-screen w-full  p-1">
-      <div>
-        <h1 className="text-3xl font-bold text-white mt-2 leading-relaxed pb-3">
+    <div className="space-y-6 min-h-screen w-full p-1">
+      <div className="flex">
+        <h1 className="text-3xl font-bold text-white mt-2 leading-relaxed pb-3" style={FONTS.header}>
           Attendance Dashboard
         </h1>
+
+        <div>
+          <div className="flex mt-4 ml-4 border border-gray-300 rounded-md md:w-80 backdrop-blur-xl bg-white/10">
+            <input
+              type="text"
+              placeholder="Search by Name, Designation or Status"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pr-12 pl-4 px-2 py-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
+              style={{ ...FONTS.paragraph }}
+            />
+            <Search className="text-gray-300 absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+          </div>
+        </div>
+
+        <div className="flex flex-row md:flex-row justify-between gap-4">
+          {/* Date Picker */}
+          <div className="mt-4 ml-4">
+            <input
+              type="date"
+              className={`flex items-center gap-2 px-3 py-2 border rounded-md text-sm text-white transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 ${
+                selectedDate
+                  ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
+                  : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
+              }`}
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              
+            />
+          </div>
+
+          {/* Designation filter */}
+          <div className="flex mb-3 items-center gap-3">
+            <div className="relative" ref={designationDropdownRef} style={{ zIndex: 50 }}>
+              <button
+                className={`flex items-center gap-2 px-3 py-2 border rounded-md text-sm text-white transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 rounded-lg ${
+                  designationFilter
+                    ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
+                    : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
+                }`}
+                onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
+                 
+              >
+                <FaBriefcase className="text-gray-400" />
+                {designationFilter || "All Designations"}
+                {showDesignationDropdown ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
+
+              {showDesignationDropdown && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-xl border-gray-200 shadow-lg z-20">
+                  <button
+                    className={`block rounded-t-xl w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                      !designationFilter
+                        ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                        : "text-gray-700"
+                    }`}
+                   
+                    onClick={() => {
+                      setDesignationFilter("")
+                      setShowDesignationDropdown(false)
+                    }}
+                  >
+                    All Designations
+                  </button>
+                  {designations.map((designation, idx) => (
+                    <button
+                      key={idx}
+                      className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                        designationFilter === designation
+                          ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                          : "text-gray-700"
+                      }${idx === designations.length - 1 ? " rounded-b-xl" : ""}`}
+                      onClick={() => {
+                        setDesignationFilter(designation)
+                        setShowDesignationDropdown(false)
+                      }}
+                    >
+                      {designation}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Department filter */}
+          <div className="flex mb-3 items-center gap-3">
+            <div className="relative" ref={departmentDropdownRef} style={{ zIndex: 50 }}>
+              <button
+                className={`flex items-center gap-2 px-3 py-2 border rounded-md text-sm text-white transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 rounded-lg ${
+                  departmentFilter
+                    ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
+                    : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
+                }`}
+                onClick={() => setShowDepartmentDropdown(!showDepartmentDropdown)}
+              >
+                <FaBuilding className="text-gray-400" />
+                {departmentFilter || "All Departments"}
+                {showDepartmentDropdown ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
+
+              {showDepartmentDropdown && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-xl border-gray-200 shadow-lg z-20">
+                  <button
+                    className={`block rounded-t-xl w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                      !departmentFilter
+                        ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                        : "text-gray-700"
+                    }`}
+                    onClick={() => {
+                      setDepartmentFilter("")
+                      setShowDepartmentDropdown(false)
+                    }}
+                  >
+                    All Departments
+                  </button>
+                  {departmentNames.map((dept, idx) => (
+                    <button
+                      key={idx}
+                      className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                        departmentFilter === dept
+                          ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                          : "text-gray-700"
+                      }${idx === departmentNames.length - 1 ? " rounded-b-xl" : ""}`}
+                      onClick={() => {
+                        setDepartmentFilter(dept)
+                        setShowDepartmentDropdown(false)
+                      }}
+                    >
+                      {dept}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Stats Cards */}
@@ -315,7 +356,7 @@ console.log(dailyAttendance,"sdfghjk")
         {/* Duration Card */}
         <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
-            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins" >Work Duration</p>
             <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
           </div>
           <div className="bg-[#ECEBFA] p-3 rounded-full">
@@ -363,101 +404,21 @@ console.log(dailyAttendance,"sdfghjk")
       </div>
 
       {/* Filters Section */}
-      <div className="flex flex-row md:flex-row justify-between gap-4 mt-8">
-        {/* Date Picker */}
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
-          <input
-            type="date"
-            className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 font-family-poppins focus:border-transparent transition-all duration-200"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </div>
-
-        {/* Search */}
-        <div className="relative flex-grow max-w-md">
-          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-              <CiSearch size={20} />
-            </span>
-            <input
-              type="search"
-              placeholder="Search by Name, Designation or Status"
-              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none font-family-poppins focus:placeholder-gray-400 focus:ring-2 focus:ring-[#006666]/50 focus:border-[#006666]"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
-
-        {/* Designation filter */}
-        <div className="relative w-50 max-w-md" ref={designationDropdownRef}>
-          <label className="block text-sm font-medium text-gray-700 mb-1"></label>
-          <button
-            id="designation-filter"
-            type="button"
-            onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-            className="w-full md:w-[250px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#006666]/50 focus:border-transparent transition-all duration-200 text-left flex items-center justify-between"
-          >
-            <span className="flex items-center gap-2 truncate">
-              <FaBriefcase className="text-gray-400" />
-              <span className="truncate">{designationFilter || "All Designations"}</span>
-            </span>
-            <svg
-              className={`w-4 h-4 transition-transform duration-200 ${showDesignationDropdown ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {showDesignationDropdown && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
-              <div
-                onClick={() => {
-                  setDesignationFilter("")
-                  setShowDesignationDropdown(false)
-                }}
-                className={`px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 flex items-center gap-2 border-b border-gray-100 ${
-          designationFilter === "" ? "bg-[#006666]/10 text-[#006666]" : ""
-        }`}
-              >
-                All Designations
-              </div>
-              {designations.map((designation, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    setDesignationFilter(designation)
-                    setShowDesignationDropdown(false)
-                  }}
-                  className={`px-4 py-3 cursor-pointer hover:bg-[#006666]/10 hover:text-[#006666] transition-colors duration-200 ${
-            designationFilter === designation ? "bg-[#006666]/10 text-[#006666]" : ""
-          }`}
-                >
-                  {designation}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
+     
       {/* Table Section */}
 
-      <div className="overflow-hidden rounded-md mt-6">
+      <div className="overflow-hidden rounded-md mt-6" style={{ ...FONTS.paragraph}}>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
-              <tr>
+              <tr style={{ ...FONTS.tableHeader }}>
                 <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">ID</th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
                   Designation
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Department
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
                 <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
@@ -471,7 +432,7 @@ console.log(dailyAttendance,"sdfghjk")
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-100">
+            <tbody className="bg-white divide-y divide-gray-100"  style={{ ...FONTS.tableBody }}>
               {dailyAttendance && dailyAttendance.map((item) => (
                 <tr
                   key={item.ID}
@@ -488,6 +449,7 @@ console.log(dailyAttendance,"sdfghjk")
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
@@ -499,13 +461,20 @@ console.log(dailyAttendance,"sdfghjk")
                       {item.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                     {item.clockOut && !isNaN(new Date(item.clockIn).getTime())
-                     ? new Date(item.clockOut).toLocaleTimeString("en-GB") : "-"}  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                     {item.clockOut && !isNaN(new Date(item.clockOut).getTime())
-                     ? new Date(item.clockOut).toLocaleTimeString("en-GB") : "-"}  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {item.clockOut && !isNaN(new Date(item.clockIn).getTime())
+                  ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+                   }): "-"} </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {item.clockOut && !isNaN(new Date(item.clockOut).getTime())
+                  ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
+                   hour: '2-digit',
+                   minute: '2-digit',
+                   hour12: false }) : "-"} </td>                  
+                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
                 </tr>
               ))}
             </tbody>

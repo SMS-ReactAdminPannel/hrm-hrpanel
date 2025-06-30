@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Search,
   Filter,
@@ -13,6 +13,8 @@ import {
   GraduationCap,
   Pencil,
   Trash2,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -125,6 +127,10 @@ export default function CandidatesPage() {
   const [selectedCandidate, setSelectedCandidate] = useState<any>(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const navigate = useNavigate();
+  const [currentFilter, setCurrentFilter] = useState("");
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const filterDropdownRef = useRef(null);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -201,48 +207,101 @@ export default function CandidatesPage() {
     )
   );
 
+  const filters = [
+  { value: "New Candidates", label: "New Candidates" },
+  { value: "Interviewed", label: "Interviewed" },
+  { value: "Hired", label: "Hired" }
+];
+
   return (
     <>
     <div className="p-6 space-y-6 min-h-screen">
-      <div className="flex w-full">
-  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4">
-    
-    <div className="flex items-center gap-4">
-      <h1 className="text-3xl font-bold text-gray-800">Candidates</h1>
-      
+   <div className="flex">
+    <div className="flex items-center justify-between">
+    <h1 className="text-3xl font-bold text-white mt-2 leading-relaxed pb-3">
+      Candidates
+    </h1>
+
+    <div className="flex items-center ml-4 gap-4">
       <button
-        className="px-4 flex py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        className="flex items-center gap-2 px-4 py-1 bg-[#5e59a9] text-white rounded-lg hover:bg-[#5e59a9]/90 transition-colors duration-200"
         onClick={() => setAddModalOpen(true)}
       >
-         <FaPlus className="mt-1 mr-3 text-white" />
+        <FaPlus className="w-4 h-4 text-white" />
         Add Candidates
       </button>
-
-
-       <div className="flex gap-4">
-      <div className="relative rounded-md p-2 flex w-full sm:w-64 bg-white/10">
-        <input
-          className="bg-transparent text-gray-700"
-          placeholder="Search candidates..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
-        <Search className=" left-2.5 mt-1.5 mr-3 top-2.5 h-4 w-4 text-gray-300" />
-         
-      </div>
-      <div className="bg-white/10">
-       <Button className="bg-transparent text-gray-300 flex items-center gap-2 px-3 py-2">
-        <Filter className="h-4 w-4 text-gray-300" />
-      </Button>
-      </div>
     </div>
+
+    <div className="flex md:flex-row justify-between gap-4 ml-4">
+    {/* Search bar */}
+    <div className="flex border border-gray-300 rounded-md w-full md:w-80 backdrop-blur-xl bg-white/10">
+      <input
+        type="text"
+        placeholder="Search candidates..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full pr-12 pl-4 px-2 py-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
+      />
+      <Search className="text-gray-300 absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
     </div>
-   
+
+    {/* Filter button */}
+    <div className="relative" ref={filterDropdownRef}>
+      <button
+        className={`flex items-center w-40 gap-2 px-3 py-2 border rounded-md text-sm text-gray-300 transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 rounded-lg ${
+          currentFilter
+            ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
+            : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
+        }`}
+        onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+      >
+      
+        {currentFilter || "All Candidates"}
+        {showFilterDropdown ? (
+          <ChevronUp className="w-4 h-4" />
+        ) : (
+          <ChevronDown className="w-4 h-4" />
+        )}
+      </button>
+
+      {showFilterDropdown && (
+        <div className="absolute right-0 mt-2 w-48 bg-white border rounded-xl border-gray-200 shadow-lg z-20">
+          <button
+            className={`block rounded-t-xl w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+              !currentFilter
+                ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                : "text-gray-700"
+            }`}
+            onClick={() => {
+              setCurrentFilter("");
+              setShowFilterDropdown(false);
+            }}
+          >
+            All Candidates
+          </button>
+          {filters.map((filter, idx) => (
+            <button
+              key={idx}
+              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                currentFilter === filter.value
+                  ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                  : "text-gray-700"
+              }${idx === filters.length - 1 ? " rounded-b-xl" : ""}`}
+              onClick={() => {
+                setCurrentFilter(filter.value);
+                setShowFilterDropdown(false);
+              }}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>   
+
+    </div>
   </div>
 </div>
-
-
 
       {filtered.length === 0 ? (
         <div className="flex justify-center items-center h-64">
