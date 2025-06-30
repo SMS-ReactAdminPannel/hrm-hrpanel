@@ -1,4 +1,4 @@
-import { color } from "framer-motion";
+// import { color } from "framer-motion";
 
 // This file contains the constants for the UI design of the application.
 export const COLORS = {

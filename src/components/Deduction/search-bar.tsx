@@ -1,5 +1,8 @@
 "use client"
 
+import { FONTS } from "../../constants/uiConstants"
+
+
 interface SearchBarProps {
   searchTerm: string
   onSearchChange: (value: string) => void
@@ -9,7 +12,7 @@ interface SearchBarProps {
 export function SearchBar({ searchTerm, onSearchChange, onAddClick }: SearchBarProps) {
   return (
     <div className="flex md:flex-row justify-between mb-6 gap-4">
-      <div className="text-2xl font-bold px-2 py-2">Deduction Management</div>
+      <div className="text-2xl font-bold px-2 py-2 " style={{...FONTS.header}}>Deduction Management</div>
       <div className="flex gap-5 ml-auto">
         <div className="relative">
           <div className="absolute inset-y-0 pb-2 left-0 pl-3 flex items-center pointer-events-none">
@@ -28,13 +31,14 @@ export function SearchBar({ searchTerm, onSearchChange, onAddClick }: SearchBarP
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             className="block w-full md:w-80 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            // style={{...FONTS.subParagraph}}
           />
         </div>
 
         <button
           className="rounded-md w-38 h-9 text-white px-4 py-2 shadow-md transition-colors duration-200 flex items-center justify-center gap-2"
           onClick={onAddClick}
-          style={{ backgroundColor: "#006666" }}
+          style={{...FONTS.button, backgroundColor: '#4c469f', color: '#FFFFFF'}}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path

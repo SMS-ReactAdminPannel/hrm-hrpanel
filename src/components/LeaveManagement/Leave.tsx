@@ -1,12 +1,13 @@
-import React from 'react';
+// import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import DoughnutChart from './leaveChart';
+// import DoughnutChart from './leaveChart';
 import { useState, useEffect } from 'react';
 import { FONTS } from '../../constants/uiConstants';
 import Calendar from './Calendar';
 import HolidayList from './HolidayList';
 import AddEventModal from './AddEventModal';
 import type { Customer, WorkEvent, DayData } from './types';
+import { createHoliday, deleteHoliday, getAllHoliday } from '../../features/leaveManagement/service';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -16,6 +17,55 @@ const LeaveComponents = () => {
   const [events, setEvents] = useState<WorkEvent[]>([]);
   const [holidays, setHolidays] = useState<Customer[]>([]);
   const [showModal, setShowModal] = useState(false);
+ const [holiday, setHoliday] = useState<any[]>([]);
+
+  const fetchHolidays = async () => {
+    try {
+      const response: any = await getAllHoliday();
+      console.log("page response", response);
+      const holidays = response?.data;
+      console.log("Holidays data:", holidays);
+      setHoliday(holidays);
+      console.log("Holidays fetched:", holiday);
+    } catch (error) {
+      console.error("Error fetching holidays:", error);
+    }
+   };
+ 
+   useEffect(() => {
+     fetchHolidays();
+   }, []);
+
+    
+
+const handleAddEvent = async (eventData: { title: string; date: string; type: string }) => {
+  try {
+    const response = await createHoliday({
+      holiday_name: eventData.title,
+      holiday_date: eventData.date,
+      holiday_type: eventData.type
+    });
+    console.log("Holiday created:", response);
+    await fetchHolidays();
+    return response;
+  } catch (error) {
+    console.error("Failed to create holiday:", error);
+    throw error; 
+  }
+};
+     
+const handleDeleteLeave = async (leaveId: string) => {
+    console.log('delete handler triggered for:', leaveId);
+  try {
+    await deleteHoliday(leaveId);
+    console.log("Deleted:", leaveId);
+    await fetchHolidays();
+  } catch (error) {
+    console.error("Error deleting leave type:", error);
+  }
+};
+
+
 
   // Sample initial data
   useEffect(() => {
@@ -26,27 +76,6 @@ const LeaveComponents = () => {
         date: new Date(event.date)
       }));
       setEvents(parsedEvents);
-    }
-
-    const savedHolidays = localStorage.getItem('holidays');
-    if (savedHolidays) {
-      const parsedHolidays = JSON.parse(savedHolidays).map((holiday: any) => ({
-        ...holiday,
-        date: new Date(holiday.date)
-      }));
-      setHolidays(parsedHolidays);
-    } else {
-      const sampleHolidays: Customer[] = [
-        {
-          id: "1",
-          date: new Date(2025, 0, 14),
-          day: "Tuesday",
-          avatar: "/docs/images/people/profile-picture-1.jpg",
-          holiday: "Republic Day",
-        },
-      ];
-      setHolidays(sampleHolidays);
-      localStorage.setItem('holidays', JSON.stringify(sampleHolidays));
     }
   }, []);
 
@@ -66,7 +95,8 @@ const LeaveComponents = () => {
         id: h.id,
         title: h.holiday,
         date: h.date,
-        color: 'bg-red-500'
+        color: 'bg-red-500',
+        type: 'holiday'
       }))
     ];
 
@@ -132,54 +162,56 @@ const LeaveComponents = () => {
     );
   };
 
-  const addEvent = (eventData: { title: string; date: string; color: string }) => {
-    if (!eventData.title.trim()) {
-      alert('Please enter a title for the event');
-      return;
-    }
+  // const addEvent = (eventData: { title: string; date: string; color: string }) => {
+  //   if (!eventData.title.trim()) {
+  //     alert('Please enter a title for the event');
+  //     return;
+  //   }
 
-    const [year, month, day] = eventData.date.split('-').map(Number);
-    const dateObj = new Date(year, month - 1, day);
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const dayName = dayNames[dateObj.getDay()];
+  //   const [year, month, day] = eventData.date.split('-').map(Number);
+  //   const dateObj = new Date(year, month - 1, day);
+  //   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  //   const dayName = dayNames[dateObj.getDay()];
     
-    const newId = `event-${Date.now()}`;
+  //   const newId = `event-${Date.now()}`;
     
-    const newCalendarEvent: WorkEvent = {
-      id: newId,
-      title: eventData.title,
-      date: dateObj,
-      color: eventData.color
-    };
+  //   const newCalendarEvent: WorkEvent = {
+  //     id: newId,
+  //     title: eventData.title,
+  //     date: dateObj,
+  //     color: eventData.color,
+  //     type: ''
+  //   };
     
-    const updatedEvents = [...events, newCalendarEvent];
-    setEvents(updatedEvents);
-    localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+  //   const updatedEvents = [...events, newCalendarEvent];
+  //   setEvents(updatedEvents);
+  //   localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
     
-    const newHoliday: Customer = {
-      id: newId,
-      date: dateObj,
-      day: dayName,
-      avatar: "/docs/images/people/profile-picture-5.jpg",
-      holiday: eventData.title
-    };
+  //   const newHoliday: Customer = {
+  //     id: newId,
+  //     date: dateObj,
+  //     day: dayName,
+  //     avatar: "/docs/images/people/profile-picture-5.jpg",
+  //     holiday: eventData.title,
+  //     uuid: ''
+  //   };
     
-    const updatedHolidays = [...holidays, newHoliday];
-    setHolidays(updatedHolidays);
-    localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
+  //   const updatedHolidays = [...holidays, newHoliday];
+  //   setHolidays(updatedHolidays);
+  //   localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
     
-    setShowModal(false);
-  };
+  //   setShowModal(false);
+  // };
 
-  const deleteEvent = (id: string) => {
-    const updatedEvents = events.filter(event => event.id !== id);
-    setEvents(updatedEvents);
-    localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
+  // const deleteEvent = (id: string) => {
+  //   const updatedEvents = events.filter(event => event.id !== id);
+  //   setEvents(updatedEvents);
+  //   localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
 
-    const updatedHolidays = holidays.filter(holiday => holiday.id !== id);
-    setHolidays(updatedHolidays);
-    localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
-  };
+  //   const updatedHolidays = holidays.filter(holiday => holiday.id !== id);
+  //   setHolidays(updatedHolidays);
+  //   localStorage.setItem('holidays', JSON.stringify(updatedHolidays));
+  // };
 
   const navigateToDate = (date: Date) => {
     setCurrentMonth(new Date(date.getFullYear(), date.getMonth(), 1));
@@ -188,7 +220,7 @@ const LeaveComponents = () => {
   return (
     <div>
       <div className='pb-4 py-4'>
-        <h1 className="font-bold" style={FONTS.header}>Leave</h1>
+        <h1 className="font-bold" style={FONTS.header}></h1>
       </div>
       <div className="container flex mx-auto grid grid-cols-2 lg:grid-cols-2 gap-6">
         <div className="space-y-3 w-5/4">
@@ -197,6 +229,7 @@ const LeaveComponents = () => {
           <Calendar
             currentMonth={currentMonth}
             days={days}
+             holidays={holiday}
             onNavigateMonth={navigateMonth}
             onSetCurrentMonth={setCurrentMonth}
             onShowModal={() => setShowModal(true)}
@@ -205,15 +238,15 @@ const LeaveComponents = () => {
         </div>
 
         <HolidayList
-          holidays={holidays}
+          holidays={holiday}
           onNavigateToDate={navigateToDate}
-          onDeleteEvent={deleteEvent}
+          onDeleteEvent={handleDeleteLeave}
         />
 
         {showModal && (
           <AddEventModal
             onClose={() => setShowModal(false)}
-            onAddEvent={addEvent}
+            onAddEvent={handleAddEvent}
           />
         )}
       </div>

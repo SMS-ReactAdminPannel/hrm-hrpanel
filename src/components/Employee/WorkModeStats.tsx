@@ -10,7 +10,7 @@ export const WorkModeStats: React.FC<WorkModeStatsProps> = ({ workModeData }) =>
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"]
 
   return (
-    <div className="bg-[#eff4f5] p-4 rounded shadow border">
+    <div className="bg-[#eff4f5] p-4 rounded-lg shadow border h-[90%]">
       <h3 className="text-lg font-semibold !text-gray-700 mb-4" style={{...FONTS.statusCardHeader}}>Work Mode Stats</h3>
       {workModeData.map((mode, index) => (
         <div key={mode.name} className="flex justify-between items-center mb-2">

@@ -6,6 +6,10 @@ import { PiBowlSteamFill } from "react-icons/pi"
 import { CgProfile } from "react-icons/cg"
 import { FaCalendarAlt } from "react-icons/fa"
 import mainlayout from "../../assets/mainLayout.jpg"
+import AttendanceCalendar from '../../pages/AttendanceManagement/AttendanceCalendar';
+import { useEffect, useState } from "react"
+import { getDailyAttendance } from "../../features/Attendance/service"
+
 
 const EmployeeDetails: React.FC = () => {
   const location = useLocation()
@@ -56,48 +60,48 @@ const EmployeeDetails: React.FC = () => {
   }
 
   // Generate weeks for December 2025
-  const generateWeeksInMonth = (year: number, month: number) => {
-    const daysInMonth = new Date(year, month, 0).getDate()
-    const firstDay = new Date(year, month - 1, 1).getDay()
-    const weeks = []
+  // const generateWeeksInMonth = (year: number, month: number) => {
+  //   const daysInMonth = new Date(year, month, 0).getDate()
+  //   const firstDay = new Date(year, month - 1, 1).getDay()
+  //   const weeks = []
 
-    let currentWeek = []
+  //   let currentWeek = []
 
-    // Add empty cells for days before the first day of the month
-    for (let i = 0; i < firstDay; i++) {
-      currentWeek.push(null)
-    }
+  //   // Add empty cells for days before the first day of the month
+  //   for (let i = 0; i < firstDay; i++) {
+  //     currentWeek.push(null)
+  //   }
 
-    // Add all days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month - 1, day)
-      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-      const weekday = weekdays[date.getDay()]
+  //   // Add all days of the month
+  //   for (let day = 1; day <= daysInMonth; day++) {
+  //     const date = new Date(year, month - 1, day)
+  //     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  //     const weekday = weekdays[date.getDay()]
 
-      currentWeek.push({ day, weekday })
+  //     currentWeek.push({ day, weekday })
 
-      // If we've completed a week (7 days) or it's the last day
-      if (currentWeek.length === 7 || day === daysInMonth) {
-        // Fill remaining days with null if needed
-        while (currentWeek.length < 7) {
-          currentWeek.push(null)
-        }
-        weeks.push([...currentWeek])
-        currentWeek = []
-      }
-    }
+  //     // If we've completed a week (7 days) or it's the last day
+  //     if (currentWeek.length === 7 || day === daysInMonth) {
+  //       // Fill remaining days with null if needed
+  //       while (currentWeek.length < 7) {
+  //         currentWeek.push(null)
+  //       }
+  //       weeks.push([...currentWeek])
+  //       currentWeek = []
+  //     }
+  //   }
 
-    return weeks
-  }
+  //   return weeks
+  // }
 
-  const weeks = generateWeeksInMonth(2025, 12) // December 2025
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  // const weeks = generateWeeksInMonth(2025, 12) // December 2025
+  // const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   // Calculate attendance statistics
   const totalDays = 31
   const presentDays = employeeAttendanceData.daysPresent.length
-  const absentDays = totalDays - presentDays - 5 // Assuming 5 Sundays in December 2025
-  const attendancePercentage = Math.round((presentDays / (totalDays - 5)) * 96)
+  // const absentDays = totalDays - presentDays - 5 // Assuming 5 Sundays in December 2025
+  // const attendancePercentage = Math.round((presentDays / (totalDays - 5)) * 96)
 
   return (
     <div className="space-y-6 min-h-screen  p-6">
@@ -153,12 +157,31 @@ const EmployeeDetails: React.FC = () => {
               <p className="text-gray-500">Check Out</p>
               <p className="font-medium">{employee.CheckOut}</p>
             </div>
+              <div>
+              <p className="text-gray-500">Total Completed Projects</p>
+              <p className="font-medium">{employee.TotalCompletedProject || "N/A"}</p>
+            </div>
+             <div>
+              <p className="text-gray-500">Total Worked Duration</p>
+              <p className="font-medium">{employee.TotalWorkedDuration}</p>
+            </div>
+             <div>
+              <p className="text-gray-500">Total Break Time</p>
+              <p className="font-medium">{employee.TotalBreakTime}</p>
+            </div>
+             <div>
+              <p className="text-gray-500">Total Leave Days</p>
+              <p className="font-medium">{employee.TotalLeaveDays}</p>
+            </div>
           </div>
         </div>
       </div>
+       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+          <AttendanceCalendar />
+        </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="bg-[#eff4f5] p-5 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100">
 
           <div className="flex items-center justify-between mb-4">
@@ -203,10 +226,10 @@ const EmployeeDetails: React.FC = () => {
           <p className="text-2xl font-bold text-gray-900">4</p>
           <p className="text-sm text-gray-500 mt-1">Total Leave Days</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Attendance Summary */}
-      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+      {/* <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <FaCalendarAlt className="text-[#006666]" />
@@ -226,10 +249,10 @@ const EmployeeDetails: React.FC = () => {
               <span className="text-sm text-gray-600">Rest Days: 5</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Progress Bar */}
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <div className="flex justify-between mb-1">
             <span className="text-sm font-medium text-gray-700">Attendance Rate</span>
             <span className="text-sm font-medium text-gray-700">{attendancePercentage}%</span>
@@ -237,10 +260,10 @@ const EmployeeDetails: React.FC = () => {
           <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div className="bg-[#5e59a9]/60 h-2.5 rounded-full" style={{ width: `${attendancePercentage}%` }}></div>
           </div>
-        </div>
+        </div> */}
 
         {/* Calendar */}
-        <div className="overflow-x-auto">
+        {/* <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr>
@@ -293,10 +316,10 @@ const EmployeeDetails: React.FC = () => {
                             >
                               {isPresent ? "P" : "A"}
                             </span>
-                          )}
+                          )} */}
 
                           {/* Tooltip */}
-                          {!isSunday && (
+                          {/* {!isSunday && (
                             <div className="absolute z-40 hidden group-hover:block bg-white border border-gray-200 shadow-lg p-3 rounded-lg text-xs text-left w-48 top-full mt-2 left-1/2 transform -translate-x-1/2">
                               <div className="flex justify-between items-center mb-2 pb-1 border-b border-gray-100">
                                 <p className="font-semibold">December {day}, 2025</p>
@@ -339,10 +362,10 @@ const EmployeeDetails: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         {/* Legend */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        {/* <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
           <h4 className="font-semibold text-gray-800 mb-3">Legend</h4>
           <div className="flex flex-wrap gap-6 text-sm">
             <div className="flex items-center gap-2">
@@ -364,8 +387,9 @@ const EmployeeDetails: React.FC = () => {
               <span className="text-gray-700">Rest Day (Sunday)</span>
             </div>
           </div>
-        </div>
-      </div>
+        </div>  
+
+      </div> */}
     </div>
   )
 }

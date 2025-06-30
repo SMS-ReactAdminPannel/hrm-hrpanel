@@ -8,6 +8,7 @@ import {
 
 type User = {
   email: string;
+ 
 };
 
 type AuthContextType = {
@@ -17,6 +18,7 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   signup: (email: string, password: string) => Promise<void>;
+  setIsAuthenticated: (value: boolean) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,20 +29,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true); // <- Add loading state
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const email = localStorage.getItem("userEmail");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    if (token && email) {
-      setUser({ email });
-      setIsAuthenticated(true);
-    }
-    setLoading(false); 
-  }, []);
+  if (storedUser?.token && storedUser?.email) {
+    setUser({ email: storedUser.email });
+    setIsAuthenticated(true);
+  }
+  setLoading(false); 
+}, []);
+
 
   const login = async (email: string, password: string) => {
-    if (email && password) {
-      localStorage.setItem("authToken", "dummy-token");
-      localStorage.setItem("userEmail", email);
+    if (email && password) { 
       setUser({ email });
       setIsAuthenticated(true);
     } else {
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, logout, signup, loading }}
+      value={{ user, isAuthenticated, login, logout, signup, loading, setIsAuthenticated}}
     >
       {children}
     </AuthContext.Provider>

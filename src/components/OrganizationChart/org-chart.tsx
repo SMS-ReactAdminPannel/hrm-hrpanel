@@ -1,149 +1,84 @@
-import { useMemo, useState } from "react"
-import type { Employee, EmployeeNode } from "./employee"
+"use client"
+
+import type React from "react"
 import { EmployeeCard } from "./employee-card"
-import { Building2 } from "lucide-react"
+import type { Employee } from "./employee"
+import { ChevronDown, ChevronUp } from "lucide-react"
 
 interface OrgChartProps {
   employees: Employee[]
+  allEmployees: Employee[]
+  expandedNodes: Set<string>
+  onToggleExpansion: (nodeId: string) => void
+  hasChildren: (employeeId: string) => boolean
   onEdit: (employee: Employee) => void
   onDelete: (employeeId: string) => void
+  onAddChild: (employee: Employee) => void
 }
 
-export function OrgChart({ employees, onEdit, onDelete }: OrgChartProps) {
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
-  const [activeSubBranch, setActiveSubBranch] = useState<string | null>(null)
-
-  const organizationTree = useMemo(() => {
-    const buildTree = (managerId: string | null): EmployeeNode[] => {
-      return employees
-        .filter((emp) => emp.managerId === managerId)
-        .map((emp) => ({
-          ...emp,
-          children: buildTree(emp.id),
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name))
-    }
-
-    return buildTree(null)
-  }, [employees])
-
-  const findNodeById = (nodes: EmployeeNode[], id: string): EmployeeNode | null => {
-    for (const node of nodes) {
-      if (node.id === id) return node
-      const found = findNodeById(node.children, id)
-      if (found) return found
-    }
-    return null
+export function OrgChart({
+  employees,
+  allEmployees,
+  expandedNodes,
+  onToggleExpansion,
+  hasChildren,
+  onEdit,
+  onDelete,
+  onAddChild,
+}: OrgChartProps) {
+  const buildHierarchy = (parentId: string | null): Employee[] => {
+    return employees.filter((emp) => emp.managerId === parentId).sort((a, b) => a.name.localeCompare(b.name))
   }
 
-  const findAllNodes = (nodes: EmployeeNode[]): EmployeeNode[] => {
-    const allNodes: EmployeeNode[] = []
-    const traverse = (nodeList: EmployeeNode[]) => {
-      for (const node of nodeList) {
-        allNodes.push(node)
-        traverse(node.children)
-      }
-    }
-    traverse(nodes)
-    return allNodes
-  }
+  const renderEmployee = (employee: Employee, level = 0): React.ReactNode => {
+    const children = buildHierarchy(employee.id)
+    const hasChildrenInAll = hasChildren(employee.id)
+    const isExpanded = expandedNodes.has(employee.id)
 
-  const collapseNodeAndDescendants = (nodeId: string, expandedSet: Set<string>) => {
-    expandedSet.delete(nodeId)
-    const allNodes = findAllNodes(organizationTree)
-    const node = allNodes.find(n => n.id === nodeId)
-    if (node) {
-      node.children.forEach(child => {
-        collapseNodeAndDescendants(child.id, expandedSet)
-      })
-    }
-  }
-
-  const toggleNodeExpansion = (nodeId: string, parentId?: string) => {
-    setExpandedNodes(prev => {
-      const newExpanded = new Set(prev)
-      
-      if (newExpanded.has(nodeId)) {
-        // Collapse this node and all its descendants
-        collapseNodeAndDescendants(nodeId, newExpanded)
-        if (activeSubBranch === nodeId) {
-          setActiveSubBranch(null)
-        }
-      } else {
-        // Find all siblings and collapse them
-        const allNodes = findAllNodes(organizationTree)
-        
-        if (parentId) {
-          // Find siblings under the same parent
-          const parent = allNodes.find(n => n.id === parentId)
-          if (parent) {
-            parent.children.forEach(sibling => {
-              if (sibling.id !== nodeId) {
-                collapseNodeAndDescendants(sibling.id, newExpanded)
-              }
-            })
-          }
-        } else {
-          // This is a root node - collapse all other root nodes
-          organizationTree.forEach(rootNode => {
-            if (rootNode.id !== nodeId) {
-              collapseNodeAndDescendants(rootNode.id, newExpanded)
-            }
-          })
-        }
-        
-        // Expand the clicked node
-        newExpanded.add(nodeId)
-        setActiveSubBranch(nodeId)
-      }
-      
-      return newExpanded
-    })
-  }
-
-  const renderNode = (node: EmployeeNode, level = 0, parentId?: string) => {
-    const isExpanded = expandedNodes.has(node.id)
-    const hasChildren = node.children.length > 0
-    const showChildren = isExpanded && hasChildren
     return (
-      <div key={node.id} className="flex flex-col items-center animate-fadeIn">
-        <div 
-          onClick={() => hasChildren && toggleNodeExpansion(node.id, parentId)}
-          className={hasChildren ? "cursor-pointer" : ""}
-        >
-          <EmployeeCard 
-            employee={node} 
-            onEdit={onEdit} 
-            onDelete={onDelete} 
-            level={level}
-            isExpanded={isExpanded}
-            hasChildren={hasChildren}
+      <div key={employee.id} className="flex flex-col items-center">
+        <div className="relative">
+          <EmployeeCard
+            employee={employee}
+            onEdit={() => onEdit(employee)}
+            onDelete={() => onDelete(employee.id)}
+            onAddChild={() => onAddChild(employee)}
           />
+
+          {/* Expansion Arrow */}
+          {hasChildrenInAll && (
+            <button
+              onClick={() => onToggleExpansion(employee.id)}
+              className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-white border-2 border-gray-300 rounded-full p-1 hover:bg-gray-50 transition-colors shadow-sm z-10"
+              title={isExpanded ? "Collapse" : "Expand"}
+            >
+              {isExpanded ? (
+                <ChevronUp className="w-4 h-4 text-gray-600" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-gray-600" />
+              )}
+            </button>
+          )}
         </div>
 
-        {showChildren && (
-          <div className="relative mt-8">
-            {/* Vertical line from parent to horizontal connector */}
-            <div className="absolute top-0 left-1/2 w-0.5 h-8 bg-gray-400 transform -translate-x-1/2"></div>
-            
-            {/* Horizontal connector line (only if multiple children) */}
-            {node.children.length > 1 && (
-              <div 
-                className="absolute top-8 h-0.5 bg-gray-400"
-                style={{
-                  left: `${(1 / node.children.length) * 50}%`,
-                  right: `${(1 / node.children.length) * 50}%`,
-                }}
-              ></div>
-            )}
+        {/* Connection Line */}
+        {children.length > 0 && <div className="w-px h-8 bg-gray-700 mt-3"></div>}
+
+        {/* Children */}
+        {children.length > 0 && (
+          <div className="flex flex-col items-center">
+            {/* Horizontal line */}
+            <div className="w-full h-px bg-gray-700 relative">
+              {children.length > 1 && <div className="absolute left-0 right-0 h-px bg-gray-700"></div>}
+            </div>
 
             {/* Children container */}
-            <div className="flex justify-center items-start gap-12 pt-8">
-              {node.children.map((child, index) => (
-                <div key={child.id} className="relative flex flex-col items-center">
-                  {/* Vertical line from horizontal connector to child */}
-                  <div className="absolute top-0 left-1/2 w-0.5 h-8 bg-gray-400 transform -translate-x-1/2 -translate-y-8"></div>
-                  {renderNode(child, level + 1, node.id)}
+            <div className="flex gap-8 mt-8">
+              {children.map((child) => (
+                <div key={child.id} className="flex flex-col items-center">
+                  {/* Vertical line to child */}
+                  <div className="w-px h-8 bg-gray-700 -mt-8"></div>
+                  {renderEmployee(child, level + 1)}
                 </div>
               ))}
             </div>
@@ -153,28 +88,11 @@ export function OrgChart({ employees, onEdit, onDelete }: OrgChartProps) {
     )
   }
 
-  if (organizationTree.length === 0) {
-    return (
-      <div className="text-center py-20">
-        {/* Empty State Icon */}
-        <div className="w-32 h-32 bg-gray-300 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
-          <Building2 className="w-16 h-16 text-white" />
-        </div>
+  const rootEmployee = employees.find((emp) => emp.managerId === null)
 
-        {/* Empty State Text */}
-        <h3 className="text-2xl font-black text-gray-800 mb-4">No employees found</h3>
-        <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
-          Get started by adding your first employee to build your organization chart
-        </p>
-      </div>
-    )
+  if (!rootEmployee) {
+    return <div className="flex items-center justify-center h-64 text-gray-500">No employees found</div>
   }
 
-  return (
-    <div className="overflow-x-auto overflow-y-visible">
-      <div className="min-w-max py-8 px-8">
-        {organizationTree.map((node) => renderNode(node, 0, undefined))}
-      </div>
-    </div>
-  )
+  return <div className="p-8 min-w-max">{renderEmployee(rootEmployee)}</div>
 }

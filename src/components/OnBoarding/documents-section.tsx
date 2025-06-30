@@ -3,6 +3,7 @@
 import { ChevronLeft, FileCheck, Clock, AlertCircle } from "lucide-react"
 import { FileUploadCard } from "./file-upload-card"
 import type { FileData, FileInputRefs } from "./use-onboarding-state"
+import {FONTS} from "../../constants/uiConstants"
 
 interface DocumentsSectionProps {
   uploadedFiles: { [key: string]: FileData }
@@ -32,13 +33,13 @@ export function DocumentsSection({
   return (
     <div className="space-y-8">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#006666] to-[#008080] rounded-xl p-6 text-white">
+      <div className="bg-gradient-to-r from-[#006666] to-[#008080] rounded-xl p-6 !text-white">
         <div className="flex justify-between items-start">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold">
+            <h2 style={{...FONTS.cardheader}}>
               {viewingEmployeeDocs ? `${viewingEmployeeDocs}'s Documents` : "Required Documents"}
             </h2>
-            <p className="text-blue-100">
+            <p className="!text-blue-100" style={{...FONTS.paragraph}}>
               {viewingEmployeeDocs
                 ? "View and manage this employee's documents"
                 : "Please upload the following documents to complete your onboarding"}
@@ -48,8 +49,9 @@ export function DocumentsSection({
             {viewingEmployeeDocs && (
               <button
                 onClick={onBackToAll}
-                className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-colors flex items-center gap-2 backdrop-blur-sm"
-              >
+                className="px-4 py-2 !bg-white/20 !text-white rounded-lg hover:bg-white/30 transition-colors flex items-center gap-2 backdrop-blur-sm"
+                 style={{...FONTS.button}}
+>
                 <ChevronLeft className="w-4 h-4" />
                 Back to All
               </button>
@@ -57,12 +59,14 @@ export function DocumentsSection({
             <button
               onClick={onNavigateToTasks}
               className="px-4 py-2 bg-white text-[#006666] rounded-lg hover:bg-gray-100 transition-colors font-medium"
+              style={{...FONTS.statusCardDescription}}
             >
               View Tasks
             </button>
             <button
               onClick={onNavigateToWelcome}
               className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-colors backdrop-blur-sm"
+            style={{...FONTS.button}}
             >
               Go Back
             </button>
@@ -73,7 +77,7 @@ export function DocumentsSection({
         {!viewingEmployeeDocs && (
           <div className="mt-6 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Document Upload Progress</span>
+              <span style={{...FONTS.paragraph}}>Document Upload Progress</span>
               <span className="text-sm">
                 {completedDocuments} of {totalDocuments} completed
               </span>
@@ -84,7 +88,7 @@ export function DocumentsSection({
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-4" style={{...FONTS.description}}> 
               <div className="flex items-center gap-1">
                 <FileCheck className="w-4 h-4" />
                 <span>{completedDocuments} Completed</span>
@@ -102,10 +106,10 @@ export function DocumentsSection({
       {!viewingEmployeeDocs && completedDocuments < totalDocuments && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+            <AlertCircle className="w-5 h-5 !text-amber-600 mt-0.5" />
             <div>
-              <h3 className="font-medium text-amber-800">Action Required</h3>
-              <p className="text-sm text-amber-700 mt-1">
+              <h3 className="!text-amber-800" style={{...FONTS.paragraph}}>Action Required</h3>
+              <p className=" !text-amber-700 mt-1" style={{...FONTS.paragraph}}>
                 You have {totalDocuments - completedDocuments} document
                 {totalDocuments - completedDocuments !== 1 ? "s" : ""} remaining to complete your onboarding process.
               </p>
@@ -163,12 +167,13 @@ export function DocumentsSection({
             <FileCheck className="w-6 h-6 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-800 mb-2">All Documents Uploaded!</h3>
-          <p className="text-green-700 mb-4">
+          <p className="!text-green-700 mb-4" style={{...FONTS.paragraph}}>
             Great job! You've successfully uploaded all required documents. Your onboarding is almost complete.
           </p>
           <button
             onClick={onNavigateToTasks}
             className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+          style={{...FONTS.button}}
           >
             Continue to Tasks
           </button>

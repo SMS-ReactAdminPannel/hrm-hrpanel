@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa6";
+// import { FaPlus } from "react-icons/fa6";
 import { useState, useRef, useEffect } from "react";
 import { FONTS } from "../../constants/uiConstants";
 
@@ -62,19 +62,22 @@ const FilterTimeSheet = () => {
                     <button
                         type="button"
                         onClick={() => toggleDropdown(index)}
-                        className="w-full px-4 py-2 bg-[#eff4f5]  text-black rounded-md shadow-lg flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
+                        className="w-full px-4 py-2 !bg-[#eff4f5]  !text-black rounded-md shadow-lg flex justify-between items-center hover:shadow-md hover:scale-[1.02] transition"
+                       style={{...FONTS.button}}
                     >
                         {dropdownStates[index].selected || dropdown.title}
-                        <span className="ml-2">&#9662;</span>
+                        <span className="ml-2 !text-gray-800" style={{...FONTS.description}}>&#9662;</span>
                     </button>
                     {dropdownStates[index].open && (
-                        <ul className="absolute z-50 mt-2 w-full bg-white text-[#006666] border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                        <ul className="absolute z-50 mt-2 w-full !bg-white !text-[#006666] border !border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto" 
+                         style={{...FONTS.paragraph}}
+                        >
                             {dropdown.options.map((option) => (
                                 <li
                                     key={option}
                                     onClick={() => selectOption(index, option)}
-                                    className={`px-4 py-2 cursor-pointer hover:bg-[#f0fdfa] hover:text-[#006666] transition ${dropdownStates[index].selected === option
-                                        ? "bg-[#e6fffa] text-[#006666] font-semibold"
+                                    className={`px-4 py-2 cursor-pointer !hover:bg-[#f0fdfa] !hover:text-[#006666] transition ${dropdownStates[index].selected === option
+                                        ? "!bg-[#e6fffa] !text-[#006666] !font-semibold"
                                         : ""
                                         }`}
                                 >

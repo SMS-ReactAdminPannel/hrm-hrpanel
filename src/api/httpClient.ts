@@ -1,28 +1,25 @@
-import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
+// httpClient.ts
+import axios, { type AxiosRequestConfig, type AxiosResponse } from"axios";
 
-const backEndUrl: string = "http://localhost:3002";
+// const backEndUrl = "http://localhost:3002";
+const backEndUrl = "https://hrm-node-backend.onrender.com";
 
 const Axios = axios.create({
-    baseURL:backEndUrl,
-    timeout:5000000,
-    headers:{
-        "Content-Type":"application/json",
-    }
-
+  baseURL: backEndUrl,
+  timeout: 50000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Request interceptor to attach auth token
 Axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("authToken");
-
   if (token) {
     config.headers["Authorization"] = token;
   }
-
   return config;
 });
 
-// Response interceptor to handle session expiration
 Axios.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -38,43 +35,41 @@ Axios.interceptors.response.use(
 );
 
 class HttpClient {
-  // put(arg0: string, payload: { title: string; description: string; roles: string[]; }) {
-  //   throw new Error("Method not implemented.");
-  // }
+  update(arg0: string, data: any) {
+    throw new Error("Method not implemented.");
+  }
+  hr: any;
+  async get<T = any>(url: string, params?: any): Promise<T> {
+    const response = await Axios.get<T>(url,{
+      params,
+    } );
+    return response.data;
+  }
+
+  async post<T = any>(url: string, data: any): Promise<T> {
+    const response = await Axios.post<T>(url, data);
+    return response.data;
+  }
+
   async put<T = any>(url: string, data: any, params?: any): Promise<T> {
     const response = await Axios.put<T>(url, data, { params });
     return response.data;
   }
 
-  async get<T = any>(url: string, params?: any): Promise<AxiosResponse<T>> {
-    const response = await Axios.get<T>(url, {
-      params,
-    });
-    return response;
-  }
-
-  async post<T = any>(url: string, data: any): Promise<AxiosResponse<T>> {
-    const response = await Axios.post<T>(url, data);
-    return response;
-  }
-
-  async update<T = any>(url: string, data: any, params?: any): Promise<T> {
-    const response = await Axios.put<T>(url, data, {
-      params,
-    });
+  async patch<T = any>(url: string, data: any): Promise<T> {
+    const response = await Axios.patch<T>(url, data);
     return response.data;
   }
 
-  async delete<T = any>(url: string): Promise<T> {
+  async delete<T = any>(url: string, data: any): Promise<T> {
     const response = await Axios.delete<T>(url);
     return response.data;
   }
 
   async fileGet(url: string): Promise<AxiosResponse<Blob>> {
-    const response = await Axios.get(url, {
+    return Axios.get(url, {
       responseType: "blob",
     });
-    return response;
   }
 }
 

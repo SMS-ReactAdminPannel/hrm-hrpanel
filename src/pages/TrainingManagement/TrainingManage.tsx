@@ -1,6 +1,5 @@
 import type React from "react"
 import { useState, useCallback, useMemo } from "react"
-import { FONTS } from "../../components/TraningManagement/Fonts"  
 import type { TrainingProgram, NewProgramFormData } from "../../components/TraningManagement/Traning"
 import { useTrainingData } from "../../components/TraningManagement/TraningData"
 import { SearchFilterBar } from "../../components/TraningManagement/SearchFilter"
@@ -8,6 +7,7 @@ import { ProgramCard } from "../../components/TraningManagement/ProgramCard"
 import { ProgramHeader } from "../../components/TraningManagement/ProgramHeader"
 import { EmployeeTable } from "../../components/TraningManagement/EmployeeTable"
 import { NewProgramForm } from "../../components/TraningManagement/Form"
+import { FONTS } from "../../constants/uiConstants"
 
 const TrainingDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("programs")
@@ -91,21 +91,12 @@ const TrainingDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
+       {/* Header */}
       <header className="border-gray-200">
-        <div className="max-w-full px-3">
-          <div className="flex justify-between items-center h-16">
+        <div className="max-w-full px-2">
+          <div className="flex justify-between items-center ">
             <div className="flex items-center space-x-4">
-              <h1
-                className="font-bold"
-                style={{
-                  fontFamily: FONTS.header.fontFamily,
-                  fontSize: FONTS.header.fontSize,
-                  fontWeight: FONTS.header.fontWeight,
-                }}
-              >
-                Training Management
-              </h1>
+              
               {selectedProgram && (
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <span>→</span>
@@ -115,10 +106,9 @@ const TrainingDashboard: React.FC = () => {
             </div>
           </div>
         </div>
-      </header>
-
+      </header> 
       {/* Main Content */}
-      <main className="max-w-full py-8">
+      <main className="max-w-full py-1">
         {activeTab === "programs" && (
           <div className="space-y-8">
             <SearchFilterBar
@@ -158,6 +148,7 @@ const TrainingDashboard: React.FC = () => {
       )}
     </div>
   )
+  
 }
 
 export default TrainingDashboard

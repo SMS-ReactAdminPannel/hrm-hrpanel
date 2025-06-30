@@ -1,185 +1,230 @@
-
-import { Dialog } from "@headlessui/react"
+"use client"
+import { useState, useEffect, useRef } from "react"
 import { X } from "lucide-react"
-import { useState } from "react"
 
-export default function EditCandidateModal({ candidate, onClose }: { candidate: any; onClose: () => void }) {
+export default function EditCandidateModal({ 
+  candidate, 
+  onClose,
+  onSave
+}: { 
+  candidate: any; 
+  onClose: () => void;
+  onSave: (data: any) => void;
+}) {
   const [formData, setFormData] = useState({
-    name: candidate.name || "",
-    email: candidate.email || "",
-    phone: candidate.phone || "",
-    dob: candidate.dob || "",
-    gender: candidate.gender || "",
-    address: candidate.address || "",
-    state: candidate.state || "",
-    portfolio: candidate.portfolio || "",
-    department: candidate.department || "",
-    stage: candidate.stage || "",
-    job: candidate.job || "",
-    referral: candidate.referral || "",
-  })
+    name: "",
+    email: "",
+    phone: "",
+    position: "",
+    location: "",
+    education: "",
+    experience: "",
+    skills: [] as string[],
+    status: ""
+  });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const modalRef = useRef<HTMLDivElement>(null)
+  const [isAnimating, setIsAnimating] = useState(true)
+
+  useEffect(() => {
+    if (candidate?.details) {
+      setFormData({
+        name: candidate.details.name || "",
+        email: candidate.details.email || "",
+        phone: candidate.details.phonenumber || "",
+        position: candidate.details.position || "",
+        location: candidate.details.location || "",
+        education: candidate.details.education || "",
+        experience: candidate.details.experience || "",
+        skills: candidate.details.skills || [],
+        status: candidate.details.status || ""
+      });
+    }
+  }, [candidate]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        handleClose()
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSkillsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const skills = e.target.value.split(',').map(skill => skill.trim());
+    setFormData({ ...formData, skills });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Updated Candidate Data:", formData)
-    onClose()
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  const handleClose = () => {
+    setIsAnimating(false)
+    setTimeout(() => {
+      onClose()
+    }, 300)
   }
 
   return (
-    <Dialog open={true} onClose={onClose} className="fixed z-50 inset-0 overflow-y-auto
-    backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-70 ">
-      <div className="flex items-center justify-center min-h-screen px-4 border border-white">
-        <Dialog.Panel className="rounded-md shadow w-full max-w-3xl p-6 relative">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-700  "
-          >
-            <X className="w-5 h-5 hover:text-white" />
-          </button>
-          <Dialog.Title className="text-xl font-semibold mb-6">Edit Candidate Details</Dialog.Title>
+    <div 
+      className={`fixed inset-0 bg-black flex items-end justify-center z-50 transition-all duration-500 ${
+        isAnimating ? 'bg-opacity-50' : 'bg-opacity-0'
+      }`}
+    >
+      {/* Floating Close Button */}
+      <button 
+        onClick={handleClose} 
+        className={`left-8 mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-500 shadow-lg z-10 ${
+          isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}
+      >
+        <X className="w-6 pr-1 text-white" />
+      </button>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+      {/* Modal Content */}
+      <div 
+        ref={modalRef} 
+        className={`bg-white rounded-t-3xl shadow-2xl w-[1100px] h-[750px] overflow-hidden transform transition-all duration-500 ease-out ${
+          isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
+        {/* Header */}
+        <div className="relative ml-4 mt-3 bg-white px-3 py-4 border-b-1 border-blue-300">
+          <h3 className="text-xl font-bold text-gray-900">Edit Candidate Details</h3>
+        </div>
+
+        {/* Form Content */}
+        <div className="px-6 py-4 max-h-[70vh] overflow-y-auto">
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 md:grid-cols-2 gap-6 p-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
               <input
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border border-gray- rounded-xl px-4 py-3 text-sm"
                 required
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Phone</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
               <input
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Position</label>
               <input
-                name="dob"
-                type="date"
-                value={formData.dob}
+                name="position"
+                value={formData.position}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Gender</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
               <input
-                name="gender"
-                value={formData.gender}
+                name="location"
+                value={formData.location}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-  <label className="block text-sm font-medium text-gray-700">Address</label>
-  <textarea
-    name="address"
-    value={formData.address}
-    onChange={handleChange}
-    rows={3}
-    className="w-full mt-1 border rounded px-3 py-2 resize-none"
-  />
-</div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">State</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Education</label>
               <input
-                name="state"
-                value={formData.state}
+                name="education"
+                value={formData.education}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Portfolio URL</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Experience</label>
               <input
-                name="portfolio"
-                type="url"
-                value={formData.portfolio}
+                name="experience"
+                value={formData.experience}
                 onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Department</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Skills (comma separated)</label>
               <input
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
+                name="skills"
+                value={formData.skills.join(', ')}
+                onChange={handleSkillsChange}
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               />
             </div>
+            
             <div>
-              <label className="block text-sm font-medium text-gray-700">Current Stage</label>
-              <input
-                name="stage"
-                value={formData.stage}
-                onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Job Position</label>
-              <input
-                name="job"
-                value={formData.job}
-                onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Referral</label>
-              <input
-                name="referral"
-                value={formData.referral}
-                onChange={handleChange}
-                className="w-full mt-1 border rounded px-3 py-2"
-              />
-            </div>
-
-            <div className="col-span-2 mt-6 flex justify-end">
-              <button
-                type="button"
-                onClick={onClose}
-                className="mr-4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md"
+              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <select
+                name="status"
+                value={formData.status}
+                onChange={(e) => setFormData({...formData, status: e.target.value})}
+                className="w-full border rounded-xl px-4 py-3 text-sm"
               >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-[#006666] text-white px-4 py-2 rounded-md"
-              >
-                Save Changes
-              </button>
-            </div>
+                <option value="under review">Under Review</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="interview schedules">Interview Scheduled</option>
+              </select>
             </div>
           </form>
-        </Dialog.Panel>
+        </div>
+
+        {/* Footer */}
+        <div className="px-2 pt-1 py-8">
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="px-6 py-3 text-sm text-gray-600 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="px-6 py-3 text-sm text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors font-medium"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
       </div>
-    </Dialog>
-  )
+    </div>
+  );
 }

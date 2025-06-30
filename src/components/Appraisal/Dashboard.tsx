@@ -2,9 +2,13 @@ import type React from "react"
 import { User, Calendar, Star, TrendingUp, Plus, Eye } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
+import { FONTS } from "../../constants/uiConstants"
+import  { useState,useEffect } from 'react';
+import {  getAllAppraisals } from "../../features/Appraisal/service"
+
 
 interface Employee {
-  _id: string
+  // id: string
   Employee: string
   Position: string
   Rating: number
@@ -12,6 +16,100 @@ interface Employee {
   department: string
   ProjectPeriod: string
 }
+// const employees: Employee[] = [
+//   {
+//     id: '1',
+//     Employee: 'Harry',
+//     Position: 'Software Engineer',
+//     Rating: 4.5,
+//     Status: 'Active',
+//     department: 'Engineering',
+//     ProjectPeriod: 'Jan 2023 - Dec 2023',
+//   },
+//   {
+//     id: '2',
+//     Employee: 'james',
+//     Position: 'Product Manager',
+//     Rating: 2,
+//     Status: 'On Leave',
+//     department: 'Product',
+//     ProjectPeriod: 'Mar 2023 - Mar 2024',
+//   },
+//   {
+//     id: '3',
+//     Employee: ' Smith',
+//     Position: 'UI/UX Designer',
+//     Rating: 3,
+//     Status: 'Active',
+//     department: 'Design',
+//     ProjectPeriod: 'Feb 2024 - Jan 2025',
+//   },
+//   {
+//     id: '4',
+//     Employee: 'Michael',
+//     Position: 'QA Engineer',
+//     Rating: 4,
+//     Status: 'Inactive',
+//     department: 'Quality Assurance',
+//     ProjectPeriod: 'Jul 2022 - Jun 2023',
+//   },
+//   {
+//     id: '5',
+//     Employee: 'John',
+//     Position: 'DevOps Engineer',
+//     Rating: 5,
+//     Status: 'Active',
+//     department: 'Infrastructure',
+//     ProjectPeriod: 'Aug 2023 - Jul 2024',
+//   },
+//   {
+//     id: '6',
+//     Employee: 'Harry',
+//     Position: 'Software Engineer',
+//     Rating: 4.5,
+//     Status: 'Active',
+//     department: 'Engineering',
+//     ProjectPeriod: 'Jan 2023 - Dec 2023',
+//   },
+//   {
+//     id: '7',
+//     Employee: 'james',
+//     Position: 'Product Manager',
+//     Rating: 2,
+//     Status: 'On Leave',
+//     department: 'Product',
+//     ProjectPeriod: 'Mar 2023 - Mar 2024',
+//   },
+//   {
+//     id: '8',
+//     Employee: ' Smith',
+//     Position: 'UI/UX Designer',
+//     Rating: 3,
+//     Status: 'Active',
+//     department: 'Design',
+//     ProjectPeriod: 'Feb 2024 - Jan 2025',
+//   },
+//   {
+//     id: '9',
+//     Employee: 'Michael',
+//     Position: 'QA Engineer',
+//     Rating: 4,
+//     Status: 'Inactive',
+//     department: 'Quality Assurance',
+//     ProjectPeriod: 'Jul 2022 - Jun 2023',
+//   },
+//   {
+//     id: '10',
+//     Employee: 'John',
+//     Position: 'DevOps Engineer',
+//     Rating: 5,
+//     Status: 'Active',
+//     department: 'Infrastructure',
+//     ProjectPeriod: 'Aug 2023 - Jul 2024',
+//   },
+
+// ];
+
 
 interface DashboardProps {
   appraisals: Employee[]
@@ -23,21 +121,37 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
-  appraisals,
+  // appraisals,
   searchTerm,
   onSearchChange,
   onViewEmployee,
   onNewAppraisal,
   getStatusColor,
 }) => {
+  const [filteredappraisals, setFilteredAppraisals] = useState<Employee[]>([]);
+
+  const fetchAppraisals = async () => {
+    try {
+      const response = await getAllAppraisals(); 
+      const visitors = response?.data ?? [];
+      console.log("Fetched appraisals:", visitors.data);
+      setFilteredAppraisals(visitors || []);
+    } catch (error) {
+      console.error("Error fetching appraisals:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppraisals();
+  }, []);
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  w-full  ">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Total Employees</p>
+              <p style={FONTS.statusCardHeader}  className="text-sm font-medium text-gray-600">Total Employees</p>
               <p className="text-2xl font-bold text-gray-900">156</p>
             </div>
             <div className="lg:p-2 bg-blue-100 rounded-md">
@@ -49,7 +163,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
+              <p style={FONTS.statusCardHeader} className="text-sm font-medium text-gray-600">Pending Reviews</p>
               <p className="text-2xl font-bold text-gray-900">23</p>
             </div>
             <div className="lg:p-2 bg-red-100 rounded-lg">
@@ -61,7 +175,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+              <p style={FONTS.statusCardHeader} className="text-sm font-medium text-gray-600">Avg Rating</p>
               <p className="text-2xl font-bold text-gray-900">4.3</p>
             </div>
             <div className="lg:p-2 bg-yellow-100 rounded-lg">
@@ -73,7 +187,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="bg-[#eff4f5] rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Completed</p>
+              <p style={FONTS.statusCardHeader} className="text-sm font-medium text-gray-600">Completed</p>
               <p className="text-2xl font-bold text-gray-900">89%</p>
             </div>
             <div className="lg:p-2 bg-green-100 rounded-lg">
@@ -84,10 +198,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Employee List with Search */}
-      <div className="bg-[#eff4f5] rounded-md shadow-sm border border-gray-200">
-        <div className="p-4 md:p-6 border-b border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
+      <div className="bg-[#eff4f5] rounded-md shadow-sm  bg-transparent ">
+        <div className="py-4 border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
           {/* Search Input */}
-          <div className="w-full md:max-w-md">
+          <div className="w-full md:max-w-md" style={FONTS.tableBody}>
             <SearchInput
               value={searchTerm}
               onChange={onSearchChange}
@@ -96,39 +210,39 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* New Appraisal Button */}
-          <div className="w-100 md:w-auto">
+          <div className="w-100  ">
             <button
               onClick={onNewAppraisal}
-              className="bg-[#006666] text-white px-4 py-2 rounded-md hover:bg-[#005555] transition-colors flex items-center gap-2 w-full md:w-auto justify-center md:justify-start"
+              className="bg-[#3a357f] text-white px-2 py-2 rounded-md hover:bg-[#3a357f] transition-colors flex justify-end gap-2  "
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="" />
               New Appraisal
             </button>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[#006666]">
+          <table className="w-full ">
+            <thead className="bg-[#3a357f]">
               <tr>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Employee</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Position</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Rating</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Status</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Project period</th>
-                <th className="px-6 py-3 text-left text-md font-medium text-white">Actions</th>
+                <th className="px-6 py-3 text-left text-md  text-white">Employee</th>
+                <th className="px-6 py-3 text-left text-md  text-white">Position</th>
+                <th className="px-6 py-3 text-left text-md text-white">Rating</th>
+                <th className="px-6 py-3 text-left text-md  text-white">Status</th>
+                <th className="px-6 py-3 text-left text-md text-white">Project period</th>
+                <th className="px-6 py-3 text-left text-md  text-white">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-[#eff4f5] divide-y divide-gray-200">
-              {appraisals.map((employee) => (
-                <tr key={employee._id}>
+            <tbody style={FONTS.tableBody} className="bg-[#eff4f5] divide-y divide-gray-200  ">
+              { filteredappraisals.map((employee) => (
+                <tr key={employee.Employee} className="hover:bg-gray-100 transition-colors h-[10%]">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">{employee.Employee}</div>
-                      <div className="text-sm text-gray-500">{employee.department}</div>
+                      <div className="text-sm font-medium text-gray-900">{employee.Employee || "no data"}</div>
+                      <div className="text-sm text-gray-500">{employee.department || "no data"}</div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.Position}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.Position || "no data"}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       <StarRating rating={employee.Rating} readonly />
@@ -157,9 +271,9 @@ const Dashboard: React.FC<DashboardProps> = ({
             </tbody>
           </table>
 
-          {appraisals.length === 0 && (
+          { filteredappraisals.length === 0 && (
             <div className="text-center py-8">
-              <div className="text-gray-500">No employees found matching your search</div>
+              <div style={FONTS.paragraph} className="text-gray-900">No employees found matching your search</div>
             </div>
           )}
         </div>

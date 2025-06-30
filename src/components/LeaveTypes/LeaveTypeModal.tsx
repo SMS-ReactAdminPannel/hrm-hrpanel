@@ -1,5 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Card, NewCard } from './types';
+import { FONTS } from '../../constants/uiConstants';
+import { X } from 'lucide-react';
+
+
 
 interface LeaveTypeModalProps {
   isOpen: boolean;
@@ -10,124 +15,184 @@ interface LeaveTypeModalProps {
   editingCard: Card | null;
 }
 
+const modalVariants = {
+  hidden: { y: 100, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: 'spring', stiffness: 80, damping: 20 },
+  },
+  exit: { y: 100, opacity: 0 },
+};
+
 export default function LeaveTypeModal({
   isOpen,
   onClose,
   onSubmit,
   newCard,
   setNewCard,
-  editingCard
+  editingCard,
 }: LeaveTypeModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div
-        ref={modalRef}
-        className="bg-clip-padding backdrop-filter border rounded-md backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-2xl w-[400px]"
-      >
-        <div className="p-4 px-6">
-          <div className="flex justify-between items-center border-b pb-4 mb-2">
-            <h3 className="text-xl font-semibold text-white">
-              {editingCard ? "Edit Leave Type" : "Create New Leave Type"}
-            </h3>
-            <button
-              onClick={onClose}
-              className="text-white rounded hover:text-gray-600 transition"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex pl-[15%] items-center justify-center z-50">
+        <div className=" h-[6%] relative -top-[32%]">
+            <button onClick={onClose} className="p-1 rounded-l-full transition bg-[#3a357f]">
+             <X className="text-white  ml-1  " />
+        </button>
+  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white">Title<span className="text-red-500">*</span></label>
-              <input
-                type="text"
-                className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
-                value={newCard.title}
-                onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
-                placeholder="Enter leave type title"
-                required
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white">Description<span className="text-red-500">*</span></label>
-              <input
-                type="text"
-                className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
-                placeholder="Description"
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white">Total Days<span className="text-red-500">*</span></label>
-              <input
-                type="number"
-                className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition"
-                value={newCard.totalDays}
-                onChange={(e) => setNewCard({ ...newCard, totalDays: e.target.value })}
-                placeholder="Enter total days"
-                required
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-white">Is Paid</label>
-              <select
-                className="p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006666] transition text-gray-700"
-                value={newCard.isPaid}
-                onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
+      <motion.div
+      ref={modalRef}
+      variants={modalVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="relative bg-white rounded-2xl mt-[4%] w-[90%] h-[84%] shadow-2xl overflow-y-auto "
+    >
+      <div className="">
+        <div className="pl-[5%] pr-[5%] pt-5 pb-5 h-full w-full">
+          
+          {/* <div className="bg-white rounded-2xl shadow-xl border p-8 w-full "> */}
+            <div className="flex  rounded border-b ">
+              <h3
+                className="text-xl font-semibold !text-black mt-4  mb-7"
+                style={{ ...FONTS.header }}
               >
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
-                <option value="Partial">Partial</option>
-              </select>
+                {editingCard ? 'Edit Leave Type' : 'Create New Leave Type'}
+              </h3>
             </div>
-          </div>
 
-          <div className="flex justify-end gap-3 mt-2">
-            <button
-              className="px-5 border border-gray-300 text-white rounded-lg hover:bg-gray-100 transition"
-              onClick={onClose}
-              type="button"
-            >
-              Cancel
-            </button>
-            <button
-              className={`px-5 py-1 rounded-lg text-white transition ${!newCard.title || !newCard.totalDays
-                ? 'bg-[#006666] opacity-50 cursor-not-allowed'
-                : 'bg-[#006666] hover:bg-[#004d4d]'
+            <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-4 ">
+               
+              <div className="flex items-center gap-2 p-3 ">
+                  <label
+                    className="text-md font-medium !text-black whitespace-nowrap"
+                    style={{ ...FONTS.paragraph }}
+                  >
+                    Title<span className="text-red-500"> *</span>
+                    <span className='ml-10'>  :</span>
+                  </label>
+                  <div className="flex flex-col w-full">
+                    <input
+                      type="text"
+                      className="p-1 w-[90%] rounded-xl  focus:outline-none transition"
+                      placeholder="Title"
+                      value={newCard.title}
+                      onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
+                    />
+                    <hr className="border border-gray-400 mt-1  w-[91%]" />
+                  </div>
+                </div>
+
+              <div className="flex items-center gap-2 p-3">
+                  <label
+                    className="text-md font-medium !text-black whitespace-nowrap"
+                    style={{ ...FONTS.paragraph }}
+                  >
+                    Description<span className="text-red-500"> *</span>
+                    <span className='ml-1'>  :</span>
+                  </label>
+                  <div className="flex flex-col w-full">
+                    <input
+                      type="text"
+                      className="p-1 w-[90%] rounded-xl focus:outline-none transition"
+                      placeholder="Description"
+                      value={newCard.description}
+                      onChange={(e) => setNewCard({ ...newCard, description: e.target.value })}
+                    />
+                    <hr className="border border-gray-400 mt-1 w-[91%]" />
+                  </div>
+                </div>
+
+
+              <div className="flex items-center gap-2 p-3">
+                  <label
+                    className="text-md font-medium !text-black whitespace-nowrap"
+                    style={{ ...FONTS.paragraph }} 
+                  >
+                    Total Days<span className="text-red-500"> *</span>
+                    <span className='ml-1'>  :</span>
+                  </label>
+                  <div className="flex flex-col w-full">
+                    <input
+                      type="text"
+                      className="p-1 w-[90%] rounded-xl focus:outline-none transition"
+                      placeholder="Total Days"
+                      value={newCard.max_days}
+                      onChange={(e) => setNewCard({ ...newCard, max_days: e.target.value })}
+                    />
+                    <hr className="border border-gray-400 mt-1 w-[92%]" />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 p-3">
+                  <label
+                    className="text-md font-medium !text-black whitespace-nowrap"
+                    style={{ ...FONTS.paragraph }}
+                  >
+                    Is Paid<span className="text-red-500"> *</span>
+                    <span className='ml-8 '>  :</span>
+                  </label>
+
+                  <div className="flex flex-col w-full">
+                    <select
+                      className="p-1 w-[90%] rounded-xl   focus:outline-none transition"
+                      value={newCard.isPaid}
+                      onChange={(e) => setNewCard({ ...newCard, isPaid: e.target.value })}
+                    >
+                      <option value="Paid">Paid</option>
+                      <option value="Unpaid">Unpaid</option>
+                      <option value="Partial">Partial</option>
+                    </select>
+                    <hr className="border border-gray-400 mt-1 ml-1 w-[90%]" />
+                  </div>
+                </div>
+
+            </div>
+
+            
+            <div className="flex  gap-4  items-start justify-end mt-7">
+              <button
+                className="w-[100px] h-[35px] border border-gray-900 !text-black rounded-2xl hover:bg-gray-500 hover:!text-white transition"
+                onClick={onClose}
+                type="button"
+                style={{ ...FONTS.button }}
+              >
+                Cancel
+              </button>
+              <button
+                className={`w-[100px] h-[35px] rounded-2xl text-white transition ${
+                  !newCard.title || !newCard.max_days
+                    ? 'bg-[#3a357f] opacity-50 cursor-not-allowed'
+                    : 'bg-[#3a357f] hover:bg-[#3a357f]'
                 }`}
-              onClick={onSubmit}
-              type="button"
-              disabled={!newCard.title || !newCard.totalDays}
+                onClick={onSubmit}
+                type="button"
+                disabled={!newCard.title || !newCard.max_days}
+                style={{ ...FONTS.button }}
+              >
+                {editingCard ? 'Update' : 'Create'}
+              </button>
+            </div>
+
+            <p
+              className="!text-gray-800 mt-[10%] ml-[17%] text-xl"
+              style={{ ...FONTS.paragraph }}
             >
-              {editingCard ? "Update" : "Create"}
-            </button>
-          </div>
+              {editingCard? 'NOTE : Please ensure all the edited fields are filled out correctly before submitting.':
+              'NOTE : Please ensure all the data is filled out correctly before submitting.'}
+            </p>
+          {/* </div> */}
         </div>
       </div>
-    </div>
-  );
+    </motion.div>
+
+  
+</div>
+);
 }
+

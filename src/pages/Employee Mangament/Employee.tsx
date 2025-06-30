@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { Users, Clock, UserX } from "lucide-react"
-import type { Employee, Department, WorkModeData } from "../../components/Employee/Employee"
+import type { Employee, Department, WorkModeData,  } from "../../components/Employee/Employee"
 import { EmployeeStatsCard } from "../../components/Employee/EmployeeCards"
 import { WorkModeStats } from "../../components/Employee/WorkModeStats"
 import { SearchFilterBar } from "../../components/Employee/SearchFilter"
 import { EmployeeTable } from "../../components/Employee/EmployeeTable"
 import { AddEmployeeModal } from "../../components/Employee/EmployeeModel"
 import { Pagination } from "../../components/Employee/Pagination"
-import { FONTS } from "../../constants/uiConstants"
+import {FONTS} from "../../constants/uiConstants"
+
 
 const EmployeeManagement = () => {
   const initialEmployees: Employee[] = [
@@ -30,6 +31,7 @@ const EmployeeManagement = () => {
       jobTitle: "Manager",
       hireDate: "2019-08-22",
       employmentType: "Full-time",
+      
     },
     {
       id: "EMP003",
@@ -122,8 +124,9 @@ const EmployeeManagement = () => {
   const [filterOpen, setFilterOpen] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState<Department | "">("")
   const [showAddForm, setShowAddForm] = useState(false)
+  
 
-  const itemsPerPage = 5
+  const itemsPerPage = 10
 
   const workModeData: WorkModeData[] = [
     { name: "Remote", value: 4 },
@@ -144,7 +147,7 @@ const EmployeeManagement = () => {
       const matchesSearch = Object.values(employee).some(
         (value) => typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase()),
       )
-      const matchesDepartment = selectedDepartment ? employee.department === selectedDepartment : true
+      const matchesDepartment = selectedDepartment ? employee.department ===selectedDepartment : true
       return matchesSearch && matchesDepartment
     })
 
@@ -186,11 +189,9 @@ const EmployeeManagement = () => {
   const handleAddEmployee = (newEmployee: Employee) => {
     setEmployees([...employees, newEmployee])
   }
-
-  const handleEditEmployee = (employee: Employee) => {
-    console.log("Edit employee:", employee)
-    // Implement edit functionality
-  }
+  
+  
+  
 
   const handleDeleteEmployee = (employeeId: string) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
@@ -198,21 +199,26 @@ const EmployeeManagement = () => {
     }
   }
 
+  
+ 
+
   return (
     <div className="container mx-auto px-4 py-2">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-black" style={{...FONTS.header}}>Employee </h1>
+        <h1 className="text-3xl font-bold text-white"
+        style={{...FONTS.header}}>Employee Management</h1>
         <button
           onClick={() => setShowAddForm(true)}
-          className="!bg-[#006666] hover:!bg-teal-700 text-white px-4 py-2 rounded-md shadow-md"
+          className="bg-[#4c469f] hover:!bg-white-700 text-white px-4 py-2 rounded-md shadow-md"
           style={{...FONTS.button}}
         >
           + Add Employee
         </button>
       </div>
+      {}
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
         <EmployeeStatsCard
           title="Total Employees"
           value={employees.length}
@@ -258,7 +264,7 @@ const EmployeeManagement = () => {
         employees={paginatedEmployees}
         sortConfig={sortConfig}
         onSort={requestSort}
-        onEdit={handleEditEmployee}
+        // onEdit={}
         onDelete={handleDeleteEmployee}
       />
 
@@ -267,9 +273,11 @@ const EmployeeManagement = () => {
 
       {/* Add Employee Modal */}
       <AddEmployeeModal isOpen={showAddForm} onClose={() => setShowAddForm(false)} onAdd={handleAddEmployee} />
+
+      
+
     </div>
   )
 }
 
 export default EmployeeManagement
-

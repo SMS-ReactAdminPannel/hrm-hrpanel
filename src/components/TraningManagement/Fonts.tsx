@@ -1,3 +1,6 @@
+import { color } from "framer-motion";
+import { TableBody } from "../ui/table";
+
 export const FONTS = {
   header: {
     fontFamily: "Inter, system-ui, sans-serif",

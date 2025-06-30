@@ -1,46 +1,87 @@
-// import React from "react";
+import  { useState } from "react";
 import StackBar from "./Charts/StackBar";
 import { CardForProcessBar } from "./Charts/CardsForProcessBar";
 
-
-
-//icon
-
+// Icons
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { FaExclamation } from "react-icons/fa";
 import { FONTS } from "../../../constants/uiConstants";
 
-const 
-AttentDashboard = () => {
+const AttentDashboard = () => {
+  const [selectedMonth, setSelectedMonth] = useState("January");
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
+
   return (
-    <div className="flex bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+    <div className="flex  bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 ">
       {/* Main content */}
       <div className="flex-1 ">
         {/* Top Content */}
-        <div className="flex justify-between  p-4">
+        <div className="flex justify-between p-4">
           <div className="flex-1 flex flex-col">
             <div className="mb-14">
-              <h1 className="text-xl text-black font-semibold mb-3"
-              style={{fontSize:FONTS.header2.fontSize}}>Attendance</h1>
-              <p className=" text-sm "
-                style={{ fontSize: FONTS.header3.fontSize }}>
-                Weekly Attendance Overview
+              <h1
+                className="text-xl text-black font-semibold mb-3"
+                style={{...FONTS.header }}
+              >
+                Attendance
+              </h1>
+              <p
+                className="text-sm !text-white"
+                style={{ fontSize: FONTS.header3.fontSize }}
+              >
+                 Overview
               </p>
             </div>
             <div>
-              <p className="text-md text-black"
-              style={{fontSize:FONTS.paragraph.fontSize}}>Total Employees</p>
-              <p className="text-lg font-semibold">234k</p>
+              <p
+                className="text-md text-black"
+                style={{...FONTS.subParagraph}}
+              >
+                Total Employees
+              </p>
+              <p className="text-lg font-semibold" style={{...FONTS.header3}}>234k</p>
             </div>
           </div>
-          <div className="flex-1 ">
-            <StackBar />
+
+          {/* Filters and Graph */}
+          <div className="flex-1">
+            {/* Filters above the graph */}
+            <div style={FONTS.subParagraph} className="flex gap-1 mb-2 justify-end">
+  <select
+    value={selectedMonth}
+    onChange={(e) => setSelectedMonth(e.target.value)}
+    className="px-2 py-1 h-6 w-18 text-xs  bg-transparent text-black text-right focus:outline-none"
+  >
+    {[
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December",
+    ].map((month) => (
+      <option key={month} value={month}>
+        {month}
+      </option>
+    ))}
+  </select>
+
+  <select
+    value={selectedDepartment}
+    onChange={(e) => setSelectedDepartment(e.target.value)}
+    className="px-2 py-1 h-6  w-18 text-xs  bg-transparent text-black text-right focus:outline-none "
+  >
+    <option value="All">Department</option>
+    <option value="HR">HR</option>
+    <option value="IT">IT</option>
+    <option value="Finance">Finance</option>
+    <option value="Operations">Operations</option>
+  </select>
+</div>
+
+            <StackBar month={selectedMonth} department={selectedDepartment} />
           </div>
         </div>
 
         {/* Bottom Card */}
-        <div className="flex justify-around p-4 ">
+        <div className="flex justify-around p-4">
           <CardForProcessBar
             icon={<RxCross2 />}
             title="Absent"

@@ -109,7 +109,7 @@ export default function CandidatesPage() {
         const res: any = await getAllcandidates(); 
         console.log("getAllcandidates raw →", res);
         // controller sends { success: true, data: [...] }
-        setCandidates(res?.data?.data ?? []);
+        setCandidates(res?.data ?? []);
       } catch (err) {
         console.error("getAllcandidates failed:", err);
       }
@@ -168,7 +168,7 @@ export default function CandidatesPage() {
           No candidates found.
         </p>
       ) : (
-        <div className="grid gap-8 mx-2">
+        <div className="grid grid-cols-2 gap-8 mx-2">
           {filtered.map((cand) => {
             const d = cand.details ?? {};
             return (
@@ -231,7 +231,7 @@ export default function CandidatesPage() {
           
                 <CardContent>
                 
-                  <div className="flex flex-wrap gap-6 mb-4">
+                  <div className="flex flex-wrap grid grid-cols-2 gap-6 mb-4">
                     {d.experience && (
                       <Info label="Experience" value={d.experience} />
                     )}

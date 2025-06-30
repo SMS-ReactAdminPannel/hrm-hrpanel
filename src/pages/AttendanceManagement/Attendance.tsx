@@ -6,6 +6,7 @@ import { IoIosPeople } from "react-icons/io"
 import { MdManageHistory, MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
 import { FONTS } from "../../constants/uiConstants"
+import { getDailyAttendance } from "../../features/Attendance/service"
 
 
 const Attendance: React.FC = () => {
@@ -17,29 +18,42 @@ const Attendance: React.FC = () => {
     CheckIn: string
     CheckOut: string
     Duration: string
+    TotalCompletedProject?: string
+    TotalWorkedDuration?: string
+    TotalBreakTime?: string
+    TotalLeaveDays?: string
+
   }
 
   // const [value, setValue] = useState("")
-  const [selectedDate, setSelectedDate] = useState("")
+  const [selectedDate, setSelectedDate] = useState("2025-06-11")
 
   const details = [
     {
-      ID: "JD01",
-      Name: "Hema",
-      Designation: "Junior Developer",
+      ID: "EMP001",
+      Name: "Alice Johnson",
+      Designation: "Manager",
       Status: "Present",
       CheckIn: "9:30 am",
       CheckOut: "6:30pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
-      ID: "D02",
-      Name: "Priya",
-      Designation: "Designer",
+      ID: "EMP002",
+      Name: "Bob Smith",
+      Designation: "Developer",
       Status: "Absent",
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "TL03",
@@ -49,6 +63,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "SD04",
@@ -58,6 +76,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "M05",
@@ -67,6 +89,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "SD06",
@@ -76,6 +102,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "JD07",
@@ -85,6 +115,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "M08",
@@ -94,6 +128,10 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
     {
       ID: "A09",
@@ -103,8 +141,17 @@ const Attendance: React.FC = () => {
       CheckIn: "9:30 am",
       CheckOut: "6:30 pm",
       Duration: "9h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
-    { ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h" },
+    {
+      ID: "A10", Name: "Kook", Designation: "Admin", Status: "Absent", CheckIn: "-", CheckOut: "-", Duration: "0h", TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
+    },
     {
       ID: "A11",
       Name: "Kanna",
@@ -113,6 +160,10 @@ const Attendance: React.FC = () => {
       CheckIn: "-",
       CheckOut: "-",
       Duration: "0h",
+      TotalCompletedProject: "2",
+      TotalWorkedDuration: "215h 40m",
+      TotalBreakTime: "24h",
+      TotalLeaveDays: "5",
     },
   ]
   const [searchQuery, setSearchQuery] = useState("")
@@ -126,7 +177,7 @@ const Attendance: React.FC = () => {
     { name: "Absent", value: absentCount },
   ]
   const COLORS = ['#7e79c2', 'rgba(94, 89, 169, 0.45)'];
- 
+
 
   // Designation filter
   const [designationFilter, setDesignationFilter] = useState("")
@@ -168,7 +219,7 @@ const Attendance: React.FC = () => {
   // Employee component
   // const [selectedEmployee, setSelectedEmployee] = useState<EmployeeDetail | null>(null)
 
-  const handleClick = (employee: EmployeeDetail) => {
+  const handleClick = (employee: DailyAttendanceItem) => {
     navigate("/attendance-id", { state: { employee } })
   }
 
@@ -195,6 +246,48 @@ const Attendance: React.FC = () => {
     },
   ]
 
+
+
+  
+  
+// Define a type for daily attendance items (adjust fields as needed)
+type DailyAttendanceItem = {
+  ID: string;
+  employee_id: {
+    first_name: string;
+    role: string;
+  };
+  status: string;
+  Status?: string;
+  clockIn: string;
+  clockOut: string;
+  totalHours: string;
+};
+
+const [dailyAttendance, setdailyAttendance] = useState<DailyAttendanceItem[]>([]);
+const fetchDailyAttendance = async () => {
+  try {
+    const response: any = await getDailyAttendance({ date: selectedDate });
+
+    const attendanceData = response?.Data ?? [];
+
+    setdailyAttendance(attendanceData);
+
+    console.log("Daily Attendance fetched:", attendanceData); // ✅ this is correct
+  } catch (error) {
+    console.error("Error fetching AttendanceData:", error);
+  }
+};
+
+    
+      useEffect(() => {
+        fetchDailyAttendance();
+      }, [selectedDate]);
+
+
+console.log(dailyAttendance,"sdfghjk")
+
+
   return (
     <div className="space-y-6 min-h-screen w-full  p-1">
       <div>
@@ -207,7 +300,7 @@ const Attendance: React.FC = () => {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {/* Employees Card */}
         <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
-        
+
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">No. of Employees</p>
             <p className="text-2xl font-semibold text-gray-900">{details.length}</p>
@@ -217,10 +310,21 @@ const Attendance: React.FC = () => {
           </div>
         </div>
 
+           <div className="bg-[#eff4f5] w-full max-w-md rounded-lg p-4 pt-5 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 mx-auto">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm  !text-gray-500 mb-1" style={{...FONTS.paragraph}}>No of Employees</p>
+          <p className={`!text-4xl !font-semibold mt-3 !text-blue-800`} style={{...FONTS.paragraph}}>{details.length}</p>
+          <p className="text-xs !text-gray-400 mt-5" style={{...FONTS.description}}>all Employees Counting</p>
+        </div>
+            <IoIosPeople className="w-10 h-10 !text-blue-600" style={{...FONTS.cardSubHeader}}/>
+      </div>
+    </div>
+
         {/* Duration Card */}
         <div className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
-            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Total Duration</p>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
             <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
           </div>
           <div className="bg-[#5e59a9]/5 p-3 rounded-full">
@@ -230,7 +334,7 @@ const Attendance: React.FC = () => {
 
         {/* Permission Card */}
         <div
-         className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
+          className="bg-[#eff4f5] rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
           onClick={() => setIsOpen(true)}
         >
           <div>
@@ -347,66 +451,65 @@ const Attendance: React.FC = () => {
       </div>
 
       {/* Table Section */}
-     
-<div className="overflow-hidden rounded-md mt-6">
-  <div className="overflow-x-auto">
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
-        <tr>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">ID</th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-            Designation
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-            Check In
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-            Check Out
-          </th>
-          <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-            Duration
-          </th>
-        </tr>
-      </thead>
-      <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
-        {paginatedDetails.map((item) => (
-          <tr
-            key={item.ID}
-            className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
-            onClick={() => handleClick(item)}
-          >
-            <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900">{item.ID}</td>
-            <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
-                  {item.Name?.charAt(0).toUpperCase()}
-                </div>
-                <span className="font-medium">{item.Name}</span>
-              </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.Designation}</td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span
-                className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
-                  ${
-                    item.Status === "Present"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-              >
-                {item.Status}
-              </span>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.CheckIn}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.CheckOut}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.Duration}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+
+      <div className="overflow-hidden rounded-md mt-6">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-[#5e59a9]/70 backdrop-blur-sm">
+              <tr>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">ID</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Designation
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Check In
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Check Out
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  Duration
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white/45 backdrop-blur divide-y divide-gray-100">
+              {dailyAttendance && dailyAttendance.map((item) => (
+                <tr
+                  key={item.ID}
+                  className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
+                  onClick={() => handleClick(item)}
+                >
+                  <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900">{item.ID || "NA"}</td>
+                  <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
+                        {item.employee_id.first_name?.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="font-medium">{item.employee_id.first_name}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                  ${item.Status === "Present"
+                          ? "bg-green-100 text-green-800 border border-green-200"
+                          : "bg-red-100 text-red-800 border border-red-200"
+                        }`}
+                    >
+                      {item.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(item.clockIn).toLocaleDateString("en-GB") || "-"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(item.clockOut).toLocaleDateString("en-GB") || " - "}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
 
         {/* Pagination Controls */}
@@ -445,11 +548,10 @@ const Attendance: React.FC = () => {
               <button
                 key={index + 1}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`px-3.5 py-2 rounded-lg transition-all duration-200 ${
-                  currentPage === index + 1
+                className={`px-3.5 py-2 rounded-lg transition-all duration-200 ${currentPage === index + 1
                     ? "bg-[#5e59a9]/60 text-white shadow-md"
                     : "bg-white text-gray-700 border border-gray-200 hover:bg-[#5e59a9]/60"
-                }`}
+                  }`}
               >
                 {index + 1}
               </button>
@@ -513,10 +615,9 @@ const Attendance: React.FC = () => {
                     </div>
                     <span
                       className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize
-                        ${
-                          person.status === "approved"
-                            ? "bg-green-100 text-green-800 border border-green-200"
-                            : "bg-yellow-100 text-yellow-800 border border-yellow-200"
+                        ${person.status === "approved"
+                          ? "bg-green-100 text-green-800 border border-green-200"
+                          : "bg-yellow-100 text-yellow-800 border border-yellow-200"
                         }`}
                     >
                       {person.status}
@@ -538,7 +639,7 @@ const Attendance: React.FC = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Attendance

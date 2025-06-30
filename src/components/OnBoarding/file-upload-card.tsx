@@ -3,6 +3,7 @@
 import type React from "react"
 import { Upload, FileText, File, Check, Clock, AlertTriangle, Eye, Download } from "lucide-react"
 import type { FileData, FileInputRefs } from "./use-onboarding-state"
+import {FONTS} from "../../constants/uiConstants"
 
 interface FileUploadCardProps {
   documentType: string
@@ -94,8 +95,8 @@ export function FileUploadCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-                <p className="text-sm text-gray-600 mb-3">{description}</p>
+                <h3 className="text-lg font-semibold !text-gray-900 mb-1" style={{...FONTS.cardsubheader}}>{title}</h3>
+                <p className="text-sm !text-gray-600 mb-3" style={{...FONTS.description}}>{description}</p>
 
                 {/* Tags */}
                 <div className="flex items-center gap-2 mb-4">
@@ -105,7 +106,7 @@ export function FileUploadCard({
                   <span className={`px-2 py-1 text-xs font-medium rounded-full border ${getPriorityColor(priority)}`}>
                     {priority} Priority
                   </span>
-                  <span className="flex items-center gap-1 text-xs text-gray-500">
+                  <span className="flex items-center gap-1 text-xs !text-gray-500">
                     <Clock className="w-3 h-3" />
                     Due: {dueDate}
                   </span>
@@ -115,12 +116,12 @@ export function FileUploadCard({
               {/* Status Indicator */}
               <div className="flex-shrink-0">
                 {isUploaded ? (
-                  <div className="flex items-center gap-1 text-green-600 bg-green-100 px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="flex items-center gap-1 !text-green-600 bg-green-100 px-3 py-1 rounded-full font-medium" style={{...FONTS.header}}>
                     <Check className="w-4 h-4" />
                     Uploaded
                   </div>
                 ) : (
-                  <div className="flex items-center gap-1 text-amber-600 bg-amber-100 px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="flex items-center gap-1 !text-amber-600 bg-amber-100 px-3 py-1 rounded-full text-sm font-medium" style={{...FONTS.subParagraph}}>
                     <AlertTriangle className="w-4 h-4" />
                     Required
                   </div>
@@ -150,7 +151,7 @@ export function FileUploadCard({
               ) : (
                 <button
                   onClick={() => inputRef.current?.click()}
-                  className="flex items-center gap-2 px-6 py-3 bg-[#006666] text-white rounded-lg hover:bg-[#005555] transition-colors font-medium"
+                  className="flex items-center gap-2 px-6 py-3 bg-[#006666] !text-white rounded-lg hover:bg-[#005555] transition-colors "style={{...FONTS.cardSubHeader}}
                 >
                   <Upload className="w-4 h-4" />
                   Upload Document

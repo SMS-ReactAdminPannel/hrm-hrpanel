@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link,} from "react-router-dom"
 import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
@@ -7,54 +7,14 @@ import { postLogin } from "../../features/auth/service"
 
 
 
-  const LoginPage = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+const LoginPage = () => {
+  const [email, setEmail] = useState("yoho@gmail.com")
+  const [password, setPassword] = useState("123456")
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login } = useAuth()
-  
-
-  type LoginData = {
-	email: string;
-	password: string;
-};
-
-//  const onSubmit = async (data: LoginData) => {
-//   try {
-//     const User: any = await postLogin(data);
-//     await login(data.email, data.password);
-//     console.log(User);
-
-//     navigate("/dashboard");
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };
-
-    const onSubmit = async (data: LoginData) => {
-      try {
-        const User: any = await postLogin(data);
-        console.log(User)
-
-        if (!User) {
-          console.log("Login failed: No user data received.");
-          return;
-        }
-
-        await login(data.email, data.password); // assuming this sets auth state
-        console.log("User:", User);
-        navigate("/");
-
-      } catch (error) {
-        console.log("ERRROR OUTPUT", error);
-      }
-    };
-
-
-
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -69,19 +29,24 @@ import { postLogin } from "../../features/auth/service"
 
     try {
       const User: any = await postLogin({ email, password })
+      const datas:any =JSON.stringify(User.data)
+      localStorage.setItem("user",datas)
       console.log("Backend response:", User)
-      if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
-        await login(email, password)
-        console.log("Login successful:", User)
-        navigate("/")
-      } else {
-        const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
-        setError(errorMessage)
+      if(User.success){
+        navigate("/otp-validation")
       }
+      // if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
+      //   await login(email, password)
+      //   console.log("Login successful:", User)
+      //   navigate("/")
+      // } else {
+      //   const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
+      //   setError(errorMessage)
+      // }
     } catch (err: any) {
       console.log("Login error:", err)
-      
-  
+
+
       if (err.message?.includes("EmailId is not valid") || err.message?.includes("not registered")) {
         setError("This email is not registered. Please sign up first.")
       } else if (err.message?.includes("Password is incorrect")) {
@@ -97,7 +62,7 @@ import { postLogin } from "../../features/auth/service"
   }
 
   return (
-    <div className="flex min-h-screen ">
+    <div className="flex min-h-screen">
       {/* Left side: Video or iframe */}
       <div className="w-1/2 hidden lg:flex items-center justify-center bg-black">
         <iframe
@@ -161,9 +126,8 @@ import { postLogin } from "../../features/auth/service"
               ) : (
                 "Log In"
               )}
-            </button>
+            </button> 
           </form>
-
           <p className="text-center text-sm text-gray-700 mt-4">
             Forgot password?{" "}
             <Link to="/forgot-password" className="text-[#006666] hover:text-[#004d4d]">
@@ -177,6 +141,7 @@ import { postLogin } from "../../features/auth/service"
               Sign Up
             </Link>
           </p>
+
         </div>
       </div>
     </div>

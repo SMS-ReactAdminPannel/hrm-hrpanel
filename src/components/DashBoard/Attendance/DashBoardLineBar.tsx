@@ -11,6 +11,7 @@ import {
 import { Line } from "react-chartjs-2";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import { FONTS } from "../../../constants/uiConstants";
 
 // Chart.js registration
 ChartJS.register(
@@ -117,7 +118,7 @@ export const ChartCard: React.FC<dProps> = ({ dataPoints }) => {
   return (
     <div className="grid gap-1 p-2 ">
       <div className="flex justify-between mb-3 items-center">
-        <h1 className="text-xl font-semibold text-[#006666]">Attendance</h1>
+        <h1 className="text-xl font-semibold text-[#006666]" style={{...FONTS.header}}>Attendance</h1>
 
         {/* Dropdown */}
         <div className="relative pt-3" ref={dropdownRef}>

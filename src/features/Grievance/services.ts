@@ -1,6 +1,7 @@
 import Client from "../../api";
 
 // Get all grievances
+
 export const getAllGrievances = async () => {
   try {
     const response = await new Client().hr.grievance.getAllGrievances();
@@ -11,7 +12,7 @@ export const getAllGrievances = async () => {
 };
 
 
-export const createGrievance = async (data: any) => {
+export const createGrievance = async (data) => {
   try {
     const response = await new Client().hr.grievance.createGrievance(data);
     return response;

@@ -10,11 +10,12 @@ import Profile from "../pages/Profile/Profile";
 import EmployeeShift from "../pages/Employee Mangament/EmployeeShift/EmployeeShift";
 import Announcement from "../pages/Announcement/Announcement";
 import LeaveTypes from "../pages/Leave Types/LeaveTypes";
+// import LeaveManagement from "../pages/Leave Management/Leave"
 import Deduction from "../pages/Deduction/Deduction";
 import RecruitmentPipeline from "../pages/Recuritment/pipeline";
 import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
-import HomePage from "../pages/HomePage/HomePage";
+// import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
 import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
@@ -35,7 +36,6 @@ import CandidateDetailPage from "../pages/Recuritment/Candidates/Candidatesdetai
 import Chat from "../pages/ChatAPP/Chat";
 // import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import JobDetailsPage from "../pages/Recuritment/jobDetailsPage";
-import DepartmentList from "../pages/Department/DepartmentList";
 import EmployeesPage from "../components/Department/Employees";
 // import Candidateslistpage from "../pages/Recuritment/Candidates/Candidateslistpage";
 // import RecruitmentDashboard from "../pages/Recuritment/Recuritment";
@@ -44,28 +44,31 @@ import OpenRecruitments from "../pages/Recuritment/openRecruitments";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import VisitorManagement from "../pages/Visitor Management/VisitorManagement";
 import AdvancedHRMOffboardings from "../components/OffBoarding/advanced-hrm-offboarding";
+import DepartmentList from "../pages/Department/DepartmentList";
+import Leave from "../pages/Leave Management/Leave";
+import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
+import ProfilePage from "../pages/ProfileCard/ProfilePage";
+import OTPValidation from "../pages/auth/OTPValidation";
+import { Calendar } from "../components/DashBoard/Calender/calender";
+
 
 // import EmployeesPage from "../components/Department/Employees";
 
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
-  
 
   return (
-    
     <Routes>
-      {isAuthenticated ? (
+      {/* Authenticated Routes */}
+      {isAuthenticated && (
         <Route path="/" element={<MainLayout />}>
-          {/* Redirect to dashboard on login */}
-          <Route index element={<Navigate to="dashboard" />} />
-
-          {/* Authenticated routes */}
+          <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="attendance-id" element={<EmployeeDetails />} />
           <Route path="employee" element={<Employee />} />
-          <Route path="leave-management" element={<LeaveTypes />} />
+          <Route path="leave-management" element={<Leave />} />
           <Route path="organization-chart" element={<OrganizationChart />} />
           <Route path="payroll" element={<Payroll />} />
           <Route path="recruitment" element={<Recuritment />} />
@@ -79,34 +82,41 @@ const AppRoutes = () => {
           <Route path="leave-types" element={<LeaveTypes />} />
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
+          <Route path="Attendancerequest" element={<AttendanceRequest />} />
           <Route path="asset-category" element={<Assetcategory />} />
-          {/* <Route path="home-intro" element={<HomePage />} /> */}
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="offboarding" element={<AdvancedHRMOffboardings />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="grievance-management" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
-          {/* <Route path="visitor-management" element={<VisitorManagementSystem />} /> */}
           <Route path="recruitment/candidatelists/candidatesPage" element={<CandidateDetailPage />} />
           <Route path="recruitment/candidatelists" element={<CandidatesPage />} />
-          <Route path="/recruitment/job-postings" element={<OpenRecruitments />} />
-          <Route path="/recruitment/job-postings/job-details" element={<JobDetailsPage />} />
+          <Route path="recruitment/job-postings" element={<OpenRecruitments />} />
+          <Route path="recruitment/job-postings/job-details" element={<JobDetailsPage />} />
           <Route path="departments" element={<DepartmentList />} />
           <Route path="employees" element={<EmployeesPage />} />
           <Route path="visitor-management" element={<VisitorManagement />} />
-          
-        </Route>
-      ) : (
-        <Route path="/">
-          <Route index element={<Navigate to="/login" />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password/:token" element={<ResetPassword />} />
+          <Route path="ProfilePage" element={<ProfilePage />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="employee-details" element={<Profile />} />
         </Route>
       )}
+
+      {/* Public Routes */}
+      {!isAuthenticated && (
+        <>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/otp-validation" element={<OTPValidation />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </>
+      )}
+
+      {/* Catch-All Route */}
+      <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
     </Routes>
   );
 };
-
 export default AppRoutes;

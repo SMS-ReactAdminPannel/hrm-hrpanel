@@ -2,12 +2,22 @@
 
 import { useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
+import { forgotPassword } from "../../features/auth/service"
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleForgotPassword = async (data: any) => {
+    try{
+      const response = await forgotPassword(data);
+      console.log("forgot password page succesfull", response)
+    }catch(error){
+        console.log(error)
+    }
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -33,7 +43,7 @@ const ForgotPassword = () => {
           <input
             type="email"
             placeholder="Enter your email"
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-1 focus:ring-[#006666] hover:border-[#006666]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -42,10 +52,14 @@ const ForgotPassword = () => {
           {message && <p className="text-green-600 text-sm">{message}</p>}
           <button
             type="submit"
+
             className="w-full bg-[#006666] hover:bg-[#004d4d] disabled:bg-[#99cccc] text-white py-2 rounded-md hover:bg-blue-700"
             disabled={isLoading}
           >
+             <Link to="/reset-password">
             {isLoading ? "Sending..." : "Send Reset Link"}
+          </Link>
+           
           </button>
         </form>
         <p className="text-center text-sm mt-4">

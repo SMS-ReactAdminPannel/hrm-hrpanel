@@ -6,7 +6,7 @@ import {
   CardTitle,
   CardDescription,
 } from "../../components/ui/card";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 
 import {
   PieChart,
@@ -135,21 +135,18 @@ export default function RecruitmentDashboard() {
     { title: "Head Engineering", initial: 0, test: 0 },
     { title: "Sr. DevOps Engineer", initial: 0, test: 0 },
   ];
-      
-  
-
   return (
 
 
     <>
     
     <div className=" mx-auto max-w-screen-xl">
-        <h1 className=" mb-6" style={FONTS.header}>
+        <h1 className=" mb-6" style={{...FONTS.header}}>
           Recruitment Dashboard
         </h1>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 " style={{...FONTS.cardSubHeader}}>
   {[
     {
       title: "Total Vacancies",
@@ -178,10 +175,10 @@ export default function RecruitmentDashboard() {
     },
   ].map((stat, idx) => (
     <Card key={idx} className="shadow-md">
-      <CardContent className="p-4 flex items-center justify-between">
+      <CardContent className="p-2 flex items-center justify-between">
         <div>
-          <p className="text-gray-500 text-sm">{stat.title}</p>
-          <h2 className="text-2xl font-bold text-[#10493e]">{stat.value}</h2>
+          <p className="!text-gray-500 text-sm" style={{...FONTS.description}}>{stat.title}</p>
+          <h2 className="!text-2xl font-bold !text-[#10493e]" style={{...FONTS.header2}}>{stat.value}</h2>
         </div>
         {stat.icon}
       </CardContent>
@@ -194,7 +191,7 @@ export default function RecruitmentDashboard() {
           {/* Recent Applications */}
           <Card>
             <CardHeader>
-              <CardTitle>Recent Applications</CardTitle>
+              <CardTitle >Recent Applications</CardTitle>
               <CardDescription>Latest job applications received</CardDescription>
             </CardHeader>
             <CardContent>
@@ -261,12 +258,6 @@ export default function RecruitmentDashboard() {
             </CardContent>
           </Card>
         </div>
-
-
-
-
-
-
        {/* 3-Column Stats Cards */}
 <div className="grid grid-cols-3 md:grid-cols-3 gap-6 mt-6">
   {/* Skill Zone Status */}
