@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import type { OTPInputProps } from './types';
+import { toast } from 'react-toastify';
 
 const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, onComplete }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);

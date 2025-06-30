@@ -5,6 +5,9 @@ import { postLogout } from '../../../features/auth/service';
 import { MdYoutubeSearchedFor } from 'react-icons/md';
 import { GoSearch } from 'react-icons/go';
 import { motion, AnimatePresence } from "framer-motion"
+import { useAuth } from '../../../pages/auth/AuthContext';
+import { toast } from 'react-toastify';
+
 
 export default function Navbar() {
   const [showBookmark, setShowBookmark] = useState(false);
@@ -19,6 +22,7 @@ export default function Navbar() {
   const profileRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const handleProfileClick=()=>{navigate("/ProfilePage"); setShowProfileMenu(false)}
+  const { setIsAuthenticated } = useAuth();
 
 
   useEffect(() => {
@@ -38,16 +42,33 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      // await postLogout();
-      localStorage.clear()
-      navigate('/login');
-      window
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
+
+const handleLogout = async () => {
+  try {
+   
+    localStorage.clear();
+    setIsAuthenticated(false);
+
+  
+    toast.success("Logged out Successfully", {
+      autoClose: 2000,
+      style: {
+         background: "white", 
+          color: "#065f46",   
+      },
+    });
+
+  
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000); // 
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
+
+
+
 
   const toggleSearch = () => {
     setExpanded((prev) => !prev);

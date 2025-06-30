@@ -155,7 +155,7 @@ const EmployeeDetails: React.FC = () => {
             </div>
             <div>
               <p className="text-gray-500">Check Out</p>
-              <p className="font-medium">{employee.CheckOut}</p>
+              <p className="font-medium">{employee.role}</p>
             </div>
               <div>
               <p className="text-gray-500">Total Completed Projects</p>

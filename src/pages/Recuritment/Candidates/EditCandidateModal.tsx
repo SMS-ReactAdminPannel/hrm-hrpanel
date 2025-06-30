@@ -78,14 +78,14 @@ export default function EditCandidateModal({
 
   return (
     <div 
-      className={`fixed inset-0 bg-black flex items-end justify-center z-50 transition-all duration-500 ${
-        isAnimating ? 'bg-opacity-50' : 'bg-opacity-0'
-      }`}
-    >
+  className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all duration-300 ${
+    isAnimating ? 'opacity-100' : 'opacity-0'
+  }`}
+>
       {/* Floating Close Button */}
       <button 
         onClick={handleClose} 
-        className={`left-8 mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-500 shadow-lg z-10 ${
+        className={`left-8 mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-300 shadow-lg z-10 ${
           isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}
       >
@@ -95,7 +95,7 @@ export default function EditCandidateModal({
       {/* Modal Content */}
       <div 
         ref={modalRef} 
-        className={`bg-white rounded-t-3xl shadow-2xl w-[1100px] h-[750px] overflow-hidden transform transition-all duration-500 ease-out ${
+        className={`bg-white  rounded-t-3xl shadow-2xl w-[1100px] h-[750px] overflow-hidden transform transition-all duration-300 ease-out ${
           isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >
@@ -227,4 +227,4 @@ export default function EditCandidateModal({
       </div>
     </div>
   );
-}
+} 

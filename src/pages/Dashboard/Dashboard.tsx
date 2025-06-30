@@ -21,9 +21,34 @@ import JobOpening from "../../components/DashBoard/JobOpenings/jobOpening";
 import Transaction from "../../components/DashBoard/payroll/Transaction";
 import CardDashboard from "../../components/DashBoard/DashboardCards/CardDashboard";
 import TotalEmploye from "../../components/DashBoard/Empolyetotals/Empolyetotalcard";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 
 const Dashboard = () => {
+
+  const location = useLocation();
+
+ const toastMessage = location.state?.toastMessage;
+  const toastId = "login-toast";
+useEffect(() => {
+  if (toastMessage && !toast.isActive(toastId)) {
+    setTimeout(() => {
+      toast.success(toastMessage, {
+        toastId,
+        style: {
+          background: "white", 
+          color: "#065f46",      
+        },
+      });
+      window.history.replaceState({}, document.title);
+    }, 15);
+  }
+}, [location]);
+
+
   return (
     <div className="m-3 flex flex-col flex-1 gap-3 ">
       {/* content - 1 */}
