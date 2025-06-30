@@ -4,7 +4,7 @@ import {
   Filter,
   MoreHorizontal,
   Eye,
-  MessageSquare,
+  MessageSquare,  
   Calendar,
   Star,
   MapPin,
