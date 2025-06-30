@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useRef, useEffect } from "react"
 import { normalizeOptions } from "./utils"
 import type { SelectOption } from "./types"

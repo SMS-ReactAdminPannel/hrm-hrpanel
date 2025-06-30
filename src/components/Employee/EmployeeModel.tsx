@@ -119,7 +119,7 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
   const handleSubmit = () => {
     onAdd(profile);
     toast.success("Employee added successfully!", {
-      className: "bg-[#006666] text-white",
+      className: "bg-[#5e59a9] text-white",
     });
     setProfile(defaultProfile);
     handleClose();
@@ -176,7 +176,7 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
             <div className="flex flex-col items-center justify-center my-4  relative ">
               <div>
                 <div
-                  className="w-32 h-32 rounded-full border-4 border-[#006666] shadow cursor-pointer overflow-hidden  "
+                  className="w-32 h-32 rounded-full border-4 border-[#5e59a9] shadow cursor-pointer overflow-hidden  "
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <img
@@ -414,7 +414,7 @@ export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
                 Cancel
               </button>
               <button
-                className="bg-[#006666] text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="bg-[#5e59a9] text-white px-4 py-2 rounded hover:bg-blue-700"
                 onClick={handleSubmit}
               >
                 Add Employee

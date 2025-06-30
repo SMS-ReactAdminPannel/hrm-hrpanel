@@ -1,7 +1,4 @@
-"use client"
-
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import type { Card } from "./types"
 
@@ -50,7 +47,7 @@ export function ActionDropdown({ card, onEdit, onDelete }: ActionDropdownProps) 
                 onEdit(card)
                 setShowDropdown(false)
               }}
-              className="block w-full rounded-md text-left px-4 py-2 text-sm text-blue-600 hover:bg-blue-100 transition-colors"
+              className="block w-full rounded-md text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition-colors"
             >
               Edit
             </button>
@@ -60,7 +57,7 @@ export function ActionDropdown({ card, onEdit, onDelete }: ActionDropdownProps) 
                 onDelete(card.id)
                 setShowDropdown(false)
               }}
-              className="block w-full rounded-md text-left px-4 py-2 text-sm text-red-600 hover:bg-blue-100 transition-colors"
+              className="block w-full rounded-md text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors"
             >
               Delete
             </button>

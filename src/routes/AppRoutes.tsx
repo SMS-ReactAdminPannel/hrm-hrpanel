@@ -48,8 +48,8 @@ import DepartmentList from "../pages/Department/DepartmentList";
 import Leave from "../pages/Leave Management/Leave";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
-import OTPValidation from "../pages/auth/OTPValidation";
 import { Calendar } from "../components/DashBoard/Calender/calender";
+import OTPValidation from "../pages/auth/OTPValidation";
 
 
 // import EmployeesPage from "../components/Department/Employees";
