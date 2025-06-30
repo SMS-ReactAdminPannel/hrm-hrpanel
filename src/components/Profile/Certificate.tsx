@@ -118,8 +118,11 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({
   const hasEditingCertificates = certificates.some((cert) => cert.isEditing);
 
   return (
-    <>
-      <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    <div className="">
+      <div
+        className="flex flex-1 flex-col rounded-xl bg-white w-full 
+       p-3 "
+      >
         {hasEditingCertificates && (
           <div className="">
             <p className="!text-red-800 !text-xs" style={{ ...FONTSS.body }}>
@@ -129,7 +132,7 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({
           </div>
         )}
 
-        <div className="flex items-center gap-3 mb-6 relative justify-between">
+        <div className="flex items-center gap-3 mb-1 relative justify-between ">
           <div className="flex gap-3 items-center">
             <div className=" group-hover:scale-110 transition-transform duration-300">
               <Briefcase size={24} />
@@ -149,8 +152,8 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({
             </button>
           </div>
         </div>
-
-        <div className="space-y-3 overflow-auto h-[60vh] scrollbar-hide ">
+        <hr className="border-gray-900 mb-5" />
+        <div className=" overflow-auto h-[80%] scrollbar-hide ">
           {certificates.length === 0 ? (
             <div className="text-center py-8 text-slate-400">
               <Briefcase size={48} className="mx-auto mb-4 opacity-50" />
@@ -163,7 +166,7 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({
             certificates.map((certificate) => (
               <div
                 key={certificate.id}
-                className={`p-2 border rounded-xl transition-all duration-200 relative ${
+                className={`p-2  relative ${
                   certificate.isEditing
                     ? "border-blue-400 bg-blue-50/10 shadow-lg"
                     : "border-gray-500 bg-white/5 hover:shadow-md"
@@ -366,6 +369,6 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

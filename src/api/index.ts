@@ -203,5 +203,4 @@ export default class Client {
         httpClient.delete(API_END_POINTS.employeeDetails.delete(id)),
     },
   };
-  static hr: any;
 }

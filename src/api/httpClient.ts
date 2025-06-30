@@ -61,7 +61,7 @@ class HttpClient {
     return response.data;
   }
 
-  async delete<T = any>(url: string, data: any): Promise<T> {
+  async delete<T = any>(url: string, params?:any): Promise<T> {
     const response = await Axios.delete<T>(url);
     return response.data;
   }

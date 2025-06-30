@@ -48,7 +48,7 @@ import DepartmentList from "../pages/Department/DepartmentList";
 import Leave from "../pages/Leave Management/Leave";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
-import {Calendar} from "../components/DashBoard/Calender/calender";
+import { Calendar } from "../components/DashBoard/Calender/calender";
 import OTPValidation from "../pages/auth/OTPValidation";
 
 
