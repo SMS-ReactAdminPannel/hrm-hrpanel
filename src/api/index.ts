@@ -1,7 +1,6 @@
 import httpClient from "./httpClient";
 import { API_END_POINTS } from "./httpEndpoints";
 
-
 export default class Client {
   hr = {
     timesheet: {
@@ -26,11 +25,11 @@ export default class Client {
           data
         ),
     },
-    leavetype:{
-      getall:(data:any)=>
-        httpClient.get(API_END_POINTS.leavetype.getall,data),
+    leavetype: {
+      getall: (data: any) =>
+        httpClient.get(API_END_POINTS.leavetype.getall, data),
       // getbyid: (leaveTypeId: string) =>
-      //   httpClient.get(API_END_POINTS.leavetype.getUniqueLeave(leaveTypeId)),  
+      //   httpClient.get(API_END_POINTS.leavetype.getUniqueLeave(leaveTypeId)),
       // create: (data: any) =>
       //   httpClient.post(API_END_POINTS.leavetype.createLeaveType, data),
       // update: (leaveTypeId: string, data: any) =>
@@ -38,10 +37,10 @@ export default class Client {
       // delete: (leaveTypeId: string) =>
       //   httpClient.delete(API_END_POINTS.leavetype.deletedeleteLeave(leaveTypeId))
     },
-    
-    grievance:{
-       createGrievance: (data: any) =>
-    httpClient.post(API_END_POINTS.grievance.creategrievance, data),
+
+    grievance: {
+      createGrievance: (data: any) =>
+        httpClient.post(API_END_POINTS.grievance.creategrievance, data),
 
       getAllGrievances: () =>
         httpClient.get(API_END_POINTS.grievance.getallgrievance),
@@ -60,12 +59,12 @@ export default class Client {
         httpClient.post(API_END_POINTS.hrprofile.Postregister, data),
       postlogout: () =>
         httpClient.post(API_END_POINTS.hrprofile.postlogout, {}),
-      validateOtp: (data: any) => 
-        httpClient.post(API_END_POINTS.hrprofile.validateOtp,data),
-      forgotPassword: (data: any) =>  
-        httpClient.post(API_END_POINTS.hrprofile.forgotPassword,data),
-      resetPassword: (data: any) =>  
-        httpClient.post(API_END_POINTS.hrprofile.resetPassword,data),
+      validateOtp: (data: any) =>
+        httpClient.post(API_END_POINTS.hrprofile.validateOtp, data),
+      forgotPassword: (data: any) =>
+        httpClient.post(API_END_POINTS.hrprofile.forgotPassword, data),
+      resetPassword: (data: any) =>
+        httpClient.post(API_END_POINTS.hrprofile.resetPassword, data),
     },
 
     candidates: {
@@ -88,13 +87,13 @@ export default class Client {
     },
 
     attendance: {
-      getDailyAttendance: (params:{date:string}) =>
-        httpClient.get(API_END_POINTS.attendance.getDailyAttendance,params),
+      getDailyAttendance: (params: { date: string }) =>
+        httpClient.get(API_END_POINTS.attendance.getDailyAttendance, params),
     },
 
-    asset:{
-      createasset:(data:any)=>
-        httpClient.post(API_END_POINTS.asset.createAsset,data),
+    asset: {
+      createasset: (data: any) =>
+        httpClient.post(API_END_POINTS.asset.createAsset, data),
 
       getasset: (assetId: string) =>
         httpClient.get(API_END_POINTS.asset.getAssetById(assetId)),
@@ -102,7 +101,7 @@ export default class Client {
       getallasset: () => httpClient.get(API_END_POINTS.asset.getAllAsset),
 
       updateasset: (assetId: string, data: any) =>
-       httpClient.put(API_END_POINTS.asset.updateAsset(assetId), data),
+        httpClient.put(API_END_POINTS.asset.updateAsset(assetId), data),
 
       deleteasset: (assetId: string) =>
         httpClient.delete(API_END_POINTS.asset.deleteAsset(assetId)),
@@ -128,11 +127,14 @@ export default class Client {
       getassetcategory: (assetId: string) =>
         httpClient.get(API_END_POINTS.assetCategory.getCategoryById(assetId)),
 
-      getallassetcategory:()=>
+      getallassetcategory: () =>
         httpClient.get(API_END_POINTS.assetcategory.getallasset),
 
       updateassetcategory: (assetId: string, data: any) =>
-       httpClient.put(API_END_POINTS.assetCategory.updateCategory(assetId), data),
+        httpClient.put(
+          API_END_POINTS.assetCategory.updateCategory(assetId),
+          data
+        ),
 
       deleteassetcategory: (assetId: string) =>
         httpClient.delete(API_END_POINTS.assetCategory.deleteCategory(assetId)),
@@ -153,7 +155,7 @@ export default class Client {
         httpClient.post(API_END_POINTS.appraisal.create, data),
 
       getAll: (params?: any) =>
-        httpClient.get(API_END_POINTS.appraisal.getAll,  params ),
+        httpClient.get(API_END_POINTS.appraisal.getAll, params),
 
       getById: (appraisalId: string) =>
         httpClient.get(API_END_POINTS.appraisal.getById(appraisalId)),
@@ -164,31 +166,42 @@ export default class Client {
       delete: (appraisalId: string) =>
         httpClient.delete(API_END_POINTS.appraisal.delete(appraisalId)),
     },
-    
-    leave:{
-      createHoliday: (data: any) => 
+
+    leave: {
+      createHoliday: (data: any) =>
         httpClient.post(API_END_POINTS.leave.NewHoliday, data),
-      getAllHoliday: () => 
-        httpClient.get(API_END_POINTS.leave.getHoliday),
-      updateHoliday: (data: any, id: any) => 
+      getAllHoliday: () => httpClient.get(API_END_POINTS.leave.getHoliday),
+      updateHoliday: (data: any, id: any) =>
         httpClient.put(API_END_POINTS.leave.updateHoliday(id), data),
       deleteHoliday: (id: any) =>
-        httpClient.delete(API_END_POINTS.leave.deleteHoliday(id), {})
+        httpClient.delete(API_END_POINTS.leave.deleteHoliday(id), {}),
     },
 
-      leaveType :{
-      createLeaveType: (data: any) => 
+    leaveType: {
+      createLeaveType: (data: any) =>
         httpClient.post(API_END_POINTS.leaveType.createLeaveType, data),
-      getAllLeaveType: () => 
+      getAllLeaveType: () =>
         httpClient.get(API_END_POINTS.leaveType.getAllLeaveType),
-      updateLeaveType: (data: any, id: any) => 
+      updateLeaveType: (data: any, id: any) =>
         httpClient.put(API_END_POINTS.leaveType.updateLeaveType(id), data),
       deleteLeaveType: (id: any) =>
         httpClient.delete(API_END_POINTS.leaveType.deleteLeaveType(id)),
       getLeaveTypeById: (id: string) =>
-        httpClient.get(API_END_POINTS.leaveType.getLeaveById(id))
-    }
-
+        httpClient.get(API_END_POINTS.leaveType.getLeaveById(id)),
+    },
+  };
+  employee = {
+   employeedetails: {
+      create: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeDetails.create, data),
+      getAll: () => httpClient.get(API_END_POINTS.employeeDetails.getAll),
+      getById: (id: string) =>
+        httpClient.get(API_END_POINTS.employeeDetails.getById(id)),
+      update: (id: string, data: any) =>
+        httpClient.patch(API_END_POINTS.employeeDetails.update(id), data),
+      delete: (id: string) =>
+        httpClient.delete(API_END_POINTS.employeeDetails.delete(id)),
+    },
   };
   static hr: any;
 }

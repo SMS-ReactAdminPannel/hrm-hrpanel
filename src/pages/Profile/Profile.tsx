@@ -1,202 +1,123 @@
-import type React from "react"
-import { PersonalInfoComponent } from "../../components/Profile/Personal-Info"
-import { EmergencyContactComponent } from "../../components/Profile/Emergency-Contact"
-import { EducationComponent } from "../../components/Profile/Eduction"
-import { ExperienceComponent } from "../../components/Profile/Experance"
-import { BankInfoComponent } from "../../components/Profile/BankInfo"
-import { PassportInfoComponent } from "../../components/Profile/Passport-Info"
-import { CertificatesComponent } from "../../components/Profile/Certificate"
-import { FONTS } from "../../constants/uiConstants"
+import React, { useEffect, useState } from "react";
+import { FONTS } from "../../constants/uiConstants";
+import { PersonalInfoComponent } from "../../components/Profile/Personal-Info";
+import { EmergencyContactComponent } from "../../components/Profile/Emergency-Contact";
+import { EducationComponent } from "../../components/Profile/Eduction";
+import { ExperienceComponent } from "../../components/Profile/Experance";
+import { BankInfoComponent } from "../../components/Profile/BankInfo";
+import { PassportInfoComponent } from "../../components/Profile/Passport-Info";
+import { CertificatesComponent } from "../../components/Profile/Certificate";
+import {
+  getEmployeeDetailsById,
+  updateEmployeeDetails,
+} from "../../features/Employeedetails/service";
 
-interface PersonalInfo {
-  name: string
-  position: string
-  employeeId: string
-  joinDate: string
-  phone: string
-  email: string
-  blood: string
-  birthday: string
-  address: string
-  gender: string
-  profileImage: string
-}
+const Profile: React.FC = () => {
+  const [employeeDetailId] = useState("6862385e95746819ca93e328");
 
-interface EmergencyContact {
-  name: string
-  relationship: string
-  phone: string
-  email: string
-  address: string
-}
+  
+  // const { employeeDetailId } = useParams(); after connected connect this
+  //to route page
+  //  <Route path="/profile/:employeeDetailId" element={<Profile />} />
+  //to navigate page 
+  // navigate(`/profile/${employee._id}`);
 
-interface EmergencyInfo {
-  primary: EmergencyContact
-  secondary: EmergencyContact
-}
+  const [employeeData, setEmployeeData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-interface EducationItem {
-  instituteName: string
-  degree: string
-  startDate: string
-  endDate: string
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getEmployeeDetailsById(employeeDetailId);
+        console.log("Employee Data fetched:", data);
+        setEmployeeData(data);
+      } catch (error) {
+        console.error("Failed to fetch employee details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-interface BankInfo {
-  holderName: string
-  accountNumber: string
-  bankName: string
-  branchName: string
-  swiftCode: string
-}
+    fetchData();
+  }, [employeeDetailId]);
 
-interface PassportInfo {
-  number: string
-  nationality: string
-  issueDate: string
-  expiryDate: string
-}
+  const handleUpdate = async (section: string, updatedSectionData: any) => {
+    if (!employeeData) return;
+    try {
+      const updatedData = { ...employeeData, [section]: updatedSectionData };
+      await updateEmployeeDetails(employeeDetailId, { [section]: updatedSectionData });
+      setEmployeeData(updatedData);
+    } catch (error) {
+      console.error(`Failed to update ${section}:`, error);
+    }
+  };
 
-const Profile: React.FC = () => { 
-  const personalData: PersonalInfo = {
-    name: "Vijay",
-    position: "UI/UX Design Team - Web Designer",
-    employeeId: "MD-0001",
-    joinDate: "05 Jan 2024",
-    phone: "+1 (800) 642 7676",
-    blood: "A+",
-    email: "vijay@example.com",
-    birthday: "28 December 1992",
-    address: "102, ECR, Panaiyur, India",
-    gender: "Male",
-    profileImage: "https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg",
-  }
-
-  const emergencyData: EmergencyInfo = {
-    primary: {
-      name: "Chandrasekar",
-      relationship: "Father",
-      phone: "9876543210",
-      email: "chandrasekar@example.com",
-      address: "120, India",
-    },
-    secondary: {
-      name: "Ganga",
-      relationship: "Mother",
-      phone: "9876543211",
-      email: "ganga@example.com",
-      address: "102, India",
-    },
-  }
-
-  const educationData: EducationItem[] = [
-    {
-      instituteName: "Loyola College of Arts and Science",
-      degree: "MSc In Computer Science",
-      startDate: "2000",
-      endDate: "2003",
-    },
-    {
-      instituteName: "Loyola College of Arts and Science",
-      degree: "BSc In Computer Science",
-      startDate: "1997",
-      endDate: "2000",
-    },
-    {
-      instituteName: "National Public School",
-      degree: "Computer Science",
-      startDate: "1998",
-      endDate: "2000",
-    },
-  ]
-
-  const experienceData: string[] = [
-    "TCS, India – Head of Review Team (2020 - Present)",
-    "CTS, India – Software Developer (2016 - 2018)",
-    "Facebook , India – Junior Software Developer (2011 - 2016)",
-  ]
-
-  const certificateData: string[] = [
-    "Meta, Certified React developer course completed",
-    "Google, Web Development course completed",
-    "Coursera , completed full stack development (9 months)",
-  ]
-
-  const bankData: BankInfo = {
-    holderName: "Vijay",
-    accountNumber: "123456789",
-    bankName: "ABC Bank",
-    branchName: "XYZ Branch",
-    swiftCode: "ABCXYZ123",
-  }
-
-  const passportData: PassportInfo = {
-    number: "A1234567",
-    nationality: "Indian",
-    issueDate: "01 Jan 2010",
-    expiryDate: "01 Jan 2025",
-  }
-
-  // Update handlers
-  const handlePersonalUpdate = (data: PersonalInfo) => {
-    console.log("Personal info updated:", data)
-  }
-
-  const handleEmergencyUpdate = (data: EmergencyInfo) => {
-    console.log("Emergency contact updated:", data)
-  }
-
-  const handleEducationUpdate = (data: EducationItem[]) => {
-    console.log("Education updated:", data)
-  }
-
-  const handleExperienceUpdate = (data: string[]) => {
-    console.log("Experience updated:", data)
-  }
-
-  const handleBankUpdate = (data: BankInfo) => {
-    console.log("Bank info updated:", data)
-  }
-
-  const handlePassportUpdate = (data: PassportInfo) => {
-    console.log("Passport info updated:", data)
-  }
-
-  const handleCertificatesUpdate = (data: string[]) => {
-    console.log("Certificates updated:", data)
-  }
+  if (loading) return <div className="text-center mt-10">Loading...</div>;
+  if (!employeeData) return <div className="text-center mt-10 text-red-500">No employee data found.</div>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-[#006666]/5 to-[#006666]/10 p-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-3">
-        <div className="text-left">
-          <h1 className="text-4xl font-bold leading-tight text-white bg-[#f5f5f5] bg-clip-text text-transparent mb-4" 
-          style={{...FONTS.header}}>
-            Employee Profile
-          </h1>
+        <h1
+          className="text-4xl font-bold text-white bg-[#f5f5f5] bg-clip-text text-transparent mb-4"
+          style={FONTS.header}
+        >
+          Employee Profile
+        </h1>
+
+        <div className="flex flex-wrap gap-4">
+          {employeeData.personal && (
+            <PersonalInfoComponent
+              data={employeeData.personal}
+              onUpdate={(data) => handleUpdate("personal", data)}
+            />
+          )}
+          {employeeData.emergency && (
+            <EmergencyContactComponent
+              data={employeeData.emergency}
+              onUpdate={(data) => handleUpdate("emergency", data)}
+            />
+          )}
         </div>
 
-        {/* Personal Information & Emergency Contact */}
-        <div className="flex flex-1 gap-4">
-          <PersonalInfoComponent data={personalData} onUpdate={handlePersonalUpdate} />
-          <EmergencyContactComponent data={emergencyData} onUpdate={handleEmergencyUpdate} />
+        <div className="flex flex-wrap gap-4">
+          {employeeData.education && (
+            <EducationComponent
+              data={employeeData.education}
+              onUpdate={(data) => handleUpdate("education", data)}
+            />
+          )}
+          {employeeData.experience && (
+            <ExperienceComponent
+              data={employeeData.experience}
+              onUpdate={(data) => handleUpdate("experience", data)}
+            />
+          )}
         </div>
 
-        {/* Education and Experience */}
-        <div className="flex flex-1 gap-4">
-          <EducationComponent data={educationData} onUpdate={handleEducationUpdate} />
-          <ExperienceComponent data={experienceData} onUpdate={handleExperienceUpdate} />
-        </div>
-
-        {/* Bank & Passport Information & Certificate */}
-        <div className="flex flex-1 gap-4">
-          <BankInfoComponent data={bankData} onUpdate={handleBankUpdate} />
-          <PassportInfoComponent data={passportData} onUpdate={handlePassportUpdate} />
-          <CertificatesComponent data={certificateData} onUpdate={handleCertificatesUpdate} />
+        <div className="flex flex-wrap gap-4">
+          {employeeData.bank && (
+            <BankInfoComponent
+              data={employeeData.bank}
+              onUpdate={(data) => handleUpdate("bank", data)}
+            />
+          )}
+          {employeeData.passport && (
+            <PassportInfoComponent
+              data={employeeData.passport}
+              onUpdate={(data) => handleUpdate("passport", data)}
+            />
+          )}
+          {employeeData.certificates && (
+            <CertificatesComponent
+              data={employeeData.certificates}
+              onUpdate={(data) => handleUpdate("certificates", data)}
+            />
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

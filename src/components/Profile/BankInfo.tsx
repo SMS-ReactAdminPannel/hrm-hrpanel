@@ -65,7 +65,7 @@ export const BankInfoComponent: React.FC<BankInfoProps> = ({
           <div className=" group-hover:scale-110 transition-transform duration-300">
             <CreditCard size={24} />
           </div>
-          <div><h2 className=" text-sm flex mt-[3px] !text-[#000000] "
+          <div><h2 className=" text-sm flex mt-[3px] !text-[#000000] "   
           style={{...FONTS.cardheader}}>Bank Account</h2></div>
         </div>
         <button
