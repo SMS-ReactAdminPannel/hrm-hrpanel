@@ -1,5 +1,5 @@
 import type React from "react"
-import { User, Calendar, Star, TrendingUp, Plus, Eye } from "lucide-react"
+import { User, Calendar, Star, TrendingUp, Plus, Eye, Pencil, Trash2 } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
 import SearchInput from "../../components/Appraisal/SearchInput"
 import { FONTS } from "../../constants/uiConstants"
@@ -8,7 +8,7 @@ import {  getAllAppraisals } from "../../features/Appraisal/service"
 
 
 interface Employee {
-  // id: string
+  id: string
   Employee: string
   Position: string
   Rating: number
@@ -118,6 +118,8 @@ interface DashboardProps {
   onViewEmployee: (employee: Employee) => void
   onNewAppraisal: () => void
   getStatusColor: (status: string) => string
+  onEditEmployee: (employee: Employee)=> void;
+  onDeleteEmployee: (employee: Employee)=> void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
@@ -127,8 +129,12 @@ const Dashboard: React.FC<DashboardProps> = ({
   onViewEmployee,
   onNewAppraisal,
   getStatusColor,
+  onEditEmployee,
+  onDeleteEmployee,
 }) => {
   const [filteredappraisals, setFilteredAppraisals] = useState<Employee[]>([]);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
 
   const fetchAppraisals = async () => {
     try {
@@ -257,14 +263,59 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.ProjectPeriod}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="space-x-1 space-y-1">
                     <button
                       onClick={() => onViewEmployee(employee)}
-                      className="text-[#006666] hover:text-[#005555] flex items-center gap-1"
+                      className="inline-block text-[#006666] hover:text-[#005555] px-3 py-1 border border-[#006666] rounded-md text-sm"
                     >
-                      <Eye className="w-4 h-4" />
+                      <div className="flex items-center gap-1">
+                        <Eye className="w-4 h-4" />
                       <span>View</span>
+                      </div>
                     </button>
+                    {/*edit*/}
+                    <button
+                      onClick={() => onEditEmployee(employee)}
+                      className="inline-block text-blue-600 hover:text-blue-800 px-3 py-1 border border-blue-600 rounded-md text-sm"
+                    >
+                      <div className="flex items-center gap-1">
+                        <Pencil className="w-4 h-4" />
+                      <span>Edit</span>
+                      </div>
+                    </button>
+                    {/*delete*/}
+                    <button
+                      onClick={() => setConfirmDeleteId(confirmDeleteId === employee.id ? null : employee.id)}
+                      className="inline-block text-red-600 hover:text-red-800 px-3 py-1 border border-red-600 rounded-md text-sm"
+                    >
+                      <div className="flex items-center gap-1">
+                        <Trash2 className="w-4 h-4" />
+                      <span>Delete</span>
+                      </div>
+                    </button>
+
+                    {confirmDeleteId === employee.id && (
+                      <div className="absolute  right-5 z-20 w-60 bg-white border border-gray-300 rounded-lg shadow-lg p-3">
+                        <p className="text-gray-800 text-sm mb-3">Are you sure you want to delete this data?</p>
+                        <div className="flex justify-end gap-2">
+                          <button
+                            onClick={() => setConfirmDeleteId(null)}
+                            className="px-3 py-1 text-xs text-gray-600 hover:bg-gray-100 rounded"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={() => {
+                              onDeleteEmployee(employee);
+                              setConfirmDeleteId(null);
+                            }}
+                            className="px-3 py-1 text-xs bg-red-600 text-white hover:bg-red-700 rounded"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
