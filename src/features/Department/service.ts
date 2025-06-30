@@ -7,13 +7,15 @@ import Client from "../../api";
 
 export const getAllDepartments = async () => {
   try {
-    const response = await Client.hr.departments.getAllDepartments();
+    const response = await new Client().hr.departments.getAllDepartments();
+    console.log("Departments fetched successfully:", response);
     return response;
   } catch (error) {
     console.error("Error in getAllDepartments:", error);
     throw error;
   }
 };
+
 
 // If needed later, uncomment and use like this:
 // export const getDepartmentById = async (id: string) => {

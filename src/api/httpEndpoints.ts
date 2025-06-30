@@ -105,12 +105,19 @@ export const API_END_POINTS = {
     deleteLeaveType: (id: string) => `api/hr/leaveType/deleteLeave/${id}`,
   },
   
-  jobPosting: {
-  create: "/api/hr/jobposting", 
-  getAll: "/api/hr/jobposting", 
-  getById: (id: string) => `/api/hr/jobposting/${id}`,
-  update: (id: string) => `/api/hr/jobposting/${id}`,
-  delete: (id: string) => `/api/hr/jobposting/${id}`,  
+  jobposting: {
+  createJobPosting: "/api/hr/jobpostings", 
+  getAllJobPostings: "/api/hr/jobpostings", 
+  getById: (id: string) => `/api/hr/jobpostings/${id}`,
+  updateJobPosting: (id: string) => `/api/hr/jobpostings/${id}`,
+  deleteJobPosting: (id: string) => `/api/hr/jobpostings/${id}`,  
+},
+payroll: {
+  createPayroll: "/api/hr/payroll/create",
+  getAllPayrolls: "/api/hr/payroll/get", 
+  getById: (id: string) => `/api/hr/payroll/get/${id}`,
+  updatePayroll: (id: string) => `/api/hr/payroll/update/${id}`,
+  deletePayroll: (id: string) => `/api/hr/payroll/delete/${id}`,
 }
 
 
