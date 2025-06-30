@@ -108,7 +108,8 @@ export default class Client {
     },
 
     departments: {
-      getAllDepartments: () => httpClient.get(API_END_POINTS.department.getAll),
+      getAllDepartments: () => 
+        httpClient.get(API_END_POINTS.department.getAll),
 
       createDepartment: (data: any) =>
         httpClient.post(API_END_POINTS.department.create, data),

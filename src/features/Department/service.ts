@@ -8,7 +8,7 @@ import Client from "../../api";
 export const getAllDepartments = async () => {
   try {
     const response = await new Client().hr.departments.getAllDepartments();
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error in getAllDepartments:", error);
     throw error;
