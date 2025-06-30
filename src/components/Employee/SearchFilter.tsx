@@ -22,29 +22,31 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   departments,
 }) => {
   const getDepartmentName = (dept: Department | "") =>
-    typeof dept === "string" ? dept || "All Departments" : dept?.name ?? "Unnamed";
+    typeof dept === "string"
+      ? dept || "All Departments"
+      : dept?.name ?? "Unnamed";
 
   return (
-    <div className="flex flex-row justify-center items-center md:items-center gap-2 w-full">
+    <div className="flex flex-row justify-start items-center md:items-center  gap-2 w-full">
       {/* Search Input */}
-      <div className="relative flex-1 flex max-w-64">
+      <div className="flex relative border border-gray-300 rounded-md md:w-64  backdrop-blur-xl bg-white/10  h-8">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <Search className="w-4 h-4 text-gray-400" />
+          <Search className="w-4 h-4 text-gray-300" />
         </div>
         <input
           type="text"
           placeholder="Search employees..."
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-[#eff4f5] focus:outline-none focus:ring-2 focus:ring-[#006666]/50"
+          className="w-full pl-10 pr-4 py-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
         />
       </div>
 
       {/* Filter Dropdown */}
-      <div className="relative max-w-80">
+      <div className="relative w-[10.5rem]">
         <button
           onClick={onFilterToggle}
-          className="flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition-colors"
+          className={`flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-lg bg-transparent backdrop-blur-xl bg-white/10 text-white hover:bg-gray-500/10 transition-colors h-8 text-xs`}
         >
           <span>{getDepartmentName(selectedDepartment)}</span>
           <ChevronDown
@@ -56,7 +58,7 @@ export const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
         {/* Dropdown Menu */}
         {filterOpen && (
-          <div className="absolute right-0 mt-2  w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 py-1 max-h-60 overflow-y-auto">
+          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 py-1 max-h-60 overflow-y-auto">
             <div
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {

@@ -236,7 +236,7 @@ const EmployeeManagement = () => {
 
   return (
     <div className="container mx-auto px-4 py-2">
-      <div className="flex flex-wrap justify-start items-center mb-6 gap-4  ">
+      <div className="flex flex-wrap justify-start items-center mb-6 gap-8  ">
         {/* Title */}
         <h1
           className="text-3xl font-bold text-white"
@@ -246,10 +246,10 @@ const EmployeeManagement = () => {
         </h1>
 
         {/* Right-side controls: Add button + Filter */}
-        <div className="flex items-center justify-start gap-1  ">
+        <div className="flex items-center justify-start gap-2   ">
           <button
             onClick={() => setShowAddForm(true)}
-            className="flex items-center  gap-2 bg-[#4c469f] hover:bg-[#3b3780] text-white px-4 py-2.5 rounded-md shadow-md w-48"
+            className="flex items-center h-8 gap-2 bg-[#4c469f] hover:bg-[#3b3780] text-white px-4 py-2.5 rounded-md shadow-md w-48"
             style={{ ...FONTS.button }}
           >
             <Plus size={18} />
