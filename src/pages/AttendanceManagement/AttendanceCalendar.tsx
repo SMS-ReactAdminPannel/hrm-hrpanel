@@ -3,13 +3,14 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { format } from 'date-fns';
-import { FaRegCalendarAlt, FaUserCheck, FaUserTimes } from 'react-icons/fa';
-import '../AttendanceManagement/AttendanceCalendar.css';
+import {  FaUserCheck, FaUserTimes } from 'react-icons/fa';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
+
+
+
 
 const AttendanceCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  
   const [hoveredDate, setHoveredDate] = useState(null);
   const [showYearDropdown, setShowYearDropdown] = useState(false);
   const calendarRef = useRef(null);
@@ -30,7 +31,7 @@ const AttendanceCalendar = () => {
 
   // Generate years for dropdown (current year ± 5 years)
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
+  const years = Array.from({ length: 12 }, (_, i) => currentYear - 5 + i);
 
   // Function to handle date hover
   const handleDateMouseEnter = (date) => {
@@ -73,6 +74,7 @@ const handleYearChange = (year) => {
     right: 'next yearDropdown'
   });
 
+
   // Custom button for year dropdown
   const customButtons = {
     yearDropdown: {
@@ -81,24 +83,12 @@ const handleYearChange = (year) => {
     }
   };
 
+
+
   return (
     <div className="attendance-dashboard">
-      {/* Header Section */}
-      <div className="dashboard-header bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="header-title flex items-center space-x-3">
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <FaRegCalendarAlt className="header-icon text-blue-600 text-xl" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800">Employee Attendance</h1>
-              <p className="text-sm text-gray-500">Track and manage daily attendance records</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Calendar Container */}
+    
+      {/* Calendar Container*/}
       <div className="calendar-container relative">
         <FullCalendar
           initialDate={currentDate} 
@@ -151,7 +141,8 @@ const handleYearChange = (year) => {
 
                 {/* Custom Tooltip */}
                 {hoveredDate && hoveredDate.getDate() === dayNumber && !isSunday && (
-                  <div className="absolute z-10 bg-white border border-gray-200 shadow-lg p-3 rounded-lg text-xs text-left w-48 top-full mt-2 left-1/2 transform-translate-xl-2 -translate-x-1/2">
+                  <div className="absolute z-10 bg-white border border-gray-200 shadow-lg p-3 rounded-lg
+                   text-xs text-left w-48 top-full mt-2 left-1/2 transform-translate-xl-2 -translate-x-1/2 backdrop-blur">
                     <div className="flex justify-between items-center mb-2 pb-1 border-b border-gray-100">
                       <p className="font-semibold">{format(arg.date, 'MMMM d, yyyy')}</p>
                       <span
@@ -167,7 +158,7 @@ const handleYearChange = (year) => {
 
                     {isPresent ? (
                       <>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-2 bg-gray-300">
                           <div>
                             <p className="text-gray-500">First In</p>
                             <p className="font-medium">{tooltipData.firstIn}</p>
@@ -200,23 +191,34 @@ const handleYearChange = (year) => {
           <div className="absolute right-4 top-12 z-50 bg-white border border-gray-200 rounded-lg shadow-lg py-1 w-32">
             {years.map((year) => (
               <button
-                key={year}
-                className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                  year === currentDate.getFullYear() ? 'bg-blue-50 text-blue-600 font-medium' : ''
-                }`}
-                onClick={() => handleYearChange(year)}
+          key={year}
+          className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
+            year === currentDate.getFullYear() ? 'bg-blue-50 text-blue-600 font-medium' : ''
+          }`}
+          onClick={() => {
+            handleYearChange(year);
+            // Move calendar to the selected year
+            if (calendarRef.current) {
+
+              calendarRef.current.getApi().gotoDate(new Date(year, currentDate.getMonth(), 1));
+            }
+          }}
               >
-                {year}
+          {year}
               </button>
             ))}
           </div>
         )}
       </div>
 
+
+     
+      
+
       {/* Stats Cards */}
-      <div className="flex justify-end items-center gap-4 text-lg mt-6">
+      <div className="flex justify-end items-center gap-4 text-lg mt-6 ">
         {/* Present Card */}
-        <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-l-4 border-emerald-500">
+        <div className="flex items-center gap-2  px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-l-4 border-emerald-500">
           <div className="p-2 bg-emerald-50 rounded-full">
             <FaUserCheck className="text-emerald-600 text-xl" />
           </div>
@@ -227,7 +229,7 @@ const handleYearChange = (year) => {
         </div>
 
         {/* Absent Card */}
-        <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-l-4 border-red-500">
+        <div className="flex items-center gap-2  px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border-l-4 border-red-500">
           <div className="p-2 bg-red-50 rounded-full">
             <FaUserTimes className="text-red-600 text-xl" />
           </div>

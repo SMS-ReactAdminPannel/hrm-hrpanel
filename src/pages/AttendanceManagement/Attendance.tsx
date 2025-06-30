@@ -5,7 +5,7 @@ import { FaBriefcase } from "react-icons/fa"
 import { IoIosPeople } from "react-icons/io"
 import { MdManageHistory, MdTimer } from "react-icons/md"
 import { useNavigate } from "react-router-dom";
-import { FONTS } from "../../constants/uiConstants"
+// import { FONTS } from "../../constants/uiConstants"
 import { getDailyAttendance } from "../../features/Attendance/service"
 
 
