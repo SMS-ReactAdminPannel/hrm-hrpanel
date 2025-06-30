@@ -22,7 +22,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    setError("")
+    handleForgotPassword(email)
     setMessage("")
 
     try {
