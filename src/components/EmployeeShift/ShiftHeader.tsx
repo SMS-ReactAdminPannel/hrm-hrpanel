@@ -106,7 +106,7 @@ const EmployeeShiftHeader: React.FC<EmployeeShiftHeaderProps> = ({
               <button
                 className={`flex items-center gap-2 px-3 md:px-3 py-2 border rounded-md text-sm md:text-base transition-colors duration-200  h-8 focus:ring-2 focus:ring-gray-300 rounded-lg  ${
                   groupBy
-                    ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 text-[#5e59a9]"
+                    ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 text-white"
                     : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 text-white hover:bg-gray-500/10"
                 }`}
                 onClick={() => setIsGroupDropdownOpen(!isGroupDropdownOpen)}

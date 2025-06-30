@@ -1,37 +1,59 @@
-import type React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { FONTS } from "../../constants/uiConstants"
+import React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationProps {
-  currentPage: number
-  totalPages: number
-  onPageChange: (page: number) => void
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+export const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
+  const pages = [];
+
+  // Only show two pages: currentPage - 1 and currentPage (like in screenshot)
+  if (currentPage > 1) pages.push(currentPage - 1);
+  pages.push(currentPage);
+
+  if (currentPage < totalPages) pages.push(currentPage + 1);
+
   return (
-    <div className="flex justify-end items-center mt-4 space-x-2">
+    <div className="flex items-center justify-center gap-4 py-4">
+      {/* Left arrow */}
       <button
         onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+        className="text-white disabled:opacity-30 hover:bg-white rounded-md p-1 hover:text-black"
         disabled={currentPage === 1}
-        className="flex items-center px-3 py-2 border bg-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 text-black"
       >
-        <ChevronLeft size={16} className="mr-1" />
-       
+        <ChevronLeft className="w-4 h-4  " />
       </button>
 
-      <span className="px-4 py-2 text-sm !text-gray-600"style={{...FONTS.paragraph}}>
-        Page {currentPage} of {totalPages}
-      </span>
+      {/* Page numbers */}
+      {pages.map((page) => (
+        <button
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={`px-2 py-1 rounded-md text-sm font-medium ${
+            page === currentPage
+              ? "bg-[#5e59a9] text-white"
+              : "text-white hover:bg-[#4c4aa1] hover:text-white"
+          }`}
+        >
+          {page}
+        </button>
+      ))}
 
+      {/* Right arrow */}
       <button
         onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+        className="text-white disabled:opacity-30 hover:bg-white rounded-md p-1 hover:text-black"
         disabled={currentPage === totalPages}
-        className="flex items-center px-3 py-2 border bg-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 !text-black"style={{...FONTS.cardSubHeader}}
       >
-      
-        <ChevronRight size={16} className="ml-1" />
+        <ChevronRight className="w-4 h-4 hover:text-[#4c4aa1]" />
       </button>
     </div>
-  )
-}
+  );
+};

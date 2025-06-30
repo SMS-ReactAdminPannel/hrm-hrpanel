@@ -111,7 +111,13 @@ export const API_END_POINTS = {
   getById: (id: string) => `/api/hr/jobposting/${id}`,
   update: (id: string) => `/api/hr/jobposting/${id}`,
   delete: (id: string) => `/api/hr/jobposting/${id}`,  
-}
+},
 
-
+  employeeDetails: {
+    create: "/api/employee/employeedetails",
+    getAll: "/api/employee/employeedetails",
+    getById: (id: string) => `/api/employee/employeedetails/${id}`,
+    update: (id: string) => `/api/employee/employeedetails/${id}`,
+    delete: (id: string) => `/api/employee/employeedetails/${id}`,
+  },
 };
