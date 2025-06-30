@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FONTS } from "../../constants/uiConstants";
+
 import { PersonalInfoComponent } from "../../components/Profile/Personal-Info";
 import { EmergencyContactComponent } from "../../components/Profile/Emergency-Contact";
 import { EducationComponent } from "../../components/Profile/Eduction";
@@ -7,6 +8,7 @@ import { ExperienceComponent } from "../../components/Profile/Experance";
 import { BankInfoComponent } from "../../components/Profile/BankInfo";
 import { PassportInfoComponent } from "../../components/Profile/Passport-Info";
 import { CertificatesComponent } from "../../components/Profile/Certificate";
+
 import {
   getEmployeeDetailsById,
   updateEmployeeDetails,
@@ -14,13 +16,6 @@ import {
 
 const Profile: React.FC = () => {
   const [employeeDetailId] = useState("6862385e95746819ca93e328");
-
-  
-  // const { employeeDetailId } = useParams(); after connected connect this
-  //to route page
-  //  <Route path="/profile/:employeeDetailId" element={<Profile />} />
-  //to navigate page 
-  // navigate(`/profile/${employee._id}`);
 
   const [employeeData, setEmployeeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -45,15 +40,30 @@ const Profile: React.FC = () => {
     if (!employeeData) return;
     try {
       const updatedData = { ...employeeData, [section]: updatedSectionData };
-      await updateEmployeeDetails(employeeDetailId, { [section]: updatedSectionData });
+
+      // PATCH only the updated section
+      await updateEmployeeDetails(employeeDetailId, {
+        [section]: updatedSectionData,
+      });
+
       setEmployeeData(updatedData);
+      console.log(`${section} updated successfully`);
     } catch (error) {
       console.error(`Failed to update ${section}:`, error);
     }
   };
 
-  if (loading) return <div className="text-center mt-10">Loading...</div>;
-  if (!employeeData) return <div className="text-center mt-10 text-red-500">No employee data found.</div>;
+  if (loading) {
+    return <div className="text-center mt-10">Loading...</div>;
+  }
+
+  if (!employeeData) {
+    return (
+      <div className="text-center mt-10 text-red-500">
+        No employee data found.
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-[#006666]/5 to-[#006666]/10 p-6">

@@ -1,35 +1,48 @@
-import type React from "react"
-import { useState } from "react"
-import { User, Phone, Mail, MapPin, Calendar, CameraIcon, Pencil } from "lucide-react"
-import { FONTS } from "../../constants/uiConstants"
+import type React from "react";
+import { useState } from "react";
+import {
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  CameraIcon,
+  Pencil,
+} from "lucide-react";
+import { FONTS } from "../../constants/uiConstants";
 
 interface PersonalInfo {
-  name: string
-  position: string
-  employeeId: string
-  joinDate: string
-  phone: string
-  email: string
-  blood: string
-  birthday: string
-  address: string
-  gender: string
-  profileImage: string
+  name: string;
+  position: string;
+  employeeId: string;
+  joinDate: string;
+  phone: string;
+  email: string;
+  blood: string;
+  birthday: string;
+  address: string;
+  gender: string;
+  profileImage: string;
 }
 
 interface PersonalInfoProps {
-  data: PersonalInfo
-  onUpdate?: (data: PersonalInfo) => void
+  data: PersonalInfo;
+  onUpdate?: (data: PersonalInfo) => void;
 }
 
-export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpdate }) => {
-  const [isEditing, setIsEditing] = useState(false)
-  const [profileImagePreview, setProfileImagePreview] = useState<string>(data.profileImage)
+export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({
+  data,
+  onUpdate,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileImagePreview, setProfileImagePreview] = useState<string>(
+    data.profileImage
+  );
   const [formData, setFormData] = useState({
     name: data.name,
     position: data.position,
-    empolyeeID:data.employeeId,
-    joinDate:data.joinDate,
+    empolyeeID: data.employeeId,
+    joinDate: data.joinDate,
     phone: data.phone,
     email: data.email,
     birthday: data.birthday,
@@ -38,42 +51,46 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
     address: data.address,
     family: data.address,
     marriedStatus: "",
-  })
+  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onload = (e) => {
-        setProfileImagePreview(e.target?.result as string)
-      }
-      reader.readAsDataURL(file)
+        setProfileImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Personal info updated:", formData)
-    setIsEditing(false)
+    e.preventDefault();
+    console.log("Personal info updated:", formData);
+    setIsEditing(false);
     if (onUpdate) {
       onUpdate({
         ...data,
         ...formData,
         profileImage: profileImagePreview,
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="flex flex-2 flex-col rounded-xl bg-white max-w-[60%] h-full p-2 shadow-2xl border border-[#006666]/20  transition-all duration-300 group">
       {isEditing && (
         <div className=" flex p-2  -mb-3">
-          <p className="text-red-800 text-sm ">Edit Mode Active - Make your changes and click Save</p>
+          <p className="text-red-800 text-sm ">
+            Edit Mode Active - Make your changes and click Save
+          </p>
         </div>
       )}
 
@@ -83,7 +100,10 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <User size={24} />
           </div>
           <div>
-            <h2 className="text-xl !text-gray-700  " style={{ ...FONTS.header }}>
+            <h2
+              className="text-xl !text-gray-700  "
+              style={{ ...FONTS.header }}
+            >
               Personal Information
             </h2>
           </div>
@@ -111,7 +131,12 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               <label className="cursor-pointer bottom-1 absolute right-1 text-white text-xs font-semibold bg-blue-500 hover:bg-blue-600 rounded-full p-2 transition-colors duration-200">
                 <CameraIcon size={16} />
-                <input type="file" accept="image/*" onChange={handleProfileImageChange} className="hidden" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfileImageChange}
+                  className="hidden"
+                />
               </label>
             </div>
           )}
@@ -157,12 +182,14 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
               <h3 className="text-2xl font-bold text-slate-800">{data.name}</h3>
               <p className=" font-semibold">{data.position}</p>
               <p className="text-sm font-medium mt-1">
-            Employee ID: <span className=" font-bold">{data.employeeId}</span>
-          </p>
-          <p className="text-sm text-slate-900">Date of Join: {data.joinDate}</p>
+                Employee ID:{" "}
+                <span className=" font-bold">{data.employeeId}</span>
+              </p>
+              <p className="text-sm text-slate-900">
+                Date of Join: {data.joinDate}
+              </p>
             </>
           )}
-          
         </div>
       </div>
 
@@ -174,155 +201,196 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
             <div className="flex flex-col items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center  ">
                 <Phone size={16} className=" mt-1 " />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Phone</strong>
-              <span>:</span>
-              <span className="">
-                <input
-                  name="phone"
-                  type="tel"
-                  className="placeholder-black bg-transparent rounded-xl   outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Phone
+                </strong>
+                <span>:</span>
+                <span className="">
+                  <input
+                    name="phone"
+                    type="tel"
+                    className="placeholder-black bg-transparent rounded-xl   outline-none w-full !text-gray-900 text-md"
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+                </span>
               </div>
-              
             </div>
             <div className="flex flex-col items-start  p-3   transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Mail size={16} className="] mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Email</strong>
-              <span>:</span>
-              <span>
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Email
+                </strong>
+                <span>:</span>
+                <span>
                   <input
-                  name="email"
-                  type="email"
-                  className="placeholder-black bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
+                    name="email"
+                    type="email"
+                    className="placeholder-black bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md"
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+                </span>
               </div>
-             
             </div>
             <div className="flex flex-col  items-start  p-3   transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Calendar size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Birthday</strong>
-              <span>:</span>
-              <span>
-                
-                <input
-                  name="birthday"
-                  type="text"
-                  className="bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.birthday}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Birthday
+                </strong>
+                <span>:</span>
+                <span>
+                  <input
+                    name="birthday"
+                    type="text"
+                    className="bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-md"
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.birthday}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+                </span>
               </div>
-            
             </div>
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <Phone size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Blood</strong>
-              <span>:</span>
-              <span>
-                <input
-                  name="blood"
-                  type="text"
-                  className="placeholder-black bg-transparent  ml-2 outline-none w-full !text-gray-900 text-md " style={{ ...FONTS.subParagraph}}
-                  value={formData.blood}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
-              </div>
-             
-            </div>
-            <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
-             <div className="flex flex-row gap-2 item-center justify-center">
-               <User size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Gender</strong>
-              <span>:</span>
-              <span>
-                <select
-                  name="gender"
-                  className=" bg-transparent rounded-xl !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
                 >
-                  <option value="">Choose Your gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
-                </select>
-              </span>
-             </div>
-            
-            </div>
-            <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
-              <div className="flex flex-row gap-2 item-center justify-center">
-                <MapPin size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Address</strong>
-              <span>:</span>
-              <span>
-                <input
-                  name="address"
-                  type="text"
-                  className="block w-full  bg-transparent rounded-xl placeholder-black !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
+                  Blood
+                </strong>
+                <span>:</span>
+                <span>
+                  <input
+                    name="blood"
+                    type="text"
+                    className="placeholder-black bg-transparent  ml-2 outline-none w-full !text-gray-900 text-md "
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.blood}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+                </span>
               </div>
-             
-            </div>
-            <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
-              <div className="flex flex-row gap-2 item-center justify-center">
-                <MapPin size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Family</strong>
-              <span>:</span>
-              <span>
-                <input
-                  name="family"
-                  type="text"
-                  className="block w-full  bg-transparent rounded-xl placeholder-black !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.family}
-                  onChange={handleInputChange}
-                  readOnly={!isEditing}
-                />
-              </span>
-              </div>
-              
             </div>
             <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
               <div className="flex flex-row gap-2 item-center justify-center">
                 <User size={16} className=" mt-1" />
-              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Married Status</strong>
-              <span>:</span> 
-              <span>
-                
-                <select
-                  name="marriedStatus"
-                  className="ml-2 bg-transparent rounded-xl !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
-                  value={formData.marriedStatus}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
                 >
-                  <option value="">Choose</option>
-                  <option value="Single">Single</option>
-                  <option value="Married">Married</option>
-                </select>
-              </span>
+                  Gender
+                </strong>
+                <span>:</span>
+                <span>
+                  <select
+                    name="gender"
+                    className={`bg-transparent rounded-xl !text-gray-900 text-md ${
+                      !isEditing ? "appearance-none pointer-events-none" : ""
+                    }`}
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                  >
+                    <option value="">_____</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </span>
               </div>
-             
+            </div>
+            <div className="flex flex-col  items-start  p-3   transition-colors duration-200">
+              <div className="flex flex-row gap-2 item-center justify-center">
+                <MapPin size={16} className=" mt-1" />
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Address
+                </strong>
+                <span>:</span>
+                
+                  <input
+                    name="address"
+                    type="text"
+                    className="block w-full bg-transparent  mt-1  placeholder-black !text-gray-900 text-md"
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+              </div>
+            </div>
+            <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
+              <div className="flex flex-row gap-2 item-center justify-center">
+                <MapPin size={16} className=" mt-1" />
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Family
+                </strong>
+                <span>:</span>
+               
+                  <input
+                    name="family"
+                    type="text"
+                    className="block w-full  bg-transparent mt-1 placeholder-black !text-gray-900 text-md"
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.family}
+                    onChange={handleInputChange}
+                    readOnly={!isEditing}
+                  />
+               
+              </div>
+            </div>
+            <div className="flex flex-col  items-start  p-3    transition-colors duration-200">
+              <div className="flex flex-row gap-2 item-center justify-center">
+                <User size={16} className=" mt-1" />
+                <strong
+                  className="!text-gray-800 font-semibold"
+                  style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}
+                >
+                  Married Status
+                </strong>
+                <span>:</span>
+                <span>
+                  <select
+                    name="marriedStatus"
+                    className={`bg-transparent rounded-xl !text-gray-900 text-md ${
+                      !isEditing ? "appearance-none pointer-events-none" : ""
+                    }`}
+                    style={{ ...FONTS.subParagraph }}
+                    value={formData.marriedStatus}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                  >
+                    <option value="">_____</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                  </select>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -348,15 +416,5 @@ export const PersonalInfoComponent: React.FC<PersonalInfoProps> = ({ data, onUpd
         )}
       </form>
     </div>
-  )
-}
-
-
-
-
-
-
-
-
-
-
+  );
+};
