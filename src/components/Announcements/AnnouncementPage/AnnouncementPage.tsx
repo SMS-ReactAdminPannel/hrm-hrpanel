@@ -101,7 +101,7 @@ const Announcement = () => {
                   setCurrentPage(1);
                 }}
                 placeholder="Search by title..."
-                className="pl-9 bg-gray-100 rounded-md px-8 py-2.5  focus:outline-none focus:ring-2 focus:ring-[#4c469f]"
+                className="w-full pl-10 border border-gray-30 rounded-lg pr-4 py-2.5 bg-white placeholder-gray-400 focus:ring-2 focus:ring-[#4c469f] focus:border-[#4c469f] transition duration-200"
               />
             </div>
           </aside>
@@ -118,7 +118,7 @@ const Announcement = () => {
     });
     setEditIndex(null);
   }}
-            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#3e3a85]  rounded-md group"
+            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[#3e3a85]  rounded-md group hover:scale-104"
 >
 
   <span className="absolute bottom-0 left-0 h-full -ml-2">
