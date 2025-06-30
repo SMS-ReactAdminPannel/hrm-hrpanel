@@ -606,7 +606,7 @@ const SidebarLink = ({
         isActive ? "bg-white/30 backdrop-blur-sm" : isHovered ? "bg-white/20" : "hover:bg-white/10"
       } ${isOpen ? "justify-start gap-3 px-3" : "justify-center px-0"}`}
     >
-      <div className="text-lg text-white flex-shrink-0">{icon}</div>
+      <div className="text-lg text-white  flex-shrink-0">{icon}</div>
       {isOpen && <span className="text-white font-medium text-sm">{label}</span>}
     </Link>
   )
@@ -655,24 +655,38 @@ const SidebarDropdown = ({
       <button
         onClick={() => setExpanded((prev) => !prev)}
         className={`flex items-center w-full py-2  transition-all ${
-          isOpen ? "justify-start gap-3 px-3 rounded-md" : "justify-center rounded-md"
+          isOpen ? "justify-start gap-3 px-3 rounded-md" : "justify-center rounded-md "
         }`}
       >
-        <div className={`text-lg flex-shrink-0 text-white`}>
-          {icon}
-        </div>
+          <div
+                className={`text-lg flex-shrink-0 transition-colors ${
+                  expanded ? "text-white/50" : "text-white"
+                }`}
+                >
+                {icon}
+          </div>
+
+      
+
         {isOpen && (
           <>
-            <span className="text-white font-medium text-sm flex-1 text-left">{label}</span>
+            <span
+              className={`font-medium text-sm flex-1 text-left transition-colors ${
+                expanded ? "text-white/50" : "text-white"
+              }`}
+            >
+              {label}
+            </span>
             <span
               className={`text-white transition-transform duration-200 ${
-                expanded ? "rotate-180" : ""
+                expanded ? "rotate-180 text-white/50" : ""
               }`}
             >
               <FiChevronDown />
             </span>
           </>
         )}
+
       </button>
 
       {showChildren && (
