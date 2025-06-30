@@ -298,7 +298,7 @@ const SideBar = ({
 
   return (
     <div
-      className="fixed top-0 left-0 h-screen z-40 flex flex-col transition-all duration-300"
+      className="fixed top-0 left-0 h-screen z-40 flex flex-col transition-all duration-300 p-1"
       onMouseEnter={() => !isOpen && setHovered(true)}
       onMouseLeave={() => !isOpen && setHovered(false)}
       style={{
@@ -320,16 +320,16 @@ const SideBar = ({
       </div>
 
       <nav
-        className="flex-1 overflow-y-auto pr-1"
+        className="flex-1 overflow-y-auto p-2"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
       >
-        {/* Dashboard */}
+        
         <SidebarLink to="/" icon={<FiHome />} label="Dashboard" isOpen={actualOpen} onClick={handleLinkClick} />
 
-        {/* Employee Group */}
+       
         <div className="mb-1">
           <SidebarDropdown
             icon={<FiUsers />}
@@ -602,7 +602,7 @@ const SidebarLink = ({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`flex items-center transition-all py-2 rounded-xl mb-1 ${
+      className={`flex items-center transition-all py-2 rounded-md ${
         isActive ? "bg-white/30 backdrop-blur-sm" : isHovered ? "bg-white/20" : "hover:bg-white/10"
       } ${isOpen ? "justify-start gap-3 px-3" : "justify-center px-0"}`}
     >
@@ -612,7 +612,11 @@ const SidebarLink = ({
   )
 }
 
-// SidebarDropdown Component
+
+
+import { useEffect } from "react"
+
+
 const SidebarDropdown = ({
   icon,
   label,
@@ -626,45 +630,68 @@ const SidebarDropdown = ({
   isOpen: boolean
   childRoutes?: string[]
 }) => {
-  const [expanded, setExpanded] = useState(false)
   const location = useLocation()
 
   const isChildActive = childRoutes.some((route) => location.pathname === route)
 
-  
+  const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => {
+    if (isChildActive) {
+      setExpanded(true)
+    }
+  }, [isChildActive])
+
   const shouldHighlightParent = !isOpen && isChildActive
+  const showChildren = expanded || isChildActive
 
   return (
     <div
-      className={`w-full ${
-        expanded && isOpen
-          ? "bg-white/15 backdrop-blur-lg rounded-2xl border border-white/20"
+      className={`w-full  ${
+        (expanded && isOpen) || shouldHighlightParent
+          ? "bg-white/13 backdrop-blur-lg rounded-md border border-white/20"
           : "hover:backdrop-blur-md rounded-xl"
-      }`}
-    >
+      }`}>
       <button
-        onClick={() => setExpanded(!expanded)}
-        className={`flex items-center w-full py-2 mb-1 transition-all ${
-          shouldHighlightParent ? "bg-white/30 backdrop-blur-sm " : ""
-        } ${isOpen ? "justify-start gap-3 px-3 rounded-xl" : "justify-center px-0 rounded-xl"}`}
+        onClick={() => setExpanded((prev) => !prev)}
+        className={`flex items-center w-full py-2  transition-all ${
+          isOpen ? "justify-start gap-3 px-3 rounded-md" : "justify-center rounded-md"
+        }`}
       >
-        <div
-          className={`text-lg flex-shrink-0 transition-colors ${
-            shouldHighlightParent ? "text-white" : "text-white"
-          }`}
-        >
+        <div className={`text-lg flex-shrink-0 text-white`}>
           {icon}
         </div>
         {isOpen && (
           <>
             <span className="text-white font-medium text-sm flex-1 text-left">{label}</span>
-            <span className={`text-white transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}>
+            <span
+              className={`text-white transition-transform duration-200 ${
+                expanded ? "rotate-180" : ""
+              }`}
+            >
               <FiChevronDown />
             </span>
           </>
         )}
       </button>
-      {expanded && isOpen && <div className="ml-6 flex flex-col space-y-1">{children}</div>}
+
+      {showChildren && (
+        <div
+          className={`flex flex-col space-y-1 ${
+            isOpen
+              ? "ml-6"
+              : " ml-1 "
+          }`}
+        >
+          {children}
+        </div>
+      )}
     </div>
   )
 }
+
+
+
+
+
+
