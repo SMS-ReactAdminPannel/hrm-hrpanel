@@ -89,6 +89,7 @@ const SideBar = ({
          
         </div>
       </div>
+      <div className="border-b-2 border-b-gray-400  mr-6 ml-6 "></div>
       {/* Navigation */}
       <div className="flex-1 overflow-y-scroll scrollbar-hide px-2 mt-3 pb-4">
         <nav className="flex flex-col">

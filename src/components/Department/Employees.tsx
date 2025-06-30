@@ -1,9 +1,12 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState, type Key } from "react";
+import { useEffect, useMemo, useState, type Key } from "react";
 import { ArrowLeft, Plus, Trash2, Users } from "lucide-react";
 import { getAllDepartments } from "../../features/Department/service";
 import axios from "axios";
 import { FONTS } from "../../constants/uiConstants";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllDepartments } from "../../features/Department/redux/departmentThunk";
+import { selectDepartments } from "../../features/Department/redux/departmentSelector";
 
 type Employee = {
   id: string;
@@ -27,27 +30,43 @@ const EmployeesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [newEmployee, setNewEmployee] = useState({ name: "", role: "" });
-
+  const dispatch = useDispatch();
+  const fetchDepartments = useSelector(selectDepartments)
    
   
-    const fetchDepartment = async () => {
-      try {
-        const response: any = await getAllDepartments();
-        console.log("page response", response);
-        const department = response?.data;
-        console.log("Department data:", department);
-        setDepartment(department);
-        console.log("Holidays fetched:", department);
-      } catch (error) {
-        console.error("Error fetching holidays:", error);
-      }
-     };
+    // const fetchDepartment = async () => {
+    //   try {
+    //     const response: any = await getAllDepartments();
+    //     console.log("page response", response);
+    //     const department = response?.data;
+    //     console.log("Department data:", department);
+    //     setDepartment(department);
+    //     console.log("Holidays fetched:", department);
+    //   } catch (error) {
+    //     console.error("Error fetching holidays:", error);
+    //   }
+    //  };
    
      useEffect(() => {
-       fetchDepartment();
-     }, []);
+       dispatch(fetchAllDepartments())
+     }, [dispatch]);
   
-  
+  const memoizedDepartments = useMemo(()=> fetchDepartments.data || [], [fetchDepartments.data])
+  console.log("memoized", memoizedDepartments)
+  useEffect(() => {
+  if (departmentId && memoizedDepartments.length > 0) {
+    const dept = memoizedDepartments.find((d) => d.id === departmentId);
+    if (dept) {
+      setDepartment(dept);
+      setLoading(false);
+    } else {
+      setError("Department not found");
+      setLoading(false);
+    }
+  }
+}, [memoizedDepartments, departmentId]);
+
+
   const handleAddEmployee = async () => {
     if (!newEmployee.name.trim() || !newEmployee.role.trim() || !department) return;
 
@@ -83,9 +102,9 @@ const EmployeesPage = () => {
     }
   };
 
-  const filledRoles = department?.employees.map((emp) => emp.role) || [];
-  const vacantRoles =
-    department?.requiredRoles.filter((role) => !filledRoles.includes(role)) || [];
+  // const filledRoles = department?.employees.map((emp) => emp.role) || [];
+  // const vacantRoles =
+  //   department?.requiredRoles.filter((role) => !filledRoles.includes(role)) || [];
 
   if (loading) return <div className="text-white p-6">Loading...</div>;
   if (error) return <div className="text-red-500 p-6">{error}</div>;
