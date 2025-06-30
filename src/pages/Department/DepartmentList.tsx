@@ -268,4 +268,3 @@ const DepartmentList: React.FC = () => {
 
 export default DepartmentList;
 
-

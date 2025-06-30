@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import {
   getAllcandidates,
   updateStatus,
-  deleteCandidate,
 } from "../../../features/Candidates/services";
 import EditCandidateModal from "./EditCandidateModal";
 

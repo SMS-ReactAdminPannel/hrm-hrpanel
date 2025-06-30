@@ -98,8 +98,10 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
   const hasEditingCertificates = certificates.some((cert) => cert.isEditing)
 
   return (
-    <>
-      <div className="flex flex-1 flex-col rounded-xl bg-white p-4 shadow-2xl border border-[#006666]/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group">
+    
+    <div className="">
+       <div className="flex flex-1 flex-col rounded-xl bg-white w-full 
+       p-3 ">
         {hasEditingCertificates && (
           <div className="">
             <p className="!text-red-800 !text-xs" style={{ ...FONTSS.body }}>
@@ -108,12 +110,12 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
           </div>
         )}
 
-        <div className="flex items-center gap-3 mb-6 relative justify-between">
+        <div className="flex items-center gap-3 mb-1 relative justify-between ">
           <div className="flex gap-3 items-center">
             <div className=" group-hover:scale-110 transition-transform duration-300">
               <Briefcase size={24} />
             </div>
-            <h2 className="!text-[#000000]"  style={{ ...FONTS.cardheader }}>
+            <h2 className="!text-[#000000]"  style={{ ...FONTS.header2 }}>
               Certificates
             </h2>
           </div>
@@ -129,8 +131,8 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
             </button>
           </div>
         </div>
-
-        <div className="space-y-3 overflow-auto h-[60vh] scrollbar-hide ">
+        <hr className="border-gray-900 mb-5" />
+        <div className=" overflow-auto h-[80%] scrollbar-hide ">
           {certificates.length === 0 ? (
             <div className="text-center py-8 text-slate-400">
               <Briefcase size={48} className="mx-auto mb-4 opacity-50" />
@@ -143,7 +145,7 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
             certificates.map((certificate) => (
               <div
                 key={certificate.id}
-                className={`p-2 border rounded-xl transition-all duration-200 relative ${
+                className={`p-2  relative ${
                   certificate.isEditing
                     ? "border-blue-400 bg-blue-50/10 shadow-lg"
                     : "border-gray-500 bg-white/5 hover:shadow-md"
@@ -151,103 +153,101 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
               >
                 
 
-                <div className="flex flex-col gap-3 ">
-                  <div className="flex items-start gap-3 ">
-                    <div className="flex-1">
-                      <textarea
-                        className={`w-full rounded-lg outline-none resize-none placeholder-gray-400 p-2 transition-all duration-200 scrollbar-hide ${
-                          certificate.isEditing
-                            ? "bg-white text-gray-800 border-2 border-blue-300 focus:ring-2 focus:ring-blue-500"
-                            : "bg-transparent  border-none cursor-pointer hover:bg-white/5"
-                        }`}
-                        style={{ ...FONTSS.body }}
-                        value={certificate.description}
-                        rows={2}
-                        onChange={(e) => handleDescriptionChange(certificate.id, e.target.value)}
-                        readOnly={!certificate.isEditing}
-                        placeholder="Enter certificate description..."
-                        onClick={() => !certificate.isEditing && toggleEdit(certificate.id)}
-                      />
-                    </div>
+                <div className="  ">
+                  <div className="flex items-start  ">
+                  <div className="flex-1">
+                    <textarea
+                    className={`w-full rounded-lg outline-none resize-none placeholder-gray-400 p-2 transition-all duration-200 scrollbar-hide ${
+                      certificate.isEditing
+                      ? "bg-white text-gray-800 border-2 border-blue-300 focus:ring-2 focus:ring-blue-500"
+                      : "bg-transparent  border-none cursor-pointer hover:bg-white/5"
+                    }`}
+                    style={{ ...FONTSS.body }}
+                    value={certificate.description}
+                    rows={1}
+                    onChange={(e) => handleDescriptionChange(certificate.id, e.target.value)}
+                    readOnly={!certificate.isEditing}
+                    placeholder="Enter certificate description..."
+                    onClick={() => !certificate.isEditing && toggleEdit(certificate.id)}
+                    />
+                  </div>
 
-                    <div className="grid grid-rows-2 items-center gap-2 ">
-                      {!certificate.isEditing && certificate.file && (
-                        <button
-                          type="button"
-                          onClick={() => openCertificateModal(certificate)}
-                          className="px-2 py-1 bg-[#006666] hover:bg-[#008080] text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
-                        >
-                        <Eye size={14} />
-                          
-                        </button>
-                      )}
+                  <div className="grid grid-rows-2 items-center  ">
+                    {!certificate.isEditing && certificate.file && (
+                    <button
+                      type="button"
+                      onClick={() => openCertificateModal(certificate)}
+                      className="px-1 py-1 bg-[#006666] hover:bg-[#008080] text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
+                    >
+                    <Eye size={14} />
+                    </button>
+                    )}
 
-                      {certificate.isEditing ? (
-                        <button
-                          onClick={() => saveCertificate(certificate.id)}
-                          className="px-2 py-1 flex bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
-                          style={{ ...FONTS.button }}
-                        >
-                          Save
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => toggleEdit(certificate.id)}
-                          className="px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
-                          style={{ ...FONTS.button }}
-                        >
-                          <Pencil size={14} />
-                         
-                        </button>
-                      )}
-                    </div>
+                    {certificate.isEditing ? (
+                    <button
+                      onClick={() => saveCertificate(certificate.id)}
+                      className="px-2 py-1 flex bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
+                      style={{ ...FONTS.button }}
+                    >
+                      Save
+                    </button>
+                    ) : (
+                    <button
+                      onClick={() => toggleEdit(certificate.id)}
+                      className="px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors duration-200 flex items-center gap-1"
+                      style={{ ...FONTS.button }}
+                    >
+                      <Pencil size={14} />
+                    </button>
+                    )}
+                  </div>
                   </div>
 
                   {certificate.isEditing && (
-                    <div className="flex items-center gap-2 p-2 bg-white/10 rounded-lg">
-                      <label className="cursor-pointer bg-[#006666] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#008080] transition-colors duration-200">
-                        {certificate.file ? "Change File" : "Upload File"}
-                        <input
-                          type="file"
-                          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0]
-                            if (file) handleFileUpload(certificate.id, file)
-                          }}
-                          className="hidden"
-                        />
-                      </label>
-                      {certificate.file && (
-                        <span className="text-sm text-green-400 font-semibold">{certificate.file.name}</span>
-                      )}
-                    </div>
+                  <div className="flex items-center gap-2 p-2 bg-white/10 rounded-lg">
+                    <label className="cursor-pointer bg-[#006666] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#008080] transition-colors duration-200">
+                    {certificate.file ? "Change File" : "Upload File"}
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) handleFileUpload(certificate.id, file)
+                      }}
+                      className="hidden"
+                    />
+                    </label>
+                    {certificate.file && (
+                    <span className="text-sm text-green-400 font-semibold">{certificate.file.name}</span>
+                    )}
+                  </div>
                   )}
 
                  <div className=" flex justify-end border-t border-gray-600 gap-3">
-                     {certificate.isEditing && (
-                    <div className=" gap-2 pt-2 ">
-                      <button
-                        onClick={() => toggleEdit(certificate.id)}
-                        className="px-3 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors duration-200"
-                        style={{ ...FONTS.button }}
-                      >
-                        Cancel
-                      </button>
-                    </div>
+                   {certificate.isEditing && (
+                  <div className=" gap-2 pt-2 ">
+                    <button
+                    onClick={() => toggleEdit(certificate.id)}
+                    className="px-3 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors duration-200"
+                    style={{ ...FONTS.button }}
+                    >
+                    Cancel
+                    </button>
+                  </div>
                   )}
+                  {/* Avoided the line here */}
                   {certificate.isEditing && certificates.length > 1 && (
-                    <div className="gap-2 pt-2 ">
-                        <button
-                    type="button"
-                    onClick={() => removeCertificate(certificate.id)}
-                    className=" px-3 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-sm
-                    flex items-center justify-center transition-colors duration-200 text-white"
+                  <div className="gap-2 pt-2 ">
+                    <button
+                  type="button"
+                  onClick={() => removeCertificate(certificate.id)}
+                  className=" px-3 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-sm
+                  flex items-center justify-center transition-colors duration-200 text-white"
                   >
-                    Delete
+                  Delete
                   </button>
-                    </div>
-                 
-                )}
+                  </div>
+                  )}
                  </div>
                 </div>
               </div>
@@ -324,6 +324,8 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
           </div>
         </div>
       )}
-    </>
+    </div>
+     
+    
   )
 }

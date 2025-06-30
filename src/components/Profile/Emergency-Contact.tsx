@@ -82,12 +82,12 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
 
       <div className="flex items-center justify-between mb-2 relative ">
         <div className="flex items-center gap-1 justify-center ">
-          <div className="  transition-transform duration-300">
+          <div className="  transition-transform duration-300 ">
             <Users size={24} />
           </div>
           <div>
-            <h2 className="text-lg !text-[#000000]/90"
-            style={{...FONTS.header2}}>
+            <h2 className="text-lg !text-[#000000]/90 ml-2"
+            style={{...FONTS.header}}>
             Emergency Contact
           </h2>
           </div>
@@ -104,61 +104,66 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
       <hr className="border-gray-900 mb-5" />
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-3   rounded-xl hover:shadow-md transition-shadow duration-200">
-          <p className=" font-bold  !text-gray-900 mb-1"
+        <div className="mb-5   rounded-xl hover:shadow-md transition-shadow duration-200 mr-9">
+          <p className=" font-bold  !text-gray-900 mb-3"
           style={{...FONTS.cardheader}}>Primary Contact</p>
-          <hr className="border-gray-900 mb-5 w-[44%] border-1" />
+          {/* <hr className="border-gray-900 mb-5 w-[44%] border-1" /> */}
           <div className="text-sm  grid grid-cols-2 gap-3 ">
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}} className="!text-gray-800 mr-2">Name:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Name</strong>
+              <span className="ml-1">:</span>
               <input
                 name="primaryName"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.primaryName}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Relationship:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Relationship</strong>
+              <span className="ml-1">:</span>
               <input
                 name="primaryRelationship"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.primaryRelationship}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center" >
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Phone:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Phone</strong>
+              <span className="ml-1">:</span>
               <input
                 name="primaryPhone"
                 type="tel"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.primaryPhone}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Email:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Email</strong>
+              <span className="ml-1">:</span>
               <input
                 name="primaryEmail"
                 type="email"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.primaryEmail}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Address:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Address </strong>
+              <span className="ml-1">:</span>
               <input
                 name="primaryAddress"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-2  outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.primaryAddress}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
@@ -167,17 +172,17 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
           </div>
         </div>
 
-        <div className=" rounded-xl hover:shadow-md transition-shadow duration-200">
-          <p className="font-bold  !text-gray-900 mb-2"
+        <div className=" rounded-xl hover:shadow-md transition-shadow duration-200 mr-9">
+          <p className="font-bold  !text-gray-900 mb-3"
           style={{...FONTS.cardheader}}>Secondary Contact</p>
-          <hr className="border-gray-900 mb-5 w-[51%] border-1" />
+          {/* <hr className="border-gray-900 mb-5 w-[51%] border-1" /> */}
           <div className="text-sm grid grid-cols-2 gap-5">
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Name:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Name:</strong>
               <input
                 name="secondaryName"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full "
+                className="placeholder-black bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-md"  style={{ ...FONTS.subParagraph}}
                 value={formData.secondaryName}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
@@ -185,44 +190,44 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Relationship:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Relationship:</strong>
               <input
                 name="secondaryRelationship"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-md" style={{ ...FONTS.subParagraph}}
                 value={formData.secondaryRelationship}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Phone:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Phone:</strong>
               <input
                 name="secondaryPhone"
                 type="tel"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-md"  style={{ ...FONTS.subParagraph}}
                 value={formData.secondaryPhone}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Email:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }}>Email:</strong>
               <input
                 name="secondaryEmail"
                 type="email"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-md"  style={{ ...FONTS.subParagraph}}
                 value={formData.secondaryEmail}
                 onChange={handleInputChange}
                 readOnly={!isEditing}
               />
             </p>
             <p className="flex items-center">
-              <strong style={{...FONTS.statusCardHeader}}className="!text-gray-800">Address:</strong>
+              <strong className="!text-gray-800 font-semibold" style={{ ...FONTS.cardSubHeader, fontWeight: 600 }} >Address:</strong>
               <input
                 name="secondaryAddress"
                 type="text"
-                className="placeholder-black bg-transparent rounded-xl ml-2 outline-none w-full"
+                className="placeholder-black bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-md"  style={{ ...FONTS.subParagraph}}
                 value={formData.secondaryAddress}
                 onChange={handleInputChange}
                 readOnly={!isEditing}

@@ -53,6 +53,7 @@ interface BankInfo {
 interface PassportInfo {
   number: string
   nationality: string
+  state:string
   issueDate: string
   expiryDate: string
 }
@@ -133,6 +134,7 @@ const Profile: React.FC = () => {
   const passportData: PassportInfo = {
     number: "A1234567",
     nationality: "Indian",
+    state:"Tamil Nadu",
     issueDate: "01 Jan 2010",
     expiryDate: "01 Jan 2025",
   }
@@ -188,11 +190,16 @@ const Profile: React.FC = () => {
           <ExperienceComponent data={experienceData} onUpdate={handleExperienceUpdate} />
         </div>
 
+        <div className="">
+        <CertificatesComponent data={certificateData} onUpdate={handleCertificatesUpdate} />
+        
+        </div>
+
         {/* Bank & Passport Information & Certificate */}
         <div className="flex flex-1 gap-4">
           <BankInfoComponent data={bankData} onUpdate={handleBankUpdate} />
           <PassportInfoComponent data={passportData} onUpdate={handlePassportUpdate} />
-          <CertificatesComponent data={certificateData} onUpdate={handleCertificatesUpdate} />
+         
         </div>
       </div>
     </div>
