@@ -219,10 +219,25 @@ export default class Client {
 
   deletePayroll: (payrollId: string) =>
     httpClient.delete(API_END_POINTS.payroll.deletePayroll(payrollId)),
+},
+training:{
+  createTraining: (data: any) =>
+    httpClient.post(API_END_POINTS.training.createTraining, data),
+
+  getAllTrainings: () =>
+    httpClient.get(API_END_POINTS.training.getAllTrainings),
+
+  getTrainingById: (trainingId: string) =>
+    httpClient.get(API_END_POINTS.training.getTrainingById(trainingId)),
+
+  updateTraining: (trainingId: string, data: any) =>
+    httpClient.put(API_END_POINTS.training.updateTraining(trainingId), data),
+
+  deleteTraining: (trainingId: string) =>
+    httpClient.delete(API_END_POINTS.training.deleteTraining(trainingId)),
 }
 
 
 
   };
-  static hr: any;
 }

@@ -44,6 +44,7 @@ function Badge({
   );
 }
 
+
 // Status color logic
 function getStatusColor(status: string): string {
   switch (status.toLowerCase()) {

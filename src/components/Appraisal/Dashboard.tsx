@@ -1,10 +1,12 @@
 import type React from "react"
-import { User, Calendar, Star, TrendingUp, Plus, Eye } from "lucide-react"
+import { User, Calendar, Star, TrendingUp, Eye } from "lucide-react"
 import StarRating from "../../components/Appraisal/StarRating"
-import SearchInput from "../../components/Appraisal/SearchInput"
+
 import { FONTS } from "../../constants/uiConstants"
-import  { useState,useEffect } from 'react';
+import  { useState,useEffect,useMemo } from 'react';
 import {  getAllAppraisals } from "../../features/Appraisal/service"
+import { Pagination } from "../Pagination/pagination";
+
 
 
 interface Employee {
@@ -35,97 +37,21 @@ interface Employee {
 //     department: 'Product',
 //     ProjectPeriod: 'Mar 2023 - Mar 2024',
 //   },
-//   {
-//     id: '3',
-//     Employee: ' Smith',
-//     Position: 'UI/UX Designer',
-//     Rating: 3,
-//     Status: 'Active',
-//     department: 'Design',
-//     ProjectPeriod: 'Feb 2024 - Jan 2025',
-//   },
-//   {
-//     id: '4',
-//     Employee: 'Michael',
-//     Position: 'QA Engineer',
-//     Rating: 4,
-//     Status: 'Inactive',
-//     department: 'Quality Assurance',
-//     ProjectPeriod: 'Jul 2022 - Jun 2023',
-//   },
-//   {
-//     id: '5',
-//     Employee: 'John',
-//     Position: 'DevOps Engineer',
-//     Rating: 5,
-//     Status: 'Active',
-//     department: 'Infrastructure',
-//     ProjectPeriod: 'Aug 2023 - Jul 2024',
-//   },
-//   {
-//     id: '6',
-//     Employee: 'Harry',
-//     Position: 'Software Engineer',
-//     Rating: 4.5,
-//     Status: 'Active',
-//     department: 'Engineering',
-//     ProjectPeriod: 'Jan 2023 - Dec 2023',
-//   },
-//   {
-//     id: '7',
-//     Employee: 'james',
-//     Position: 'Product Manager',
-//     Rating: 2,
-//     Status: 'On Leave',
-//     department: 'Product',
-//     ProjectPeriod: 'Mar 2023 - Mar 2024',
-//   },
-//   {
-//     id: '8',
-//     Employee: ' Smith',
-//     Position: 'UI/UX Designer',
-//     Rating: 3,
-//     Status: 'Active',
-//     department: 'Design',
-//     ProjectPeriod: 'Feb 2024 - Jan 2025',
-//   },
-//   {
-//     id: '9',
-//     Employee: 'Michael',
-//     Position: 'QA Engineer',
-//     Rating: 4,
-//     Status: 'Inactive',
-//     department: 'Quality Assurance',
-//     ProjectPeriod: 'Jul 2022 - Jun 2023',
-//   },
-//   {
-//     id: '10',
-//     Employee: 'John',
-//     Position: 'DevOps Engineer',
-//     Rating: 5,
-//     Status: 'Active',
-//     department: 'Infrastructure',
-//     ProjectPeriod: 'Aug 2023 - Jul 2024',
-//   },
-
 // ];
 
 
 interface DashboardProps {
-  appraisals: Employee[]
-  searchTerm: string
-  onSearchChange: (value: string) => void
-  onViewEmployee: (employee: Employee) => void
-  onNewAppraisal: () => void
-  getStatusColor: (status: string) => string
+  appraisals: Employee[];
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+  onViewEmployee: (employee: Employee) => void;
+  onNewAppraisal: () => void;
+  getStatusColor: (status: string) => string;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
   // appraisals,
-  searchTerm,
-  onSearchChange,
   onViewEmployee,
-  onNewAppraisal,
   getStatusColor,
 }) => {
   const [filteredappraisals, setFilteredAppraisals] = useState<Employee[]>([]);
@@ -144,6 +70,23 @@ const Dashboard: React.FC<DashboardProps> = ({
   useEffect(() => {
     fetchAppraisals();
   }, []);
+  //pagination
+ // pagination
+const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 5;
+
+const paginatedAppraisals = useMemo(() => {
+  const start = (currentPage - 1) * itemsPerPage;
+  return filteredappraisals.slice(start, start + itemsPerPage);
+}, [filteredappraisals, currentPage]);
+
+const totalPages = Math.ceil(filteredappraisals.length / itemsPerPage);
+
+useEffect(() => {
+  setCurrentPage(1); // Reset to page 1 on data change
+}, [filteredappraisals.length]);
+
+
   return (
     <div className="space-y-6  w-full  ">
       {/* Stats Cards */}
@@ -199,34 +142,14 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Employee List with Search */}
       <div className="bg-[#eff4f5] rounded-md shadow-sm  bg-transparent ">
-        <div className="py-4 border-gray-200 flex flex-row md:flex-row md:justify-between md:items-center gap-4">
-          {/* Search Input */}
-          <div className="w-full md:max-w-md" style={FONTS.tableBody}>
-            <SearchInput
-              value={searchTerm}
-              onChange={onSearchChange}
-              placeholder="Search employees name, position, or department..."
-            />
-          </div>
-
-          {/* New Appraisal Button */}
-          <div className="w-100  ">
-            <button
-              onClick={onNewAppraisal}
-              className="bg-[#3a357f] text-white px-2 py-2 rounded-md hover:bg-[#3a357f] transition-colors flex justify-end gap-2  "
-            >
-              <Plus className="" />
-              New Appraisal
-            </button>
-          </div>
-        </div>
-
+        
         <div className="overflow-x-auto">
           <table className="w-full ">
             <thead className="bg-[#3a357f]">
               <tr>
                 <th className="px-6 py-3 text-left text-md  text-white">Employee</th>
                 <th className="px-6 py-3 text-left text-md  text-white">Position</th>
+                  <th className="px-6 py-3 text-left text-md  text-white">Department</th>
                 <th className="px-6 py-3 text-left text-md text-white">Rating</th>
                 <th className="px-6 py-3 text-left text-md  text-white">Status</th>
                 <th className="px-6 py-3 text-left text-md text-white">Project period</th>
@@ -234,15 +157,16 @@ const Dashboard: React.FC<DashboardProps> = ({
               </tr>
             </thead>
             <tbody style={FONTS.tableBody} className="bg-[#eff4f5] divide-y divide-gray-200  ">
-              { filteredappraisals.map((employee) => (
+              { paginatedAppraisals.map((employee) => (
                 <tr key={employee.Employee} className="hover:bg-gray-100 transition-colors h-[10%]">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">{employee.Employee || "no data"}</div>
-                      <div className="text-sm text-gray-500">{employee.department || "no data"}</div>
+                      {/* <div className="text-sm text-gray-500">{employee.department || "no data"}</div> */}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.Position || "no data"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.department || "no data"}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       <StarRating rating={employee.Rating} readonly />
@@ -270,7 +194,6 @@ const Dashboard: React.FC<DashboardProps> = ({
               ))}
             </tbody>
           </table>
-
           { filteredappraisals.length === 0 && (
             <div className="text-center py-8">
               <div style={FONTS.paragraph} className="text-gray-900">No employees found matching your search</div>
@@ -278,6 +201,16 @@ const Dashboard: React.FC<DashboardProps> = ({
           )}
         </div>
       </div>
+      
+{/* Pagination Controls */}
+{totalPages > 0 && (
+  
+   <div><Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={(page) => setCurrentPage(page)}
+    /></div>
+)}
     </div>
   )
 }

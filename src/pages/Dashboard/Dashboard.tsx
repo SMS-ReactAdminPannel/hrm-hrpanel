@@ -32,7 +32,7 @@ const Dashboard = () => {
           {/* <AttentDashboard/> */}
           <CardDashboard />
         </div>
-        <div className="flex-1 border bg-gray-500 bg-white rounded-xl ">
+        <div className="flex-1 border bg-white rounded-xl ">
           <Attendances />
         </div>
       </div>

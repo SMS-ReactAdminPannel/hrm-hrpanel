@@ -118,7 +118,15 @@ payroll: {
   getById: (id: string) => `/api/hr/payroll/get/${id}`,
   updatePayroll: (id: string) => `/api/hr/payroll/update/${id}`,
   deletePayroll: (id: string) => `/api/hr/payroll/delete/${id}`,
-}
+},
+  training: {
+    createTraining: "/api/hr/training/create",
+    getAllTrainings: "/api/hr/training/getall",
+    getTrainingById: (id: string) => `/api/hr/training/get/${id}`,
+    updateTraining: (id: string) => `/api/hr/training/update/${id}`,
+    deleteTraining: (id: string) => `/api/hr/training/delete/${id}`,
+  },
+ 
 
 
 };

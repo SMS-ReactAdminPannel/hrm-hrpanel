@@ -17,7 +17,7 @@ import Assetcategory from "../pages/Asset Category/Assetcategory";
 import EmployeeDetails from "../pages/AttendanceManagement/EmployeeDetailsPage";
 // import HomePage from "../pages/HomePage/HomePage";
 import { MainLayout } from "../Layout/MainLayout/mainLayout";
-import Appraisal from "../pages/Employee Mangament/Appraisal/Appraisal";
+
 import TrainingManage from "../pages/TrainingManagement/TrainingManage";
 import OnboardingTemplate from "../pages/OnBoarding/OnBoarding";
 
@@ -48,7 +48,7 @@ import DepartmentList from "../pages/Department/DepartmentList";
 import Leave from "../pages/Leave Management/Leave";
 import AttendanceRequest from "../pages/AttendanceRequest/AttendanceRequest";
 import ProfilePage from "../pages/ProfileCard/ProfilePage";
-import Calendar from "../components/DashBoard/Calender/calender";
+import { Calendar } from "../components/DashBoard/Calender/calender";
 import OTPValidation from "../pages/auth/OTPValidation";
 
 
@@ -83,8 +83,11 @@ const AppRoutes = () => {
           <Route path="deduction" element={<Deduction />} />
           <Route path="asset" element={<AssetsManagement />} />
           <Route path="Attendancerequest" element={<AttendanceRequest />} />
+         
+
           <Route path="asset-category" element={<Assetcategory />} />
-          <Route path="appraisal" element={<Appraisal />} />
+          
+
           <Route path="offboarding" element={<AdvancedHRMOffboardings />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
           <Route path="grievance-management" element={<GrievanceManagement />} />

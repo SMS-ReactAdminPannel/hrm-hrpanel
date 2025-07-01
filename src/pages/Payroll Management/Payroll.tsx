@@ -93,7 +93,7 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
   const departmentOptionsMain = ["All", ...uniqueDepartments];
 
   
-  const departmentOptionsModal = [...uniqueDepartments];
+  // const departmentOptionsModal = [...uniqueDepartments];
 
   const filteredEmployees = employees.filter((employee) => {
     const matchesSearch =
@@ -319,14 +319,14 @@ const uniqueDepartments = Array.from(new Set(employees.map((emp) => emp.departme
 
             {/* Process Payroll Modal */}
             <ProcessPayrollModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              selectedOption={modalOption}
-              setSelectedOption={setModalOption}
-              // departmentOptions={departmentOptionsModal} // Only unique depts
-              selectedDepartment={modalDepartment}
-              setSelectedDepartment={setModalDepartment}
-            />
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  selectedOption={modalOption}
+  setSelectedOption={setModalOption}
+  selectedDepartment={modalDepartment}
+  setSelectedDepartment={setModalDepartment}
+/>
+
           </div>
         </div>
       </div>

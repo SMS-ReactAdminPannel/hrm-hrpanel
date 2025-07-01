@@ -5,6 +5,10 @@ import { getAllAppraisals } from "../../../features/Appraisal/service"
 import Dashboard from "../../../components/Appraisal/Dashboard"
 import AppraisalView from "../../../components/Appraisal/AppraisalView"
 import AppraisalModal from "../../../components/Appraisal/AppraisalModel"
+// import SearchInput from "../../../components/Appraisal/SearchInput"
+import { Search, Plus,ChevronDown,ChevronUp  } from "lucide-react"
+import { getAllDepartments } from "../../../features/Department/service"
+import { useNavigate } from "react-router-dom"
 
 interface Employee {
   id: string
@@ -26,15 +30,28 @@ interface AppraisalCriteria {
   comments: string
 }
 
+interface HRMAppraisalSystem{
+   onSearchChange: (value: string) => void
+   searchTerm: string,
+   
+}
 type TabType = "dashboard" | "appraisal" | "reports";
 
-const HRMAppraisalSystem = () => {
+
+   // appraisals,
+ const HRMAppraisalSystem = ({
+  searchTerm,
+  onSearchChange,
+  
+}: HRMAppraisalSystem) => {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard")
   const [selectedEmployee, setSelectedEmployee] = useState<any | null>(null)
   const [showAppraisalModal, setShowAppraisalModal] = useState(false)
   const [modalMode, setModalMode] = useState<"select" | "view" | "create">("select")
   const [modalEmployee, setModalEmployee] = useState<Employee | null>(null)
-  const [searchTerm, setSearchTerm] = useState("")
+
+  
+
   const [newAppraisalData, setNewAppraisalData] = useState<{
     employeeId: string
     criteria: AppraisalCriteria[]
@@ -91,7 +108,15 @@ const HRMAppraisalSystem = () => {
       setLoading(true)
       try {
         const response: any = await getAllAppraisals()
-        const dataArray = Array.isArray(response.data?.data) ? response.data.data : []
+      const raw = response.data?.data;
+const dataArray = Array.isArray(raw)
+  ? raw
+  : Array.isArray(raw?.appraisals)
+    ? raw.appraisals
+    : [];
+
+console.log("appraisal arrayed data", dataArray);
+
         console.log("appraisal arrayed data", dataArray)
         const mapped = dataArray.map((item: any) => ({
           _id: item._id,
@@ -111,6 +136,45 @@ const HRMAppraisalSystem = () => {
     }
     fetchAppraisals()
   }, [])
+  // department filter
+  const [departments, setDepartments] = useState<string[]>([]);
+const [selectedDepartment, setSelectedDepartment] = useState("");
+const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] = useState(false); //button
+
+
+useEffect(() => {
+  const fetchDepartments = async () => {
+    try {
+      const response = await getAllDepartments();
+      console.log("DEPARTMENT RAW DATA:", response.data);
+      const deptArray = Array.isArray(response.data) ? response.data : [];
+      console.log("DEPT ARRAY LENGTH:", deptArray.length);
+      const deptNames = deptArray.map((dept: any, i: number) => {
+        const name = dept.name;
+        if (!name) console.warn(`❌ Department[${i}] missing 'name':`, dept);
+        return name;
+      }).filter(Boolean);
+      console.log("Mapped Department Names:", deptNames);
+      setDepartments(deptNames);
+    } catch (err) {
+      console.error("Failed to load departments", err);
+    }
+  };
+
+  fetchDepartments();
+}, []);
+const filteredAppraisals = useMemo(() => {
+  if (!selectedDepartment) return appraisals;
+  return appraisals.filter(
+    (a) =>
+      a.department?.toLowerCase() === selectedDepartment.toLowerCase()
+  );
+}, [appraisals, selectedDepartment]);
+const navigate = useNavigate();
+const navigateToNewAppraisal = () => {
+  navigate("/appraisals/create");
+};
+
 
   // Static employee data for modal
   const employees = useMemo<Employee[]>(
@@ -226,18 +290,17 @@ const HRMAppraisalSystem = () => {
   }, [])
 
   const handleSearchChange = useCallback((value: string) => {
-    setSearchTerm(value)
-  }, [])
+    onSearchChange(value)
+  }, [onSearchChange])
 
   const handleViewEmployee = useCallback((employee: any) => {
     setSelectedEmployee(employee)
     setActiveTab("appraisal")
   }, [])
 
-  const handleNewAppraisal = useCallback(() => {
-    setShowAppraisalModal(true)
-    setModalMode("create")
-  }, [])
+const handleNewAppraisal = () => {
+  navigate("/appraisals/create"); 
+};
 
   const handleCloseModal = useCallback(() => {
     setShowAppraisalModal(false)
@@ -354,35 +417,132 @@ const HRMAppraisalSystem = () => {
   const newAppraisalOverallRating = calculateOverallRating(newAppraisalData.criteria)
   const selectedEmployeeAppraisalData = selectedEmployee ? getAppraisalData("1") : []
   const selectedEmployeeOverallRating = selectedEmployee ? calculateOverallRating(selectedEmployeeAppraisalData) : 0
+//new appraisal
 
+  
   return (
-    <div className=" ">
-      <div className="max-w-full mx-auto  h-[552px]">
+    <>
+      <div className="max-w-full mx-auto full h-screen">
       <header className="">
-        <div className="max-w-full px-2">
-            <div className="flex justify-between items-center gap-3">
-              {activeTab !== "reports" && (
-                <h1 className="text-black" style={{...FONTS.header}}>
-                  Appraisal
-                </h1>
-              )}
-              {activeTab !== "reports" && (
-                <button
-                  className="!text-white bg-[#006666] px-3 py-1 rounded-md"style={{...FONTS.paragraph}}
-                  onClick={() => setActiveTab("reports")}
-                >
-                  Reports
-                </button>
-              )}
-            </div>
-        </div>
-      </header>
+       <div className="border-gray-200 py-2 -mb-5">
+  <div className="flex items-center justify-between flex-wrap gap-4">
+    {/* Left Side: Title + Controls */}
+    <div className="flex items-center lg:gap-10 sm:gap-4 flex-wrap">
+      {/* Title */}
+      <div>
+        <h1 style={FONTS.header}>Appraisal</h1>
+      </div>
 
-      
+      {/* Controls */}
+      <div className="flex lg:gap-3 sm:gap-2 md:h-8 flex-wrap">
+        {/* New Appraisal Button */}
+       <button
+    onClick={handleNewAppraisal}
+  className="text-white px-3 md:px-4 py-1 rounded-lg font-medium text-sm md:text-base transition-colors duration-200"
+  style={{ backgroundColor: "#5e59a9", ...FONTS.button }}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.backgroundColor = "rgba(94, 89, 169, 0.9)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.backgroundColor = "#5e59a9")
+  }
+>
+  <div className="flex items-center gap-1">
+    <Plus className="w-4 h-4" />
+    New Appraisal
+  </div>
+</button>
+
+
+        {/* Search Input */}
+        <div className="flex relative border border-gray-300 rounded-md md:w-80 backdrop-blur-xl bg-white/10">
+          <input
+            type="text"
+            placeholder="Search by employee name"
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="w-full pr-12 pl-4 py-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
+            style={FONTS.paragraph}
+          />
+          <Search className="text-gray-300 absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+        </div>
+
+        {/* Department Filter */}
+        <div className="relative" style={FONTS.paragraph}>
+          <button
+            className={`flex items-center px-3 py-2 border rounded-md text-sm md:text-base transition-colors duration-200 h-8 w-42 ${
+              isDepartmentDropdownOpen
+                ? "bg-[#5e59a9]/10 text-white"
+                : "bg-transparent backdrop-blur-xl bg-white/10 text-white border-gray-300"
+            }`}
+            onClick={() => setIsDepartmentDropdownOpen(!isDepartmentDropdownOpen)}
+          >
+            {selectedDepartment || "All Departments"}
+            {isDepartmentDropdownOpen ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+          </button>
+
+          {isDepartmentDropdownOpen && (
+            <div
+              className="absolute z-20 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg"
+              style={FONTS.statusCardDescription}
+            >
+              <button
+                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                  selectedDepartment === ""
+                    ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                    : "text-gray-700"
+                }`}
+                onClick={() => {
+                  setSelectedDepartment("");
+                  setIsDepartmentDropdownOpen(false);
+                }}
+              >
+                All Departments
+              </button>
+              {departments.map((dept, index) => (
+                <button
+                  key={index}
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                    selectedDepartment === dept
+                      ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
+                      : "text-gray-700" 
+                  }`}
+                  onClick={() => {
+                    setSelectedDepartment(dept);
+                    setIsDepartmentDropdownOpen(false);
+                  }}
+                >
+                  {dept}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Right Side: Reports Button */}
+    {activeTab !== "reports" && (
+      <button
+        onClick={() => setActiveTab("reports")}
+        className="text-white px-3 py-1 rounded-lg font-medium text-sm md:text-base transition-colors duration-200"
+        style={{ backgroundColor: "#5e59a9", ...FONTS.button }}
+      >
+        Reports
+      </button>
+    )}
+  </div>
+</div>
+
+      </header>  
       <main className="max-w-full py-8">
         {activeTab === "dashboard" && (
           <Dashboard
-            appraisals={appraisals}
+            appraisals={filteredAppraisals}
             searchTerm={searchTerm}
             onSearchChange={handleSearchChange}
             onViewEmployee={handleViewEmployee}
@@ -425,9 +585,9 @@ const HRMAppraisalSystem = () => {
       </div>
       
   
-    </div>
+    </>
   )
 }
 
-export default HRMAppraisalSystem
+export default HRMAppraisalSystem;
 
