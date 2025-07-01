@@ -82,8 +82,7 @@ const modalAnimationStyle = `
   .animate-slide-down {
     animation: slideDown 0.4s ease-out forwards;
   }
-`
-
+`;
 
 export const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({
   isOpen,

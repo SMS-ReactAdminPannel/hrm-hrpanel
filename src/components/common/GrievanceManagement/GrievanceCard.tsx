@@ -141,55 +141,55 @@
 import React, { useState } from "react";
 import type { Grievance } from "../../../pages/GrievanceManagement/GrievanceManagement";
 import { FONTS } from "../../../constants/uiConstants";
+import {User, Calendar} from "lucide-react";
 
 type Props = {
   grievance: Grievance;
+  onClick: () => void;
 };
 
-export const GrievanceCard: React.FC<Props> = ({ grievance }) => {
+export const GrievanceCard: React.FC<Props> = ({ grievance, onClick }) => {
   const isSolved = grievance.status === "solved";
-  const [isActive, setIsActive] = useState(false);
+
 
   return (
-    <div 
-      className={`bg-white h-26 shadow-md rounded-lg p-2 border-l-2 transition-all duration-200 cursor-pointer border-[#5e59a9]
-                 ${isActive
-                  //  ? 'bg-[#5e59a9] text-white' : 'hover:shadow-xl'
-                  ? "bg-[#5e59a9] text-white border-[#5e59a9]"
-                  : "text-bg-[#5e59a9] border-bg-[#5e59a9] hover:bg-[#e6f4f4]"
-                  }`}
-
-      onClick={() => setIsActive(!isActive)}
+    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200 p-5 cursor-pointer border border-gray-200"
+      onClick={onClick}
     >
-      <div className="flex justify-between items-start">
-        <h3 className="text-lg !text-black"
-          style={{
-            ...FONTS.header3
-          }}>{grievance.title}</h3>
-        
+      {/* Title */}
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-lg font-semibold text-gray-900 truncate w-4/5">
+          {grievance.title}
+        </h3>
         <span
-          className={`
-            font-medium px-2 py-1 rounded-md ${
-            grievance.status === "solved"
-              ? "bg-green-100 text-green-800"
-              : "bg-yellow-100 text-yellow-800"
-          }` }
+          className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+            isSolved
+              ? "bg-green-100 text-green-700 border border-green-300"
+              : "bg-red-100 text-red-700 border border-red-300"
+          }`}
         >
-          {grievance.status.charAt(0).toUpperCase() + grievance.status.slice(1)}
+          {grievance.status.toUpperCase()}
         </span>
       </div>
 
-      <h3 className="text-sm font-semibold !text-gray-800 mb-1" style={{
-       ...FONTS.header3
-      }}>Issue Description:</h3> 
-<p className="text-gray-700 mb-1 whitespace-pre-line">{grievance.description}</p>
+      {/* Description */}
+      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+        {grievance.description}
+      </p>
 
-      <div className=" text-sm !text-gray-500"
-      style={{...FONTS.paragraph
-
-      }}>
-        <span className="font-medium !text-gray-500"   style={{...FONTS.paragraph}}>{grievance.employee}</span> — {grievance.date}
+      {/* Employee & Date */}
+      <div className="flex justify-between text-sm text-gray-500">
+        <div className="flex items-center">
+          <User className="w-4 h-4 mr-1" />
+          <span>{grievance.employee}</span>
+        </div>
+        <div className="flex items-center">
+          <Calendar className="w-4 h-4 mr-1" />
+          <span>{new Date(grievance.date).toLocaleDateString()}</span>
+        </div>
       </div>
     </div>
   );
 };
+
+export default GrievanceCard;

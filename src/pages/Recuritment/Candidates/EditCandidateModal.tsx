@@ -78,14 +78,14 @@ export default function EditCandidateModal({
 
   return (
     <div 
-      className={`fixed inset-0 bg-black flex items-end justify-center z-50 transition-all duration-500 ${
-        isAnimating ? 'bg-opacity-50' : 'bg-opacity-0'
+      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all duration-300 ${
+        isAnimating ? 'opacity-100' : 'opacity-0'
       }`}
     >
       {/* Floating Close Button */}
       <button 
         onClick={handleClose} 
-        className={`left-8 mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-500 shadow-lg z-10 ${
+        className={`absolute top-8 left-8 w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 transition-all duration-300 shadow-lg z-10 ${
           isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}
       >
@@ -95,7 +95,7 @@ export default function EditCandidateModal({
       {/* Modal Content */}
       <div 
         ref={modalRef} 
-        className={`bg-white rounded-t-3xl shadow-2xl w-[1100px] h-[750px] overflow-hidden transform transition-all duration-500 ease-out ${
+        className={`bg-white rounded-t-3xl shadow-2xl w-[1100px] h-[calc(100vh-40px)] max-h-[calc(100vh-40px)] overflow-hidden transform transition-all duration-300 ease-out ${
           isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >
@@ -105,7 +105,7 @@ export default function EditCandidateModal({
         </div>
 
         {/* Form Content */}
-        <div className="px-6 py-4 max-h-[70vh] overflow-y-auto">
+        <div className="px-6 py-4 h-[calc(100%-160px)] overflow-y-auto">
           <form onSubmit={handleSubmit} className="grid grid-cols-2 md:grid-cols-2 gap-6 p-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -206,7 +206,7 @@ export default function EditCandidateModal({
         </div>
 
         {/* Footer */}
-        <div className="px-2 pt-1 py-8">
+        <div className="absolute bottom-0 left-0 right-0 px-6 py-4 bg-white border-t border-gray-200">
           <div className="flex justify-end space-x-4">
             <button
               type="button"

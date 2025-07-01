@@ -4,6 +4,7 @@ import { EyeSlashIcon } from "@heroicons/react/24/outline"
 import { EyeIcon } from "lucide-react"
 import { useAuth } from "./AuthContext"
 import { postLogin } from "../../features/auth/service"
+import { toast } from "react-toastify"
 
 
 
@@ -16,50 +17,69 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
-    setError(null)
 
-    if (!email || !password) {
-      setError("Please enter both email and password.")
-      setIsLoading(false)
-      return
-    }
+const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setIsLoading(true);
+  setError(null);
 
-    try {
-      const User: any = await postLogin({ email, password })
-      const datas:any =JSON.stringify(User.data)
-      localStorage.setItem("user",datas)
-      console.log("Backend response:", User)
-      if(User.success){
-        navigate("/otp-validation")
-      }
-      // if (User && (User.success === true || User.status === 200 || !User.success === undefined)) {
-      //   await login(email, password)
-      //   console.log("Login successful:", User)
-      //   navigate("/")
-      // } else {
-      //   const errorMessage = User?.message || "Invalid credentials. Please check your email and password."
-      //   setError(errorMessage)
-      // }
-    } catch (err: any) {
-      console.log("Login error:", err)
-
-
-      if (err.message?.includes("EmailId is not valid") || err.message?.includes("not registered")) {
-        setError("This email is not registered. Please sign up first.")
-      } else if (err.message?.includes("Password is incorrect")) {
-        setError("Incorrect password. Please try again.")
-      } else if (err.response?.data?.message) {
-        setError(err.response.data.message)
-      } else {
-        setError("Login failed. Please try again.")
-      }
-    } finally {
-      setIsLoading(false)
-    }
+  if (!email || !password) {
+    setError("Please enter both email and password.");
+    setIsLoading(false);
+    return;
   }
+
+  try {
+    await toast.promise(
+      postLogin({ email, password }),
+      {
+        success: {
+          render({ data }: any) {
+            const user = data?.data;
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log("Backend response:", data);
+
+            setTimeout(() => {
+              navigate("/otp-validation");
+            }, 2800); // Delay like before
+
+            return "OTP sent to mail";
+          },
+        },
+        error: {
+          render({ data }: any) {
+            const err = data;
+
+            if (err?.message?.includes("EmailId is not valid") || err?.message?.includes("not registered")) {
+              setError("This email is not registered. Please sign up first.");
+            } else if (err?.message?.includes("Password is incorrect")) {
+              setError("Incorrect password. Please try again.");
+            } else if (err?.response?.data?.message) {
+              setError(err.response.data.message);
+            } else {
+              setError("Login failed. Please try again.");
+            }
+
+            return "Login failed";
+          },
+        },
+      },
+      {
+        autoClose: 2000,
+         style: {
+           background: "white", 
+          color: "#065f46",   
+         }
+      }
+    );
+  } catch (err: any) {
+    console.error("Login failed:", err);
+    // Error already handled in toast
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="flex min-h-screen">

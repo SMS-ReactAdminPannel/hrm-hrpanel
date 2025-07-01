@@ -59,3 +59,12 @@ html{
     "YTLC" 514,
     "YTUC" 712;
 }
+
+.Toastify__close-button {
+  color: green !important;        
+  opacity: 1 !important;         
+}
+
+.Toastify__progress-bar {
+  background: #4CAF50 !important;
+}

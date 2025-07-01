@@ -42,6 +42,7 @@ export const validateOtp = async (data: any) => {
 }
 
 export const forgotPassword = async (data: any) => {
+  console.log(data)
   try {
     const response = await new Client().hr.hrprofile.forgotPassword(data);
     return response;
@@ -52,6 +53,7 @@ export const forgotPassword = async (data: any) => {
 }
 
 export const resetPassword = async (data: any) => {
+  
   try {
     const response = await new Client().hr.hrprofile.resetPassword(data);
     return response;

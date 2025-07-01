@@ -87,7 +87,7 @@ const AppRoutes = () => {
           <Route path="appraisal" element={<Appraisal />} />
           <Route path="offboarding" element={<AdvancedHRMOffboardings />} />
           <Route path="onboarding" element={<OnboardingTemplate />} />
-          <Route path="grievance-management" element={<GrievanceManagement />} />
+          <Route path="grievances" element={<GrievanceManagement />} />
           <Route path="notification" element={<Notification />} />
           <Route path="recruitment/candidatelists/candidatesPage" element={<CandidateDetailPage />} />
           <Route path="recruitment/candidatelists" element={<CandidatesPage />} />

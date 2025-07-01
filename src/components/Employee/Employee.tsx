@@ -25,15 +25,19 @@ export interface Employeenew {
 }
 
 export interface Department {
-  name: string
-  title: "Engineering" | "Marketing" | "HR" | "Finance" | "Operations";
+  _id: string;
+  name: string;
+  description?: string;
+  requiredRoles?: string[];
 }
 export interface JobTitle {
-  department: "Manager" | "Developer" | "Designer" | "Analyst" | "Specialist";
+  title: "Manager" | "Developer" | "Designer" | "Analyst" | "Specialist";
 }
+
 export interface EmploymentType {
   title: "Full-time" | "Part-time" | "Contract" | "Intern";
 }
+
 
 export interface PersonalInfo {
   name: string;
@@ -90,7 +94,7 @@ export interface ProfileData {
   experience: string[];
   bank: BankInfo;
   passport: PassportInfo;
-  department: Department["title"];
-  jobTitle: JobTitle["department"];
-  employmentType: EmploymentType["title"];
+  department: Department["name"];         
+  jobTitle: JobTitle["title"];            
+  employmentType: EmploymentType["title"]; 
 }

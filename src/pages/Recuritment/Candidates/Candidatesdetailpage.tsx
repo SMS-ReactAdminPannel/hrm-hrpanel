@@ -3,6 +3,8 @@ import { useState } from "react"
 import { FileText, Image, File, Upload, FolderOpen, ArrowUp, Pencil, Eye, Trash2 } from "lucide-react"
 import EditCandidateModal from "./EditCandidateModal"
 import { FONTS } from "../../../constants/uiConstants"
+import { FaArrowLeftLong } from "react-icons/fa6"
+import { useNavigate } from 'react-router-dom';
 
 const tabs = [
   "About", "Resume",
@@ -13,39 +15,48 @@ export default function CandidateDetailPage() {
   const { id } = useParams()
   const [activeTab, setActiveTab] = useState("About")
   const [showModal, setShowModal] = useState(false)
+  const navigate = useNavigate();
 
   const interviewData = [
   {
-    companyName: "Yoho",
+    candidateName: "Rangaraya Sakthivelu",
+    companyName: "Meta",
     position: "Frontend Developer",
     date: "2025-07-01",
     time: "10:00 AM",
     interviewer: "John Smith",
-    mode: "Zoom"
+    mode: "Zoom",
+    status: "Scheduled"
   },
   {
-    companyName: "Google",
+    candidateName: "Rangaraya Sakthivel",
+    companyName: "Yoho",
     position: "Backend Engineer",
     date: "2025-07-02",
     time: "2:00 PM",
     interviewer: "Sarah Miller",
-    mode: "In-Person"
+    mode: "In-Person",
+    status: "Completed"
   },
   {
+    candidateName: "Rangaraya Sakthivel",
     companyName: "Meta",
     position: "Data Analyst",
     date: "2025-07-02",
     time: "2:00 PM",
     interviewer: "Sarah Miller",
-    mode: "In-Person"
+    mode: "In-Person",
+    status: "Cancelled"
   },
   {
+    candidateName: "Rangaraya Sakthivel",
     companyName: "TCS",
     position: "App developer",
     date: "2025-07-02",
     time: "2:00 PM",
     interviewer: "Sarah Miller",
-    mode: "In-Person"
+    mode: "In-Person",
+    status: "Scheduled"
   },
 
 ];
@@ -53,7 +64,7 @@ export default function CandidateDetailPage() {
 
   const candidate = {
     id,
-    name: "Rangaraya Sakthivel",
+    name: "Rangaraya Sakthivelu",
     email: "shivam.r@turabit.com",
     phone: "9348754738",
     dob: "Apr. 30, 2025",
@@ -113,8 +124,13 @@ export default function CandidateDetailPage() {
   }
 
   return (
-    <div className="p-10 bg-[#eff4f5] min-h-screen backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+    <div className="p-10 bg-[#eff4f5] min-h-screen backdrop-filter backdrop-blur bg-opacity-10 rounded-lg backdrop-saturate-100 backdrop-contrast-100">
       {/* Header */}
+      <div className="mb-3">
+      <button onClick={() => navigate(`/recruitment/candidatelists`)} className="text-gray-700 hover:text-black">
+        <FaArrowLeftLong className="w-6 h-6" />
+      </button>
+    </div>
       <div className="flex justify-between items-center border-b pb-4 mb-4">
         <div className="flex items-center gap-4">
           <div>
@@ -188,7 +204,7 @@ export default function CandidateDetailPage() {
 
       {/* Resume Tab */}
      {activeTab === "Resume" && (
-  <div className="max-w-2xl mx-auto mt-6">
+  <div className="max-w-1xl mx-auto mt-6">
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Resume Upload</h2>
@@ -261,7 +277,7 @@ export default function CandidateDetailPage() {
 )}
 
 {activeTab === "Documents" && (
-  <div className="max-w-4xl mx-auto mt-6">
+  <div className="max-w-1xl mx-auto mt-6">
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Documents</h2>
@@ -369,22 +385,77 @@ export default function CandidateDetailPage() {
 
       {/* Other Tabs */}
      {activeTab === "Scheduled Interviews" && (
-  <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-    {interviewData.map((interview, index) => (
-      <div
-        key={index}
-        className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow"
-      >
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-          {interview.candidateName}
-        </h3>
-        <p className="text-xl font-bold"><span className="">Company:</span> {interview.companyName}</p>
-        <p className=""><span className="text-gray-600">Date:</span> {interview.date}</p>
-        <p className=""><span className="text-gray-600">Time:</span> {interview.time}</p>
-        <p className=""><span className="text-gray-600">Interviewer:</span> {interview.interviewer}</p>
-        <p className=""><span className="text-gray-600">Mode:</span> {interview.mode}</p>
-      </div>
-    ))}
+  <div className="grid w-full gap-6 p-4">
+    <div className="overflow-x-auto">
+  <table className="min-w-full divide-y divide-gray-200">
+    <thead className="bg-gray-50">
+      <tr>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Company
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Position
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Date & Time
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Interviewer
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Mode
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Status
+        </th>
+         
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      {interviewData.map((interview, index) => (
+        <tr key={index} className="hover:bg-gray-50">
+          <td className="px-6 py-4 whitespace-nowrap">
+            <div className="flex items-center">
+              <div className="ml-4">
+                <div className="text-sm font-medium text-gray-900">
+                  {interview.companyName}
+                </div>
+              </div>
+            </div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm text-gray-900">{interview.position}</div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm text-gray-900">{interview.date}</div>
+            <div className="text-sm text-gray-500">{interview.time}</div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm text-gray-900">{interview.interviewer}</div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <span className={`px-2 py-1 text-xs rounded-full ${
+              interview.mode === 'In-person' ? 'bg-purple-100 text-purple-800' :
+              interview.mode === 'Phone' ? 'bg-blue-100 text-blue-800' :
+              'bg-green-100 text-green-800'
+            }`}>
+              {interview.mode}
+            </span>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <span className={`px-2 py-1 text-xs rounded-full ${
+              interview.status === 'Scheduled' ? 'bg-yellow-100 text-yellow-800' :
+              interview.status === 'Completed' ? 'bg-green-100 text-green-800' :
+              'bg-red-100 text-red-800'
+            }`}>
+              {interview.status}
+            </span>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
   </div>
 )}
 
@@ -392,7 +463,7 @@ export default function CandidateDetailPage() {
 
       {/* Edit Modal */}
       {showModal && (
-        <EditCandidateModal
+        <EditCandidateModal 
           candidate={candidate}
           onClose={() => setShowModal(false)}
         />
