@@ -79,7 +79,7 @@ const VisitorManagement = () => {
       <div className="flex items-center justify-between">
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-semibold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>From Date</label>
+            <label className="block text-base font-bold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>From Date</label>
             <input
               title="fromDate"
               type="date"
@@ -89,7 +89,7 @@ const VisitorManagement = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>To Date</label>
+            <label className="block text-base font-bold !text-gray-700 mb-2" style={{...FONTS.paragraph}}>To Date</label>
             <input
               title="toDate"
               type="date"
@@ -125,7 +125,7 @@ const VisitorManagement = () => {
         {filteredVisitors.length === 0 ? (
           <div className="text-center py-12 m-auto bg-white w-1/2 m-auto rounded-md">
             <Building className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold !text-gray-500 mb-2" style={{...FONTS.header3}} >No visit history found</h3>
+            <h3 className="text-xl font-bold !text-gray-500 mb-2" style={{...FONTS.header3}} >No visit history found</h3>
             <p className="!text-gray-400" style={{...FONTS.header3}}  >Visit records will appear here</p>
           </div>
         ) : (

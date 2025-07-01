@@ -84,15 +84,15 @@ const AddVisitorForm = ({ onSubmit, onClose }: AddVisitorFormProps) => {
           </select>
           <textarea name="remarks" placeholder="Remarks" value={formData.remarks} onChange={handleInputChange} className="border px-3 py-2 rounded col-span-2 !text-gray-700" style={{...FONTS.paragraph}} />
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1 !text-gray-800" style={{...FONTS.subParagraph}}>Check-In Time</label>
+            <label className="block text-base font-bold text-gray-700 mb-1 !text-gray-800" style={{...FONTS.subParagraph}}>Check-In Time</label>
             <input title="chkIn" type="time" name="checkInTime" value={formData.checkInTime} onChange={handleInputChange} className="border px-3 py-2 rounded w-full !text-gray-700" style={{...FONTS.paragraph}} />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1 !text-gray-800" style={{...FONTS.subParagraph}}>Check-Out Time</label>
+            <label className="block text-base font-bold text-gray-700 mb-1 !text-gray-800" style={{...FONTS.subParagraph}}>Check-Out Time</label>
             <input title="chkOut" type="time" name="checkOutTime" value={formData.checkOutTime} onChange={handleInputChange} className="border px-3 py-2 rounded w-full !text-gray-700" style={{...FONTS.paragraph}} />
           </div>
           <div className="col-span-2">
-            <label className="block text-sm font-semibold text-gray-700 mb-2 !text-gray-800" style={{...FONTS.subParagraph}}>Submit Document</label>
+            <label className="block text-base font-bold text-gray-700 mb-2 !text-gray-800" style={{...FONTS.subParagraph}}>Submit Document</label>
             <input title="attachment" type="file" name="attachment" onChange={handleFileChange} className="border px-3 py-2 rounded w-full!text-gray-700" style={{...FONTS.paragraph}}/>
           </div>
           <button className="bg-[#006666] text-white px-4 py-2 rounded col-span-2" style={{...FONTS.button}}>Submit</button>
