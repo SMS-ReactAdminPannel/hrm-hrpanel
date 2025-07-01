@@ -465,8 +465,9 @@ export default function CandidateDetailPage() {
       {showModal && (
         <EditCandidateModal 
           candidate={candidate}
-          onClose={() => setShowModal(false)}
-        />
+          onClose={() => setShowModal(false)} onSave={function (data: any): void {
+            throw new Error("Function not implemented.")
+          } }        />
       )}
     </div>
   )

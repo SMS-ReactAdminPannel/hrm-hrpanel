@@ -187,7 +187,19 @@ export default class Client {
         httpClient.delete(API_END_POINTS.leaveType.deleteLeaveType(id)),
       getLeaveTypeById: (id: string) =>
         httpClient.get(API_END_POINTS.leaveType.getLeaveById(id))
+    },
+
+    jobpostings :{
+      getAllJobs: () => 
+        httpClient.get(API_END_POINTS.jobPosting.getAll),
+      createJob: (data: any) => 
+        httpClient.post(API_END_POINTS.jobPosting.create, data),
+      updateJob: (data: any, id: string) =>
+        httpClient.put(API_END_POINTS.jobPosting.update(id), data),
+      deleteJob: (id: string) =>
+        httpClient.put(API_END_POINTS.jobPosting.delete(id)),
+      }
     }
 
   };
-}
+

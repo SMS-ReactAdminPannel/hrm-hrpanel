@@ -227,7 +227,7 @@ export default function CandidatesPage() {
         className="flex items-center gap-2 px-4 py-1 bg-[#5e59a9] text-white rounded-lg hover:bg-[#5e59a9]/90 transition-colors duration-200"
         onClick={() => setAddModalOpen(true)}
       >
-        <FaPlus className="w-4 h-4 text-white" />
+        <FaPlus className="w-3 h-3 text-white" />
         Add Candidates
       </button>
     </div>

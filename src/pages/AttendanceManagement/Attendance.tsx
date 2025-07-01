@@ -1,36 +1,245 @@
-import React, { useState, useEffect, useRef } from "react"
-import { PieChart, Pie, Cell, Tooltip } from "recharts"
-import { CiSearch } from "react-icons/ci"
-import { FaBriefcase } from "react-icons/fa"
-import { IoIosPeople } from "react-icons/io"
-import { MdManageHistory, MdTimer } from "react-icons/md"
+import React, { useState, useEffect, useRef } from "react";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { CiSearch } from "react-icons/ci";
+import { FaBriefcase } from "react-icons/fa";
+import { IoIosPeople } from "react-icons/io";
+import { MdManageHistory, MdTimer } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { FONTS } from "../../constants/uiConstants"
-import { getDailyAttendance } from "../../features/Attendance/service"
-import { ChevronDown, ChevronUp, Search } from "lucide-react"
+import { FONTS } from "../../constants/uiConstants";
+import { getDailyAttendance } from "../../features/Attendance/service";
+import { ChevronDown, ChevronUp, Search, Calendar } from "lucide-react";
 import { FaBuilding } from "react-icons/fa";
-import { getAllDepartments } from "../../features/Department/service"
+import { getAllDepartments } from "../../features/Department/service";
+
+// Utility function to format date as "DD-MMM-YYYY" or "Today"/"Yesterday"
+const formatDisplayDate = (dateString: string) => {
+  if (!dateString) return "Select date";
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  
+  const inputDate = new Date(dateString);
+  inputDate.setHours(0, 0, 0, 0);
+
+  if (inputDate.getTime() === today.getTime()) {
+    return "Today";
+  } else if (inputDate.getTime() === yesterday.getTime()) {
+    return "Yesterday";
+  } else {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const day = inputDate.getDate().toString().padStart(2, '0');
+    const month = monthNames[inputDate.getMonth()];
+    const year = inputDate.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+};
+
+// DatePicker Component
+const DatePicker = ({ selectedDate, onChange }: { selectedDate: string; onChange: (date: string) => void }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(new Date(selectedDate || new Date()).getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date(selectedDate || new Date()).getFullYear());
+  const datePickerRef = useRef<HTMLDivElement>(null);
+
+  // Close when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const getDaysInMonth = (year: number, month: number) => {
+    return new Date(year, month + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (year: number, month: number) => {
+    return new Date(year, month, 1).getDay();
+  };
+
+  const generateDays = () => {
+    const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+    const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
+    const days = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(i);
+    }
+
+    return days;
+  };
+
+  const handleDayClick = (day: number) => {
+    const newDate = new Date(currentYear, currentMonth, day);
+    onChange(newDate.toISOString().split('T')[0]);
+    setIsOpen(false);
+  };
+
+  const changeMonth = (increment: number) => {
+    let newMonth = currentMonth + increment;
+    let newYear = currentYear;
+
+    if (newMonth > 11) {
+      newMonth = 0;
+      newYear++;
+    } else if (newMonth < 0) {
+      newMonth = 11;
+      newYear--;
+    }
+
+    setCurrentMonth(newMonth);
+    setCurrentYear(newYear);
+  };
+
+  const isSelected = (day: number) => {
+    if (!day || !selectedDate) return false;
+    const date = new Date(currentYear, currentMonth, day).toISOString().split('T')[0];
+    return date === selectedDate;
+  };
+
+  const isToday = (day: number) => {
+    if (!day) return false;
+    const today = new Date();
+    return (
+      day === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear()
+    );
+  };
+
+  const isYesterday = (day: number) => {
+    if (!day) return false;
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return (
+      day === yesterday.getDate() &&
+      currentMonth === yesterday.getMonth() &&
+      currentYear === yesterday.getFullYear()
+    );
+  };
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const days = generateDays();
+
+  return (
+    <div className="relative" ref={datePickerRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center gap-2 px-3 py-2 border rounded-md text-sm text-white transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 ${
+          selectedDate
+            ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
+            : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
+        }`}
+      >
+        <Calendar className="w-4 h-4 text-gray-300" />
+        {formatDisplayDate(selectedDate)}
+        {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+      </button>
+
+      {isOpen && (
+        <div className="absolute mt-1 left-0 z-50 bg-white rounded-lg shadow-lg p-4 w-64">
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={() => changeMonth(-1)}
+              className="p-1 rounded-full hover:bg-gray-100"
+            >
+              <ChevronDown className="w-4 h-4 rotate-90" />
+            </button>
+            <div className="font-medium">
+              {monthNames[currentMonth]} {currentYear}
+            </div>
+            <button
+              onClick={() => changeMonth(1)}
+              className="p-1 rounded-full hover:bg-gray-100"
+            >
+              <ChevronDown className="w-4 h-4 -rotate-90" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-7 gap-1 mb-2">
+            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+              <div key={day} className="text-xs text-center text-gray-500 font-medium">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-7 gap-1">
+            {days.map((day, index) => (
+              <button
+                key={index}
+                onClick={() => day && handleDayClick(day)}
+                disabled={!day}
+                className={`w-8 h-8 rounded-full text-sm flex items-center justify-center
+                  ${!day ? "invisible" : ""}
+                  ${day && isSelected(day) ? "bg-[#5e59a9] text-white" : ""}
+                  ${day && isToday(day) && !(day && isSelected(day)) ? "border border-[#5e59a9] text-[#5e59a9]" : ""}
+                  ${day && isYesterday(day) && !(day && isSelected(day)) ? "border border-gray-300 text-gray-700" : "text-gray-700"}
+                  hover:bg-gray-100 transition-colors`}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+            <button
+              onClick={() => {
+                const today = new Date();
+                onChange(today.toISOString().split('T')[0]);
+                setCurrentMonth(today.getMonth());
+                setCurrentYear(today.getFullYear());
+              }}
+              className="text-xs text-[#5e59a9] hover:text-[#4a458c]"
+            >
+              Today
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Attendance: React.FC = () => {
   type EmployeeDetail = {
-    ID: string
-    Name: string
-    Designation: string
-    Status: string
-    CheckIn: string
-    CheckOut: string
-    Duration: string
-    TotalCompletedProject?: string
-    TotalWorkedDuration?: string
-    TotalBreakTime?: string
-    TotalLeaveDays?: string
-  }
+    ID: string;
+    Name: string;
+    Designation: string;
+    Status: string;
+    CheckIn: string;
+    CheckOut: string;
+    Duration: string;
+    TotalCompletedProject?: string;
+    TotalWorkedDuration?: string;
+    TotalBreakTime?: string;
+    TotalLeaveDays?: string;
+  };
 
-  const [selectedDate, setSelectedDate] = useState("2025-06-11")
-  const [searchQuery, setSearchQuery] = useState("")
-  const navigate = useNavigate()
+  const [selectedDate, setSelectedDate] = useState<string>(() => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  // Sample data - replace with your actual data source
   const details = [
     {
       ID: "EMP001",
@@ -45,40 +254,33 @@ const Attendance: React.FC = () => {
       TotalBreakTime: "24h",
       TotalLeaveDays: "5",
     },
-    // ... other sample data
-  ]
+  ];
 
-  // Donut chart data
-  const presentCount = details.filter((d) => d.Status === "Present").length
-  const absentCount = details.filter((d) => d.Status === "Absent").length
+  const presentCount = details.filter((d) => d.Status === "Present").length;
+  const absentCount = details.filter((d) => d.Status === "Absent").length;
   const chartData = [
     { name: "Present", value: presentCount },
     { name: "Absent", value: absentCount },
-  ]
+  ];
   const COLORS = ['#7e79c2', 'rgba(94, 89, 169, 0.45)'];
 
-  // Designation filter
-  const [designationFilter, setDesignationFilter] = useState("")
-  const designations = Array.from(new Set(details.map((d) => d.Designation)))
+  const [designationFilter, setDesignationFilter] = useState("");
+  const designations = Array.from(new Set(details.map((d) => d.Designation)));
 
-  // Department filter state
-  const [departmentFilter, setDepartmentFilter] = useState("")
-  const [showDepartmentDropdown, setShowDepartmentDropdown] = useState(false)
-  const departmentDropdownRef = useRef<HTMLDivElement>(null)
-  const [departments, setDepartments] = useState<any[]>([])
+  const [departmentFilter, setDepartmentFilter] = useState("");
+  const [showDepartmentDropdown, setShowDepartmentDropdown] = useState(false);
+  const departmentDropdownRef = useRef<HTMLDivElement>(null);
+  const [departments, setDepartments] = useState<any[]>([]);
 
-  // Fetch departments
   const fetchDepartments = async () => {
     try {
-      const response = await getAllDepartments()
-      console.log("Departments:", response)
-      setDepartments(response)
+      const response = await getAllDepartments();
+      setDepartments(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  // Daily attendance data
   type DailyAttendanceItem = {
     ID: string;
     employee_id: {
@@ -93,79 +295,72 @@ const Attendance: React.FC = () => {
     totalHours: string;
   };
 
-  const [dailyAttendance, setDailyAttendance] = useState<DailyAttendanceItem[]>([])
+  const [dailyAttendance, setDailyAttendance] = useState<DailyAttendanceItem[]>([]);
 
   const fetchDailyAttendance = async () => {
     try {
-      const response: any = await getDailyAttendance({ date: selectedDate })
-      const attendanceData = response?.Data ?? []
-      setDailyAttendance(attendanceData)
-      console.log("Daily Attendance fetched:", attendanceData)
+      const response: any = await getDailyAttendance({ date: selectedDate });
+      const attendanceData = response?.Data ?? [];
+      setDailyAttendance(attendanceData);
     } catch (error) {
-      console.error("Error fetching AttendanceData:", error)
+      console.error("Error fetching AttendanceData:", error);
     }
   };
 
   useEffect(() => {
-    fetchDepartments()
-    fetchDailyAttendance()
-  }, [selectedDate])
+    fetchDepartments();
+    fetchDailyAttendance();
+  }, [selectedDate]);
 
-  // Filter logic
   const filteredDetails = dailyAttendance.filter((item) => {
-    const query = searchQuery.trim().toLowerCase()
+    const query = searchQuery.trim().toLowerCase();
     const matchesSearch =
       item.employee_id.role.toLowerCase().includes(query) ||
       item.status.toLowerCase().includes(query) ||
-      item.employee_id.first_name.toLowerCase().includes(query)
+      item.employee_id.first_name.toLowerCase().includes(query);
 
-    const matchesDesignation = designationFilter === "" || item.employee_id.role === designationFilter
+    const matchesDesignation = designationFilter === "" || item.employee_id.role === designationFilter;
     const matchesDepartment = departmentFilter === "" || 
-      (item.employee_id.department && item.employee_id.department === departmentFilter)
+      (item.employee_id.department && item.employee_id.department === departmentFilter);
 
-    return matchesSearch && matchesDesignation && matchesDepartment
-  })
+    return matchesSearch && matchesDesignation && matchesDepartment;
+  });
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1)
-  const rowsPerPage = 10
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
   const paginatedDetails = filteredDetails.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
-  )
+  );
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [searchQuery, designationFilter, departmentFilter])
+    setCurrentPage(1);
+  }, [searchQuery, designationFilter, departmentFilter]);
 
-  // Designation dropdown
-  const [showDesignationDropdown, setShowDesignationDropdown] = useState(false)
-  const designationDropdownRef = useRef<HTMLDivElement>(null)
+  const [showDesignationDropdown, setShowDesignationDropdown] = useState(false);
+  const designationDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (designationDropdownRef.current && !designationDropdownRef.current.contains(event.target as Node)) {
-        setShowDesignationDropdown(false)
+        setShowDesignationDropdown(false);
       }
       if (departmentDropdownRef.current && !departmentDropdownRef.current.contains(event.target as Node)) {
-        setShowDepartmentDropdown(false)
+        setShowDepartmentDropdown(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-  // Employee click handler
   const handleClick = (employee: DailyAttendanceItem) => {
-    navigate("/attendance-id", { state: { employee } })
-  }
+    navigate("/attendance-id", { state: { employee } });
+  };
 
-  // Permission modal
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const dummyData = [
     {
       id: 1,
@@ -179,10 +374,9 @@ const Attendance: React.FC = () => {
       email: "Sam@company.com",
       status: "pending",
     },
-  ]
+  ];
 
-  // Get unique department names from fetched data
-  const departmentNames = Array.from(new Set(departments.map(dept => dept.name)))
+  const departmentNames = Array.from(new Set(departments.map(dept => dept.name)));
 
   return (
     <div className="space-y-6 min-h-screen w-full p-1">
@@ -206,22 +400,13 @@ const Attendance: React.FC = () => {
         </div>
 
         <div className="flex flex-row md:flex-row justify-between gap-4">
-          {/* Date Picker */}
           <div className="mt-4 ml-4">
-            <input
-              type="date"
-              className={`flex items-center gap-2 px-3 py-2 border rounded-md text-sm text-white transition-colors duration-200 h-8 focus:ring-2 focus:ring-gray-300 ${
-                selectedDate
-                  ? "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10"
-                  : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
-              }`}
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              
+            <DatePicker 
+              selectedDate={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
             />
           </div>
 
-          {/* Designation filter */}
           <div className="flex mb-3 items-center gap-3">
             <div className="relative" ref={designationDropdownRef} style={{ zIndex: 50 }}>
               <button
@@ -231,7 +416,6 @@ const Attendance: React.FC = () => {
                     : "border-gray-300 bg-transparent backdrop-blur-xl bg-white/10 hover:bg-gray-500/10"
                 }`}
                 onClick={() => setShowDesignationDropdown(!showDesignationDropdown)}
-                 
               >
                 <FaBriefcase className="text-gray-400" />
                 {designationFilter || "All Designations"}
@@ -250,10 +434,9 @@ const Attendance: React.FC = () => {
                         ? "bg-[#5e59a9]/10 text-[#5e59a9] font-medium"
                         : "text-gray-700"
                     }`}
-                   
                     onClick={() => {
-                      setDesignationFilter("")
-                      setShowDesignationDropdown(false)
+                      setDesignationFilter("");
+                      setShowDesignationDropdown(false);
                     }}
                   >
                     All Designations
@@ -267,8 +450,8 @@ const Attendance: React.FC = () => {
                           : "text-gray-700"
                       }${idx === designations.length - 1 ? " rounded-b-xl" : ""}`}
                       onClick={() => {
-                        setDesignationFilter(designation)
-                        setShowDesignationDropdown(false)
+                        setDesignationFilter(designation);
+                        setShowDesignationDropdown(false);
                       }}
                     >
                       {designation}
@@ -279,7 +462,6 @@ const Attendance: React.FC = () => {
             </div>
           </div>
 
-          {/* Department filter */}
           <div className="flex mb-3 items-center gap-3">
             <div className="relative" ref={departmentDropdownRef} style={{ zIndex: 50 }}>
               <button
@@ -308,8 +490,8 @@ const Attendance: React.FC = () => {
                         : "text-gray-700"
                     }`}
                     onClick={() => {
-                      setDepartmentFilter("")
-                      setShowDepartmentDropdown(false)
+                      setDepartmentFilter("");
+                      setShowDepartmentDropdown(false);
                     }}
                   >
                     All Departments
@@ -323,8 +505,8 @@ const Attendance: React.FC = () => {
                           : "text-gray-700"
                       }${idx === departmentNames.length - 1 ? " rounded-b-xl" : ""}`}
                       onClick={() => {
-                        setDepartmentFilter(dept)
-                        setShowDepartmentDropdown(false)
+                        setDepartmentFilter(dept);
+                        setShowDepartmentDropdown(false);
                       }}
                     >
                       {dept}
@@ -337,11 +519,8 @@ const Attendance: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Employees Card */}
-        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-md">
-
+        <div className="bg-white rounded-lg p-6 border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-md">
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">No. of Employees</p>
             <p className="text-2xl font-semibold text-gray-900">{details.length}</p>
@@ -351,12 +530,9 @@ const Attendance: React.FC = () => {
           </div>
         </div>
 
-           
-
-        {/* Duration Card */}
-        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+        <div className="bg-white rounded-lg p-6 border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
-            <p className="text-gray-500 font-medium mb-2 font-family-poppins" >Work Duration</p>
+            <p className="text-gray-500 font-medium mb-2 font-family-poppins">Work Duration</p>
             <p className="text-2xl font-semibold text-gray-900">9 Hrs</p>
           </div>
           <div className="bg-[#ECEBFA] p-3 rounded-full">
@@ -364,9 +540,8 @@ const Attendance: React.FC = () => {
           </div>
         </div>
 
-        {/* Permission Card */}
         <div
-          className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
+          className="bg-white rounded-lg p-6 border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg"
           onClick={() => setIsOpen(true)}
         >
           <div>
@@ -378,8 +553,7 @@ const Attendance: React.FC = () => {
           </div>
         </div>
 
-        {/* Attendance Chart Card */}
-        <div className="bg-white rounded-lg p-6  border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
+        <div className="bg-white rounded-lg p-6 border-gray-100 transition-all duration-200 flex items-center justify-between h-32 hover:shadow-lg">
           <div>
             <p className="text-gray-500 font-medium mb-2 font-family-poppins">Attendance</p>
             <div className="flex items-center gap-2">
@@ -402,10 +576,6 @@ const Attendance: React.FC = () => {
           </PieChart>
         </div>
       </div>
-
-      {/* Filters Section */}
-     
-      {/* Table Section */}
 
       <div className="overflow-hidden rounded-md mt-6" style={{ ...FONTS.paragraph}}>
         <div className="overflow-x-auto">
@@ -432,7 +602,7 @@ const Attendance: React.FC = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-100"  style={{ ...FONTS.tableBody }}>
+            <tbody className="bg-white divide-y divide-gray-100" style={{ ...FONTS.tableBody }}>
               {dailyAttendance && dailyAttendance.map((item) => (
                 <tr
                   key={item.ID}
@@ -461,28 +631,26 @@ const Attendance: React.FC = () => {
                       {item.status}
                     </span>
                   </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                  {item.clockOut && !isNaN(new Date(item.clockIn).getTime())
-                  ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: false
-                   }): "-"} </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                  {item.clockOut && !isNaN(new Date(item.clockOut).getTime())
-                  ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
-                   hour: '2-digit',
-                   minute: '2-digit',
-                   hour12: false }) : "-"} </td>                  
-                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                      {item.clockOut && !isNaN(new Date(item.clockIn).getTime())
+                      ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false
+                       }): "-"} </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                      {item.clockOut && !isNaN(new Date(item.clockOut).getTime())
+                      ? new Date(item.clockOut).toLocaleTimeString("en-GB", {
+                       hour: '2-digit',
+                       minute: '2-digit',
+                       hour12: false }) : "-"} </td>                  
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.totalHours || "-"}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-
-        {/* Pagination Controls */}
         <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-100">
           <div className="text-sm text-gray-500">
             Showing {Math.min(filteredDetails.length, (currentPage - 1) * rowsPerPage + 1)} to{" "}
@@ -490,7 +658,6 @@ const Attendance: React.FC = () => {
           </div>
 
           <div className="flex space-x-2">
-            {/* Previous Button */}
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
@@ -513,7 +680,6 @@ const Attendance: React.FC = () => {
               </svg>
             </button>
 
-            {/* Page Numbers */}
             {Array.from({ length: Math.ceil(filteredDetails.length / rowsPerPage) }, (_, index) => (
               <button
                 key={index + 1}
@@ -527,7 +693,6 @@ const Attendance: React.FC = () => {
               </button>
             ))}
 
-            {/* Next Button */}
             <button
               onClick={() =>
                 setCurrentPage((prev) => (prev < Math.ceil(filteredDetails.length / rowsPerPage) ? prev + 1 : prev))
@@ -555,7 +720,6 @@ const Attendance: React.FC = () => {
         </div>
       </div>
 
-      {/* Permission Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
           <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl mx-4 animate-fade-in">
@@ -612,4 +776,4 @@ const Attendance: React.FC = () => {
   );
 };
 
-export default Attendance
+export default Attendance;
