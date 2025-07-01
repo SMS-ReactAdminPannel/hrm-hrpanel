@@ -1,9 +1,4 @@
 export type Card = {
-  // _id: string;//id:number
-  // holiday_name: string;//title: string;
-  // holiday_type: string; //isPaid: string
-  // holiday_date: string; //totalDays: number
-  // is_active: "yes" | "no"; // reset: string;
   _id:string
   title: string;
    isPaid: string;
@@ -21,10 +16,6 @@ export type Card = {
 };
 
 export type NewCard = {
-  // title: string;
-  // isPaid: string;
-  // totalDays: string;
-  // reset: string;
 
   _id: string;
   title: string;

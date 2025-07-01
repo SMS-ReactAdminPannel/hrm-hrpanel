@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { FONTS } from '../../constants/uiConstants';
+import { getClockin } from '../../features/timesheet/services';
+
 
 interface DailyTimeSheetProps {
   timesheet: {
@@ -15,11 +17,25 @@ interface DailyTimeSheetProps {
 }
 
 const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); 
 
-  // const filteredUsers = timesheet.filter((user) =>
-  //   user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+ const [allCards, setAllCards] = useState<DailyTimeSheetProps[]>([]);
+   const fetchTimesheet = async () => {
+      try {
+        const response = await  getClockin();
+        console.log("filtered data",response)
+        const visitors = response?.data ?? [];
+        setAllCards(visitors);
+        
+      } catch (error) {
+        console.log("Error fetching leave types:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchTimesheet();
+    }, []);
+  
 
   return (
     <div className="py-5">
@@ -84,9 +100,9 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
                   <td className="px-6 py-4 flex  items-center gap-3 border-b border-slate-200/50">
                     <span className="font-medium !text-gray-700" style={{...FONTS.paragraph}}>{user.name}</span>
                   </td>
-                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.firstIn}</td>
-                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.lastOut}</td>
-                  <td className="px-6 py-4 text-center" style={{...FONTS.description}}>{user.regular}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.firstIn}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.lastOut}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.regular}</td>
                   <td className="px-6 py-4 text-center !text-orange-500" style={{...FONTS.description}}>{user.overtime}</td>
                   <td className="px-6 py-4 text-center !text-red-500" style={{...FONTS.description}}>{user.dailyDoubleOvertime}</td>
                   <td className="px-6 py-4 text-center font-semibold !text-green-600" style={{...FONTS.description}}>{user.tracked}</td>

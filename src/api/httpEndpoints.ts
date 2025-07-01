@@ -2,18 +2,19 @@
 
 export const API_END_POINTS = {
   timesheet: {
-    postclockin: "/api/hr/timesheet/clock-in",
-    postclockout: "/timesheet/clock-out",
-    getsubmittimesheet: "/api/hr/timesheet/submit",
+    clockIn: "/api/hr/TimeSheet/clock-in",
+    clockOut: "/timesheet/clock-out",
+    getsubmitTimesheet: "/api/hr/timesheet/submit",
     patchapprovetimesheet: (id: string) => `/timesheet/approve/${id}`,
-    getemployeetimesheet: (id: string) => `/api/hr/timesheet/${id}`
+    getemployeetimesheet: (id: string) => `/api/hr/timesheet/${id}`,
+    getFilteredTimeEntries:"/api/hr/timesheet/entries/filter"
   },
   leavetype: {
-    getall: "api/hr/leave-type/getall",
-    getUniqueLeave: (id: string) => `/api/hr/LeaveTypeManagement/get/${id}`,
-    createLeaveType: "/api/hr/LeaveTypeManagement/",
-    updateLeaveType: (id: string) => `/api/hr/LeaveTypeManagement/update/${id}`,
-    deletedeleteLeave: (id: string) => `/api/hr/LeaveTypeManagement/delete/${id}`,
+    getall: "api/hr/leaveType/getAllLeave",
+    getUniqueLeave: (id: string) => `/api/hr/leaveTypet/get/${id}`,
+    createLeaveType: "/api/hr/leaveType/createLeaveType",
+    updateLeaveType: (id: string) => `api/hr/leaveType/updateLeave/${id}`,
+    deletedeleteLeave: (id: string) => `/api/hr/leaveType/delete/${id}`,
   },
 
   grievance: {
@@ -97,12 +98,13 @@ export const API_END_POINTS = {
     updateHoliday: (id: string) => `api/hr/leave/updateHoliday/${id}`,
     deleteHoliday: (id: string) => `api/hr/leave/deleteHoliday/${id}`,
   },
+  
   leaveType: {
     createLeaveType: "/api/hr/leaveType/createLeaveType",
-    getAllLeaveType: "api/hr/leaveType/getAllLeave",
-    updateLeaveType: (id: string) => `api/hr/leaveType/UpdateLeave/${id}`,
-    getLeaveById: (id: string) => `api/hr/leaveType/getUniqueLeave/${id}`,
-    deleteLeaveType: (id: string) => `api/hr/leaveType/deleteLeave/${id}`,
+    getAllLeaveType: "/api/hr/leaveType/getAllLeave",
+    getLeaveById: (id: string) => `/api/hr/leaveType/getUniqueLeave/${id}`,
+    updateLeaveType: (id: string) => `/api/hr/leaveType/updateLeave/${id}`,
+    deleteLeaveType: (id: string) => `/api/hr/leaveType/deleteLeave/${id}`,
   },
   
   jobPosting: {

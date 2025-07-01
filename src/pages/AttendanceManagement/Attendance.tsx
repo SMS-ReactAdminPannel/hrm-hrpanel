@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { PieChart, Pie, Cell, Tooltip } from "recharts"
 import { CiSearch } from "react-icons/ci"
 import { FaBriefcase } from "react-icons/fa"
@@ -265,7 +265,10 @@ type DailyAttendanceItem = {
 };
 
 const [dailyAttendance, setdailyAttendance] = useState<DailyAttendanceItem[]>([]);
-const fetchDailyAttendance = async () => {
+
+// ...rest of your imports
+
+const fetchDailyAttendance = useCallback(async () => {
   try {
     const response: any = await getDailyAttendance({ date: selectedDate });
 
@@ -277,12 +280,11 @@ const fetchDailyAttendance = async () => {
   } catch (error) {
     console.error("Error fetching AttendanceData:", error);
   }
-};
+}, [selectedDate]);
 
-    
-      useEffect(() => {
-        fetchDailyAttendance();
-      }, [selectedDate]);
+useEffect(() => {
+  fetchDailyAttendance();
+}, [fetchDailyAttendance]);
 
 
 console.log(dailyAttendance,"sdfghjk")
@@ -482,12 +484,12 @@ console.log(dailyAttendance,"sdfghjk")
                   <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
-                        {item.employee_id.first_name?.charAt(0).toUpperCase()}
+                        {/* {item.employee_id.first_name?.charAt(0).toUpperCase()} */}
                       </div>
-                      <span className="font-medium">{item.employee_id.first_name}</span>
+                      {/* <span className="font-medium">{item.employee_id.first_name}</span> */}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
+                  {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td> */}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium

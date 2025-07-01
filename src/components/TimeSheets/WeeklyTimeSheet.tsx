@@ -84,7 +84,7 @@ const WeeklyTimeSheet = ({ timesheet }: WeeklyTimeSheetProps) => {
                   >
                     <td className="px-6 py-4 flex items-center gap-3">
                       <span className="!font-medium !text-gray-700" style={{...FONTS.cardSubHeader}}>
-                        {user.name}
+                        {user.name || "no name"}
                       </span>
                     </td>
                     {user.timeEntries.map((entry) => (

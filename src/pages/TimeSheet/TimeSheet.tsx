@@ -8,8 +8,6 @@ import WeeklyTimeSheet from "../../components/TimeSheets/WeeklyTimeSheet";
 import FilterTimeSheet from "../../components/TimeSheets/FilterTimeSheet";
 import ExportTimeSheet from "../../components/TimeSheets/ExportTimeSheet";
 import { FONTS } from "../../constants/uiConstants";
-import { getemployeeTimeSheet } from "../../features/timesheet/services";
-//, getTimeSheet
 
 const TimeSheet = () => {
   const [timeSheetView, setTimeSheetView] = useState("weekly");
@@ -44,79 +42,79 @@ const TimeSheet = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const fetchTimesheet = async () => {
-      try {
+  // useEffect(() => {
+  //   const fetchTimesheet = async () => {
+  //     try {
         
-        const responce = await getemployeeTimeSheet("68468e814eacfb4787b749cd", {});
-        const rawData=responce;
-        console.log("data:",rawData)
+  //       const responce = await getemployeeTimeSheet("68468e814eacfb4787b749cd", {});
+  //       const rawData=responce;
+  //       console.log("data:",rawData)
         
 
-        // Weekly
-        const weeklyMap = new Map();
-        rawData.forEach((entry: any) => {
-          const key = entry.name;
-          if (!weeklyMap.has(key)) {
-            weeklyMap.set(key, {
-              name: entry.name,
-              profilePic: entry.profilePic,
-              timeEntries: [],
-            });
-          }
-          weeklyMap.get(key).timeEntries.push({
-            day: entry.day,
-            hoursWorked: entry.hoursWorked,
-            isHoliday: entry.isHoliday,
-            firstIn: entry.firstIn,
-            lastOut: entry.lastOut,
-            requiredHours: entry.requiredHours || 8,
-          });
-        });
-        setWeeklyTimesheet(Array.from(weeklyMap.values()));
+  //       // Weekly
+  //       const weeklyMap = new Map();
+  //       rawData.forEach((entry: any) => {
+  //         const key = entry.name;
+  //         if (!weeklyMap.has(key)) {
+  //           weeklyMap.set(key, {
+  //             name: entry.name,
+  //             profilePic: entry.profilePic,
+  //             timeEntries: [],
+  //           });
+  //         }
+  //         weeklyMap.get(key).timeEntries.push({
+  //           day: entry.day,
+  //           hoursWorked: entry.hoursWorked,
+  //           isHoliday: entry.isHoliday,
+  //           firstIn: entry.firstIn,
+  //           lastOut: entry.lastOut,
+  //           requiredHours: entry.requiredHours || 8,
+  //         });
+  //       });
+  //       setWeeklyTimesheet(Array.from(weeklyMap.values()));
 
-        // Daily
-        const dailyData = rawData.map((entry: any) => ({
-          name: entry.name,
-          profilePic: entry.profilePic,
-          firstIn: entry.firstIn,
-          lastOut: entry.lastOut,
-          regular: entry.regular,
-          overtime: entry.overtime,
-          dailyDoubleOvertime: entry.dailyDoubleOvertime,
-          tracked: entry.tracked,
-        }));
-        setDailyTimesheet(dailyData);
+  //       // Daily
+  //       const dailyData = rawData.map((entry: any) => ({
+  //         name: entry.name,
+  //         profilePic: entry.profilePic,
+  //         firstIn: entry.firstIn,
+  //         lastOut: entry.lastOut,
+  //         regular: entry.regular,
+  //         overtime: entry.overtime,
+  //         dailyDoubleOvertime: entry.dailyDoubleOvertime,
+  //         tracked: entry.tracked,
+  //       }));
+  //       setDailyTimesheet(dailyData);
 
-        // Monthly
-        const monthlyMap = new Map();
-        rawData.forEach((entry: any) => {
-          const key = entry.name;
-          if (!monthlyMap.has(key)) {
-            monthlyMap.set(key, {
-              name: entry.name,
-              profilePic: entry.profilePic,
-              daysData: [],
-            });
-          }
-          monthlyMap.get(key).daysData.push({
-            day: new Date(entry.date).getDate(),
-            firstIn: entry.firstIn,
-            lastOut: entry.lastOut,
-            regular: entry.regular,
-            overtime: entry.overtime,
-            dailyDoubleOvertime: entry.dailyDoubleOvertime,
-            tracked: entry.tracked,
-          });
-        });
-        setMonthlyTimesheet(Array.from(monthlyMap.values()));
-      } catch (error) {
-        console.error("Error fetching timesheet:", error);
-      }
-    };
+  //       // Monthly
+  //       const monthlyMap = new Map();
+  //       rawData.forEach((entry: any) => {
+  //         const key = entry.name;
+  //         if (!monthlyMap.has(key)) {
+  //           monthlyMap.set(key, {
+  //             name: entry.name,
+  //             profilePic: entry.profilePic,
+  //             daysData: [],
+  //           });
+  //         }
+  //         monthlyMap.get(key).daysData.push({
+  //           day: new Date(entry.date).getDate(),
+  //           firstIn: entry.firstIn,
+  //           lastOut: entry.lastOut,
+  //           regular: entry.regular,
+  //           overtime: entry.overtime,
+  //           dailyDoubleOvertime: entry.dailyDoubleOvertime,
+  //           tracked: entry.tracked,
+  //         });
+  //       });
+  //       setMonthlyTimesheet(Array.from(monthlyMap.values()));
+  //     } catch (error) {
+  //       console.log("Error fetching timesheet:", error);
+  //     }
+  //   };
 
-    fetchTimesheet();
-  }, []);
+  //   fetchTimesheet();
+  // }, []);
 
   return (
     <div className="relative">

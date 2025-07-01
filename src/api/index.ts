@@ -6,13 +6,16 @@ export default class Client {
   hr = {
     timesheet: {
       clockIn: (data: any) =>
-        httpClient.post(API_END_POINTS.timesheet.postclockin, data),
+        httpClient.post(API_END_POINTS.timesheet.clockIn,data),
 
       clockOut: (data: any) =>
-        httpClient.post(API_END_POINTS.timesheet.postclockout, data),
+        httpClient.post(API_END_POINTS.timesheet.clockOut, data),
 
       submitTimesheet: (data: any) =>
-        httpClient.get(API_END_POINTS.timesheet.getsubmittimesheet, data),
+        httpClient.get(API_END_POINTS.timesheet.getsubmitTimesheet, data),
+
+      getFilteredTimeEntries:(data: any) =>
+        httpClient.get(API_END_POINTS.timesheet.getFilteredTimeEntries,data),
 
       approveTimesheet: (timesheetId: string, data: any) =>
         httpClient.patch(
@@ -33,8 +36,9 @@ export default class Client {
       //   httpClient.get(API_END_POINTS.leavetype.getUniqueLeave(leaveTypeId)),  
       // create: (data: any) =>
       //   httpClient.post(API_END_POINTS.leavetype.createLeaveType, data),
-      // update: (leaveTypeId: string, data: any) =>
-      //   httpClient.update(API_END_POINTS.leavetype.updateLeaveType(leaveTypeId), data),
+      update: (uuid: string, data: any) =>
+        httpClient.put(API_END_POINTS.leavetype.updateLeaveType(uuid), data),
+    
       // delete: (leaveTypeId: string) =>
       //   httpClient.delete(API_END_POINTS.leavetype.deletedeleteLeave(leaveTypeId))
     },
