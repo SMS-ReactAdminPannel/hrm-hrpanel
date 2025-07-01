@@ -7,120 +7,18 @@ import type {
 } from "../../components/Employee/Employee";
 import { EmployeeStatsCard } from "../../components/Employee/EmployeeCards";
 import { WorkModeStats } from "../../components/Employee/WorkModeStats";
-// import { SearchFilterBar } from "../../components/Employee/SearchFilter";
 import { EmployeeTable } from "../../components/Employee/EmployeeTable";
 import { AddEmployeeModal } from "../../components/Employee/EmployeeModel";
-// import { Pagination } from "../../components/Employee/Pagination";
 import { FONTS } from "../../constants/uiConstants";
 import { getAllDepartments } from "../../features/Department/service";
 import { SearchFilterBar } from "../../components/Employee/SearchFilter";
 import { Pagination } from "../../components/Paginetion/pagination";
+import Client from "../../api";
+
+const apiClient = new Client();
 
 const EmployeeManagement = () => {
-  const initialEmployees: Employee[] = [
-    {
-      id: "EMP001",
-      name: "Sowmiya",
-      email: "sowmiya.doe@example.com",
-      contactNumber: "7262768293",
-      department: "Engineering",
-      jobTitle: "Developer",
-      hireDate: "2020-05-15",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP002",
-      name: "Suruthi",
-      email: "suruthi.smith@example.com",
-      contactNumber: "5552345678",
-      department: "Marketing",
-      jobTitle: "Manager",
-      hireDate: "2019-08-22",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP003",
-      name: "Wikki",
-      email: "wikki.j@example.com",
-      contactNumber: "5553456789",
-      department: "HR",
-      jobTitle: "Specialist",
-      hireDate: "2021-01-10",
-      employmentType: "Part-time",
-    },
-    {
-      id: "EMP004",
-      name: "Siva Shankar",
-      email: "siva.d@example.com",
-      contactNumber: "5554567890",
-      department: "Finance",
-      jobTitle: "Analyst",
-      hireDate: "2020-11-05",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP005",
-      name: "Surya",
-      email: "surya.b@example.com",
-      contactNumber: "5555678901",
-      department: "Operations",
-      jobTitle: "Manager",
-      hireDate: "2018-03-18",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP006",
-      name: "Rajesh",
-      email: "rajesh.w@example.com",
-      contactNumber: "5556789012",
-      department: "Engineering",
-      jobTitle: "Designer",
-      hireDate: "2022-04-01",
-      employmentType: "Contract",
-    },
-    {
-      id: "EMP007",
-      name: "Muthu Vel",
-      email: "muthu.l@example.com",
-      contactNumber: "5557890123",
-      department: "Finance",
-      jobTitle: "Analyst",
-      hireDate: "2017-12-12",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP008",
-      name: "Vetri Vel",
-      email: "vetri.t@example.com",
-      contactNumber: "5558901234",
-      department: "HR",
-      jobTitle: "Manager",
-      hireDate: "2016-07-19",
-      employmentType: "Full-time",
-    },
-    {
-      id: "EMP009",
-      name: "James White",
-      email: "james.w@example.com",
-      contactNumber: "5559012345",
-      department: "Marketing",
-      jobTitle: "Designer",
-      hireDate: "2023-01-10",
-      employmentType: "Intern",
-    },
-    {
-      id: "EMP010",
-      name: "Susan Harris",
-      email: "susan.h@example.com",
-      contactNumber: "5550123456",
-      department: "Engineering",
-      jobTitle: "Developer",
-      hireDate: "2022-10-05",
-      employmentType: "Full-time",
-    },
-  ];
-
-  const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState<{
@@ -164,7 +62,28 @@ const EmployeeManagement = () => {
       }
     };
 
+    const fetchEmployees = async () => {
+      try {
+        const response = await apiClient.employee.employeeuser.getAllProfile();
+        const employees = response.data.map((user: any) => ({
+          id: user.employeeUser_id ,
+          name: `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim(),
+          email: user.email,
+          contactNumber: user.phone_number,
+          department: user.department?.department_name || "N/A",
+          jobTitle: user.role || "N/A",
+          hireDate: user.createdAt || "",
+          employmentType: user.employment_type || "N/A", 
+        }));
+        console.log("emp", employees)
+        setEmployees(employees);
+      } catch (err) {
+        console.error("Error fetching employees:", err);
+      }
+    };
+
     fetchDepartments();
+    fetchEmployees();
   }, []);
 
   const getSortedAndFilteredEmployees = () => {
@@ -198,7 +117,6 @@ const EmployeeManagement = () => {
 
   const filteredEmployees = getSortedAndFilteredEmployees();
   const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
-  // const totalPages = 5;
   const paginatedEmployees = filteredEmployees.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -225,7 +143,7 @@ const EmployeeManagement = () => {
   };
 
   const handleAddEmployee = (newEmployee: Employee) => {
-    setEmployees([...employees, newEmployee]);
+    setEmployees((prev) => [...prev, newEmployee]);
   };
 
   const handleDeleteEmployee = (employeeId: string) => {
@@ -236,8 +154,7 @@ const EmployeeManagement = () => {
 
   return (
     <div className="container mx-auto px-4 py-2">
-      <div className="flex flex-wrap justify-start items-center mb-6 gap-8  ">
-        {/* Title */}
+      <div className="flex flex-wrap justify-start items-center mb-6 gap-8">
         <h1
           className="text-3xl font-bold text-white"
           style={{ ...FONTS.header }}
@@ -245,8 +162,7 @@ const EmployeeManagement = () => {
           Employee Management
         </h1>
 
-        {/* Right-side controls: Add button + Filter */}
-        <div className="flex items-center justify-start gap-2   ">
+        <div className="flex items-center justify-start gap-2">
           <button
             onClick={() => setShowAddForm(true)}
             className="flex items-center h-8 gap-2 bg-[#4c469f] hover:bg-[#3b3780] text-white px-4 py-2.5 rounded-md shadow-md w-48"
@@ -268,9 +184,6 @@ const EmployeeManagement = () => {
         </div>
       </div>
 
-      {}
-
-      {/* Statistics Cards */}
       <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
         <EmployeeStatsCard
           title="Total Employees"
@@ -280,7 +193,6 @@ const EmployeeManagement = () => {
           bgColor="bg-indigo-50"
           textColor="text-indigo-600"
         />
-
         <EmployeeStatsCard
           title="New Employees"
           value={getNewEmployeesCount()}
@@ -289,7 +201,6 @@ const EmployeeManagement = () => {
           bgColor="bg-emerald-50"
           textColor="text-emerald-600"
         />
-
         <EmployeeStatsCard
           title="Resigned Employees"
           value={0}
@@ -298,27 +209,22 @@ const EmployeeManagement = () => {
           bgColor="bg-amber-50"
           textColor="text-amber-600"
         />
-
         <WorkModeStats workModeData={workModeData} />
       </div>
 
-      {/* Employee Table */}
       <EmployeeTable
-        employees={paginatedEmployees}
+        employees={employees}
         sortConfig={sortConfig}
         onSort={requestSort}
-        // onEdit={}
         onDelete={handleDeleteEmployee}
       />
 
-      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
 
-      {/* Add Employee Modal */}
       <AddEmployeeModal
         isOpen={showAddForm}
         onClose={() => setShowAddForm(false)}

@@ -108,8 +108,7 @@ export default class Client {
     },
 
     departments: {
-      getAllDepartments: () => 
-        httpClient.get(API_END_POINTS.department.getAll),
+      getAllDepartments: () => httpClient.get(API_END_POINTS.department.getAll),
 
       createDepartment: (data: any) =>
         httpClient.post(API_END_POINTS.department.create, data),
@@ -192,7 +191,49 @@ export default class Client {
     },
   };
   employee = {
-   employeedetails: {
+    employeeuser: {
+      signUp: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.signUp, data),
+
+      login: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.login, data),
+
+      validateOTP: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.validateOTP, data),
+
+      resendOTP: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.resendOTP, data),
+
+      forgotPassword: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.forgotPassword, data),
+
+      resetPassword: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.resetPassword, data),
+
+      logout: () => httpClient.post(API_END_POINTS.employeeUser.logout, {}),
+
+      getProfile: () => httpClient.get(API_END_POINTS.employeeUser.getProfile),
+
+      updateProfile: (data: any) =>
+        httpClient.put(API_END_POINTS.employeeUser.updateProfile, data),
+
+      updateProfileWithUUID: (id: string, data: any) =>
+        httpClient.put(
+          API_END_POINTS.employeeUser.updateProfileWithUUID(id),
+          data
+        ),
+
+      deleteProfile: (id: string) =>
+        httpClient.delete(API_END_POINTS.employeeUser.deleteProfile(id)),
+
+      createProfile: (data: any) =>
+        httpClient.post(API_END_POINTS.employeeUser.createProfile, data),
+
+      getAllProfile: () =>
+        httpClient.get(API_END_POINTS.employeeUser.getAllProfile),
+    },
+
+    employeedetails: {
       create: (data: any) =>
         httpClient.post(API_END_POINTS.employeeDetails.create, data),
       getAll: () => httpClient.get(API_END_POINTS.employeeDetails.getAll),

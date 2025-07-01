@@ -1,25 +1,24 @@
-
-
 export const API_END_POINTS = {
   timesheet: {
     postclockin: "/api/hr/timesheet/clock-in",
     postclockout: "/timesheet/clock-out",
     getsubmittimesheet: "/api/hr/timesheet/submit",
     patchapprovetimesheet: (id: string) => `/timesheet/approve/${id}`,
-    getemployeetimesheet: (id: string) => `/api/hr/timesheet/${id}`
+    getemployeetimesheet: (id: string) => `/api/hr/timesheet/${id}`,
   },
   leavetype: {
     getall: "api/hr/leave-type/getall",
     getUniqueLeave: (id: string) => `/api/hr/LeaveTypeManagement/get/${id}`,
     createLeaveType: "/api/hr/LeaveTypeManagement/",
     updateLeaveType: (id: string) => `/api/hr/LeaveTypeManagement/update/${id}`,
-    deletedeleteLeave: (id: string) => `/api/hr/LeaveTypeManagement/delete/${id}`,
+    deletedeleteLeave: (id: string) =>
+      `/api/hr/LeaveTypeManagement/delete/${id}`,
   },
 
   grievance: {
     creategrievance: "/api/hr/grievance/create",
     getallgrievance: "/api/hr/grievance/getall",
-    patchgrievance: (id: string) => `/api/hr/grievance/${id}/status`
+    patchgrievance: (id: string) => `/api/hr/grievance/${id}/status`,
   },
 
   hrprofile: {
@@ -28,13 +27,13 @@ export const API_END_POINTS = {
     postlogout: "/api/hr/auth/logout",
     validateOtp: "/api/hr/auth/otp",
     forgotPassword: "/api/hr/auth/forgot-password",
-    resetPassword: "/api/hr/auth/reset-password"
+    resetPassword: "/api/hr/auth/reset-password",
   },
 
   candidates: {
     createcandidates: "/api/hr/candidates/create",
     getallcandidates: "/api/hr/candidates/getall",
-    patchstatus: (id: string) => `/api/hr/candidates/${id}/status`
+    patchstatus: (id: string) => `/api/hr/candidates/${id}/status`,
   },
 
   asset: {
@@ -62,7 +61,7 @@ export const API_END_POINTS = {
     AnnouncementGetOne: "/api/hr/announcement/get/:id",
     AnnouncementGetAll: "/api/hr/announcement/getall",
     AnnouncementUpdateWithUUID: "/api/hr/announcement/update/:id",
-    AnnouncementDelete: "/api/hr/announcement/delete/:id"
+    AnnouncementDelete: "/api/hr/announcement/delete/:id",
   },
   assetcategory: {
     createasset: "/api/hr/assetcategory/create",
@@ -70,25 +69,27 @@ export const API_END_POINTS = {
     getallasset: "/api/hr/assetcategory/assetgetall",
     updateasset: (id: string) => `/api/hr/assetcategory/update/${id}`,
     deleteasset: (id: string) => `/api/hr/assetcategory/delete/${id}`,
-
   },
   assetCategory: {
     createCategory: "/api/hr/assetproperty/asset-categories",
     getAllCategory: "/api/hr/assetproperty/getallasset-categories",
-    getCategoryById: (id: string) => `/api/hr/assetproperty/getasset-categories/${id}`,
-    updateCategory: (id: string) => `/api/hr/assetproperty/updateasset-categories/${id}`,
-    deleteCategory: (id: string) => `/api/hr/assetproperty/deleteasset-categories/${id}`,
+    getCategoryById: (id: string) =>
+      `/api/hr/assetproperty/getasset-categories/${id}`,
+    updateCategory: (id: string) =>
+      `/api/hr/assetproperty/updateasset-categories/${id}`,
+    deleteCategory: (id: string) =>
+      `/api/hr/assetproperty/deleteasset-categories/${id}`,
   },
 
   attendance: {
     getDailyAttendance: "/api/hr/timesheet/attendance/daily",
   },
   appraisal: {
-    create: "/api/hr/Appraisal/",  // POST
-    getAll: "/api/hr/Appraisal/",  // GET
-    getById: (id: string) => `/api/hr/Appraisal/${id}`,  // GET
-    update: (id: string) => `/api/hr/Appraisal/${id}`,   // PUT
-    delete: (id: string) => `/api/hr/Appraisal/${id}`,   // DELETE
+    create: "/api/hr/Appraisal/", // POST
+    getAll: "/api/hr/Appraisal/", // GET
+    getById: (id: string) => `/api/hr/Appraisal/${id}`, // GET
+    update: (id: string) => `/api/hr/Appraisal/${id}`, // PUT
+    delete: (id: string) => `/api/hr/Appraisal/${id}`, // DELETE
   },
 
   leave: {
@@ -104,14 +105,14 @@ export const API_END_POINTS = {
     getLeaveById: (id: string) => `api/hr/leaveType/getUniqueLeave/${id}`,
     deleteLeaveType: (id: string) => `api/hr/leaveType/deleteLeave/${id}`,
   },
-  
+
   jobPosting: {
-  create: "/api/hr/jobposting", 
-  getAll: "/api/hr/jobposting", 
-  getById: (id: string) => `/api/hr/jobposting/${id}`,
-  update: (id: string) => `/api/hr/jobposting/${id}`,
-  delete: (id: string) => `/api/hr/jobposting/${id}`,  
-},
+    create: "/api/hr/jobposting",
+    getAll: "/api/hr/jobposting",
+    getById: (id: string) => `/api/hr/jobposting/${id}`,
+    update: (id: string) => `/api/hr/jobposting/${id}`,
+    delete: (id: string) => `/api/hr/jobposting/${id}`,
+  },
 
   employeeDetails: {
     create: "/api/employee/employeedetails",
@@ -119,5 +120,21 @@ export const API_END_POINTS = {
     getById: (id: string) => `/api/employee/employeedetails/${id}`,
     update: (id: string) => `/api/employee/employeedetails/${id}`,
     delete: (id: string) => `/api/employee/employeedetails/${id}`,
+  },
+  employeeUser: {
+    signUp: "/api/employee/auth/",
+    login: "/api/employee/auth/login",
+    validateOTP: "/api/employee/auth/validateOTP",
+    resendOTP: "/api/employee/auth/resendOTP",
+    forgotPassword: "/api/employee/auth/forgotPassword",
+    resetPassword: "/api/employee/auth/resetPassword",
+    logout: "/api/employee/auth/logout",
+    getProfile: "/api/employee/auth/getProfile",
+    updateProfile: "/api/employee/auth/updateProfile",
+    updateProfileWithUUID: (id: string) =>
+      `/api/employee/auth/updateProfileWithUUID/${id}`,
+    deleteProfile: (id: string) => `/api/employee/auth/deleteProfile/${id}`,
+    createProfile: "/api/employee/auth/createProfile",
+    getAllProfile: "/api/employee/auth/getAllProfile",
   },
 };

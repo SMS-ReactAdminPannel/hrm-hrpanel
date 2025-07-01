@@ -3,7 +3,7 @@ const apiClient = new Client();
 
 export const getEmployeeDetailsById = async (employeeDetailId: string) => {
   try {
-    const response = await new Client().employee.employeedetails.getById(employeeDetailId);
+    const response = await apiClient.employee.employeedetails.getById(employeeDetailId);
     // console.log(" RAW FULL RESPONSE =>", response);
     return response; 
   } catch (error) {
