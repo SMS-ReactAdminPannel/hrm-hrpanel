@@ -24,6 +24,7 @@ import {
 import EditCandidateModal from "./EditCandidateModal";
 import { FaPlus } from "react-icons/fa";
 import AddCandidateModal from "./AddForm";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Card Components
 const Card = ({ children }: { children: React.ReactNode }) => (
@@ -215,7 +216,7 @@ export default function CandidatesPage() {
 
   return (
     <>
-    <div className="p-6 space-y-6 min-h-screen">
+    <div className="p-6 h-screen">
    <div className="flex">
     <div className="flex items-center justify-between">
     <h1 className="text-3xl font-bold text-white mt-2 leading-relaxed pb-3">
@@ -240,7 +241,7 @@ export default function CandidatesPage() {
         placeholder="Search candidates..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full pr-12 pl-4 px-2 py-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
+        className="w-full pr-12 pl-4 px-2 h-8 py-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg text-white placeholder-gray-300"
       />
       <Search className="text-gray-300 absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
     </div>
@@ -310,7 +311,7 @@ export default function CandidatesPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 mt-6 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((cand) => {
             const d = cand.details ?? {};
             return (
@@ -381,6 +382,7 @@ export default function CandidatesPage() {
                               Edit Candidate
                             </button>
                             <button
+                              onClick = {() => setEditModalOpen(true)}
                               className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
                             >
                               <Trash2 className="w-4 h-4 mr-2" />
@@ -465,6 +467,46 @@ export default function CandidatesPage() {
           onSave={handleSaveEdit}
         />
       )}
+
+       <AnimatePresence>
+        {editModalOpen && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center"
+          >
+            <motion.div
+              key="modal"
+              initial={{ y: 300, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 300, opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="bg-white rounded-xl p-6 shadow-lg w-full max-w-md"
+            >
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Delete Candidate</h2>
+              <p className="text-gray-600 mb-6">
+                Are you sure you want to delete this candidate? This action cannot be undone.
+              </p>
+              <div className="flex justify-end gap-4">
+                <button
+                  onClick={() => setEditModalOpen(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md"
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-4 py-2 bg-red-600 text-white rounded-md"
+                >
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
     </div>
     </>
   );

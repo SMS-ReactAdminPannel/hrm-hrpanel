@@ -312,19 +312,26 @@ const Attendance: React.FC = () => {
     fetchDailyAttendance();
   }, [selectedDate]);
 
-  const filteredDetails = dailyAttendance.filter((item) => {
-    const query = searchQuery.trim().toLowerCase();
-    const matchesSearch =
-      item.employee_id.role.toLowerCase().includes(query) ||
-      item.status.toLowerCase().includes(query) ||
-      item.employee_id.first_name.toLowerCase().includes(query);
+ const filteredDetails = dailyAttendance.filter((item) => {
+  if (!item.employee_id) return false; // 🛡️ Ignore items with null employee_id
 
-    const matchesDesignation = designationFilter === "" || item.employee_id.role === designationFilter;
-    const matchesDepartment = departmentFilter === "" || 
-      (item.employee_id.department && item.employee_id.department === departmentFilter);
+  const query = searchQuery.trim().toLowerCase();
 
-    return matchesSearch && matchesDesignation && matchesDepartment;
-  });
+  const matchesSearch =
+    item.employee_id.role?.toLowerCase().includes(query) ||
+    item.status?.toLowerCase().includes(query) ||
+    item.employee_id.first_name?.toLowerCase().includes(query);
+
+  const matchesDesignation =
+    designationFilter === "" || item.employee_id.role === designationFilter;
+
+  const matchesDepartment =
+    departmentFilter === "" ||
+    item.employee_id.department === departmentFilter;
+
+  return matchesSearch && matchesDesignation && matchesDepartment;
+});
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
@@ -603,23 +610,26 @@ const Attendance: React.FC = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100" style={{ ...FONTS.tableBody }}>
-              {dailyAttendance && dailyAttendance.map((item) => (
+              {dailyAttendance && dailyAttendance
+             .filter((item) => item.employee_id)
+             .map((item) => (
                 <tr
                   key={item.ID}
                   className="hover:bg-white/70 hover:backdrop-blur-sm cursor-pointer transition duration-200"
                   onClick={() => handleClick(item)}
                 >
                   <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900">{item.ID || "NA"}</td>
+                  
                   <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
-                        {item.employee_id.first_name?.charAt(0).toUpperCase()}
+                        {item.employee_id.first_name?.charAt(0).toUpperCase() || "-"}
                       </div>
-                      <span className="font-medium">{item.employee_id.first_name}</span>
+                      <span className="font-medium">{item.employee_id?.first_name || "-"}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id?.role || "-"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id?.role || "-"}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium

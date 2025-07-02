@@ -7,6 +7,7 @@ import { createJob, deleteJob, getAllJobs, updateJob } from "../../features/JobP
 import { X } from "lucide-react"
 import { toast } from "react-toastify";
 
+
 // Type for each job posting
 type Job = {
   _id: string
@@ -544,63 +545,46 @@ const OpenRecruitments = () => {
       )}
 
       {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-       <div
-  className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-    modalAnimating ? "bg-black/50 backdrop-blur-sm" : "bg-black/0 backdrop-blur-none"
-  }`}
-  onClick={handleDeleteModalClose}
->
-  <div
-    className={`relative bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-      modalAnimating 
-        ? "translate-y-0 opacity-100 scale-100" 
-        : "translate-y-10 opacity-0 scale-95"
-    }`}
-    onClick={(e) => e.stopPropagation()}
-  >
-    {/* Close Button */}
-    <button
-      onClick={handleDeleteModalClose}
-      className="absolute top-3 left-2 -ml-[3rem] text-white hover:text-gray-600 bg-blue-700 rounded-l-full h-10 w-10 flex items-center justify-center shadow"
+ <AnimatePresence>
+  {showDeleteModal && (
+    <motion.div
+      key="overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center"
     >
-      <X size={20}/>
-    </button>
+      <motion.div
+        key="modal"
+        initial={{ y: 300, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 300, opacity: 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="bg-white rounded-xl p-6 shadow-lg w-full max-w-md"
+      >
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Confirm Deletion</h2>
+        <p className="text-gray-600 mb-6">
+          Are you sure you want to delete this job posting? This action cannot be undone.
+        </p>
+        <div className="flex justify-end gap-4">
+          <button
+            onClick={handleDeleteModalClose}
+            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={confirmDelete}
+            className="px-4 py-2 bg-red-600 text-white rounded-md"
+          >
+            Delete
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
-    {/* Header */}
-    <div className="flex items-center gap-4 p-6 border-b border-gray-200">
-      <div className="w-14 h-14 rounded-full bg-red-500 text-white text-lg font-bold flex items-center justify-center">
-        !
-      </div>
-      <h2 className="text-xl font-bold !text-gray-900" style={{...FONTS.cardheader}}>
-        Confirm Deletion
-      </h2>
-    </div>
-
-    {/* Content */}
-    <div className="p-6">
-      <p className="text-gray-600 mb-6">
-        Are you sure you want to delete this job posting? This action cannot be undone.
-      </p>
-      
-      <div className="flex justify-end gap-3">
-        <button
-          onClick={handleDeleteModalClose}
-          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors duration-300"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={confirmDelete}
-          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-300"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-      )}
     </div>
   )
 }

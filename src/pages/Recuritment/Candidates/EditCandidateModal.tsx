@@ -93,7 +93,7 @@ export default function EditCandidateModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute pr-36 bg-black inset-0 bg-opacity-50 z-50 flex items-end justify-center"
+        className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
       >
         {/* Floating Close Button */}
         <motion.button 
@@ -101,25 +101,25 @@ export default function EditCandidateModal({
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className=" left-8 bottom-[680px] ml-36  mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 shadow-lg z-10"
+          className=" left-8 bottom-[680px] mt-12 ml-36  mb-[680px] w-11 h-11 flex items-center justify-center rounded-l-3xl bg-blue-700 shadow-lg z-10"
         >
           <X className="w-6 pr-1 text-white" />
         </motion.button>
 
         {/* Modal Content */}
         <motion.div
-          ref={modalRef}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "100%" }}
-          transition={{ 
-            type: "spring",
-            damping: 25,
-            stiffness: 300,
-            mass: 0.5
-          }}
-          className="bg-white rounded-t-3xl shadow-2xl w-[1200px]  h-[750px] overflow-hidden relative"
-        >
+  ref={modalRef}
+  initial={{ y: "100%" }}
+  animate={{ y: 0 }}
+  exit={{ y: "100%" }}
+  transition={{
+    type: "spring",
+    damping: 25,
+    stiffness: 300,
+    mass: 0.5,
+  }}
+  className="bg-white rounded-3xl mt-12 shadow-2xl w-[1200px] h-[750px] overflow-hidden relative"
+>
           {/* Header */}
           <div className="relative ml-4 mt-3 bg-white px-3 py-4 border-b border-gray-200">
             <h3 className="text-xl font-bold text-gray-900">Edit Candidate Details</h3>
