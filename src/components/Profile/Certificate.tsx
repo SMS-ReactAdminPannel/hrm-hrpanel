@@ -110,10 +110,12 @@ export const CertificatesComponent: React.FC<CertificatesProps> = ({ data, onUpd
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-1 relative justify-between ">
+      <div className="flex items-center gap-3 mb-1 relative justify-between 
+       bg-[#006666]/10 rounded-full transition-all duration-300 ">
         <div className="flex gap-3 items-center">
-        <div className=" group-hover:scale-110 transition-transform duration-300">
-          <Briefcase size={24} />
+        <div className=" group-hover:scale-110 transition-transform duration-300
+         bg-[#006666]/20 rounded-full transition-all duration-300 px-1 py-1">
+          <Briefcase size={30} />
         </div>
         <h2 className="!text-[#000000]"  style={{ ...FONTS.header2 }}>
           Certificates

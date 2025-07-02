@@ -171,7 +171,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="primaryPhone"
                 type="tel"
-                className="placeholder-gray-400 -ml-3 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-4 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.primaryPhone}
                 onChange={handleInputChange}
@@ -189,7 +189,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="primaryEmail"
                 type="email"
-                className="placeholder-gray-400 -ml-4 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-4 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.primaryEmail}
                 onChange={handleInputChange}
@@ -207,7 +207,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="primaryAddress"
                 type="text"
-                className="placeholder-gray-400 -ml-1 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-1 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.primaryAddress}
                 onChange={handleInputChange}
@@ -235,7 +235,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="secondaryName"
                 type="text"
-                className="placeholder-gray-400 -ml-5 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-5 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.secondaryName}
                 onChange={handleInputChange}
@@ -252,7 +252,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="secondaryRelationship"
                 type="text"
-                className="placeholder-gray-400 -ml-1 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-1 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.secondaryRelationship}
                 onChange={handleInputChange}
@@ -286,7 +286,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="secondaryEmail"
                 type="email"
-                className="placeholder-gray-400 -ml-5 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-5 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.secondaryEmail}
                 onChange={handleInputChange}
@@ -303,7 +303,7 @@ export const EmergencyContactComponent: React.FC<EmergencyContactProps> = ({ dat
               <input
                 name="secondaryAddress"
                 type="text"
-                className="placeholder-gray-400 -ml-2 bg-transparent rounded-xl ml-1 outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
+                className="placeholder-gray-400 -ml-2 bg-transparent rounded-xl  outline-none w-full !text-gray-900 text-sm focus:bg-white/50 transition-all duration-300 p-1 border border-transparent focus:border-[#006666]/30"
                 style={{ ...FONTS.subParagraph }}
                 value={formData.secondaryAddress}
                 onChange={handleInputChange}

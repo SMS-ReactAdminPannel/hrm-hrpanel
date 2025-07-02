@@ -11,11 +11,11 @@ export default class Client {
       clockOut: (data: any) =>
         httpClient.post(API_END_POINTS.timesheet.clockOut, data),
 
-      submitTimesheet: (data: any) =>
+      getsubmitTimesheet: (data: any) =>
         httpClient.get(API_END_POINTS.timesheet.getsubmitTimesheet, data),
 
       getFilteredTimeEntries:(data: any) =>
-        httpClient.get(API_END_POINTS.timesheet.getFilteredTimeEntries,data),
+        httpClient.post(API_END_POINTS.timesheet.getFilteredTimeEntries,data),
 
       approveTimesheet: (timesheetId: string, data: any) =>
         httpClient.patch(

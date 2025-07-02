@@ -3,38 +3,46 @@ import { FONTS } from '../../constants/uiConstants';
 import { getClockin } from '../../features/timesheet/services';
 
 
-interface DailyTimeSheetProps {
-  timesheet: {
-    name: string;
-    profilePic?: string;
-    firstIn: string;
-    lastOut: string;
-    regular: number;
-    overtime: number;
-    dailyDoubleOvertime: number;
-    tracked: number;
-  }[];
-}
+// interface DailyTimeSheetProps {
+//   timesheet: {
+//     // name: string;
+//     profilePic?: string;
+//     clockIn: string;
+//     clockOut: string;
+//     regularHours: number;
+//     overtimeHours: number;
+//     dailyDoubleOvertime: number;
+//     totalHours: number;
+//   }[];
+// }
 
-const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
+const DailyTimeSheet = () => {
   const [searchTerm, setSearchTerm] = useState(''); 
 
  const [allCards, setAllCards] = useState<DailyTimeSheetProps[]>([]);
-   const fetchTimesheet = async () => {
-      try {
-        const response = await  getClockin();
-        console.log("filtered data",response)
-        const visitors = response?.data ?? [];
-        setAllCards(visitors);
-        
-      } catch (error) {
-        console.log("Error fetching leave types:", error);
-      }
-    };
+ 
+
+  const fetchTimesheet = async () => {
+    try {
+      const filters = {
+        employeeId: "68468e814eacfb4787b749cd", 
+        startDate: "2025-06-01",               
+        endDate: "2025-06-30",
+      };
   
-    useEffect(() => {
-      fetchTimesheet();
-    }, []);
+      const response = await getClockin(filters);
+      console.log("Filtered timesheet data", response);
+      setAllCards(response);
+    } catch (error) {
+      console.log("Error fetching timesheet data:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchTimesheet();
+  }, []);
+
   
 
   return (
@@ -85,27 +93,29 @@ const DailyTimeSheet = ({ timesheet }: DailyTimeSheetProps) => {
             </tr>
           </thead>
           <tbody className='bg-white' style={{...FONTS.tableBody}}>
-            {timesheet.length === 0 ? (
+            {allCards.length === 0 ? (
               <tr>
                 <td colSpan={7} className="text-center py-6 !text-gray-500" style={{...FONTS.subParagraph}}>
                   No matching timesheet found.
                 </td>
               </tr>
             ) : (
-              timesheet.map((user, index) => (
+              allCards.map((user, index) => (
                 <tr
                   key={index}
                   className="!bg-[#eff4f5] border-b border-slate-200/50 group cursor-pointer"
                 >
                   <td className="px-6 py-4 flex  items-center gap-3 border-b border-slate-200/50">
-                    <span className="font-medium !text-gray-700" style={{...FONTS.paragraph}}>{user.name}</span>
+                    <span className="font-medium !text-gray-700" style={{...FONTS.paragraph}}>{user.name || "no name found"}</span>
                   </td>
-                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.firstIn}</td>
-                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.lastOut}</td>
-                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.regular}</td>
-                  <td className="px-6 py-4 text-center !text-orange-500" style={{...FONTS.description}}>{user.overtime}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.clockIn}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.clockOut}</td>
+                  <td className="px-6 py-4 text-center !text-gray-700" style={{...FONTS.description}}>{user.regularHours}</td>
+                  <td className="px-6 py-4 text-center !text-orange-500" style={{...FONTS.description}}>{user.overtimeHours
+                  }</td>
                   <td className="px-6 py-4 text-center !text-red-500" style={{...FONTS.description}}>{user.dailyDoubleOvertime}</td>
-                  <td className="px-6 py-4 text-center font-semibold !text-green-600" style={{...FONTS.description}}>{user.tracked}</td>
+                  <td className="px-6 py-4 text-center font-semibold !text-green-600" style={{...FONTS.description}}>{user.totalHours
+                  }</td>
                 </tr>
               ))
             )}

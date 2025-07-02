@@ -253,15 +253,17 @@ const Attendance: React.FC = () => {
 // Define a type for daily attendance items (adjust fields as needed)
 type DailyAttendanceItem = {
   ID: string;
-  employee_id: {
-    first_name: string;
-    role: string;
-  };
+  // employee_id: {
+  //   first_name: string;
+  //   role: string;
+  // };
+  employee_id:string;
   status: string;
   Status?: string;
   clockIn: string;
   clockOut: string;
   totalHours: string;
+  designation:string
 };
 
 const [dailyAttendance, setdailyAttendance] = useState<DailyAttendanceItem[]>([]);
@@ -276,7 +278,7 @@ const fetchDailyAttendance = useCallback(async () => {
 
     setdailyAttendance(attendanceData);
 
-    console.log("Daily Attendance fetched:", attendanceData); // ✅ this is correct
+    console.log("Daily Attendance fetched:", attendanceData);
   } catch (error) {
     console.error("Error fetching AttendanceData:", error);
   }
@@ -484,12 +486,12 @@ console.log(dailyAttendance,"sdfghjk")
                   <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-[#5e59a9]/60 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
-                        {/* {item.employee_id.first_name?.charAt(0).toUpperCase()} */}
+                        {item.employee_id}
                       </div>
-                      {/* <span className="font-medium">{item.employee_id.first_name}</span> */}
+                      <span className="font-medium">{item.employee_id}</span>
                     </div>
                   </td>
-                  {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.employee_id.role}</td> */}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.designation|| "no designation"}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium

@@ -63,12 +63,12 @@ export const EducationComponent: React.FC<EducationProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3  relative justify-between">
+      <div className="flex items-center gap-3  relative justify-between  bg-[#006666]/7 rounded-full transition-all duration-300">
         <div className="flex gap-2 items-center justify-center">
-          <div className="p-3 -mr-3   transition-transform duration-300">
+          <div className="p-3 -mr-3   transition-transform duration-300  bg-[#006666]/10 rounded-full transition-all duration-300 ">
             <GraduationCap size={24} />
           </div>
-          <div><h2 className="text-2xl  !text-[#000000]"
+          <div><h2 className="text-2xl  !text-[#000000] ml-3"
           style={{...FONTS.header2}}>Education</h2></div>
         </div>
         
@@ -89,7 +89,7 @@ export const EducationComponent: React.FC<EducationProps> = ({
           </button>
         </div>
       </div>
-      <hr className="border-gray-900 mb-5" />
+      {/* <hr className="border-gray-900 mb-5" /> */}
       <form onSubmit={handleSubmit}>
         <div className="space-y-4 h-64 overflow-y-auto scrollbar-hide">
           {education.map((item, index) => (

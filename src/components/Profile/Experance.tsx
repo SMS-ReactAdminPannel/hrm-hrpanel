@@ -49,12 +49,12 @@ export const ExperienceComponent: React.FC<ExperienceProps> = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3  relative justify-between">
+      <div className="flex items-center gap-3  relative justify-between rounded-full  bg-[#006666]/5  transition-all duration-300 ">
         <div className="flex gap-1 justify-center items-center">
-          <div className="p-3 -mr-2   transition-transform duration-300">
+          <div className="p-3 -mr-2   transition-transform duration-300  bg-[#006666]/10 rounded-full transition-all duration-300 ">
             <Briefcase size={24} />
           </div>
-         <div> <h2 className="text-zxl font-bold !text-[#000000]"
+         <div> <h2 className="text-zxl font-bold !text-[#000000] ml-3"
          style={{...FONTS.header2}}>Experience</h2></div>
         </div>
         <div className="flex gap-1 ">
@@ -74,9 +74,9 @@ export const ExperienceComponent: React.FC<ExperienceProps> = ({
           </button>
         </div>
       </div>
-      <hr className="border-gray-900 mb-5" />
+      {/* <hr className="border-gray-900 mb-5" /> */}
       <form onSubmit={handleSubmit}>
-        <div className="space-y-4">
+        <div className="space-y-4   transition-all duration-300 ">
           {experience.map((item, index) => (
             <div
               key={index}
