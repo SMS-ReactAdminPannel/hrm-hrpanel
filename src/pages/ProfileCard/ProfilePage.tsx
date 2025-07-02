@@ -6,106 +6,117 @@ import { FaUser } from "react-icons/fa";
 export default function ProfilePage() {
     return (
         <motion.div
-  initial={{ opacity: 0, y: 50 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, ease: "easeOut" }}
-  className="w-50 relative"
->
-  {/* White background container */}
-  <div className="bg-white p-6 rounded-lg shadow-md">
-    <div className="flex gap-3">
-      {/* Left column */}
-      <div className="w-1/2 flex flex-col">
-        <div className="flex flex-col justify-between border rounded-lg pl-14 p-3 h-60 backdrop-blur-sm">
-          <div className="w-40 h-40 bg-gray-200 rounded-full shadow-inner border border-gray-300 flex items-center justify-center">
-            <FaUser size={60} />
-          </div>
-          <div className="mt-4 bg-blue-300 px-4 w-fit py-1 rounded-full text-sm text-gray-800 font-semibold">
-            ADMINISTRATOR
-          </div>
-        </div>
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-6xl mx-auto"
+        >
+            <div className="bg-white p-8 rounded-2xl shadow-xl">
+                <div className="flex flex-col lg:flex-row gap-8">
+                    {/* Left Column */}
+                    <div className="w-full lg:w-1/2 space-y-6">
+                        {/* Profile Card */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <div className="flex flex-col items-center">
+                                <div className="w-32 h-32 bg-gray-200 rounded-full border shadow-inner flex items-center justify-center">
+                                    <FaUser size={60} className="text-gray-600" />
+                                </div>
+                                <div className="mt-4 bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-medium">
+                                    ADMINISTRATOR
+                                </div>
+                            </div>
+                        </div>
 
-        {/* Stress Level */}
-        <div className="w-auto flex mt-4 flex-col">
-          <div className="flex flex-col justify-between border rounded-lg pl-14 p-3 h-30 backdrop-blur-sm">
-            <p className="text-sm text-gray-800">Measure your stress level</p>
-            <button className="mt-4 border-3 px-4 py-1 rounded-full text-sm text-gray-800 font-semibold w-fit">Edit</button>
-          </div>
+                        {/* Stress Level */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <p className="text-sm text-gray-700 mb-4">Measure your stress level</p>
+                            <button className="text-sm font-medium text-blue-600 border border-blue-600 px-4 py-1 rounded-full hover:bg-blue-50">
+                                Edit
+                            </button>
+                        </div>
 
-          {/* Application */}
-          <div className="w-auto flex flex-col">
-            <div className="flex justify-around mt-4 border rounded-lg pl-14 p-3 h-30 backdrop-blur-sm">
-              <div>Mobile<br />application</div>
-              <div>Desktop<br />application</div>
+                        {/* Applications */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <div className="flex justify-around text-center text-sm text-gray-700">
+                                <div>
+                                    <strong>Mobile</strong>
+                                    <br /> application
+                                </div>
+                                <div>
+                                    <strong>Desktop</strong>
+                                    <br /> application
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Appreciations */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm text-center">
+                            <h2 className="text-base font-semibold text-gray-700">Appreciations</h2>
+                        </div>
+                    </div>
+
+                    {/* Right Column */}
+                    <div className="w-full lg:w-1/2 space-y-6">
+                        {/* Contact Info */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Contact Information</h2>
+                            <div className="space-y-1 text-sm text-gray-700">
+                                <p>First Name: <span className="font-medium text-gray-900">John</span></p>
+                                <p>Last Name: <span className="font-medium text-gray-900">P</span></p>
+                                <p>Email: <span className="font-medium text-gray-900">John@gmail.com</span></p>
+                                <p>Department: <span className="font-medium text-gray-900">HRM</span></p>
+                                <p>Second Name: <span className="italic text-gray-500">Field is empty</span></p>
+                                <p>Notification Language: <span className="font-medium text-gray-900">English</span></p>
+                            </div>
+                        </div>
+
+                        {/* Personal Details */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Personal Details</h2>
+                            <p className="text-sm text-gray-700">
+                                This area contains HR-related information and documentation visible only to authorized users.
+                            </p>
+                            <button className="mt-4 text-sm font-medium text-blue-600 border border-blue-600 px-4 py-1 rounded-full hover:bg-blue-50">
+                                Edit
+                            </button>
+                        </div>
+
+                        {/* About Me */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">About Me</h2>
+                            <p className="text-sm text-gray-700">
+                                Share your story, tell others about yourself, or upload photos of special moments.
+                            </p>
+                            <button className="mt-4 text-sm font-medium text-blue-600 border border-blue-600 px-4 py-1 rounded-full hover:bg-blue-50">
+                                Tell About Yourself
+                            </button>
+                        </div>
+
+                        {/* Things I Like */}
+                        <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Things I Like</h2>
+                            <p className="text-sm text-gray-700">
+                                Join interest groups and connect with like-minded individuals.
+                            </p>
+                            <button className="mt-4 text-sm font-medium text-blue-600 border border-blue-600 px-4 py-1 rounded-full hover:bg-blue-50">
+                                Select Interests
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="mt-8 flex justify-end gap-4">
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 text-sm rounded-lg font-medium">
+                        Save
+                    </button>
+                    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 text-sm rounded-lg font-medium">
+                        Cancel
+                    </button>
+                </div>
             </div>
-          </div>
+        </motion.div>
 
-          {/* Appreciations */}
-          <div className="w-auto flex flex-col">
-            <div className="flex justify-around mt-4 border rounded-lg p-3 h-40 backdrop-blur-sm">
-              <h2>Appreciations</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right column */}
-      <div className="w-1/2 flex flex-col gap-3">
-        {/* Contact Info */}
-        <div className="flex flex-col border rounded-lg p-3 backdrop-blur-sm">
-          <h2 className="text-lg font-semibold mb-4 text-gray-700">Contact Information</h2>
-          <div>
-            <p>First Name: <strong className="text-gray-900">John</strong></p>
-            <p>Last Name: <strong className="text-gray-900">P</strong></p>
-            <p>Email: <strong className="text-gray-900">John@gmail.com</strong></p>
-            <p>Department: <strong className="text-gray-900">hrm</strong></p>
-            <p>Second Name: <strong className="text-gray-900 italic">Field is empty</strong></p>
-            <p>Notification Language: <strong className="text-gray-900">English</strong></p>
-          </div>
-        </div>
-
-        {/* Personal Details */}
-        <div className="flex flex-col border rounded-lg p-3 backdrop-blur-sm">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700">Personal Details</h2>
-          </div>
-          <p className="text-sm text-gray-800">
-            This area contains HR related information and other documentation. It will be visible only to users with sufficient permissions.
-          </p>
-          <button className="mt-4 border-3 px-4 py-1 rounded-full text-sm text-gray-800 font-semibold w-fit">Edit</button>
-        </div>
-
-        {/* About Me */}
-        <div className="flex flex-col border rounded-lg p-3 backdrop-blur-sm">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700">About me</h2>
-          </div>
-          <p className="text-sm text-gray-800">
-            Share interesting life stories or tell other users about yourself, upload photos of memorable moments.
-          </p>
-          <button className="mt-4 border-3 px-4 py-1 rounded-full text-sm text-gray-800 font-semibold w-fit">Tell About Yourself</button>
-        </div>
-
-        {/* Things I Like */}
-        <div className="flex flex-col border rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700">Things I Like</h2>
-          </div>
-          <p className="text-sm text-gray-800">
-            Create or join interests. Find friends who share your interests.
-          </p>
-          <button className="mt-4 border-3 px-4 py-1 rounded-full text-sm text-gray-800 font-semibold w-fit">Select Interests</button>
-        </div>
-      </div>
-    </div>
-
-    {/* Buttons */}
-    <div className="mt-4 flex gap-2">
-      <button className="bg-yellow-500 hover:bg-yellow-600 text-white text-sm px-4 py-1 rounded">SAVE</button>
-      <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm px-4 py-1 rounded">CANCEL</button>
-    </div>
-  </div>
-</motion.div>
 
     );
 }
