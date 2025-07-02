@@ -22,7 +22,7 @@ export const createGrievance = async (data) => {
 };
 
 
-export const updateGrievanceStatus = async (grievanceId: string, data: { status: "solved" | "unsolved" }) => {
+export const updateGrievanceStatus = async (grievanceId: string, data: { status: "solved" | "unsolved" }): Promise<any> => {
   try {
     const response = await new Client().hr.grievance.updateGrievanceStatus(grievanceId, data);
     return response;

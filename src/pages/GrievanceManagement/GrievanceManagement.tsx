@@ -22,7 +22,7 @@ const GrievanceData: Grievance[] = [
   {
     id: 1,
     title: "Equipment Malfunction",
-    description:"My workstation computer crashes frequently, causing data loss and productivity issues. IT support has been contacted multiple times but the issue persists.",
+    description: "My workstation computer crashes frequently, causing data loss and productivity issues. IT support has been contacted multiple times but the issue persists.",
     status: "solved",
     employee: "Mohan",
     empid: "EMP001",
@@ -34,7 +34,7 @@ const GrievanceData: Grievance[] = [
   {
     id: 2,
     title: "Overtime Payment Discrepancy",
-    description:"Overtime hours worked in May 2024 were not properly compensated according to company policy. Requesting review of timesheets and appropriate payment adjustment.",
+    description: "Overtime hours worked in May 2024 were not properly compensated according to company policy. Requesting review of timesheets and appropriate payment adjustment.",
     status: "unsolved",
     employee: "Hema sree",
     empid: "EMP002",
@@ -98,16 +98,22 @@ const fetchGrievances = async () => {
     fetchGrievances();
   }, []);
 */
-  
 
 
 
-  const handleStatusChange = (id: number, newStatus: "solved" | "unsolved") => {
-    setGrievances((prev) =>
-      prev.map((g) => (g.id === id ? { ...g, status: newStatus } : g))
-    );
-    if (selectedGrievance?.id === id) {
-      setSelectedGrievance({ ...selectedGrievance, status: newStatus });
+
+  const handleStatusChange = async (id: number, newStatus: "solved" | "unsolved") => {
+    try {
+      await updateGrievanceStatus(id.toString(), { status: newStatus });
+
+      setGrievances((prev) =>
+        prev.map((g) => (g.id === id ? { ...g, status: newStatus } : g))
+      );
+      if (selectedGrievance?.id === id) {
+        setSelectedGrievance({ ...selectedGrievance, status: newStatus });
+      }
+    } catch (error) {
+      console.error("Failed to update grievance status:", error);
     }
   };
 
@@ -135,7 +141,7 @@ const fetchGrievances = async () => {
 
       <div className="mb-6 ml-10">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Grievance Management</h1>
+          <h1 className="text-3xl font-bold text-gray-900" style={{...FONTS.header}}>Grievance Management</h1>
         </div>
         <div className="flex flex-wrap gap-4 mb-6 mt-7">
           <div className="inline-block bg-white rounded-lg shadow-sm p-6 min-w-[250px]">
@@ -190,7 +196,7 @@ const fetchGrievances = async () => {
               placeholder="Search grievances..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-30 pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+              className="w-30 pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white/30 backdrop-blur-md"
             />
           </div>
 
@@ -199,7 +205,7 @@ const fetchGrievances = async () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as "all" | "solved" | "unsolved")}
-              className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg bg-white"
+              className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg bg-white/30 backdrop-blur-md"
             >
               <option value="all">All Status</option>
               <option value="solved">Solved</option>
