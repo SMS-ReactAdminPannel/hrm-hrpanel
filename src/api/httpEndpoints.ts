@@ -7,7 +7,8 @@ export const API_END_POINTS = {
     getsubmitTimesheet: "/api/hr/timesheet/submit",
     patchapprovetimesheet: (id: string) => `/timesheet/approve/${id}`,
     getemployeetimesheet: (id: string) => `/api/hr/timesheet/${id}`,
-    getFilteredTimeEntries:"/api/hr/timesheet/entries/filter"
+    getFilteredTimeEntries:"/api/hr/timesheet/entries/filter",
+    getDailyAttendance:"/api/hr/timesheet/attendance/daily"
   },
   leavetype: {
     getall: "api/hr/leaveType/getAllLeave",

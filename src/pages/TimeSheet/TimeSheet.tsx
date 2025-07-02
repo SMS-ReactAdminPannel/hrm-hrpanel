@@ -17,9 +17,49 @@ const TimeSheet = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
 
-  const [weeklyTimesheet, setWeeklyTimesheet] = useState<any[]>([]);
-  const [dailyTimesheet, setDailyTimesheet] = useState<any[]>([]);
-  const [monthlyTimesheet, setMonthlyTimesheet] = useState<any[]>([]);
+  type TimeEntry = {
+    day: string;
+    hoursWorked: number;
+    isHoliday: boolean;
+    firstIn: string;
+    lastOut: string;
+    requiredHours?: number;
+  };
+
+  type WeeklyTimesheetUser = {
+    name: string;
+    profilePic?: string;
+    timeEntries: TimeEntry[];
+  };
+
+  type DailyTimesheetUser = {
+    name: string;
+    profilePic?: string;
+    firstIn: string;
+    lastOut: string;
+    regular: number;
+    overtime: number;
+    dailyDoubleOvertime: number;
+    tracked: number;
+  };
+
+  type MonthlyUserData = {
+    name: string;
+    profilePic?: string;
+    daysData: {
+      day: number;
+      firstIn: string;
+      lastOut: string;
+      regular: number;
+      overtime: number;
+      dailyDoubleOvertime: number;
+      tracked: number;
+    }[];
+  };
+
+  const [weeklyTimesheet] = useState<WeeklyTimesheetUser[]>([]);
+  const [dailyTimesheet] = useState<DailyTimesheetUser[]>([]);
+  const [monthlyTimesheet] = useState<MonthlyUserData[]>([]);
 
 
   const timeSheetOptions = [

@@ -22,6 +22,8 @@ export default class Client {
           API_END_POINTS.timesheet.patchapprovetimesheet(timesheetId),
           data
         ),
+        getDailyAttendance:(data :any)=>
+          httpClient.get(API_END_POINTS.timesheet.getDailyAttendance,data),
 
       employeeTimesheet: (timesheetId: string, data: any) =>
         httpClient.get(

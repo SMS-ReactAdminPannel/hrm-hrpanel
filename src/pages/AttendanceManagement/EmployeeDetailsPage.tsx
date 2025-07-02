@@ -43,40 +43,41 @@ const EmployeeDetails: React.FC = () => {
         </div>
         </div>
       </div>
-      <div className="flex items-center justify-end mb-4">
+      <div className="flex items-center justify-between  mt-7">
         <nav className="flex gap-2 bg-gray-100 rounded-lg p-1">
-        <button
-          className="px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors"
-          onClick={() => setShowTable("day")}
-        >
-          Day
-        </button>
-        <button
-          className="px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors"
-          onClick={() => setShowTable("week")}
-        >
-          Week
-        </button>
-        <button
-          className="px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors"
-          onClick={() => setShowTable("month")}
-        >
-          Month
-        </button>
+          <button
+        className={`px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors${showTable === "day" ? " bg-white" : ""}`}
+        onClick={() => setShowTable("day")}
+          >
+        Day
+          </button>
+          <button
+        className={`px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors${showTable === "week" ? " bg-white" : ""}`}
+        onClick={() => setShowTable("week")}
+          >
+        Week
+          </button>
+          <button
+        className={`px-4 py-1 rounded-md text-sm font-medium text-gray-700 hover:bg-white focus:bg-white transition-colors${showTable === "month" ? " bg-white" : ""}`}
+        onClick={() => setShowTable("month")}
+          >
+        Month
+          </button>
         </nav>
+        
       </div>
       {showTable === "day" && (
-        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 mt-4">
+        <div className="bg-white rounded-xl shadow-md  border border-gray-100 mt-4">
         <TableForDaily />
         </div>
       )}
       {showTable === "week" && (
-        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 mt-4">
+        <div className="bg-white rounded-xl shadow-md  border border-gray-100 mt-4">
         <TableForWeek />
         </div>
       )}
       {showTable === "month" && (
-        <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 mt-4">
+        <div className="bg-white rounded-xl shadow-md  border border-gray-100 mt-4">
         <AttendanceCalendar />
         </div>
       )}
