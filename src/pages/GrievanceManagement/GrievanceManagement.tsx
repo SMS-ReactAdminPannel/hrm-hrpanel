@@ -140,9 +140,45 @@ const fetchGrievances = async () => {
     <div className="min-h-screen">
 
       <div className="mb-6 ml-10">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900" style={{...FONTS.header}}>Grievance Management</h1>
+        <div className="flex flex-wrap items-center gap-6">
+          {/* Heading */}
+          <h1
+            className="text-3xl font-bold text-gray-900"
+            style={{ ...FONTS.header }}
+          >
+            Grievance Management
+          </h1>
+
+          {/* Search Bar */}
+          <div className="relative inline-block">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search grievances..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 border border-white-300 rounded-lg bg-white/30 backdrop-blur-md w-64"
+            />
+          </div>
+
+          {/* Filter Dropdown */}
+          <div className="relative inline-block">
+            <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <select
+              value={statusFilter}
+              onChange={(e) =>
+                setStatusFilter(e.target.value as "all" | "solved" | "unsolved")
+              }
+              className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg bg-white/30 backdrop-blur-md w-48"
+            >
+              <option value="all">All Status</option>
+              <option value="solved">Solved</option>
+              <option value="unsolved">Unsolved</option>
+            </select>
+          </div>
         </div>
+
+
         <div className="flex flex-wrap gap-4 mb-6 mt-7">
           <div className="inline-block bg-white rounded-lg shadow-sm p-6 min-w-[250px]">
             <div className="flex items-center">
@@ -187,33 +223,7 @@ const fetchGrievances = async () => {
       </div>
 
 
-      <div className="mb-6 ml-7 px-4 py-6">
-        <div className=" sm:flex-row gap-4">
-          <div className="relative inline-block flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search grievances..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-30 pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white/30 backdrop-blur-md"
-            />
-          </div>
 
-          <div className="relative inline-block ml-10">
-            <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as "all" | "solved" | "unsolved")}
-              className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg bg-white/30 backdrop-blur-md"
-            >
-              <option value="all">All Status</option>
-              <option value="solved">Solved</option>
-              <option value="unsolved">Unsolved</option>
-            </select>
-          </div>
-        </div>
-      </div>
 
 
 

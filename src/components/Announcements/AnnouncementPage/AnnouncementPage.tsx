@@ -96,7 +96,7 @@ const Announcement = () => {
                   setCurrentPage(1);
                 }}
                 placeholder="Search by title..."
-                className="w-64 pl-10 border border-gray-30 rounded-lg pr-4 py-2.5 bg-white placeholder-gray-400 focus:ring-2 focus:ring-[#4c469f] focus:border-[#4c469f] transition duration-200"
+                className="w-[10.5rem] pl-10 border border-gray-30 rounded-lg pr-4 py-2.5 bg-white/10  placeholder-gray-400 focus:ring-2 focus:ring-[#4c469f] focus:border-[#4c469f] transition duration-200"
               />
             </div>
           

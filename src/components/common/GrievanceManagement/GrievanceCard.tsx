@@ -140,7 +140,7 @@
 
 import React, { useState } from "react";
 import type { Grievance } from "../../../pages/GrievanceManagement/GrievanceManagement";
-import { FONTS } from "../../../constants/uiConstants";
+import { FONTS } from "../../../constants/uiConstants"
 import {User, Calendar} from "lucide-react";
 
 type Props = {
@@ -158,7 +158,9 @@ export const GrievanceCard: React.FC<Props> = ({ grievance, onClick }) => {
     >
       {/* Title */}
       <div className="flex justify-between items-center mb-3">
-        <h3 className="text-lg font-semibold text-gray-900 truncate w-4/5">
+        <h3 className="text-lg font-semibold text-gray-900 truncate w-4/5" style={{fontFamily: "'Koh Santepheap', sans-serif",
+    fontWeight: 400,
+    fontSize: "20px"}}>
           {grievance.title}
         </h3>
         <span
@@ -173,7 +175,7 @@ export const GrievanceCard: React.FC<Props> = ({ grievance, onClick }) => {
       </div>
 
       {/* Description */}
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+      <p className="text-gray-600 text-sm mb-4 line-clamp-2" style={{fontFamily: "'Figtree-Medium', sans-serif",fontWeight: 400,fontSize: "14px",}}>
         {grievance.description}
       </p>
 

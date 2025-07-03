@@ -266,31 +266,29 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <td className="space-x-1 space-y-1">
                     <button
                       onClick={() => onViewEmployee(employee)}
-                      className="inline-block text-[#006666] hover:text-[#005555] px-3 py-1 border border-[#006666] rounded-md text-sm"
+                      className="inline-block text-[#006666] hover:text-[#005555] px-3 py-1 rounded-md text-sm"
                     >
                       <div className="flex items-center gap-1">
                         <Eye className="w-4 h-4" />
-                      <span>View</span>
                       </div>
                     </button>
                     {/*edit*/}
                     <button
                       onClick={() => onEditEmployee(employee)}
-                      className="inline-block text-blue-600 hover:text-blue-800 px-3 py-1 border border-blue-600 rounded-md text-sm"
+                      className="inline-block text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md text-sm"
                     >
                       <div className="flex items-center gap-1">
                         <Pencil className="w-4 h-4" />
-                      <span>Edit</span>
+
                       </div>
                     </button>
                     {/*delete*/}
                     <button
                       onClick={() => setConfirmDeleteId(confirmDeleteId === employee.id ? null : employee.id)}
-                      className="inline-block text-red-600 hover:text-red-800 px-3 py-1 border border-red-600 rounded-md text-sm"
+                      className="inline-block text-red-600 hover:text-red-800 px-3 py-1  rounded-md text-sm"
                     >
                       <div className="flex items-center gap-1">
                         <Trash2 className="w-4 h-4" />
-                      <span>Delete</span>
                       </div>
                     </button>
 

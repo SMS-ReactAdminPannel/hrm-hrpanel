@@ -49,13 +49,11 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-                        {/* Appreciations */}
                         <div className="bg-gray-50 p-6 rounded-xl border shadow-sm text-center">
                             <h2 className="text-base font-semibold text-gray-700">Appreciations</h2>
                         </div>
                     </div>
 
-                    {/* Right Column */}
                     <div className="w-full lg:w-1/2 space-y-6">
                         {/* Contact Info */}
                         <div className="bg-gray-50 p-6 rounded-xl border shadow-sm">
@@ -104,19 +102,7 @@ export default function ProfilePage() {
                         </div>
                     </div>
                 </div>
-
-                {/* Action Buttons */}
-                <div className="mt-8 flex justify-end gap-4">
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 text-sm rounded-lg font-medium">
-                        Save
-                    </button>
-                    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 text-sm rounded-lg font-medium">
-                        Cancel
-                    </button>
-                </div>
             </div>
         </motion.div>
-
-
     );
 }
